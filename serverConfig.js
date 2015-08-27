@@ -14,11 +14,12 @@ import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
 
 // Temporary API Service
-import HeaderApiService from './src/app/utils/ApiService';
+import ApiService from './src/app/utils/ApiService';
+
 // Need to improve for server-side and client-side requests
 import HeaderSource from './src/app/utils/HeaderSource.js';
 
-import Header from './src/app/components/Header/Header.jsx';
+import Booklists from './src/app/components/Booklists/Booklists.jsx';
 
 const ROOT_PATH = __dirname;
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
@@ -33,10 +34,10 @@ let isProduction = process.env.NODE_ENV === 'production';
 let serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port);
 let refineryData;
 
-// Use the HeaderApiService to fetch our Header Data
+// Use the ApiService to fetch our Booklists Data
 // We would parse the Data at this point and Model it
 // Local Mock
-HeaderApiService
+ApiService
   .fetchData('local')
   .then((result) => {
     refineryData = result;
@@ -77,7 +78,7 @@ app.use(express.static(DIST_PATH));
  *    to our component.
 */
 // Assign the string containing the markup from the component
-let headerApp = React.renderToString(<Header />);
+let booklistsApp = React.renderToString(<Booklists />);
 
 // Used to debug refinery response
 app.get('/header-data', (req, res) => {
