@@ -1,6 +1,6 @@
-# NYPL React Header
+# NYPL Booklists
 
-React Web App that renders the NYPL Header.
+React Web App that renders the NYPL Booklists.
 
 ### Version
 0.0.1
@@ -21,7 +21,7 @@ $ npm install
 ### Development
 Passing in no NODE_ENV, defaults to using the development config.
 ```sh
-$ npm run build-start
+$ npm start
 ```
 
 
