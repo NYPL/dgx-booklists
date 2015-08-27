@@ -1,12 +1,12 @@
-{{
+{
   "name": "dgx-booklists",
   "version": "0.0.1",
   "description": "NYPL Isomorphic React Booklists with Webpack",
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack --config webpack.config.js",
-    "start": "npm install",
-    "postinstall": "npm start"
+    "start": "node index.js",
+    "postinstall": "npm run build"
   },
   "keywords": [
     "react",
