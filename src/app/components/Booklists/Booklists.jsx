@@ -1,4 +1,4 @@
-// Non-NYPL module imports
+// Import React Libraries
 import React from 'react';
 import Radium from 'radium';
 
@@ -6,14 +6,14 @@ import Radium from 'radium';
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
-// NYPL module imports
+// Import Components
 // import Logo from '../Logo/Logo.jsx';
 // import SSOContainer from '../SSOContainer/SSOContainer.jsx';
 // import DonateButton from '../DonateButton/DonateButton.jsx';
 // import SubscribeButton from '../SubscribeButton/SubscribeButton.jsx';
 // import NavMenu from '../NavMenu/NavMenu.jsx';
 
-class Header extends React.Component {
+class Booklists extends React.Component {
 
   // Constructor used in ES6
   constructor(props) {
@@ -39,8 +39,7 @@ class Header extends React.Component {
   render () {
     console.log(this.state);
     return (
-      <header id='Header' className='Header'>
-      </header>
+      <div></div>
     );
   }
 };
@@ -78,4 +77,4 @@ const styles = {
   }
 };
 
-export default Radium(Header);
+export default Radium(Booklists);
