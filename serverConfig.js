@@ -38,7 +38,7 @@ let refineryData;
 // We would parse the Data at this point and Model it
 // Local Mock
 ApiService
-  .fetchData('local')
+  .fetchData('server', API_URL)
   .then((result) => {
     refineryData = result;
   })
@@ -89,22 +89,22 @@ app.get('/header-data', (req, res) => {
 app.get('/*', (req, res) => {
 
   res.locals.data = {
-    Store: { headerData: refineryData }
+    Store: { Data: refineryData }
   };
 
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
-  let headerApp = React.renderToString(React.createElement(Header));
+  let App = React.renderToString(React.createElement(Booklists));
 
   let iso = new Iso();
 
-  iso.add(headerApp, alt.flush());
+  iso.add(App, alt.flush());
 
 	// First parameter references the ejs filename
   res.render('index', {
   	// Assign the Header String to the
   	// proper EJS variable
-  	headerApp: iso.render(),
+  	App: iso.render(),
     appTitle: appConfig.appName,
     favicon: appConfig.favIconPath,
     isProduction: isProduction

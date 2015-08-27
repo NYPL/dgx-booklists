@@ -1,30 +1,27 @@
 import alt from '../alt.js';
 import Actions from '../actions/Actions.js';
-import HeaderSource from '../utils/HeaderSource.js';
 
 class Store {
   constructor(){
-    this.headerData = [];
+    this.Data = [];
     this.errorMessage = null;
 
     this.bindListeners({
-      handleUpdateHeaderData: Actions.UPDATE_HEADER_DATA,
-      handleFetchHeaderData: Actions.FETCH_HEADER_DATA,
-      handleHeaderDataFailedFetch: Actions.FAILED_HEADER_DATA
+      handleUpdateData: Actions.UPDATE_DATA,
+      handleFetchData: Actions.FETCH_DATA,
+      handleDataFailedFetch: Actions.FAILED_DATA
     });
-
-    this.registerAsync(HeaderSource);
   }
 
-  handleUpdateHeaderData(data) {
-    this.headerData = data;
+  handleUpdateData(data) {
+    this.Data = data;
   }
 
-  handleFetchHeaderData() {
-    this.headerData = [];
+  handleFetchData() {
+    this.Data = [];
   }
 
-  handleHeaderDataFailedFetch(errorMessage) {
+  handleDataFailedFetch(errorMessage) {
     this.errorMessage =  errorMessage;
   }
 }
