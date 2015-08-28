@@ -33,7 +33,7 @@ class Booklists extends React.Component {
   }
 
   render () {
-    console.log(this.state.Data);
+    console.log(this.state);
 
     if (this.state.errorMessage) {
       return (
@@ -41,28 +41,28 @@ class Booklists extends React.Component {
       );
     }
 
-    console.log(this.state.Data.length);
+    let dataArray = this.state.Data
 
-    if (!this.state.Data.length) {
+    if (!dataArray.length) {
       return (
         <div>loading...</div>
       );
-    }
+    } else {
+      // Parse the list of owners
+      let owners = dataArray.map(function (element) {
+        return(
+          <div>
+            <Owner key='owner' name={element.attributes.name} />
+          </div>
+        );
+      });
 
-    // Parse the list of owners
-    let owners = this.state.Data.map(function (element) {
-      return(
-        <div>
-          <Owner key='owner' name={element.attributes.name} />
+      return (
+        <div id='booklists' className='booklist'>
+          {owners}
         </div>
       );
-    });
-
-    return (
-      <div id='booklists' className='booklist'>
-        {owners}
-      </div>
-    );
+    }
   }
 };
 
