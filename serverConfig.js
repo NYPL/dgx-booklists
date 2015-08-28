@@ -81,7 +81,7 @@ app.use(express.static(DIST_PATH));
 let booklistsApp = React.renderToString(<Booklists />);
 
 // Used to debug refinery response
-app.get('/header-data', (req, res) => {
+app.get('/booklists-data', (req, res) => {
 	res.json(refineryData);
 });
 

@@ -6,6 +6,8 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
+import Owner from '../Owner/Owner.jsx';
+import Lists from '../Lists/Lists.jsx';
 
 class Booklists extends React.Component {
 
@@ -32,8 +34,20 @@ class Booklists extends React.Component {
 
   render () {
     console.log(this.state);
+
+    // Parse the list of owners
+    // let owners = this.state.Data.data.map(function (element) {
+    //   console.log(element);
+    //   return(
+    //     <div>
+    //     <Owner key='owner' name={element.attributes.name} />
+    //     </div>
+    //   );
+    // });
+
     return (
-      <div id='booklists'></div>
+      <div id='booklists' className='booklist'>
+      </div>
     );
   }
 };
