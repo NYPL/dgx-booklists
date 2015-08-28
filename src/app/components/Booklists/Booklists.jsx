@@ -35,18 +35,30 @@ class Booklists extends React.Component {
   render () {
     console.log(this.state);
 
+    if (this.state.errorMessage) {
+      return (
+        <div>Something is wrong</div>
+      );
+    }
+
+    if (!this.state.length) {
+      return (
+        <div>loading...</div>
+      );
+    }
+
     // Parse the list of owners
-    // let owners = this.state.Data.data.map(function (element) {
-    //   console.log(element);
-    //   return(
-    //     <div>
-    //     <Owner key='owner' name={element.attributes.name} />
-    //     </div>
-    //   );
-    // });
+    let owners = this.state.Data.data.map(function (element) {
+      return(
+        <div>
+          <Owner key='owner' name={element.attributes.name} />
+        </div>
+      );
+    });
 
     return (
       <div id='booklists' className='booklist'>
+        {owners}
       </div>
     );
   }

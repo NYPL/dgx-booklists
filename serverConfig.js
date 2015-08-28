@@ -40,7 +40,7 @@ let refineryData;
 ApiService
   .fetchData('server', API_URL)
   .then((result) => {
-    refineryData = result;
+    refineryData = parser.parse(result);
   })
   .catch((error) => {
     console.log('Error on local data fetch', error);
@@ -102,7 +102,7 @@ app.get('/*', (req, res) => {
 
 	// First parameter references the ejs filename
   res.render('index', {
-  	// Assign the Header String to the
+  	// Assign the String to the
   	// proper EJS variable
   	App: iso.render(),
     appTitle: appConfig.appName,
