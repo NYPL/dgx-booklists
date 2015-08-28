@@ -21,7 +21,7 @@ class Booklists extends React.Component {
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
     // Here we would fetch our data async
-    Actions.fetchData();
+    // Actions.fetchData();
   }
 
   componentWillUnmount() {
@@ -33,7 +33,7 @@ class Booklists extends React.Component {
   }
 
   render () {
-    console.log(this.state);
+    console.log(this.state.Data);
 
     if (this.state.errorMessage) {
       return (
@@ -41,14 +41,16 @@ class Booklists extends React.Component {
       );
     }
 
-    if (!this.state.length) {
+    console.log(this.state.Data.length);
+
+    if (!this.state.Data.length) {
       return (
         <div>loading...</div>
       );
     }
 
     // Parse the list of owners
-    let owners = this.state.Data.data.map(function (element) {
+    let owners = this.state.Data.map(function (element) {
       return(
         <div>
           <Owner key='owner' name={element.attributes.name} />
