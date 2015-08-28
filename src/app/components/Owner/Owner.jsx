@@ -14,7 +14,7 @@ class Owner extends React.Component {
   render () {
     return (
     	<SimpleButton id={this.props.id}  
-      className={this.props.username}
+      className={this.props.className}
       label={this.props.label}
       target={this.props.target} />
     );

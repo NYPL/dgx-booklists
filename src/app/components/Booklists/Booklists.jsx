@@ -1,6 +1,9 @@
 // Import React Libraries
 import React from 'react';
 
+// Import router
+import Router from 'react-router';
+
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -8,6 +11,8 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Owner from '../Owner/Owner.jsx';
 import Lists from '../Lists/Lists.jsx';
+
+let RouteHandler = Router.RouteHandler;
 
 // Create the class
 class Booklists extends React.Component {
@@ -36,9 +41,12 @@ class Booklists extends React.Component {
     this.setState(Store.getState());
   }
 
+
   // Render DOM
   render () {
     console.log(this.state);
+
+    let root = 'localhost:3001/';
 
     // Throw error message if anything's wrong
     if (this.state.errorMessage) {
@@ -65,13 +73,13 @@ class Booklists extends React.Component {
             id={element.attributes.username}  
             className={element.attributes.username}
             label={element.attributes.name}
-            target={element.links.self} />
+            target={`${root}${element.attributes.username}`} />
           </div>
         );
       });
       // Render the list of owners on DOM
       return (
-        <div id='booklists' className='booklist'>
+        <div id='booklists' className='booklist' style={{margin:20+'px'}}>
           {owners}
         </div>
       );

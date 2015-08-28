@@ -13,14 +13,16 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
 
-// Temporary API Service
+// Import API service
 import ApiService from './src/app/utils/ApiService';
 
 // Need to improve for server-side and client-side requests
 import HeaderSource from './src/app/utils/HeaderSource.js';
 
+// Import components
 import Booklists from './src/app/components/Booklists/Booklists.jsx';
 
+// URL configuration
 const ROOT_PATH = __dirname;
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
