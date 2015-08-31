@@ -1,9 +1,6 @@
 // Import React Libraries
 import React from 'react';
 
-// Import router
-import Router from 'react-router';
-
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -12,7 +9,6 @@ import Actions from '../../actions/Actions.js';
 import Owner from '../Owner/Owner.jsx';
 import Lists from '../Lists/Lists.jsx';
 
-let RouteHandler = Router.RouteHandler;
 
 // Create the class
 class Booklists extends React.Component {
@@ -22,6 +18,9 @@ class Booklists extends React.Component {
     super(props);
     // replaces getInitialState()
     this.state = Store.getState();
+
+    // Allows binding methods that reference this
+    this._goToLink = this._goToLink.bind(this);
   }
 
   // Listen to the change from data
@@ -39,6 +38,11 @@ class Booklists extends React.Component {
   // Change the this.state here if find any different
   _onChange() {
     this.setState(Store.getState());
+  }
+
+  _goToLink(target) {
+    window.location.replace(target);
+    console.log("trigger");
   }
 
 
@@ -69,7 +73,7 @@ class Booklists extends React.Component {
       let owners = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <Owner key='owner' 
+            <Owner key={`owner ${element.attributes.username}`}
             id={element.attributes.username}  
             className={element.attributes.username}
             label={element.attributes.name}
@@ -79,13 +83,16 @@ class Booklists extends React.Component {
       });
       // Render the list of owners on DOM
       return (
-        <div id='booklists' className='booklist' style={{margin:20+'px'}}>
-          {owners}
+        <div id='main'>
+          <div id='booklists' className='booklists' style={{margin:20+'px'}}>
+            {owners}
+          </div>
         </div>
       );
     }
   }
 };
+
 
 Booklists.defaultProps = {
   lang: 'en'

@@ -3,10 +3,16 @@ import compression from 'compression';
 import express from 'express';
 import colors from 'colors';
 import parser from 'jsonapi-parserinator';
+
 // React
 import React from 'react';
 import Iso from 'iso';
 import alt from './src/app/alt.js';
+
+// Import Router
+import Router from 'react-router';
+import routes from './routes.js';
+
 // Server Configurations
 import appConfig from './appConfig.js';
 import webpack from 'webpack';
@@ -82,14 +88,8 @@ app.use(express.static(DIST_PATH));
 // Assign the string containing the markup from the component
 let booklistsApp = React.renderToString(<Booklists />);
 
-// Used to debug refinery response
-app.get('/booklists-data', (req, res) => {
-	res.json(refineryData);
-});
-
 // Match all routes to render the index page.
-app.get('/*', (req, res) => {
-
+app.get('/*', (req, res, next) => {
   res.locals.data = {
     Store: { Data: refineryData }
   };
@@ -102,14 +102,15 @@ app.get('/*', (req, res) => {
 
   iso.add(App, alt.flush());
 
-	// First parameter references the ejs filename
-  res.render('index', {
-  	// Assign the String to the
-  	// proper EJS variable
-  	App: iso.render(),
-    appTitle: appConfig.appName,
-    favicon: appConfig.favIconPath,
-    isProduction: isProduction
+  var router = Router.create({location: req.path, routes: routes});
+  router.run(function(Handler, state) {
+    var html = React.renderToString(<Handler />);
+    return res.render('index', {
+      App: iso.render(), 
+      appTitle: appConfig.appName, 
+      favicon: appConfig.favIconPath,
+      isProduction: isProduction
+    });
   });
 });
 

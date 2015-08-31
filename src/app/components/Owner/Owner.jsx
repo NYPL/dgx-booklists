@@ -16,7 +16,8 @@ class Owner extends React.Component {
     	<SimpleButton id={this.props.id}  
       className={this.props.className}
       label={this.props.label}
-      target={this.props.target} />
+      target={this.props.target}
+      onClick={this.props.onClick} />
     );
   }
 };

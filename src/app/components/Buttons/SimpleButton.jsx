@@ -31,7 +31,7 @@ SimpleButton.defaultProps = {
   label: 'Button',
   lang: 'en',
   target: '#',
-  onClick() {}
+  onClick() {console.log("trigger");}
 };
 
 const styles = {
