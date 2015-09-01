@@ -2,6 +2,7 @@ import React from 'react';
 import Iso from 'iso';
 import alt from '../app/alt.js';
 import Booklists from '../app/components/Booklists/Booklists.jsx';
+import Ownerlists from '../app/components/Ownerlists/Ownerlists.jsx';
 
 import './styles/main.scss';
 
@@ -14,7 +15,7 @@ if (typeof window !== 'undefined') {
 	  Iso.bootstrap(function (state, meta, container) {
 	  	console.log('Application rendered Isomorphically.');
 	    alt.bootstrap(state);
-	    React.render(React.createElement(Booklists), container);
+	    React.render(React.createElement(Ownerlists), container);
 	    isRenderedByServer = true;
 	  });
 

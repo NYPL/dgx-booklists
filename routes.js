@@ -5,11 +5,11 @@ import {DefaultRoute, NotFoundRoute, Route} from 'react-router';
 
 // Import components
 import Booklists from './src/app/components/Booklists/Booklists.jsx';
-import Owner from './src/app/components/Owner/Owner.jsx';
+import Ownerlists from './src/app/components/Ownerlists/Ownerlists.jsx';
 
 const routes = (
-  <Route name='root' path='/' handler={Booklists} ignoreScrollBehavior>
-    <Route name='owner' path='/nypl_bronx_library_ctr' handler={Owner} ignoreScrollBehavior />
+  <Route name='root' path='/' handler={Ownerlists} ignoreScrollBehavior>
+    <Route name='owner' path='/:owner' handler={Ownerlists} ignoreScrollBehavior />
   </Route>
 );
 

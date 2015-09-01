@@ -27,12 +27,12 @@ import HeaderSource from './src/app/utils/HeaderSource.js';
 
 // Import components
 import Booklists from './src/app/components/Booklists/Booklists.jsx';
+import Ownerlists from './src/app/components/Ownerlists/Ownerlists.jsx';
 
 // URL configuration
 const ROOT_PATH = __dirname;
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
-const API_URL = process.env.API_URL || appConfig.apiUrl;
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 
 // Boolean flag that determines if we are running
@@ -41,19 +41,6 @@ const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 let isProduction = process.env.NODE_ENV === 'production';
 let serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port);
 let refineryData;
-
-// Use the ApiService to fetch our Booklists Data
-// We would parse the Data at this point and Model it
-// Local Mock
-ApiService
-  .fetchData('server', API_URL)
-  .then((result) => {
-    refineryData = parser.parse(result);
-  })
-  .catch((error) => {
-    console.log('Error on local data fetch', error);
-  });
-
 
 /* Express Server Configuration
  * ----------------------------
@@ -86,32 +73,52 @@ app.use(express.static(DIST_PATH));
  *    to our component.
 */
 // Assign the string containing the markup from the component
-let booklistsApp = React.renderToString(<Booklists />);
+// let booklistsApp = React.renderToString(<Booklists />);
 
 // Match all routes to render the index page.
 app.get('/*', (req, res, next) => {
-  res.locals.data = {
-    Store: { Data: refineryData }
-  };
 
-  alt.bootstrap(JSON.stringify(res.locals.data || {}));
+  // Use the ApiService to fetch our Booklists Data
+  // We would parse the Data at this point and Model it
+  if (req.path !== '/') {
+    var API_URL = appConfig.apiUrl + '/book-list-users' + req.path + '/links/book-lists?include=user,list-items';
+  } else {  
+    var API_URL = appConfig.apiUrl + '/book-list-users';
+  }
 
-  let App = React.renderToString(React.createElement(Booklists));
+  var App = React.renderToString(React.createElement(Ownerlists));
 
-  let iso = new Iso();
+  console.log(API_URL);
 
-  iso.add(App, alt.flush());
+  // Use the ApiService to fetch our Booklists Data
+  // We would parse the Data at this point and Model it
+  ApiService
+    .fetchData('server', API_URL)
+    .then((result) => {
+      refineryData = parser.parse(result);
+      res.locals.data = {
+        Store: { Data: refineryData }
+      };
 
-  var router = Router.create({location: req.path, routes: routes});
-  router.run(function(Handler, state) {
-    var html = React.renderToString(<Handler />);
-    return res.render('index', {
-      App: iso.render(), 
-      appTitle: appConfig.appName, 
-      favicon: appConfig.favIconPath,
-      isProduction: isProduction
+      alt.bootstrap(JSON.stringify(res.locals.data || {}));
+
+      let iso = new Iso();
+
+      iso.add(App, alt.flush());
+
+      var router = Router.create({location: req.path, routes: routes});
+      router.run(function(Handler, state) {
+        return res.render('index', {
+          App: iso.render(), 
+          appTitle: appConfig.appName, 
+          favicon: appConfig.favIconPath,
+          isProduction: isProduction
+        });
+      });
+    })
+    .catch((error) => {
+      console.log('Error on local data fetch', error);
     });
-  });
 });
 
 // Start the server.
