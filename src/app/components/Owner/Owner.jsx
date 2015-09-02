@@ -1,6 +1,9 @@
 // Import React Libraries
 import React from 'react';
 
+// Import Components
+import SimpleButton from '../Buttons/SimpleButton.jsx';
+
 class Owner extends React.Component {
 
   // Constructor used in ES6
@@ -10,9 +13,11 @@ class Owner extends React.Component {
 
   render () {
     return (
-    	<div>
-		    <p>{this.props.name}</p>
-    	</div>
+    	<SimpleButton id={this.props.id}  
+      className={this.props.className}
+      label={this.props.label}
+      target={this.props.target}
+      onClick={this.props.onClick} />
     );
   }
 };

@@ -1,30 +1,22 @@
 // Import React Libraries
 import React from 'react';
 
-// Import Router
-import Router from 'react-router';
-
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import Owner from '../Owner/Owner.jsx';
-import Ownerlists from '../Ownerlists/Ownerlists.jsx';
+import Item from '../Item/Item.jsx';
 
-// Set up the handler for route
-var RouteHandler = Router.RouteHandler;
 
 // Create the class
-class Booklists extends React.Component {
+class Singlelist extends React.Component {
 
   // Constructor used in ES6
   constructor(props) {
     super(props);
     // replaces getInitialState()
     this.state = Store.getState();
-
-    // this.owner = this.props.params.owner;
 
     // Allows binding methods that reference this
     this._goToLink = this._goToLink.bind(this);
@@ -49,6 +41,7 @@ class Booklists extends React.Component {
 
   _goToLink(target) {
     window.location.replace(target);
+    console.log("trigger");
   }
 
 
@@ -64,32 +57,34 @@ class Booklists extends React.Component {
     }
 
     // The variable to store the data from Store
-    let dataArray = this.state.Data
+    let dataArray = this.state.Data['list-items']
+
+    console.log(dataArray);
 
     // Throw message if there's no data found
     if (!dataArray.length) {
       return (
-        <div>No List Here</div>
+         <div>No book under this list</div>
       );
     } else {
       
-      // Parse the list of owners if data is correctly delivered
-      let owners = dataArray.map(function (element) {
+      // Parse the list of books if data is correctly delivered
+      let items = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <Owner key={`owner ${element.attributes.username}`}
-            id={element.attributes.username}  
-            className={element.attributes.username}
-            label={element.attributes.name}
-            target={`/${element.attributes.username}`} />
+            <Item key={`item ${element.id}`}
+            id={element.id}  
+            className={element.id}
+            label={element.id}
+            target={element.id} />
           </div>
         );
       });
       // Render the list of owners on DOM
       return (
         <div id='main'>
-          <div id='booklists' className='booklists' style={{margin:20+'px'}}>
-            {owners}
+          <div id='singlelist' className='singlelist' style={{margin:20+'px'}}>
+            {items}
           </div>
         </div>
       );
@@ -98,11 +93,11 @@ class Booklists extends React.Component {
 };
 
 
-Booklists.defaultProps = {
+Singlelist.defaultProps = {
   lang: 'en'
 };
 
 const styles = {
 };
 
-export default Booklists;
+export default Singlelist;
