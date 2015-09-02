@@ -9,11 +9,8 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import Owner from '../Owner/Owner.jsx';
-import Ownerlists from '../Ownerlists/Ownerlists.jsx';
+import SimpleButton from '../Buttons/SimpleButton.jsx';
 
-// Set up the handler for route
-var RouteHandler = Router.RouteHandler;
 
 // Create the class
 class Booklists extends React.Component {
@@ -77,7 +74,7 @@ class Booklists extends React.Component {
       let owners = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <Owner key={`owner ${element.attributes.username}`}
+            <SimpleButton key={`owner ${element.attributes.username}`}
             id={element.attributes.username}  
             className={element.attributes.username}
             label={element.attributes.name}

@@ -6,7 +6,7 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import List from '../List/List.jsx';
+import SimpleButton from '../Buttons/SimpleButton.jsx';
 
 // Create the class
 class Ownerlists extends React.Component {
@@ -40,9 +40,7 @@ class Ownerlists extends React.Component {
 
   _goToLink(target) {
     window.location.replace(target);
-    console.log("trigger");
   }
-
 
   // Render DOM
   render () {
@@ -63,7 +61,7 @@ class Ownerlists extends React.Component {
     // Throw message if there's no data found
     if (!dataArray.length) {
       return (
-         <div>No lists under this owner</div>
+         <div>No list under this owner</div>
       );
     } else {
       
@@ -71,11 +69,11 @@ class Ownerlists extends React.Component {
       let lists = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <List key={`list ${element.attributes['list-name']}`}
+            <SimpleButton key={`list ${element.attributes['list-name']}`}
             id={element.attributes['list-name']}  
             className={element.attributes['list-name']}
             label={element.attributes['list-name']}
-            target={element.attributes['list-name']} />
+            target={`/${element.user.id}/${element.id}`} />
           </div>
         );
       });

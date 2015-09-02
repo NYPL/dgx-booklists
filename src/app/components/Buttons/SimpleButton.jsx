@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 
 class SimpleButton extends React.Component {
   // Constructor used in ES6
@@ -31,13 +30,12 @@ SimpleButton.defaultProps = {
   label: 'Button',
   lang: 'en',
   target: '#',
-  onClick() {console.log("trigger");}
+  onClick() {console.log('Go to link...');}
 };
 
 const styles = {
   base: {
-
   }
 };
 
-export default Radium(SimpleButton);
+export default SimpleButton;

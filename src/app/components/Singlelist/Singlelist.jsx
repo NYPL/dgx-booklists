@@ -8,7 +8,6 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Item from '../Item/Item.jsx';
 
-
 // Create the class
 class Singlelist extends React.Component {
 
@@ -25,8 +24,6 @@ class Singlelist extends React.Component {
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-    // Here we would fetch our data async
-    // Actions.fetchData();
   }
 
   // Stop listening
@@ -41,13 +38,11 @@ class Singlelist extends React.Component {
 
   _goToLink(target) {
     window.location.replace(target);
-    console.log("trigger");
   }
 
 
   // Render DOM
   render () {
-    console.log(this.state);
 
     // Throw error message if anything's wrong
     if (this.state.errorMessage) {
@@ -59,7 +54,7 @@ class Singlelist extends React.Component {
     // The variable to store the data from Store
     let dataArray = this.state.Data['list-items']
 
-    console.log(dataArray);
+    // console.log(dataArray);
 
     // Throw message if there's no data found
     if (!dataArray.length) {
@@ -72,11 +67,7 @@ class Singlelist extends React.Component {
       let items = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <Item key={`item ${element.id}`}
-            id={element.id}  
-            className={element.id}
-            label={element.id}
-            target={element.id} />
+            <Item itemId={element.id} />
           </div>
         );
       });

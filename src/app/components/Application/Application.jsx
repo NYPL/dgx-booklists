@@ -9,7 +9,7 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-// import Header from '../Header/Header.jsx';
+import Header from '../Header/Header.jsx';
 // import Footer from '../Footer/Footer.jsx';
 
 
@@ -30,6 +30,7 @@ class Application extends React.Component {
     // Render the main components
     return (
       <div className='app-container'>
+        <Header />
         <RouteHandler />
       </div>
     );
