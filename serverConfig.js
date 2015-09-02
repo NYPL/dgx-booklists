@@ -77,12 +77,18 @@ app.use(express.static(DIST_PATH));
 // Match all routes to render the index page.
 app.get('/*', (req, res, next) => {
 
+  var API_URL = appConfig.apiUrl + '/book-list-users';
+
   // Use the ApiService to fetch our Booklists Data
   // We would parse the Data at this point and Model it
   if (req.path !== '/') {
-    var API_URL = appConfig.apiUrl + '/book-list-users' + req.path + '/links/book-lists?include=user,list-items';
-  } else {  
-    var API_URL = appConfig.apiUrl + '/book-list-users';
+    let pathArray = req.path.split('/');
+    console.log('array length is: '+pathArray.length);
+    if (pathArray.length === 2) {
+      API_URL = appConfig.apiUrl + '/book-list-users' + req.path + '/links/book-lists?include=user,list-items';
+    } else if (pathArray.length === 3) {
+      API_URL = appConfig.apiUrl + '/' + pathArray[2] + '?include=list-items,user';
+    }
   }
 
   console.log(API_URL);
@@ -96,15 +102,19 @@ app.get('/*', (req, res, next) => {
     res.locals.data = {
       Store: { Data: refineryData }
     };
-
+    
+    // bootstrap will stringify the data
     alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
     let iso = new Iso();
 
     var router = Router.create({location: req.path, routes: routes});
     router.run(function(Handler, state) {
+      // App is the component we are going to render. It is determined by route handler
       var App = React.renderToString(React.createElement(Handler));
+      // Inject the stringified data in to App
       iso.add(App, alt.flush());
+      // The data we render by iso and pass to index.ejs
       return res.render('index', {
         App: iso.render(), 
         appTitle: appConfig.appName, 
@@ -140,7 +150,6 @@ if (!isProduction) {
     if (err) {
       console.log(err);
     }
-
     console.log('Listening at localhost:3000');
   });
 }

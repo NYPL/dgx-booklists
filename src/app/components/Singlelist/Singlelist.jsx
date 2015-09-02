@@ -6,10 +6,11 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import List from '../List/List.jsx';
+import Item from '../Item/Item.jsx';
+
 
 // Create the class
-class Ownerlists extends React.Component {
+class Singlelist extends React.Component {
 
   // Constructor used in ES6
   constructor(props) {
@@ -56,34 +57,34 @@ class Ownerlists extends React.Component {
     }
 
     // The variable to store the data from Store
-    let dataArray = this.state.Data
+    let dataArray = this.state.Data['list-items']
 
     console.log(dataArray);
 
     // Throw message if there's no data found
     if (!dataArray.length) {
       return (
-         <div>No lists under this owner</div>
+         <div>No book under this list</div>
       );
     } else {
       
       // Parse the list of books if data is correctly delivered
-      let lists = dataArray.map(function (element) {
+      let items = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <List key={`list ${element.attributes['list-name']}`}
-            id={element.attributes['list-name']}  
-            className={element.attributes['list-name']}
-            label={element.attributes['list-name']}
-            target={element.attributes['list-name']} />
+            <Item key={`item ${element.id}`}
+            id={element.id}  
+            className={element.id}
+            label={element.id}
+            target={element.id} />
           </div>
         );
       });
       // Render the list of owners on DOM
       return (
         <div id='main'>
-          <div id='ownerlists' className='ownerlists' style={{margin:20+'px'}}>
-            {lists}
+          <div id='singlelist' className='singlelist' style={{margin:20+'px'}}>
+            {items}
           </div>
         </div>
       );
@@ -92,11 +93,11 @@ class Ownerlists extends React.Component {
 };
 
 
-Ownerlists.defaultProps = {
+Singlelist.defaultProps = {
   lang: 'en'
 };
 
 const styles = {
 };
 
-export default Ownerlists;
+export default Singlelist;
