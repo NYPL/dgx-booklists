@@ -87,12 +87,9 @@ class Booklists extends React.Component {
       });
       // Render the list of owners on DOM
       return (
-        <div>
-          <header></header>
-          <div id='main'>
-            <div id='booklists' className='booklists' style={{margin:20+'px'}}>
-              {owners}
-            </div>
+        <div id='main'>
+          <div id='booklists' className='booklists' style={{margin:20+'px'}}>
+            {owners}
           </div>
         </div>
       );

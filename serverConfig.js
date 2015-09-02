@@ -11,7 +11,7 @@ import alt from './src/app/alt.js';
 
 // Import Router
 import Router from 'react-router';
-import routes from './routes.js';
+import routes from './src/routes.jsx';
 
 // Server Configurations
 import appConfig from './appConfig.js';
@@ -26,8 +26,7 @@ import ApiService from './src/app/utils/ApiService';
 import HeaderSource from './src/app/utils/HeaderSource.js';
 
 // Import components
-import Booklists from './src/app/components/Booklists/Booklists.jsx';
-import Ownerlists from './src/app/components/Ownerlists/Ownerlists.jsx';
+import Application from './src/app/components/Application/Application.jsx';
 
 // URL configuration
 const ROOT_PATH = __dirname;
@@ -86,39 +85,37 @@ app.get('/*', (req, res, next) => {
     var API_URL = appConfig.apiUrl + '/book-list-users';
   }
 
-  var App = React.renderToString(React.createElement(Ownerlists));
-
   console.log(API_URL);
 
   // Use the ApiService to fetch our Booklists Data
   // We would parse the Data at this point and Model it
   ApiService
-    .fetchData('server', API_URL)
-    .then((result) => {
-      refineryData = parser.parse(result);
-      res.locals.data = {
-        Store: { Data: refineryData }
-      };
+  .fetchData('server', API_URL)
+  .then((result) => {
+    refineryData = parser.parse(result);
+    res.locals.data = {
+      Store: { Data: refineryData }
+    };
 
-      alt.bootstrap(JSON.stringify(res.locals.data || {}));
+    alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
-      let iso = new Iso();
+    let iso = new Iso();
 
+    var router = Router.create({location: req.path, routes: routes});
+    router.run(function(Handler, state) {
+      var App = React.renderToString(React.createElement(Handler));
       iso.add(App, alt.flush());
-
-      var router = Router.create({location: req.path, routes: routes});
-      router.run(function(Handler, state) {
-        return res.render('index', {
-          App: iso.render(), 
-          appTitle: appConfig.appName, 
-          favicon: appConfig.favIconPath,
-          isProduction: isProduction
-        });
+      return res.render('index', {
+        App: iso.render(), 
+        appTitle: appConfig.appName, 
+        favicon: appConfig.favIconPath,
+        isProduction: isProduction
       });
-    })
-    .catch((error) => {
-      console.log('Error on local data fetch', error);
     });
+  })
+  .catch((error) => {
+    console.log('Error on local data fetch', error);
+  });
 });
 
 // Start the server.

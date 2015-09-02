@@ -64,7 +64,7 @@ class Ownerlists extends React.Component {
     // Throw message if there's no data found
     if (!dataArray.length) {
       return (
-         <div>This is Ownerlists</div>
+         <div>No lists under this owner</div>
       );
     } else {
       
