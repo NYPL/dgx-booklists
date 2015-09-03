@@ -52,7 +52,7 @@ Header.defaultProps = {
 
 const styles = {
   base: {
-    position: 'fixed',
+    position: 'relative',
     top: 0,
     width: '100%',
     height: '175px',

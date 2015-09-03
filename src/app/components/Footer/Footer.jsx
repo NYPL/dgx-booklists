@@ -37,7 +37,7 @@ class Footer extends React.Component {
 }
 
 Footer.defaultProps = {
-  id: 'footer',
+  id: 'Footer',
   className: 'ng-isolate-scope',
   label: '',
   lang: 'en'
