@@ -7,6 +7,7 @@ import Actions from '../../actions/Actions.js';
 
 // Import Components
 import Item from '../Item/Item.jsx';
+import SimpleButton from '../Buttons/SimpleButton.jsx';
 
 // Create the class
 class Singlelist extends React.Component {
@@ -46,7 +47,7 @@ class Singlelist extends React.Component {
     // The variable to store the data from Store
     let dataArray = this.state.Data['list-items']
 
-    console.log(dataArray);
+    console.log(this.state.Data);
 
     // Throw message if there's no data found
     if (!dataArray.length) {
@@ -67,6 +68,8 @@ class Singlelist extends React.Component {
       return (
         <div id='main'>
           <div id='singlelist' className='singlelist' style={{margin:20+'px'}}>
+            <SimpleButton label={`Go back to the list of ${this.state.Data.user.attributes.name}`} 
+            target={`/${this.state.Data.user.id}`} />
             {items}
           </div>
         </div>
