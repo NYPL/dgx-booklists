@@ -6,7 +6,7 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import SimpleButton from '../Buttons/SimpleButton.jsx';
+import Item from '../Item/Item.jsx';
 
 // Create the class
 class Ownerlists extends React.Component {
@@ -14,15 +14,12 @@ class Ownerlists extends React.Component {
   // Constructor used in ES6
   constructor(props) {
     super(props);
-    // replaces getInitialState()
     this.state = Store.getState();
   }
 
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-    // Here we would fetch our data async
-    // Actions.fetchData();
   }
 
   // Stop listening
@@ -47,7 +44,7 @@ class Ownerlists extends React.Component {
     }
 
     // The variable to store the data from Store
-    let dataArray = this.state.Data
+    let dataArray = this.state.Data;
 
     console.log(dataArray);
 
@@ -61,11 +58,9 @@ class Ownerlists extends React.Component {
       let lists = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <SimpleButton key={`list ${element.attributes['list-name']}`}
-            id={element.attributes['list-name']}  
-            className={element.attributes['list-name']}
-            label={element.attributes['list-name']}
-            target={`/${element.user.id}/${element.id}`} />
+            <Item name={element.attributes['list-name']} 
+            target={`/${element.user.id}/${element.id}`}
+            sampleBookCovers={element['list-items']} />
           </div>
         );
       });
