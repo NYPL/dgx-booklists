@@ -10,7 +10,7 @@ import Actions from '../../actions/Actions.js';
 
 // Import Components
 import Header from '../Header/Header.jsx';
-// import Footer from '../Footer/Footer.jsx';
+import Footer from '../Footer/Footer.jsx';
 
 
 // Set up the handler for route
@@ -32,6 +32,7 @@ class Application extends React.Component {
       <div className='app-container'>
         <Header />
         <RouteHandler />
+        <Footer />
       </div>
     );
   }

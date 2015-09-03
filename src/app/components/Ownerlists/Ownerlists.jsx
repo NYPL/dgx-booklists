@@ -56,8 +56,7 @@ class Ownerlists extends React.Component {
       return (
          <div>No list under this owner</div>
       );
-    } else {
-      
+    } else {   
       // Parse the list of books if data is correctly delivered
       let lists = dataArray.map(function (element) {
         return(
