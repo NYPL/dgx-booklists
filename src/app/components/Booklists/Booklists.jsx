@@ -20,18 +20,11 @@ class Booklists extends React.Component {
     super(props);
     // replaces getInitialState()
     this.state = Store.getState();
-
-    // this.owner = this.props.params.owner;
-
-    // Allows binding methods that reference this
-    this._goToLink = this._goToLink.bind(this);
   }
 
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-    // Here we would fetch our data async
-    // Actions.fetchData();
   }
 
   // Stop listening
@@ -42,10 +35,6 @@ class Booklists extends React.Component {
   // Change the this.state here if find any different
   _onChange() {
     this.setState(Store.getState());
-  }
-
-  _goToLink(target) {
-    window.location.replace(target);
   }
 
 

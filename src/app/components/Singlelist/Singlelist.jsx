@@ -16,9 +16,6 @@ class Singlelist extends React.Component {
     super(props);
     // replaces getInitialState()
     this.state = Store.getState();
-
-    // Allows binding methods that reference this
-    this._goToLink = this._goToLink.bind(this);
   }
 
   // Listen to the change from data
@@ -36,11 +33,6 @@ class Singlelist extends React.Component {
     this.setState(Store.getState());
   }
 
-  _goToLink(target) {
-    window.location.replace(target);
-  }
-
-
   // Render DOM
   render () {
 
@@ -54,7 +46,7 @@ class Singlelist extends React.Component {
     // The variable to store the data from Store
     let dataArray = this.state.Data['list-items']
 
-    // console.log(dataArray);
+    console.log(dataArray);
 
     // Throw message if there's no data found
     if (!dataArray.length) {
@@ -67,7 +59,7 @@ class Singlelist extends React.Component {
       let items = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <Item itemId={element.id} />
+            <Item name={element.item.attributes.title} />
           </div>
         );
       });

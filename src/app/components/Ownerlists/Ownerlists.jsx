@@ -16,9 +16,6 @@ class Ownerlists extends React.Component {
     super(props);
     // replaces getInitialState()
     this.state = Store.getState();
-
-    // Allows binding methods that reference this
-    this._goToLink = this._goToLink.bind(this);
   }
 
   // Listen to the change from data
@@ -36,10 +33,6 @@ class Ownerlists extends React.Component {
   // Change the this.state here if find any different
   _onChange() {
     this.setState(Store.getState());
-  }
-
-  _goToLink(target) {
-    window.location.replace(target);
   }
 
   // Render DOM

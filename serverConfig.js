@@ -85,9 +85,9 @@ app.get('/*', (req, res, next) => {
     let pathArray = req.path.split('/');
     console.log('array length is: '+pathArray.length);
     if (pathArray.length === 2) {
-      API_URL = appConfig.apiUrl + '/book-list-users' + req.path + '/links/book-lists?include=user,list-items';
+      API_URL = appConfig.apiUrl + '/book-list-users' + req.path + '/links/book-lists?include=user,list-items.item';
     } else if (pathArray.length === 3) {
-      API_URL = appConfig.apiUrl + '/' + pathArray[2] + '?include=list-items,user';
+      API_URL = appConfig.apiUrl + '/' + pathArray[2] + '?include=list-items.item,user';
     }
   }
 
