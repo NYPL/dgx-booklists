@@ -17,20 +17,22 @@ class Item extends React.Component {
     // Parse the list of book covers if data is correctly delivered
     let bookCovers = bookCoverArray.map(function (element) {
       return(
-        <div style={{margin:20+'px'}}>
+        <div style={{display:'inline-block'}}>
           <BookCover name={element.item.attributes.title}
           isbn={element.item.attributes.isbns[0]} />
         </div>
       );
     });
     return (
-      <div>
+      <div className='single-list'>
         <SimpleButton key={`item ${this.props.name}`}
         id={this.props.name}  
         className={this.props.name}
         label={this.props.name}
         target={this.props.target} />
-        {bookCovers}
+        <div style={{textAlign:'left'}}>
+          {bookCovers}
+        </div>
       </div>
     );
   }

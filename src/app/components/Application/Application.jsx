@@ -12,6 +12,7 @@ import Actions from '../../actions/Actions.js';
 import Header from '../Header/Header.jsx';
 import Hero from '../Hero/Hero.jsx';
 import Footer from '../Footer/Footer.jsx';
+// import Footer from 'dgx-react-footer';
 
 
 // Set up the handler for route

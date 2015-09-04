@@ -13,8 +13,7 @@ class BookCover extends React.Component {
         `Jacket.aspx?&userID=NYPL49807&password=CC68707&` +
         `Value=${this.props.isbn}&content=M&Return=1&Type=M`;
     return (
-      <div style={{margin:20+'px'}}>
-        {this.props.name}
+      <div style={styles.BookCoverContainer}>
         <img src={imageSrc} style={styles.BookCover} />
       </div>
     );
@@ -26,9 +25,12 @@ BookCover.defaultProps = {
 };
 
 const styles = {
+  BookCoverContainer: {
+    marginRight: '-100px'
+  },
   BookCover: {
     backgroundRepeat: 'no-repeat',
-    display: 'block',
+    display: 'inline-block',
     height: '200px',
     width: 'auto'
   }
