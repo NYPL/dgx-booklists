@@ -100,7 +100,9 @@ app.get('/*', (req, res, next) => {
   .then((result) => {
     refineryData = parser.parse(result);
     res.locals.data = {
-      Store: { Data: refineryData }
+      Store: { 
+        Data: refineryData
+       }
     };
     
     // bootstrap will stringify the data

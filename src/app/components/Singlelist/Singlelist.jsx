@@ -6,7 +6,6 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import Item from '../Item/Item.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 
 // Create the class
@@ -60,7 +59,9 @@ class Singlelist extends React.Component {
       let items = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <Item name={element.item.attributes.title} />
+            <SimpleButton id={element.item.attributes.title} 
+            className={element.item.attributes.title}
+            label={element.item.attributes.title} />
           </div>
         );
       });

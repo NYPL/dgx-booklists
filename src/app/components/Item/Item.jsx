@@ -12,22 +12,26 @@ class Item extends React.Component {
   }
 
   render () {
-    // let bookCoverArray = this.props.sampleBookCovers;
-    // Parse the list of books if data is correctly delivered
-    // let bookCovers = this.props.sampleBookCovers.map(function (element) {
-    //   return(
-    //     <div style={{margin:20+'px'}}>
-    //       <BookCover name={element.item.attributes.title} />
-    //     </div>
-    //   );
-    // });
+    // Only need the covers from the first 4 books
+    let bookCoverArray = this.props.sampleBookCovers.slice(0, 4);
+    // Parse the list of book covers if data is correctly delivered
+    let bookCovers = bookCoverArray.map(function (element) {
+      return(
+        <div style={{margin:20+'px'}}>
+          <BookCover name={element.item.attributes.title}
+          isbn={element.item.attributes.isbns[0]} />
+        </div>
+      );
+    });
     return (
-      <SimpleButton key={`item ${this.props.name}`}
-      id={this.props.name}  
-      className={this.props.name}
-      label={this.props.name}
-      target={this.props.target} />
-
+      <div>
+        <SimpleButton key={`item ${this.props.name}`}
+        id={this.props.name}  
+        className={this.props.name}
+        label={this.props.name}
+        target={this.props.target} />
+        {bookCovers}
+      </div>
     );
   }
 };

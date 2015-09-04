@@ -1,6 +1,5 @@
 // Import React Libraries
 import React from 'react';
-// Import Components
 
 class BookCover extends React.Component {
 
@@ -10,9 +9,13 @@ class BookCover extends React.Component {
   }
 
   render () {
+    let imageSrc=`https://contentcafe2.btol.com/ContentCafe/` +
+        `Jacket.aspx?&userID=NYPL49807&password=CC68707&` +
+        `Value=${this.props.isbn}&content=M&Return=1&Type=M`;
     return (
       <div style={{margin:20+'px'}}>
         {this.props.name}
+        <img src={imageSrc} style={styles.BookCover} />
       </div>
     );
   }
@@ -23,7 +26,16 @@ BookCover.defaultProps = {
 };
 
 const styles = {
+  BookCover: {
+    backgroundRepeat: 'no-repeat',
+    display: 'block',
+    height: '200px',
+    width: 'auto'
+  }
 };
 
 // Export components
 export default BookCover;
+
+
+
