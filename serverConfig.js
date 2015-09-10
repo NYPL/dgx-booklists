@@ -11,7 +11,7 @@ import alt from './src/app/alt.js';
 
 // Import Router
 import Router from 'react-router';
-import routes from './src/routes.jsx';
+import routes from './src/app/routes/routes.jsx';
 
 // Server Configurations
 import appConfig from './appConfig.js';
@@ -21,9 +21,6 @@ import webpackConfig from './webpack.config.js';
 
 // Import API service
 import ApiService from './src/app/utils/ApiService';
-
-// Need to improve for server-side and client-side requests
-import HeaderSource from './src/app/utils/HeaderSource.js';
 
 // Import components
 import Application from './src/app/components/Application/Application.jsx';
@@ -110,7 +107,7 @@ app.get('/*', (req, res, next) => {
 
     let iso = new Iso();
 
-    var router = Router.create({location: req.path, routes: routes});
+    let router = Router.create({location: req.path, routes: routes});
     router.run(function(Handler, state) {
       // App is the component we are going to render. It is determined by route handler
       var App = React.renderToString(React.createElement(Handler));

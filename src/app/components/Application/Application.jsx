@@ -16,8 +16,8 @@ import Footer from '../Footer/Footer.jsx';
 
 
 // Set up the handler for route
-var RouteHandler = Router.RouteHandler;
-var Link = Router.Link;
+const RouteHandler = Router.RouteHandler;
+const Link = Router.Link;
 
 // Create the class
 class Application extends React.Component {

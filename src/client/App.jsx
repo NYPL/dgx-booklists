@@ -3,8 +3,7 @@ import Iso from 'iso';
 import alt from '../app/alt.js';
 // Import Router
 import Router from 'react-router';
-import routes from '../routes.jsx';
-import Application from '../app/components/Application/Application.jsx';
+import routes from '../app/routes/routes.jsx';
 
 import './styles/main.scss';
 
