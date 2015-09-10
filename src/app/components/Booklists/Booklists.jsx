@@ -43,7 +43,7 @@ class Booklists extends React.Component {
     console.log(Store.getState());
     
     // The variable to store the data from Store
-    let dataArray = this.state.Data
+    let dataArray = this.state.Data;
 
     // Render the data
     let ownersButtons = (dataArray.length) ? 
