@@ -40,27 +40,14 @@ class Booklists extends React.Component {
 
   // Render DOM
   render () {
-    console.log(this.state);
-
-    // Throw error message if anything's wrong
-    if (this.state.errorMessage) {
-      return (
-        <div>Something is wrong</div>
-      );
-    }
-
+    console.log(Store.getState());
+    
     // The variable to store the data from Store
     let dataArray = this.state.Data
 
-    // Throw message if there's no data found
-    if (!dataArray.length) {
-      return (
-        <div>No List Here</div>
-      );
-    } else {
-      
-      // Parse the list of owners if data is correctly delivered
-      let owners = dataArray.map(function (element) {
+    // Render the data
+    let ownersButtons = (dataArray.length) ? 
+      dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
             <SimpleButton key={`owner ${element.attributes.username}`}
@@ -70,12 +57,19 @@ class Booklists extends React.Component {
             target={`/${element.attributes.username}`} />
           </div>
         );
-      });
-      // Render the list of owners on DOM
+      // If there's no data, throw the no list message
+      }) : <div>No List Here</div>;
+
+    // Throw error message if anything's wrong
+    if (this.state.errorMessage) {
+      return (
+        <div>Something is wrong</div>
+      );
+    } else {
       return (
         <div id='main'>
           <div id='booklists' className='booklists' style={{margin:20+'px'}}>
-            {owners}
+            {ownersButtons}
           </div>
         </div>
       );

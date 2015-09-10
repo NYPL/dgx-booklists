@@ -6,7 +6,8 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import Item from '../Item/Item.jsx';
+import SimpleButton from '../Buttons/SimpleButton.jsx';
+import BookCover from '../BookCover/BookCover.jsx'
 
 // Create the class
 class Singlelist extends React.Component {
@@ -46,7 +47,7 @@ class Singlelist extends React.Component {
     // The variable to store the data from Store
     let dataArray = this.state.Data['list-items']
 
-    console.log(dataArray);
+    console.log(this.state.Data);
 
     // Throw message if there's no data found
     if (!dataArray.length) {
@@ -59,7 +60,16 @@ class Singlelist extends React.Component {
       let items = dataArray.map(function (element) {
         return(
           <div style={{margin:20+'px'}}>
-            <Item name={element.item.attributes.title} />
+            <SimpleButton id={element.item.attributes.title} 
+            className={element.item.attributes.title}
+            label={element.item.attributes.title}
+            target={`http://nypl-encore-test.iii.com/iii/encore/record/C__Rb${element.item.id}?lang=eng`} />
+            <a href={`http://nypl-encore-test.iii.com/iii/encore/record/C__Rb${element.item.id}?lang=eng`} >
+              <BookCover isbn={element.item.attributes.isbns[0]}/>
+            </a>
+            <SimpleButton id='check-available' 
+            className='check-available'
+            label='Check Available' />
           </div>
         );
       });
@@ -67,6 +77,8 @@ class Singlelist extends React.Component {
       return (
         <div id='main'>
           <div id='singlelist' className='singlelist' style={{margin:20+'px'}}>
+            <SimpleButton label={`Go back to the list of ${this.state.Data.user.attributes.name}`} 
+            target={`/${this.state.Data.user.id}`} />
             {items}
           </div>
         </div>
