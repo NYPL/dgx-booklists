@@ -18,7 +18,7 @@ class Hero extends React.Component {
       <div key='Hero' className='hero'>
         <div key='HeroContainer' className='hero__container'>
           <div key='TextContainer' className='hero__container__text-container'>
-            <HeroTitle className='hero__container__text-container__title' title='book lists' des='100 books we love. Every month.' 
+            <HeroTitle className='hero__container__text-container__title' title='lists' des='100 books we love. Every month.' 
              intro='We&#39;re choosing all kinds of books—for readers old and young and in between, and fans of every genre—and serving them up in this browse tool.' />
           </div>
           <div key='HeroImageContainer' className='hero__container__image-container'>

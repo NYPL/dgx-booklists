@@ -14,7 +14,7 @@ class BookCover extends React.Component {
         `Value=${this.props.isbn}&content=M&Return=1&Type=M`;
     return (
       <div style={styles.BookCoverContainer}>
-        <img src={imageSrc} style={styles.BookCover} />
+        <img src={imageSrc} style={styles.BookCover} alt={this.props.name} />
       </div>
     );
   }

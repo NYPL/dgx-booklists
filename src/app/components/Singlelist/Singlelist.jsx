@@ -55,21 +55,22 @@ class Singlelist extends React.Component {
          <div>No book under this list</div>
       );
     } else {
-      
+      let encoreUrl='http://nypl-encore-test.iii.com/iii/encore/record/C__Rb';
       // Parse the list of books if data is correctly delivered
-      let items = dataArray.map(function (element) {
+      let items = dataArray.map((element, i) => {
         return(
-          <div style={{margin:20+'px'}}>
+          <div style={{margin:20+'px'}} key={i}>
             <SimpleButton id={element.item.attributes.title} 
             className={element.item.attributes.title}
             label={element.item.attributes.title}
-            target={`http://nypl-encore-test.iii.com/iii/encore/record/C__Rb${element.item.id}?lang=eng`} />
-            <a href={`http://nypl-encore-test.iii.com/iii/encore/record/C__Rb${element.item.id}?lang=eng`} >
-              <BookCover isbn={element.item.attributes.isbns[0]}/>
+            target={`${encoreUrl}${element.item.id}?lang=eng`} />
+            <a href={`${encoreUrl}${element.item.id}?lang=eng`} >
+              <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
             </a>
             <SimpleButton id='check-available' 
             className='check-available'
-            label='Check Available' />
+            label='Check Available'
+            target={`${encoreUrl}${element.item.id}?lang=eng`} />
           </div>
         );
       });

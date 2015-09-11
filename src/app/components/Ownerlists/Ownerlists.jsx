@@ -33,7 +33,7 @@ class Ownerlists extends React.Component {
   }
 
   // Render DOM
-  render () {
+  render() {
     console.log(this.state);
 
     // Throw error message if anything's wrong
@@ -55,9 +55,9 @@ class Ownerlists extends React.Component {
       );
     } else {   
       // Parse the list of books if data is correctly delivered
-      let lists = dataArray.map(function (element) {
+      let lists = dataArray.map((element, i) => {
         return(
-          <div style={{margin:20+'px'}}>
+          <div style={{margin:20+'px'}} key={i}>
             <Item name={element.attributes['list-name']} 
             target={`/${element.user.id}/${element.id}`}
             sampleBookCovers={element['list-items']} />

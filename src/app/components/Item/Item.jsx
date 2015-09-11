@@ -15,9 +15,9 @@ class Item extends React.Component {
     // Only need the covers from the first 4 books
     let bookCoverArray = this.props.sampleBookCovers.slice(0, 4);
     // Parse the list of book covers if data is correctly delivered
-    let bookCovers = bookCoverArray.map(function (element) {
+    let bookCovers = bookCoverArray.map((element, i) => {
       return(
-        <div style={{display:'inline-block'}}>
+        <div style={{display:'inline-block'}} key={i}>
           <BookCover name={element.item.attributes.title}
           isbn={element.item.attributes.isbns[0]} />
         </div>
@@ -25,8 +25,7 @@ class Item extends React.Component {
     });
     return (
       <div className='single-list'>
-        <SimpleButton key={`item ${this.props.name}`}
-        id={this.props.name}  
+        <SimpleButton id={this.props.name}  
         className={this.props.name}
         label={this.props.name}
         target={this.props.target} />

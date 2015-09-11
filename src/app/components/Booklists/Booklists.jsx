@@ -1,8 +1,9 @@
 // Import React Libraries
 import React from 'react';
 
-// Import Router
+// Import Router and it's navigation
 import Router from 'react-router';
+let Navigation = Router.Navigation;
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -11,32 +12,37 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 
-
 // Create the class
-class Booklists extends React.Component {
+let Booklists = React.createClass({
+
+  mixins: [Navigation],
 
   // Constructor used in ES6
-  constructor(props) {
-    super(props);
-    // replaces getInitialState()
-    this.state = Store.getState();
-  }
+  getInitialState() {
+    return Store.getState();
+  },
 
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-  }
+  },
 
   // Stop listening
   componentWillUnmount() {
     Store.unlisten(this._onChange.bind(this));
-  }
+  },
 
   // Change the this.state here if find any different
   _onChange() {
     this.setState(Store.getState());
-  }
+  },
 
+  _goToLink() {
+    console.log('go To Link');
+    this.transitionTo('ownerlists', {
+      ownerlists: 'nypl_bronx_library_ctr'
+    });
+  },
 
   // Render DOM
   render () {
@@ -47,14 +53,13 @@ class Booklists extends React.Component {
 
     // Render the data
     let ownersButtons = (dataArray.length) ? 
-      dataArray.map(function (element) {
-        return(
-          <div style={{margin:20+'px'}}>
-            <SimpleButton key={`owner ${element.attributes.username}`}
-            id={element.attributes.username}  
+      dataArray.map((element, i) => {
+        return (
+          <div style={{margin:20+'px'}} key={i}>
+            <SimpleButton id={element.attributes.username}  
             className={element.attributes.username}
             label={element.attributes.name}
-            target={`/${element.attributes.username}`} />
+            onClick={this._goToLink} />
           </div>
         );
       // If there's no data, throw the no list message
@@ -75,8 +80,7 @@ class Booklists extends React.Component {
       );
     }
   }
-};
-
+});
 
 Booklists.defaultProps = {
   lang: 'en'
