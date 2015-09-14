@@ -63,7 +63,7 @@ let Ownerlists = React.createClass({
     // Throw message if there's no data found
     if (!dataArray.length) {
       return (
-         <div>No list under this owner</div>
+         <div>Loading books</div>
       );
     } else {   
       // Parse the list of books if data is correctly delivered
