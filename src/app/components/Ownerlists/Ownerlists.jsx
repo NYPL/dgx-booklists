@@ -34,7 +34,7 @@ class Ownerlists extends React.Component {
 
   // Render DOM
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     // Throw error message if anything's wrong
     if (this.state.errorMessage) {
@@ -46,7 +46,7 @@ class Ownerlists extends React.Component {
     // The variable to store the data from Store
     let dataArray = this.state.Data;
 
-    console.log(dataArray);
+    // console.log(dataArray);
 
     // Throw message if there's no data found
     if (!dataArray.length) {
