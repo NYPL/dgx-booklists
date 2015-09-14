@@ -3,28 +3,32 @@ import compression from 'compression';
 import express from 'express';
 import colors from 'colors';
 import parser from 'jsonapi-parserinator';
+
 // React
 import React from 'react';
 import Iso from 'iso';
 import alt from './src/app/alt.js';
+
+// Import Router
+import Router from 'react-router';
+import routes from './src/app/routes/routes.jsx';
+
 // Server Configurations
 import appConfig from './appConfig.js';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
 
-// Temporary API Service
+// Import API service
 import ApiService from './src/app/utils/ApiService';
 
-// Need to improve for server-side and client-side requests
-import HeaderSource from './src/app/utils/HeaderSource.js';
+// Import components
+import Application from './src/app/components/Application/Application.jsx';
 
-import Booklists from './src/app/components/Booklists/Booklists.jsx';
-
+// URL configuration
 const ROOT_PATH = __dirname;
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
-const API_URL = process.env.API_URL || appConfig.apiUrl;
 const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 
 // Boolean flag that determines if we are running
@@ -33,19 +37,6 @@ const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 let isProduction = process.env.NODE_ENV === 'production';
 let serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port);
 let refineryData;
-
-// Use the ApiService to fetch our Booklists Data
-// We would parse the Data at this point and Model it
-// Local Mock
-ApiService
-  .fetchData('server', API_URL)
-  .then((result) => {
-    refineryData = parser.parse(result);
-  })
-  .catch((error) => {
-    console.log('Error on local data fetch', error);
-  });
-
 
 /* Express Server Configuration
  * ----------------------------
@@ -78,36 +69,61 @@ app.use(express.static(DIST_PATH));
  *    to our component.
 */
 // Assign the string containing the markup from the component
-let booklistsApp = React.renderToString(<Booklists />);
-
-// Used to debug refinery response
-app.get('/booklists-data', (req, res) => {
-	res.json(refineryData);
-});
+// let booklistsApp = React.renderToString(<Booklists />);
 
 // Match all routes to render the index page.
-app.get('/*', (req, res) => {
+app.get('/*', (req, res, next) => {
 
-  res.locals.data = {
-    Store: { Data: refineryData }
-  };
+  var API_URL = appConfig.apiUrl + '/book-list-users';
 
-  alt.bootstrap(JSON.stringify(res.locals.data || {}));
+  // Use the ApiService to fetch our Booklists Data
+  // We would parse the Data at this point and Model it
+  if (req.path !== '/') {
+    let pathArray = req.path.split('/');
+    console.log('array length is: '+pathArray.length);
+    if (pathArray.length === 2) {
+      API_URL = appConfig.apiUrl + '/book-list-users' + req.path + '/links/book-lists?include=user,list-items.item';
+    } else if (pathArray.length === 3) {
+      API_URL = appConfig.apiUrl + '/' + pathArray[2] + '?include=list-items.item,user';
+    }
+  }
 
-  let App = React.renderToString(React.createElement(Booklists));
+  console.log(API_URL);
 
-  let iso = new Iso();
+  // Use the ApiService to fetch our Booklists Data
+  // We would parse the Data at this point and Model it
+  ApiService
+  .fetchData('server', API_URL)
+  .then((result) => {
+    refineryData = parser.parse(result);
+    res.locals.data = {
+      Store: { 
+        Data: refineryData
+       }
+    };
+    
+    // bootstrap will stringify the data
+    alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
-  iso.add(App, alt.flush());
+    let iso = new Iso();
 
-	// First parameter references the ejs filename
-  res.render('index', {
-  	// Assign the String to the
-  	// proper EJS variable
-  	App: iso.render(),
-    appTitle: appConfig.appName,
-    favicon: appConfig.favIconPath,
-    isProduction: isProduction
+    let router = Router.create({location: req.path, routes: routes});
+    router.run(function(Handler, state) {
+      // App is the component we are going to render. It is determined by route handler
+      var App = React.renderToString(React.createElement(Handler));
+      // Inject the stringified data in to App
+      iso.add(App, alt.flush());
+      // The data we render by iso and pass to index.ejs
+      return res.render('index', {
+        App: iso.render(), 
+        appTitle: appConfig.appName, 
+        favicon: appConfig.favIconPath,
+        isProduction: isProduction
+      });
+    });
+  })
+  .catch((error) => {
+    console.log('Error on local data fetch', error);
   });
 });
 
@@ -133,7 +149,6 @@ if (!isProduction) {
     if (err) {
       console.log(err);
     }
-
     console.log('Listening at localhost:3000');
   });
 }
