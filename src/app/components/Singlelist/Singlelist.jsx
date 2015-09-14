@@ -1,10 +1,6 @@
 // Import React Libraries
 import React from 'react';
 
-// Import Router and it's navigation
-import Router from 'react-router';
-let Navigation = Router.Navigation;
-
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -13,36 +9,30 @@ import Actions from '../../actions/Actions.js';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx'
 
-// Create the class. Use ES5 for react-router Navigation
-let Singlelist = React.createClass({
+// Create the class
+class Singlelist extends React.Component {
 
-  mixins: [Navigation],
-
-  getInitialState() {
-    return Store.getState();
-  },
+  // Constructor used in ES6
+  constructor(props) {
+    super(props);
+    // replaces getInitialState()
+    this.state = Store.getState();
+  }
 
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-  },
+  }
 
   // Stop listening
   componentWillUnmount() {
     Store.unlisten(this._onChange.bind(this));
-  },
+  }
 
   // Change the this.state here if find any different
   _onChange() {
     this.setState(Store.getState());
-  },
-
-  _goToLink(tag) {
-    console.log('go To Link');
-    this.transitionTo('ownerlists', {
-      ownerlists: tag
-    });
-  },
+  }
 
   // Render DOM
   render () {
@@ -89,15 +79,14 @@ let Singlelist = React.createClass({
         <div id='main'>
           <div id='singlelist' className='singlelist' style={{margin:20+'px'}}>
             <SimpleButton label={`Go back to the list of ${this.state.Data.user.attributes.name}`} 
-            target=''
-            onClick={this._goToLink.bind(this, this.state.Data.user.id)} />
+            target={`/${this.state.Data.user.id}`} />
             {items}
           </div>
         </div>
       );
     }
   }
-});
+};
 
 
 Singlelist.defaultProps = {

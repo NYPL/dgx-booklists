@@ -24,7 +24,7 @@ class Item extends React.Component {
       );
     });
     return (
-      <div className='single-list' onClick={this.props.onClick}>
+      <div className='single-list'>
         <SimpleButton id={this.props.name}  
         className={this.props.name}
         label={this.props.name}
