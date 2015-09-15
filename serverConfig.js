@@ -2,7 +2,6 @@ import path from 'path';
 import compression from 'compression';
 import express from 'express';
 import colors from 'colors';
-import parser from 'jsonapi-parserinator';
 
 // React
 import React from 'react';
@@ -19,8 +18,7 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
 
-// Import API service
-import ApiService from './src/app/utils/ApiService';
+import ApiRoutes from './src/server/ApiRoutes/routes.js';
 
 // Import components
 import Application from './src/app/components/Application/Application.jsx';
@@ -60,70 +58,28 @@ app.set('views', INDEX_PATH);
 // application's dist files are located.
 app.use(express.static(DIST_PATH));
 
-
-/* Isomporphic Rendering of React App
- * ----------------------------------
- * 1. Render the App as a String to be passed
- *    to the server.
- * 2. Ideally we would pass in the API Data here
- *    to our component.
-*/
-// Assign the string containing the markup from the component
-// let booklistsApp = React.renderToString(<Booklists />);
+app.use('/', ApiRoutes);
 
 // Match all routes to render the index page.
-app.get('/*', (req, res, next) => {
+app.use((req, res) => {
+  // bootstrap will stringify the data
+  alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
-  var API_URL = appConfig.apiUrl + '/book-list-users';
+  let iso = new Iso();
 
-  // Use the ApiService to fetch our Booklists Data
-  // We would parse the Data at this point and Model it
-  if (req.path !== '/') {
-    let pathArray = req.path.split('/');
-    console.log('array length is: '+pathArray.length);
-    if (pathArray.length === 2) {
-      API_URL = appConfig.apiUrl + '/book-list-users' + req.path + '/links/book-lists?include=user,list-items.item';
-    } else if (pathArray.length === 3) {
-      API_URL = appConfig.apiUrl + '/' + pathArray[2] + '?include=list-items.item,user';
-    }
-  }
-
-  console.log(API_URL);
-
-  // Use the ApiService to fetch our Booklists Data
-  // We would parse the Data at this point and Model it
-  ApiService
-  .fetchData('server', API_URL)
-  .then((result) => {
-    refineryData = parser.parse(result);
-    res.locals.data = {
-      Store: { 
-        Data: refineryData
-       }
-    };
-    
-    // bootstrap will stringify the data
-    alt.bootstrap(JSON.stringify(res.locals.data || {}));
-
-    let iso = new Iso();
-
-    let router = Router.create({location: req.path, routes: routes});
-    router.run(function(Handler, state) {
-      // App is the component we are going to render. It is determined by route handler
-      var App = React.renderToString(React.createElement(Handler));
-      // Inject the stringified data in to App
-      iso.add(App, alt.flush());
-      // The data we render by iso and pass to index.ejs
-      return res.render('index', {
-        App: iso.render(), 
-        appTitle: appConfig.appName, 
-        favicon: appConfig.favIconPath,
-        isProduction: isProduction
-      });
+  let router = Router.create({location: req.path, routes: routes});
+  router.run((Handler, state) => {
+    // App is the component we are going to render. It is determined by route handler
+    var App = React.renderToString(React.createElement(Handler));
+    // Inject the stringified data in to App
+    iso.add(App, alt.flush());
+    // The data we render by iso and pass to index.ejs
+    return res.render('index', {
+      App: iso.render(), 
+      appTitle: appConfig.appName, 
+      favicon: appConfig.favIconPath,
+      isProduction: isProduction
     });
-  })
-  .catch((error) => {
-    console.log('Error on local data fetch', error);
   });
 });
 
@@ -145,6 +101,13 @@ if (!isProduction) {
   new WebpackDevServer(webpack(webpackConfig), {
     publicPath: webpackConfig.output.publicPath,
     hot: true,
+    inline: true,
+    stats: false,
+    historyApiFallback: true,
+    headers: {
+      'Access-Control-Allow-Origin': 'http://localhost:3001',
+      'Access-Control-Allow-Headers': 'X-Requested-With'
+    }
   }).listen(3000, 'localhost', function (err, result) {
     if (err) {
       console.log(err);
