@@ -27,6 +27,16 @@ function BookListUsers(req, res, next) {
       };
 
       next();
+    })
+    .catch(error => {
+      console.log('Error calling API : ' + error);
+      console.log('Attempted to call : ' + options.endpoint);
+      res.locals.data = {
+        Store: {
+          Data: {}
+        }
+      };
+      next();
     }); /* end Axios call */
 }
 
@@ -47,7 +57,17 @@ function BookListUser(req, res, next) {
         }
       };
       next();
-    }); /* end axios call */
+    })
+    .catch(error => {
+      console.log('Error calling API : ' + error);
+      console.log('Attempted to call : ' + options.endpoint);
+      res.locals.data = {
+        Store: {
+          Data: {}
+        }
+      };
+      next();
+    }); /* end Axios call */
 }
 
 function ListID(req, res, next) {
@@ -66,7 +86,17 @@ function ListID(req, res, next) {
         }
       };
       next();
-    }); /* end axios call */
+    })
+    .catch(error => {
+      console.log('Error calling API : ' + error);
+      console.log('Attempted to call : ' + options.endpoint);
+      res.locals.data = {
+        Store: {
+          Data: {}
+        }
+      };
+      next();
+    }); /* end Axios call */
 }
 
 function AjaxBookListUser(req, res, next) {
@@ -84,7 +114,11 @@ function AjaxBookListUser(req, res, next) {
         user: username,
         data: parsed
       });
-    }); /* end axios call */
+    })
+    .catch(error => {
+      console.log('Error calling API');
+      res.json({'error': 'error calling API'});
+    }); /* end Axios call */
 }
 
 function AjaxListID(req, res, next) {
@@ -101,7 +135,11 @@ function AjaxListID(req, res, next) {
         listID: listID,
         data: parsed
       });
-    }); /* end axios call */
+    })
+    .catch(error => {
+      console.log('Error calling API');
+      res.json({'error': 'error calling API'});
+    }); /* end Axios call */
 }
 
 router
