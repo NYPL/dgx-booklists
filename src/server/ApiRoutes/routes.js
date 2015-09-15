@@ -3,15 +3,15 @@ import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 import {api} from '../../../appConfig.js';
 
-let router = express.Router();
-let options = {
-  includes: ['user', 'list-items.item']
-};
+let router = express.Router(),
+  options = {
+    includes: ['user', 'list-items.item']
+  };
 
 parser.setChildrenObjects(options);
 
 function BookListUsers(req, res, next) {
-  let endpoint = api.root + api.baseEndpoint + api.bookListUserEndpoint;
+  let endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}`;
 
   axios
     .get(endpoint)
@@ -32,8 +32,8 @@ function BookListUsers(req, res, next) {
 
 function BookListUser(req, res, next) {
   let username = req.params.username,
-    endpoint = api.root + api.baseEndpoint + api.bookListUserEndpoint + '/' +
-      username + '/links/book-lists' + api.includes;
+    endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
+      `${username}/links/book-lists${api.includes}`;
 
   axios
     .get(endpoint)
@@ -52,7 +52,7 @@ function BookListUser(req, res, next) {
 
 function ListID(req, res, next) {
   let listID = req.params.listID,
-    endpoint = api.root + api.baseEndpoint + '/' + listID  + api.includes;
+    endpoint = `${api.root}${api.baseEndpoint}/${listID}${api.includes}`;
 
   axios
     .get(endpoint)
@@ -71,8 +71,8 @@ function ListID(req, res, next) {
 
 function AjaxBookListUser(req, res, next) {
   let username = req.params.username,
-    endpoint = api.root + api.baseEndpoint + api.bookListUserEndpoint + '/' +
-      username + '/links/book-lists' + api.includes;
+    endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
+      `${username}/links/book-lists${api.includes}`;
 
   axios
     .get(endpoint)
@@ -89,7 +89,7 @@ function AjaxBookListUser(req, res, next) {
 
 function AjaxListID(req, res, next) {
   let listID = req.params.listID,
-    endpoint = api.root + api.baseEndpoint + '/' + listID  + api.includes;
+    endpoint = `${api.root}${api.baseEndpoint}/${listID}${api.includes}`;
 
   axios
     .get(endpoint)
