@@ -40,7 +40,7 @@ let Booklists = React.createClass({
   _goToLink() {
     console.log('go To Link');
     this.transitionTo('ownerlists', {
-      ownerlists: 'nypl_bronx_library_ctr'
+      ownerlists: tag
     });
   },
 
@@ -59,7 +59,8 @@ let Booklists = React.createClass({
             <SimpleButton id={element.attributes.username}  
             className={element.attributes.username}
             label={element.attributes.name}
-            onClick={this._goToLink} />
+            target=''
+            onClick={this._goToLink.bind(this, element.attributes.username)} />
           </div>
         );
       // If there's no data, throw the no list message
