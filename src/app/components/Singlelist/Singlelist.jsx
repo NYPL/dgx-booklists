@@ -1,38 +1,49 @@
 // Import React Libraries
 import React from 'react';
 
+// Import Router and it's navigation
+import Router from 'react-router';
+let Navigation = Router.Navigation;
+
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
+import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx'
 
-// Create the class
-class Singlelist extends React.Component {
+// Create the class. Use ES5 for react-router Navigation
+let Singlelist = React.createClass({
 
-  // Constructor used in ES6
-  constructor(props) {
-    super(props);
-    // replaces getInitialState()
-    this.state = Store.getState();
-  }
+  mixins: [Navigation],
+
+  getInitialState() {
+    return Store.getState();
+  },
 
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-  }
+  },
 
   // Stop listening
   componentWillUnmount() {
     Store.unlisten(this._onChange.bind(this));
-  }
+  },
 
   // Change the this.state here if find any different
   _onChange() {
     this.setState(Store.getState());
-  }
+  },
+
+  _goToLink(tag) {
+    console.log('go To Link');
+    this.transitionTo('ownerlists', {
+      ownerlists: tag
+    });
+  },
 
   // Render DOM
   render () {
@@ -45,9 +56,12 @@ class Singlelist extends React.Component {
     }
 
     // The variable to store the data from Store
-    let dataArray = this.state.Data['list-items']
+    let data = this.state.Data;
+    let dataArray = data['list-items']
+    let listName = data.attributes['list-name'];
+    let listIntro = data.attributes['list-description'];
 
-    console.log(this.state.Data);
+    console.log(this.state);
 
     // Throw message if there's no data found
     if (!dataArray.length) {
@@ -59,34 +73,60 @@ class Singlelist extends React.Component {
       // Parse the list of books if data is correctly delivered
       let items = dataArray.map((element, i) => {
         return(
-          <div style={{margin:20+'px'}} key={i}>
-            <SimpleButton id={element.item.attributes.title} 
-            className={element.item.attributes.title}
-            label={element.item.attributes.title}
-            target={`${encoreUrl}${element.item.id}?lang=eng`} />
-            <a href={`${encoreUrl}${element.item.id}?lang=eng`} >
+          <div className='singlelist__item' key={i}>
+            <a className='singlelist__item__image-container' href={`${encoreUrl}${element.item.id}?lang=eng`}>
               <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
             </a>
-            <SimpleButton id='check-available' 
-            className='check-available'
-            label='Check Available'
-            target={`${encoreUrl}${element.item.id}?lang=eng`} />
+            <div className='singlelist__item__text-container'>
+              <p className='singlelist__item__text-container__catalog'>
+                {`${element.item.attributes.format} - ${element.item.attributes['publication-date']}`}
+              </p>
+              <SimpleButton id='singlelist__item__text-container__name'
+              className='singlelist__item__text-container__name'
+              label={element.item.attributes.title}
+              target={`${encoreUrl}${element.item.id}?lang=eng`} />
+              <p className='singlelist__item__text-container__author'>
+                {`By ${element.item.attributes.authors}`}
+              </p>
+              <p className='singlelist__item__text-container__description'>
+                this is the description of a book. Now we do not have the data yet. Remember to ask kevin.
+              </p>
+            </div>
+            <div className='singlelist__item__checkout'>
+              <SimpleButton id='check-available'
+                className='singlelist__item__checkout__button'
+                label='Check Available'
+                target={`${encoreUrl}${element.item.id}?lang=eng`} />
+            </div>
           </div>
         );
       });
       // Render the list of owners on DOM
       return (
         <div id='main'>
-          <div id='singlelist' className='singlelist' style={{margin:20+'px'}}>
-            <SimpleButton label={`Go back to the list of ${this.state.Data.user.attributes.name}`} 
-            target={`/${this.state.Data.user.id}`} />
-            {items}
+          <Hero name={listName} intro={listIntro}/>
+          <div className='back-button-container'>
+            <a className='back-button-container__button'
+            onClick={this._goToLink.bind(this, this.state.Data.user.id)}>
+              <p>back to</p>
+              <p>{this.state.Data.user.attributes.name}</p>
+              <p>lists</p>
+            </a>
+          </div>
+          <div id='singlelist' className='singlelist'>
+            <div className='singlelist__name'>
+              <SimpleButton className='singlelist__name__button'
+              label={this.state.Data.user.attributes.name}
+              target=''
+              onClick={this._goToLink.bind(this, this.state.Data.user.id)} />
+              {items}
+            </div>
           </div>
         </div>
       );
     }
   }
-};
+});
 
 
 Singlelist.defaultProps = {

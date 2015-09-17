@@ -24,13 +24,16 @@ class Item extends React.Component {
       );
     });
     return (
-      <div className='single-list'>
-        <SimpleButton id={this.props.name}  
-        className={this.props.name}
-        label={this.props.name}
-        target={this.props.target} />
-        <div style={{textAlign:'left'}}>
+      <div className={this.props.className} onClick={this.props.onClick}>
+        <div className={`${this.props.className}__image-container`} style={{textAlign:'left'}}>
           {bookCovers}
+        </div>
+        <div className={`${this.props.className}__text-container`}>
+          <SimpleButton id={this.props.name}
+          className={`${this.props.className}__text-container__name`}
+          label={this.props.name}
+          target={this.props.target} />
+          <p>{this.props.description}</p>
         </div>
       </div>
     );
