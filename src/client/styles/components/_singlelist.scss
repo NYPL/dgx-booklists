@@ -46,11 +46,15 @@
     &__text-container {
       display: inline-block;
       vertical-align: top;
+      width: 60%;
       &__name {
         color: #000000;
         font-size: 20px;
         text-decoration: none;
         text-transform: capitalize;
+      }
+      &__description {
+        margin: 40px 0 0 0;
       }
     }
 

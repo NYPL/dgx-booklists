@@ -89,7 +89,7 @@ let Singlelist = React.createClass({
                 {`By ${element.item.attributes.authors}`}
               </p>
               <p className='singlelist__item__text-container__description'>
-                this is the description of a book. Now we do not have the data yet. Remember to ask kevin.
+                {element.attributes.annotation}
               </p>
             </div>
             <div className='singlelist__item__checkout'>
