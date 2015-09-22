@@ -5,8 +5,10 @@
 @import 'utils/breakpoint';
 @import 'utils/transitions';
 
-@import 'hero';
-@import 'footer';
+@import 'components/_hero';
+@import 'components/footer';
+@import 'components/_ownerlists';
+@import 'components/_singlelist';
 
 /* NYPL HEADER RULES
  * -----------------
