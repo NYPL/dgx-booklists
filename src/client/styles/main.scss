@@ -2,6 +2,11 @@
 @import 'utils/normalize';
 @import 'utils/globals';
 @import 'utils/viewports';
+@import 'utils/breakpoint';
+@import 'utils/transitions';
+
+@import 'hero';
+@import 'footer';
 
 /* NYPL HEADER RULES
  * -----------------

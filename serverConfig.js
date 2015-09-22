@@ -1,24 +1,33 @@
 import path from 'path';
 import compression from 'compression';
 import express from 'express';
-import parser from 'jsonapi-parserinator';
+import colors from 'colors';
+
+// React
 import React from 'react';
 import Iso from 'iso';
 import alt from './src/app/alt.js';
+
+// Import Router
+import Router from 'react-router';
+import routes from './src/app/routes/routes.jsx';
+
+// Server Configurations
 import appConfig from './appConfig.js';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import webpackConfig from './webpack.config.js';
 
-// Temporary API Service
-import HeaderApiService from './src/app/utils/ApiService';
+import ApiRoutes from './src/server/ApiRoutes/routes.js';
 
-// Need to improve for server-side and client-side requests
-import HeaderSource from './src/app/utils/HeaderSource.js';
+// Import components
+import Application from './src/app/components/Application/Application.jsx';
 
-import Header from './src/app/components/Header/Header.jsx';
-
+// URL configuration
 const ROOT_PATH = __dirname;
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
-const API_URL = process.env.API_URL || appConfig.apiUrl;
+const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 
 // Boolean flag that determines if we are running
 // our application in Production Mode.
@@ -26,19 +35,6 @@ const API_URL = process.env.API_URL || appConfig.apiUrl;
 let isProduction = process.env.NODE_ENV === 'production';
 let serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port);
 let refineryData;
-
-// Use the HeaderApiService to fetch our Header Data
-// We would parse the Data at this point and Model it
-// Local Mock
-HeaderApiService
-  .fetchData('local')
-  .then((result) => {
-    refineryData = result;
-  })
-  .catch((error) => {
-    console.log('Error on local data fetch', error);
-  });
-
 
 /* Express Server Configuration
  * ----------------------------
@@ -62,50 +58,38 @@ app.set('views', INDEX_PATH);
 // application's dist files are located.
 app.use(express.static(DIST_PATH));
 
-
-/* Isomporphic Rendering of React App
- * ----------------------------------
- * 1. Render the App as a String to be passed
- *    to the server.
- * 2. Ideally we would pass in the API Data here
- *    to our component.
-*/
-// Assign the string containing the markup from the component
-let headerApp = React.renderToString(<Header />);
-
-// Used to debug refinery response
-app.get('/header-data', (req, res) => {
-	res.json(refineryData);
-});
+app.use('/', ApiRoutes);
 
 // Match all routes to render the index page.
-app.get('/*', (req, res) => {
-
-  res.locals.data = {
-    Store: { headerData: refineryData }
-  };
-
+app.use((req, res) => {
+  // bootstrap will stringify the data
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
-
-  let headerApp = React.renderToString(React.createElement(Header));
 
   let iso = new Iso();
 
-  iso.add(headerApp, alt.flush());
-
-	// First parameter references the ejs filename
-  res.render('index', {
-  	// Assign the Header String to the
-  	// proper EJS variable
-  	headerApp: iso.render(),
-    appTitle: appConfig.appName,
-    favicon: appConfig.favIconPath
+  let router = Router.create({location: req.path, routes: routes});
+  router.run((Handler, state) => {
+    // App is the component we are going to render. It is determined by route handler
+    var App = React.renderToString(React.createElement(Handler));
+    // Inject the stringified data in to App
+    iso.add(App, alt.flush());
+    // The data we render by iso and pass to index.ejs
+    return res.render('index', {
+      App: iso.render(), 
+      appTitle: appConfig.appName, 
+      favicon: appConfig.favIconPath,
+      isProduction: isProduction
+    });
   });
 });
 
 // Start the server.
-app.listen(serverPort, () => {
-  console.log('Express server is listening at localhost:%s', serverPort);
+app.listen(serverPort, (err, result) => {
+  if (err) {
+    console.log(colors.red(err));
+  }
+  console.log(colors.yellow.underline(appConfig.appName));
+  console.log(colors.green('Express server is listening at'), colors.cyan('localhost:' + serverPort));
 });
 
 
@@ -114,5 +98,20 @@ app.listen(serverPort, () => {
  * - Using Webpack Dev Server
 */
 if (!isProduction) {
-
+  new WebpackDevServer(webpack(webpackConfig), {
+    publicPath: webpackConfig.output.publicPath,
+    hot: true,
+    inline: true,
+    stats: false,
+    historyApiFallback: true,
+    headers: {
+      'Access-Control-Allow-Origin': 'http://localhost:3001',
+      'Access-Control-Allow-Headers': 'X-Requested-With'
+    }
+  }).listen(3000, 'localhost', function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    console.log('Listening at localhost:3000');
+  });
 }
