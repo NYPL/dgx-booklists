@@ -5,6 +5,8 @@ import React from 'react';
 import Router from 'react-router';
 let Navigation = Router.Navigation;
 
+import Moment from 'moment';
+
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -68,6 +70,8 @@ let Ownerlists = React.createClass({
     } else {   
       // Parse the list of books if data is correctly delivered
       let lists = dataArray.map((element, i) => {
+        let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do');
+        let yearCreated = Moment(element.attributes['date-created']).format('YYYY');
         return(
           <div key={i} className='ownerlists__item-container'>
             <span className='ownerlists__item-divide'></span>
@@ -76,7 +80,7 @@ let Ownerlists = React.createClass({
             name={element.attributes['list-name']}
             target=''
             sampleBookCovers={element['list-items']}
-            description={element.attributes['date-created']}
+            description={`${dateCreated}, ${yearCreated}`}
             onClick={this._goToLink.bind(this, element.user.id, element.id)} />
           </div>
         );
