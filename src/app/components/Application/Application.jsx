@@ -10,7 +10,6 @@ import Actions from '../../actions/Actions.js';
 
 // Import Components
 import Header from '../Header/Header.jsx';
-import Hero from '../Hero/Hero.jsx';
 import Footer from '../Footer/Footer.jsx';
 // import Footer from 'dgx-react-footer';
 
@@ -33,7 +32,6 @@ class Application extends React.Component {
     return (
       <div className='app-container'>
         <Header />
-        <Hero />
         <RouteHandler />
         <Footer />
       </div>

@@ -44,7 +44,6 @@ function BookListUser(req, res, next) {
   let username = req.params.username,
     endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
       `${username}/links/book-lists${api.includes}`;
-
   axios
     .get(endpoint)
     .then(data => {

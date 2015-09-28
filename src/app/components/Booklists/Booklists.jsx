@@ -10,14 +10,14 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
+import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 
-// Create the class
+// Create the class. Use ES5 for react-router Navigation
 let Booklists = React.createClass({
 
   mixins: [Navigation],
 
-  // Constructor used in ES6
   getInitialState() {
     return Store.getState();
   },
@@ -37,17 +37,16 @@ let Booklists = React.createClass({
     this.setState(Store.getState());
   },
 
-  _goToLink() {
+  _goToLink(tag) {
     console.log('go To Link');
     this.transitionTo('ownerlists', {
-      ownerlists: 'nypl_bronx_library_ctr'
+      ownerlists: tag
     });
   },
 
   // Render DOM
   render () {
     console.log(Store.getState());
-    
     // The variable to store the data from Store
     let dataArray = this.state.Data;
 
@@ -59,7 +58,8 @@ let Booklists = React.createClass({
             <SimpleButton id={element.attributes.username}  
             className={element.attributes.username}
             label={element.attributes.name}
-            onClick={this._goToLink} />
+            target=''
+            onClick={this._goToLink.bind(this, element.attributes.username)} />
           </div>
         );
       // If there's no data, throw the no list message
@@ -73,6 +73,7 @@ let Booklists = React.createClass({
     } else {
       return (
         <div id='main'>
+          <Hero />
           <div id='booklists' className='booklists' style={{margin:20+'px'}}>
             {ownersButtons}
           </div>

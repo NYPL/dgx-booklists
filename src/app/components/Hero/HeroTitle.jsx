@@ -14,7 +14,7 @@ class HeroTitle extends React.Component {
           this.props.style
         ]}>
         <h3 key='HeroTitle'>{this.props.title}</h3>
-        <p key='HeroDes' className='hero__container__text-container__title__des'>{this.props.des}</p>
+        <p key='HeroName' className='hero__container__text-container__title__des'>{this.props.name}</p>
         <p key='HeroIntro' className='hero__container__text-container__title__intro'>{this.props.intro}</p>
       </div>
     );
