@@ -3,7 +3,6 @@ import React from 'react';
 
 // Import Router and it's navigation
 import Router from 'react-router';
-let Navigation = Router.Navigation;
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -13,6 +12,8 @@ import Actions from '../../actions/Actions.js';
 import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx'
+
+let Navigation = Router.Navigation;
 
 // Create the class. Use ES5 for react-router Navigation
 let Singlelist = React.createClass({
@@ -47,7 +48,6 @@ let Singlelist = React.createClass({
 
   // Render DOM
   render () {
-
     // Throw error message if anything's wrong
     if (this.state.errorMessage) {
       return (
@@ -56,12 +56,12 @@ let Singlelist = React.createClass({
     }
 
     // The variable to store the data from Store
-    let data = this.state.Data;
-    let dataArray = data['list-items']
-    let listName = data.attributes['list-name'];
-    let listIntro = data.attributes['list-description'];
-
-    console.log(this.state);
+    let data = this.state.Data,
+      dataArray = data['list-items'],
+      listName = data.attributes['list-name'],
+      listIntro = data.attributes['list-description'],
+      encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
+      items;
 
     // Throw message if there's no data found
     if (!dataArray.length) {
@@ -69,7 +69,6 @@ let Singlelist = React.createClass({
          <div>No book under this list</div>
       );
     } else {
-      let encoreUrl='http://nypl-encore-test.iii.com/iii/encore/record/C__Rb';
       // Parse the list of books if data is correctly delivered
       let items = dataArray.map((element, i) => {
         return(
@@ -82,9 +81,9 @@ let Singlelist = React.createClass({
                 {`${element.item.attributes.format} - ${element.item.attributes['publication-date']}`}
               </p>
               <SimpleButton id='singlelist__item__text-container__name'
-              className='singlelist__item__text-container__name'
-              label={element.item.attributes.title}
-              target={`${encoreUrl}${element.item.id}?lang=eng`} />
+                className='singlelist__item__text-container__name'
+                label={element.item.attributes.title}
+                target={`${encoreUrl}${element.item.id}?lang=eng`} />
               <p className='singlelist__item__text-container__author'>
                 {`By ${element.item.attributes.authors}`}
               </p>
@@ -101,13 +100,14 @@ let Singlelist = React.createClass({
           </div>
         );
       });
+
       // Render the list of owners on DOM
       return (
         <div id='main'>
           <Hero name={listName} intro={listIntro}/>
           <div className='back-button-container'>
             <a className='back-button-container__button'
-            onClick={this._goToLink.bind(this, this.state.Data.user.id)}>
+              onClick={this._goToLink.bind(this, this.state.Data.user.id)}>
               <p>back to</p>
               <p>{this.state.Data.user.attributes.name}</p>
               <p>lists</p>
@@ -116,9 +116,9 @@ let Singlelist = React.createClass({
           <div id='singlelist' className='singlelist'>
             <div className='singlelist__name'>
               <SimpleButton className='singlelist__name__button'
-              label={this.state.Data.user.attributes.name}
-              target=''
-              onClick={this._goToLink.bind(this, this.state.Data.user.id)} />
+                label={this.state.Data.user.attributes.name}
+                target=''
+                onClick={this._goToLink.bind(this, this.state.Data.user.id)} />
               {items}
             </div>
           </div>

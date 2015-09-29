@@ -1,9 +1,6 @@
 // Import React Libraries
 import React from 'react';
-
-// Import Router and it's navigation
 import Router from 'react-router';
-let Navigation = Router.Navigation;
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -12,6 +9,8 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
+
+let Navigation = Router.Navigation;
 
 // Create the class. Use ES5 for react-router Navigation
 let Booklists = React.createClass({
@@ -48,22 +47,22 @@ let Booklists = React.createClass({
   render () {
     console.log(Store.getState());
     // The variable to store the data from Store
-    let dataArray = this.state.Data;
-
-    // Render the data
-    let ownersButtons = (dataArray.length) ? 
-      dataArray.map((element, i) => {
-        return (
-          <div style={{margin:20+'px'}} key={i}>
-            <SimpleButton id={element.attributes.username}  
-            className={element.attributes.username}
-            label={element.attributes.name}
-            target=''
-            onClick={this._goToLink.bind(this, element.attributes.username)} />
-          </div>
-        );
-      // If there's no data, throw the no list message
-      }) : <div>No List Here</div>;
+    let dataArray = this.state.Data,
+      // Render the data
+      ownersButtons = (dataArray.length) ? 
+        dataArray.map((element, i) => {
+          return (
+            <div style={{margin:20+'px'}} key={i}>
+              <SimpleButton id={element.attributes.username}  
+              className={element.attributes.username}
+              label={element.attributes.name}
+              target=''
+              onClick={this._goToLink.bind(this, element.attributes.username)} />
+            </div>
+          );
+        })
+        // If there's no data, display the no list message
+        : <div>No List Here</div>;
 
     // Throw error message if anything's wrong
     if (this.state.errorMessage) {
@@ -74,7 +73,7 @@ let Booklists = React.createClass({
       return (
         <div id='main'>
           <Hero />
-          <div id='booklists' className='booklists' style={{margin:20+'px'}}>
+          <div id='booklists' className='booklists' style={styles.booklistsContainer}>
             {ownersButtons}
           </div>
         </div>
@@ -88,6 +87,9 @@ Booklists.defaultProps = {
 };
 
 const styles = {
+  booklistsContainer: {
+    margin: '20px'
+  }
 };
 
 export default Booklists;

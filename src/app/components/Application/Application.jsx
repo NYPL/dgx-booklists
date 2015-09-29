@@ -15,10 +15,9 @@ import Footer from '../Footer/Footer.jsx';
 
 
 // Set up the handler for route
-const RouteHandler = Router.RouteHandler;
-const Link = Router.Link;
+const RouteHandler = Router.RouteHandler,
+  Link = Router.Link;
 
-// Create the class
 class Application extends React.Component {
 
   // Constructor used in ES6
@@ -42,9 +41,6 @@ class Application extends React.Component {
 
 Application.defaultProps = {
   lang: 'en'
-};
-
-const styles = {
 };
 
 export default Application;

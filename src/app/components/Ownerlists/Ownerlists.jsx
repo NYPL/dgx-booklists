@@ -1,9 +1,6 @@
 // Import React Libraries
 import React from 'react';
-
-// Import Router and it's navigation
 import Router from 'react-router';
-let Navigation = Router.Navigation;
 
 import Moment from 'moment';
 
@@ -14,6 +11,8 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
+
+let Navigation = Router.Navigation;
 
 // Create the class. Use ES5 for react-router Navigation
 let Ownerlists = React.createClass({
@@ -57,9 +56,10 @@ let Ownerlists = React.createClass({
     }
 
     // The variable to store the data from Store
-    let dataArray = this.state.Data;
-    // The title of the page is the name of the owner
-    let ownerName = dataArray[0].user.attributes.name;
+    let dataArray = this.state.Data,
+      // The title of the page is the name of the owner
+      ownerName = dataArray[0].user.attributes.name,
+      lists;
 
     console.log(dataArray);
     // Throw message if there's no data found
@@ -69,22 +69,24 @@ let Ownerlists = React.createClass({
       );
     } else {   
       // Parse the list of books if data is correctly delivered
-      let lists = dataArray.map((element, i) => {
-        let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do');
-        let yearCreated = Moment(element.attributes['date-created']).format('YYYY');
+      lists = dataArray.map((element, i) => {
+        let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do'),
+          yearCreated = Moment(element.attributes['date-created']).format('YYYY');
+
         return(
           <div key={i} className='ownerlists__item-container'>
             <span className='ownerlists__item-divide'></span>
             <p className='ownerlists__item-index'>{`${i+1}.`}</p>
             <Item className='ownerlists__item'
-            name={element.attributes['list-name']}
-            target=''
-            sampleBookCovers={element['list-items']}
-            description={`${dateCreated}, ${yearCreated}`}
-            onClick={this._goToLink.bind(this, element.user.id, element.id)} />
+              name={element.attributes['list-name']}
+              target=''
+              sampleBookCovers={element['list-items']}
+              description={`${dateCreated}, ${yearCreated}`}
+              onClick={this._goToLink.bind(this, element.user.id, element.id)} />
           </div>
         );
       });
+
       // Render the list of owners on DOM
       return (
         <div id='main'>

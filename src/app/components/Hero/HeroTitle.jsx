@@ -21,7 +21,6 @@ class HeroTitle extends React.Component {
   }
 };
 
-const styles = {
-};
+const styles = {};
 
 export default Radium(HeroTitle);
