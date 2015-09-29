@@ -32,15 +32,14 @@ const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 // Boolean flag that determines if we are running
 // our application in Production Mode.
 // Assigning as let variables, since they are mutable
-let isProduction = process.env.NODE_ENV === 'production';
-let serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port);
-let refineryData;
-
-/* Express Server Configuration
- * ----------------------------
- * - Using .EJS as the view engine
-*/
-let app = express();
+let isProduction = process.env.NODE_ENV === 'production',
+  serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port),
+  refineryData,
+  /* Express Server Configuration
+   * ----------------------------
+   * - Using .EJS as the view engine
+  */
+  app = express();
 
 app.use(compression());
 
@@ -65,12 +64,15 @@ app.use((req, res) => {
   // bootstrap will stringify the data
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
-  let iso = new Iso();
+  let iso = new Iso(),
+    router = Router.create({
+      location: req.path,
+      routes: routes
+    });
 
-  let router = Router.create({location: req.path, routes: routes});
   router.run((Handler, state) => {
     // App is the component we are going to render. It is determined by route handler
-    var App = React.renderToString(React.createElement(Handler));
+    let App = React.renderToString(React.createElement(Handler));
     // Inject the stringified data in to App
     iso.add(App, alt.flush());
     // The data we render by iso and pass to index.ejs

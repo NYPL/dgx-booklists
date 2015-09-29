@@ -12,7 +12,7 @@ class Hero extends React.Component {
   // Constructor used in ES6
   constructor(props) {
     super(props);
-    this.state;
+    this.state = {};
   }
 
   render() {
