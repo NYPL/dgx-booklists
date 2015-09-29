@@ -11,6 +11,7 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
+import BasicButton from '../Buttons/BasicButton.jsx';
 
 let Navigation = Router.Navigation;
 
@@ -93,6 +94,9 @@ let Ownerlists = React.createClass({
           <Hero name={ownerName} />
           <div id='ownerlists' className='ownerlists'>
             {lists}
+          </div>
+          <div>
+            <BasicButton />
           </div>
         </div>
       );
