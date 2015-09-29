@@ -29,8 +29,8 @@ function BookListUsers(req, res, next) {
       next();
     })
     .catch(error => {
-      console.log('Error calling API : ' + error);
-      console.log('Attempted to call : ' + options.endpoint);
+      console.log('Error calling API BookListUsers: ' + error);
+      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
           Data: {}
@@ -59,8 +59,8 @@ function BookListUser(req, res, next) {
       next();
     })
     .catch(error => {
-      console.log('Error calling API : ' + error);
-      console.log('Attempted to call : ' + options.endpoint);
+      console.log('Error calling API BookListUser: ' + error.error);
+      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
           Data: {}
@@ -88,8 +88,8 @@ function ListID(req, res, next) {
       next();
     })
     .catch(error => {
-      console.log('Error calling API : ' + error);
-      console.log('Attempted to call : ' + options.endpoint);
+      console.log('Error calling API ListID: ' + error);
+      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
           Data: {}
@@ -116,7 +116,7 @@ function AjaxBookListUser(req, res, next) {
       });
     })
     .catch(error => {
-      console.log('Error calling API');
+      console.log('Error calling API: AjaxBookListUser');
       res.json({'error': 'error calling API'});
     }); /* end Axios call */
 }
@@ -137,7 +137,7 @@ function AjaxListID(req, res, next) {
       });
     })
     .catch(error => {
-      console.log('Error calling API');
+      console.log('Error calling API: AjaxListID');
       res.json({'error': 'error calling API'});
     }); /* end Axios call */
 }

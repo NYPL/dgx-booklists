@@ -1,6 +1,5 @@
 // Import React Libraries
 import React from 'react';
-import Router from 'react-router';
 
 import Moment from 'moment';
 
@@ -12,39 +11,29 @@ import Actions from '../../actions/Actions.js';
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
 
-let Navigation = Router.Navigation;
 
 // Create the class. Use ES5 for react-router Navigation
-let Ownerlists = React.createClass({
+class Ownerlists extends React.Component {
+  constructor(props) {
+    super(props);
 
-  mixins: [Navigation],
-
-  getInitialState() {
-    return Store.getState();
-  },
+    this.state = Store.getState();
+  }
 
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-  },
+  }
 
   // Stop listening
   componentWillUnmount() {
     Store.unlisten(this._onChange.bind(this));
-  },
+  }
 
   // Change the this.state here if find any different
   _onChange() {
     this.setState(Store.getState());
-  },
-
-  _goToLink(tag, id) {
-    console.log('go To Link');
-    this.transitionTo('singlelist', {
-      ownerlists: tag,
-      id: id
-    });
-  },
+  }
 
   // Render DOM
   render() {
@@ -82,7 +71,8 @@ let Ownerlists = React.createClass({
               target=''
               sampleBookCovers={element['list-items']}
               description={`${dateCreated}, ${yearCreated}`}
-              onClick={this._goToLink.bind(this, element.user.id, element.id)} />
+              username={element.user.id}
+              userid={element.id} />
           </div>
         );
       });
@@ -98,7 +88,7 @@ let Ownerlists = React.createClass({
       );
     }
   }
-});
+};
 
 Ownerlists.defaultProps = {
   lang: 'en'

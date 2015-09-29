@@ -1,15 +1,20 @@
 // Import React Libraries
 import React from 'react';
+import Router from 'react-router';
+
 // Import Components
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx'
 
-class Item extends React.Component {
+let Navigation = Router.Navigation;
 
-  // Constructor used in ES6
-  constructor(props) {
-    super(props);
-  }
+let Item = React.createClass({
+
+  mixins: [Navigation],
+
+  getInitialState() {
+    return {};
+  },
 
   render () {
     // Only need the covers from the first 4 books
@@ -26,7 +31,7 @@ class Item extends React.Component {
       });
 
     return (
-      <div className={this.props.className} onClick={this.props.onClick}>
+      <div className={this.props.className}>
         <div className={`${this.props.className}__image-container`} style={{textAlign:'left'}}>
           {bookCovers}
         </div>
@@ -34,13 +39,23 @@ class Item extends React.Component {
           <SimpleButton id={this.props.name}
             className={`${this.props.className}__text-container__name`}
             label={this.props.name}
-            target={this.props.target} />
+            target={this.props.target}
+            onClick={this._goToLink} />
           <p>{this.props.description}</p>
         </div>
       </div>
     );
+  },
+
+  _goToLink(e) {
+    e.preventDefault();
+    console.log('go to booklist: ' + this.props.username + ' ' + this.props.userid);
+    // this.transitionTo('singlelist', {
+    //   ownerlists: this.props.username,
+    //   id: this.props.userid
+    // });
   }
-};
+});
 
 Item.defaultProps = {
   lang: 'en'

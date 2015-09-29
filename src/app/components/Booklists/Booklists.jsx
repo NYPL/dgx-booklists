@@ -36,11 +36,12 @@ let Booklists = React.createClass({
     this.setState(Store.getState());
   },
 
-  _goToLink(tag) {
-    console.log('go To Link');
-    this.transitionTo('ownerlists', {
-      ownerlists: tag
-    });
+  _goToLink(e, username) {
+    e.preventDefault();
+    console.log('go to username ' + username);
+    // this.transitionTo('ownerlists', {
+    //   ownerlists: username
+    // });
   },
 
   // Render DOM
@@ -53,11 +54,12 @@ let Booklists = React.createClass({
         dataArray.map((element, i) => {
           return (
             <div style={{margin:20+'px'}} key={i}>
-              <SimpleButton id={element.attributes.username}  
-              className={element.attributes.username}
-              label={element.attributes.name}
-              target=''
-              onClick={this._goToLink.bind(this, element.attributes.username)} />
+              <a id={element.attributes.username}  
+                className={element.attributes.username}
+                target=''
+                onClick={this._goToLink.bind(this, event, element.attributes.username)}>
+                  {element.attributes.name}
+              </a>
             </div>
           );
         })

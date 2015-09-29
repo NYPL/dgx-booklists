@@ -12,8 +12,8 @@ import Singlelist from '../components/Singlelist/Singlelist.jsx';
 const routes = (
   <Route name='root' handler={Application} ignoreScrollBehavior>
 	  <Route name='booklists' path='/' handler={Booklists} ignoreScrollBehavior />
-    <Route name='ownerlists' path='/:ownerlists' handler={Ownerlists} ignoreScrollBehavior />
-    <Route name='singlelist' path='/:ownerlists/:id' handler={Singlelist} ignoreScrollBehavior />
+    <Route name='ownerlists' path='/:ownerlists?/?' handler={Ownerlists} ignoreScrollBehavior />
+    <Route name='singlelist' path='/:ownerlists/:id?/?' handler={Singlelist} ignoreScrollBehavior />
   </Route>
 );
 

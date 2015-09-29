@@ -3,18 +3,25 @@ import Actions from '../actions/Actions.js';
 
 class Store {
   constructor(){
-    this.Data = [];
+    this.allUsersList = [];
+    this.userLists = [];
+    this.bookList = [];
     this.errorMessage = null;
 
     this.bindListeners({
-      handleUpdateData: Actions.UPDATE_DATA,
+      handleUpdateUserLists: Actions.UPDATE_USER_LISTS,
+      handleUpdateBookList: Actions.UPDATE_BOOK_LIST,
       handleFetchData: Actions.FETCH_DATA,
       handleDataFailedFetch: Actions.FAILED_DATA
     });
   }
 
-  handleUpdateData(data) {
-    this.Data = data;
+  handleUpdateUserLists(data) {
+    this.userLists = data;
+  }
+
+  handleUpdateBookList(data) {
+    this.bookList = data;
   }
 
   handleFetchData() {

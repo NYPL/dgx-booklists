@@ -60,23 +60,24 @@ app.use(express.static(DIST_PATH));
 app.use('/', ApiRoutes);
 
 // Match all routes to render the index page.
-app.use((req, res) => {
+app.use((req, res) => {  
+  let router = Router.create({
+      routes: routes,
+      location: req.path
+    }),
+    iso;
+
   // bootstrap will stringify the data
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
-
-  let iso = new Iso(),
-    router = Router.create({
-      location: req.path,
-      routes: routes
-    });
+  iso = new Iso();
 
   router.run((Handler, state) => {
     // App is the component we are going to render. It is determined by route handler
-    let App = React.renderToString(React.createElement(Handler));
+    let App = React.renderToString(<Handler />);
     // Inject the stringified data in to App
     iso.add(App, alt.flush());
     // The data we render by iso and pass to index.ejs
-    return res.render('index', {
+    res.render('index', {
       App: iso.render(), 
       appTitle: appConfig.appName, 
       favicon: appConfig.favIconPath,
