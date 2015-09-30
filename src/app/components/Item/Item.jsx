@@ -42,7 +42,7 @@ let Item = React.createClass({
             className={`${this.props.className}__text-container__name`}
             label={this.props.name}
             target={this.props.target}
-            onClick={this._goToLink} />
+            onClick={this._fetchBookData} />
           <p>{this.props.description}</p>
         </div>
       </div>
@@ -51,7 +51,7 @@ let Item = React.createClass({
 
   // Passing the transition function here so that we can execute an
   // event.preventDefault() call here.
-  _goToLink(e) {
+  _fetchBookData(e) {
     e.preventDefault();
     console.log('go to booklist: ' + this.props.userId + ' ' + this.props.listId);
 
@@ -66,11 +66,16 @@ let Item = React.createClass({
         Actions.updateBookList(data.data);
 
         // Transition to the new route.
-        this.transitionTo('singlelist', {
-          ownerlists: this.props.userId,
-          id: this.props.listId
-        });
+        _transitionTo(this.props.userId, this.props.listId);
       }
+    });
+  },
+
+  _transitionTo(userId, listId) {
+    // Transition to the new route.
+    this.transitionTo('singlelist', {
+      ownerlists: userId,
+      id: listId
     });
   }
 });
