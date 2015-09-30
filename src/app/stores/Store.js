@@ -17,7 +17,7 @@ class Store {
     this.on('init', () => {
       this.allUsersList = [];
       this.userLists = [];
-      this.bookList = {};
+      this.bookItemList = {};
       this.errorMessage = null;
     });
   }
@@ -31,7 +31,7 @@ class Store {
   }
 
   handleUpdateBookList(data) {
-    this.bookList = data;
+    this.bookItemList = data;
   }
 
   handleDataFailedFetch(errorMessage) {

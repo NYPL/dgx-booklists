@@ -82,7 +82,7 @@ function ListID(req, res, next) {
 
       res.locals.data = {
         Store: {
-          bookList: parsed
+          bookItemList: parsed
         }
       };
       next();
@@ -92,7 +92,7 @@ function ListID(req, res, next) {
       console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          bookList: {}
+          bookItemList: {}
         }
       };
       next();

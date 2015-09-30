@@ -44,12 +44,12 @@ let Singlelist = React.createClass({
     }
 
     // The variable to store the data from Store
-    let bookList = this.state.bookList,
-      userId = bookList.user.id,
-      userDisplayName = bookList.user.attributes.name,
-      listItems = bookList['list-items'],
-      listName = bookList.attributes['list-name'],
-      listIntro = bookList.attributes['list-description'],
+    let bookItemList = this.state.bookItemList,
+      userId = bookItemList.user.id,
+      userDisplayName = bookItemList.user.attributes.name,
+      listItems = bookItemList['list-items'],
+      listName = bookItemList.attributes['list-name'],
+      listIntro = bookItemList.attributes['list-description'],
       encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
       items;
 
