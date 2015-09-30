@@ -1,11 +1,6 @@
 import alt from '../alt.js';
 
 class Actions {
-
-  fetchData() {
-    let self = this;
-  }
-
   updateAllUsersList(data) {
     this.dispatch(data);
   }
