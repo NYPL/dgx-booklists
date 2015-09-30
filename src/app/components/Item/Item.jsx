@@ -1,17 +1,24 @@
 // Import React Libraries
 import React from 'react';
+import Router from 'react-router';
+
 // Import Components
 import SimpleButton from '../Buttons/SimpleButton.jsx';
-import BookCover from '../BookCover/BookCover.jsx'
+import BookCover from '../BookCover/BookCover.jsx';
 
-class Item extends React.Component {
+import Actions from '../../actions/Actions.js';
 
-  // Constructor used in ES6
-  constructor(props) {
-    super(props);
-  }
+const Navigation = Router.Navigation;
 
-  render () {
+let Item = React.createClass({
+
+  mixins: [Navigation],
+
+  getInitialState() {
+    return {};
+  },
+
+  render() {
     // Only need the covers from the first 4 books
     let bookCoverArray = this.props.sampleBookCovers.slice(0, 4),
       // Parse the list of book covers if data is correctly delivered
@@ -26,7 +33,7 @@ class Item extends React.Component {
       });
 
     return (
-      <div className={this.props.className} onClick={this.props.onClick}>
+      <div className={this.props.className}>
         <div className={`${this.props.className}__image-container`} style={{textAlign:'left'}}>
           {bookCovers}
         </div>
@@ -34,13 +41,44 @@ class Item extends React.Component {
           <SimpleButton id={this.props.name}
             className={`${this.props.className}__text-container__name`}
             label={this.props.name}
-            target={this.props.target} />
+            target={this.props.target}
+            onClick={this._fetchBookData} />
           <p>{this.props.description}</p>
         </div>
       </div>
     );
+  },
+
+  // Passing the transition function here so that we can execute an
+  // event.preventDefault() call here.
+  _fetchBookData(e) {
+    e.preventDefault();
+    console.log('go to booklist: ' + this.props.userId + ' ' + this.props.listId);
+
+    // First call and get the data and then transition to the route.
+    // Errors need to be handled.
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: `/api/ajax/listID/${this.props.listId}`,
+      success: data => {
+        // Update the Store for a specific list of books:
+        Actions.updateBookList(data.data);
+
+        // Transition to the new route.
+        this._transitionTo(this.props.userId, this.props.listId);
+      }
+    });
+  },
+
+  _transitionTo(userId, listId) {
+    // Transition to the new route.
+    this.transitionTo('singlelist', {
+      ownerlists: userId,
+      id: listId
+    });
   }
-};
+});
 
 Item.defaultProps = {
   lang: 'en'
