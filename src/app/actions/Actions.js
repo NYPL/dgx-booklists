@@ -19,15 +19,15 @@ class Actions {
     // to fetch data
   }
 
+  updateAllUsersList(data) {
+    this.dispatch(data);
+  }
+
   updateUserLists(data) {
     this.dispatch(data);
   }
 
   updateBookList(data) {
-    this.dispatch(data);
-  }
-
-  updateData(data) {
     this.dispatch(data);
   }
 

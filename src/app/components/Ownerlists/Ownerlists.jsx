@@ -45,7 +45,7 @@ class Ownerlists extends React.Component {
     }
 
     // The variable to store the data from Store
-    let dataArray = this.state.Data,
+    let dataArray = this.state.userLists,
       // The title of the page is the name of the owner
       ownerName = dataArray[0].user.attributes.name,
       lists;

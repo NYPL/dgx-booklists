@@ -5,15 +5,19 @@ class Store {
   constructor(){
     this.allUsersList = [];
     this.userLists = [];
-    this.bookList = [];
+    this.bookList = {};
     this.errorMessage = null;
 
     this.bindListeners({
+      handleUpdateAllUsersList: Actions.UPDATE_ALL_USERS_LIST,
       handleUpdateUserLists: Actions.UPDATE_USER_LISTS,
       handleUpdateBookList: Actions.UPDATE_BOOK_LIST,
-      handleFetchData: Actions.FETCH_DATA,
       handleDataFailedFetch: Actions.FAILED_DATA
     });
+  }
+
+  handleUpdateAllUsersList(data) {
+    this.allUsersList = data;
   }
 
   handleUpdateUserLists(data) {
@@ -22,10 +26,6 @@ class Store {
 
   handleUpdateBookList(data) {
     this.bookList = data;
-  }
-
-  handleFetchData() {
-    this.Data = [];
   }
 
   handleDataFailedFetch(errorMessage) {

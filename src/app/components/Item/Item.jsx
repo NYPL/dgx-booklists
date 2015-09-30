@@ -4,7 +4,9 @@ import Router from 'react-router';
 
 // Import Components
 import SimpleButton from '../Buttons/SimpleButton.jsx';
-import BookCover from '../BookCover/BookCover.jsx'
+import BookCover from '../BookCover/BookCover.jsx';
+
+import Actions from '../../actions/Actions.js';
 
 let Navigation = Router.Navigation;
 
@@ -50,10 +52,21 @@ let Item = React.createClass({
   _goToLink(e) {
     e.preventDefault();
     console.log('go to booklist: ' + this.props.username + ' ' + this.props.userid);
-    // this.transitionTo('singlelist', {
-    //   ownerlists: this.props.username,
-    //   id: this.props.userid
-    // });
+
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: `/api/ajax/listID/${this.props.userid}`,
+      success: data => {
+        console.log(data);
+
+        Actions.updateBookList(data.data);
+        this.transitionTo('singlelist', {
+          ownerlists: this.props.username,
+          id: this.props.userid
+        });
+      }
+    });
   }
 });
 

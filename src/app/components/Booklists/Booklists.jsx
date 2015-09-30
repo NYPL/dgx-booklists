@@ -36,19 +36,28 @@ let Booklists = React.createClass({
     this.setState(Store.getState());
   },
 
-  _goToLink(e, username) {
-    e.preventDefault();
+  _goToLink(username) {
     console.log('go to username ' + username);
-    // this.transitionTo('ownerlists', {
-    //   ownerlists: username
-    // });
+
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: `/api/ajax/username/${username}`,
+      success: data => {
+        console.log(data);
+
+        Actions.updateUserLists(data.data);
+        this.transitionTo('ownerlists', {
+          ownerlists: username
+        });
+      }
+    });
   },
 
   // Render DOM
   render () {
-    console.log(Store.getState());
     // The variable to store the data from Store
-    let dataArray = this.state.Data,
+    let dataArray = this.state.allUsersList,
       // Render the data
       ownersButtons = (dataArray.length) ? 
         dataArray.map((element, i) => {
@@ -56,8 +65,7 @@ let Booklists = React.createClass({
             <div style={{margin:20+'px'}} key={i}>
               <a id={element.attributes.username}  
                 className={element.attributes.username}
-                target=''
-                onClick={this._goToLink.bind(this, event, element.attributes.username)}>
+                onClick={this._goToLink.bind(this, element.attributes.username)}>
                   {element.attributes.name}
               </a>
             </div>

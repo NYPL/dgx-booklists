@@ -54,9 +54,9 @@ let Singlelist = React.createClass({
         <div>Something is wrong</div>
       );
     }
-
+console.log(this.state);
     // The variable to store the data from Store
-    let data = this.state.Data,
+    let data = this.state.bookList,
       dataArray = data['list-items'],
       listName = data.attributes['list-name'],
       listIntro = data.attributes['list-description'],
@@ -107,18 +107,19 @@ let Singlelist = React.createClass({
           <Hero name={listName} intro={listIntro}/>
           <div className='back-button-container'>
             <a className='back-button-container__button'
-              onClick={this._goToLink.bind(this, this.state.Data.user.id)}>
+              onClick={this._goToLink.bind(this, this.state.bookList.user.id)}>
               <p>back to</p>
-              <p>{this.state.Data.user.attributes.name}</p>
+              <p>{this.state.bookList.user.attributes.name}</p>
               <p>lists</p>
             </a>
           </div>
           <div id='singlelist' className='singlelist'>
             <div className='singlelist__name'>
-              <SimpleButton className='singlelist__name__button'
-                label={this.state.Data.user.attributes.name}
-                target=''
-                onClick={this._goToLink.bind(this, this.state.Data.user.id)} />
+              <a className='singlelist__name__button'
+                onClick={this._goToLink.bind(this, this.state.bookList.user.id)}>
+                {this.state.bookList.user.attributes.name}
+              </a>
+
               {items}
             </div>
           </div>

@@ -22,7 +22,7 @@ function BookListUsers(req, res, next) {
 
       res.locals.data = {
         Store: {
-          Data: parsed
+          allUsersList: parsed
         }
       };
 
@@ -33,7 +33,7 @@ function BookListUsers(req, res, next) {
       console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          Data: {}
+          allUsersList: []
         }
       };
       next();
@@ -53,7 +53,7 @@ function BookListUser(req, res, next) {
 
       res.locals.data = {
         Store: {
-          Data: parsed
+          userLists: parsed
         }
       };
       next();
@@ -63,7 +63,7 @@ function BookListUser(req, res, next) {
       console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          Data: {}
+          userLists: []
         }
       };
       next();
@@ -82,7 +82,7 @@ function ListID(req, res, next) {
 
       res.locals.data = {
         Store: {
-          Data: parsed
+          bookList: parsed
         }
       };
       next();
@@ -92,7 +92,7 @@ function ListID(req, res, next) {
       console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          Data: {}
+          bookList: {}
         }
       };
       next();
