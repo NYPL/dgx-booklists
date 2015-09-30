@@ -66,7 +66,7 @@ let Item = React.createClass({
         Actions.updateBookList(data.data);
 
         // Transition to the new route.
-        _transitionTo(this.props.userId, this.props.listId);
+        this._transitionTo(this.props.userId, this.props.listId);
       }
     });
   },
