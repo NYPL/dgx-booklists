@@ -31,41 +31,18 @@ let Booklists = React.createClass({
     Store.unlisten(this._onChange.bind(this));
   },
 
-  // Change the this.state here if find any different
-  _onChange() {
-    this.setState(Store.getState());
-  },
-
-  _goToLink(username) {
-    console.log('go to username ' + username);
-
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      url: `/api/ajax/username/${username}`,
-      success: data => {
-        console.log(data);
-
-        Actions.updateUserLists(data.data);
-        this.transitionTo('ownerlists', {
-          ownerlists: username
-        });
-      }
-    });
-  },
-
   // Render DOM
-  render () {
+  render() {
     // The variable to store the data from Store
-    let dataArray = this.state.allUsersList,
+    let allUsersList = this.state.allUsersList,
       // Render the data
-      ownersButtons = (dataArray.length) ? 
-        dataArray.map((element, i) => {
+      userLinks = (allUsersList && allUsersList.length) ? 
+        allUsersList.map((element, i) => {
           return (
-            <div style={{margin:20+'px'}} key={i}>
+            <div style={styles.userLinks} key={i}>
               <a id={element.attributes.username}  
                 className={element.attributes.username}
-                onClick={this._goToLink.bind(this, element.attributes.username)}>
+                onClick={this._fetchUserLists.bind(this, element.attributes.username)}>
                   {element.attributes.name}
               </a>
             </div>
@@ -84,12 +61,45 @@ let Booklists = React.createClass({
         <div id='main'>
           <Hero />
           <div id='booklists' className='booklists' style={styles.booklistsContainer}>
-            {ownersButtons}
+            {userLinks}
           </div>
         </div>
       );
     }
+  },
+
+  // Change the this.state here if find any different
+  _onChange() {
+    this.setState(Store.getState());
+  },
+
+  _fetchUserLists(username) {
+    if (!username) {
+      return;
+    }
+
+    // First fetch the data and then transition. Must also handle errors.
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: `/api/ajax/username/${username}`,
+      success: data => {
+        // Update the store for the list of lists a user has.
+        Actions.updateUserLists(data.data);
+
+        // Now transitition to the route.
+        this._transitionTo(username);
+      }
+    });
+  },
+
+  _transitionTo(username) {
+    // Now transitition to the route.
+    this.transitionTo('ownerlists', {
+      ownerlists: username
+    });
   }
+
 });
 
 Booklists.defaultProps = {
@@ -98,6 +108,9 @@ Booklists.defaultProps = {
 
 const styles = {
   booklistsContainer: {
+    margin: '20px'
+  },
+  userLinks: {
     margin: '20px'
   }
 };

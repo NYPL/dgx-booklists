@@ -74,8 +74,10 @@ app.use((req, res) => {
   router.run((Handler, state) => {
     // App is the component we are going to render. It is determined by route handler
     let App = React.renderToString(<Handler />);
+
     // Inject the stringified data in to App
     iso.add(App, alt.flush());
+
     // The data we render by iso and pass to index.ejs
     res.render('index', {
       App: iso.render(), 

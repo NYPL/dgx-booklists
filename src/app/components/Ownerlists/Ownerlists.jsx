@@ -1,16 +1,16 @@
 // Import React Libraries
 import React from 'react';
 
-import Moment from 'moment';
-
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
+// Misc
+import Moment from 'moment';
+
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
-
 
 // Create the class. Use ES5 for react-router Navigation
 class Ownerlists extends React.Component {
@@ -30,11 +30,6 @@ class Ownerlists extends React.Component {
     Store.unlisten(this._onChange.bind(this));
   }
 
-  // Change the this.state here if find any different
-  _onChange() {
-    this.setState(Store.getState());
-  }
-
   // Render DOM
   render() {
     // Throw error message if anything's wrong
@@ -45,34 +40,35 @@ class Ownerlists extends React.Component {
     }
 
     // The variable to store the data from Store
-    let dataArray = this.state.userLists,
-      // The title of the page is the name of the owner
-      ownerName = dataArray[0].user.attributes.name,
+    let userLists = this.state.userLists,
+      // The title of the page is the name of the owner.
+      // Every object has the same `user` object so we can fetch the first one:
+      username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
       lists;
 
-    console.log(dataArray);
     // Throw message if there's no data found
-    if (!dataArray.length) {
+    if (!userLists.length) {
       return (
          <div>No list under this owner</div>
       );
     } else {   
       // Parse the list of books if data is correctly delivered
-      lists = dataArray.map((element, i) => {
+      lists = userLists.map((element, i) => {
         let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do'),
-          yearCreated = Moment(element.attributes['date-created']).format('YYYY');
+          yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
+          counter = `${i+1}.`;
 
         return(
           <div key={i} className='ownerlists__item-container'>
             <span className='ownerlists__item-divide'></span>
-            <p className='ownerlists__item-index'>{`${i+1}.`}</p>
+            <p className='ownerlists__item-index'>{counter}</p>
             <Item className='ownerlists__item'
               name={element.attributes['list-name']}
               target=''
               sampleBookCovers={element['list-items']}
               description={`${dateCreated}, ${yearCreated}`}
-              username={element.user.id}
-              userid={element.id} />
+              userId={element.user.id}
+              listId={element.id} />
           </div>
         );
       });
@@ -80,13 +76,18 @@ class Ownerlists extends React.Component {
       // Render the list of owners on DOM
       return (
         <div id='main'>
-          <Hero name={ownerName} />
+          <Hero name={username} />
           <div id='ownerlists' className='ownerlists'>
             {lists}
           </div>
         </div>
       );
     }
+  }
+
+  // Change the this.state here if find any different
+  _onChange() {
+    this.setState(Store.getState());
   }
 };
 

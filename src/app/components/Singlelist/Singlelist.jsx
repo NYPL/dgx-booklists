@@ -34,56 +34,49 @@ let Singlelist = React.createClass({
     Store.unlisten(this._onChange.bind(this));
   },
 
-  // Change the this.state here if find any different
-  _onChange() {
-    this.setState(Store.getState());
-  },
-
-  _goToLink(tag) {
-    console.log('go To Link');
-    this.transitionTo('ownerlists', {
-      ownerlists: tag
-    });
-  },
-
   // Render DOM
-  render () {
+  render() {
     // Throw error message if anything's wrong
     if (this.state.errorMessage) {
       return (
         <div>Something is wrong</div>
       );
     }
-console.log(this.state);
+
     // The variable to store the data from Store
-    let data = this.state.bookList,
-      dataArray = data['list-items'],
-      listName = data.attributes['list-name'],
-      listIntro = data.attributes['list-description'],
+    let bookList = this.state.bookList,
+      userId = bookList.user.id,
+      userDisplayName = bookList.user.attributes.name,
+      listItems = bookList['list-items'],
+      listName = bookList.attributes['list-name'],
+      listIntro = bookList.attributes['list-description'],
       encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
       items;
 
     // Throw message if there's no data found
-    if (!dataArray.length) {
+    if (!listItems.length) {
       return (
-         <div>No book under this list</div>
+        <div>No book under this list</div>
       );
     } else {
       // Parse the list of books if data is correctly delivered
-      let items = dataArray.map((element, i) => {
+      items = listItems.map((element, i) => {
+        let target = `${encoreUrl}${element.item.id}?lang=eng`,
+          publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`;
+
         return(
           <div className='singlelist__item' key={i}>
-            <a className='singlelist__item__image-container' href={`${encoreUrl}${element.item.id}?lang=eng`}>
+            <a className='singlelist__item__image-container' href={target}>
               <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
             </a>
             <div className='singlelist__item__text-container'>
               <p className='singlelist__item__text-container__catalog'>
-                {`${element.item.attributes.format} - ${element.item.attributes['publication-date']}`}
+                {publishedDate}
               </p>
               <SimpleButton id='singlelist__item__text-container__name'
                 className='singlelist__item__text-container__name'
                 label={element.item.attributes.title}
-                target={`${encoreUrl}${element.item.id}?lang=eng`} />
+                target={target} />
               <p className='singlelist__item__text-container__author'>
                 {`By ${element.item.attributes.authors}`}
               </p>
@@ -95,7 +88,7 @@ console.log(this.state);
               <SimpleButton id='check-available'
                 className='singlelist__item__checkout__button'
                 label='Check Available'
-                target={`${encoreUrl}${element.item.id}?lang=eng`} />
+                target={target} />
             </div>
           </div>
         );
@@ -107,25 +100,56 @@ console.log(this.state);
           <Hero name={listName} intro={listIntro}/>
           <div className='back-button-container'>
             <a className='back-button-container__button'
-              onClick={this._goToLink.bind(this, this.state.bookList.user.id)}>
+              onClick={this._transitionToUser.bind(this, userId)}>
               <p>back to</p>
-              <p>{this.state.bookList.user.attributes.name}</p>
+              <p>{userDisplayName}</p>
               <p>lists</p>
             </a>
           </div>
           <div id='singlelist' className='singlelist'>
             <div className='singlelist__name'>
               <a className='singlelist__name__button'
-                onClick={this._goToLink.bind(this, this.state.bookList.user.id)}>
-                {this.state.bookList.user.attributes.name}
+                onClick={this._transitionToUser.bind(this, userId)}>
+                {userDisplayName}
               </a>
-
               {items}
             </div>
           </div>
         </div>
       );
     }
+  },
+
+  // Change the this.state here if find any different
+  _onChange() {
+    this.setState(Store.getState());
+  },
+
+  _transitionToUser(userId) {
+    if (!Store.getUserLists()) {
+      // First fetch the data and then transition. Must also handle errors.
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: `/api/ajax/username/${userId}`,
+        success: data => {
+          // Update the store for the list of lists a user has.
+          Actions.updateUserLists(data.data);
+
+          // Now transitition to the route.
+          this._transitionTo(userId);
+        }
+      });
+    } else {
+      this._transitionTo(userId);
+    }
+  },
+
+  _transitionTo(userId) {
+    // Now transitition to the route.
+    this.transitionTo('ownerlists', {
+      ownerlists: userId
+    });
   }
 });
 

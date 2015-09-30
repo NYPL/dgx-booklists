@@ -3,16 +3,22 @@ import Actions from '../actions/Actions.js';
 
 class Store {
   constructor(){
-    this.allUsersList = [];
-    this.userLists = [];
-    this.bookList = {};
-    this.errorMessage = null;
-
     this.bindListeners({
       handleUpdateAllUsersList: Actions.UPDATE_ALL_USERS_LIST,
       handleUpdateUserLists: Actions.UPDATE_USER_LISTS,
       handleUpdateBookList: Actions.UPDATE_BOOK_LIST,
       handleDataFailedFetch: Actions.FAILED_DATA
+    });
+
+    this.exportPublicMethods({
+      getUserLists: this.getUserLists
+    });
+
+    this.on('init', () => {
+      this.allUsersList = [];
+      this.userLists = [];
+      this.bookList = {};
+      this.errorMessage = null;
     });
   }
 
@@ -30,6 +36,11 @@ class Store {
 
   handleDataFailedFetch(errorMessage) {
     this.errorMessage =  errorMessage;
+  }
+
+  // Remember to use this.state when returning exposing store data.
+  getUserLists() {
+    return this.state.userLists;
   }
 }
 

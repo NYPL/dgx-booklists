@@ -8,7 +8,7 @@ import BookCover from '../BookCover/BookCover.jsx';
 
 import Actions from '../../actions/Actions.js';
 
-let Navigation = Router.Navigation;
+const Navigation = Router.Navigation;
 
 let Item = React.createClass({
 
@@ -18,7 +18,7 @@ let Item = React.createClass({
     return {};
   },
 
-  render () {
+  render() {
     // Only need the covers from the first 4 books
     let bookCoverArray = this.props.sampleBookCovers.slice(0, 4),
       // Parse the list of book covers if data is correctly delivered
@@ -49,21 +49,26 @@ let Item = React.createClass({
     );
   },
 
+  // Passing the transition function here so that we can execute an
+  // event.preventDefault() call here.
   _goToLink(e) {
     e.preventDefault();
-    console.log('go to booklist: ' + this.props.username + ' ' + this.props.userid);
+    console.log('go to booklist: ' + this.props.userId + ' ' + this.props.listId);
 
+    // First call and get the data and then transition to the route.
+    // Errors need to be handled.
     $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: `/api/ajax/listID/${this.props.userid}`,
+      url: `/api/ajax/listID/${this.props.listId}`,
       success: data => {
-        console.log(data);
-
+        // Update the Store for a specific list of books:
         Actions.updateBookList(data.data);
+
+        // Transition to the new route.
         this.transitionTo('singlelist', {
-          ownerlists: this.props.username,
-          id: this.props.userid
+          ownerlists: this.props.userId,
+          id: this.props.listId
         });
       }
     });
