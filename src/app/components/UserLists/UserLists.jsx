@@ -7,7 +7,6 @@ import Actions from '../../actions/Actions.js';
 
 // Misc
 import Moment from 'moment';
-import _ from 'underscore';
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
@@ -22,8 +21,7 @@ class UserLists extends React.Component {
     this.state = {
       data: Store.getState().userLists,
       pageSize: 5,
-      pageNumber: 2,
-      listsNumber: Store.getState().listsNumber
+      pageNumber: 2
     }
   }
 
@@ -39,26 +37,26 @@ class UserLists extends React.Component {
 
   // Render DOM
   render() {
-    // Throw error message if anything's wrong
+    // Throw error message if anything's wrong from Store
     if (Store.getState().errorMessage) {
       return (
         <div>Something is wrong</div>
       );
     }
 
-    // The variable to store the data from Store
+    // The variable of the array of UserLists
     let userLists = this.state.data,
       // The title of the page is the name of the owner.
       // Every object has the same `user` object so we can fetch the first one:
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
       userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
       lists,
-      pageLeft = this.state.listsNumber - (this.state.pageSize * (this.state.pageNumber-1));
+      pageLeft = this.state.data.listsNumber - (this.state.pageSize * (this.state.pageNumber-1));
 
       // console.log(userLists);
 
     // Throw message if there's no data found
-    if (!userLists.length) {
+    if (!userLists) {
       return (
          <div>No list under this owner</div>
       );
@@ -95,7 +93,7 @@ class UserLists extends React.Component {
           <div>
             <BasicButton
             label={`${pageLeft}...lists left`}
-            onClick={this._addItems.bind(this, userUrlId, this.state.pageSize, this.state.pageNumber)} />
+            onClick={this._addItems.bind(this, userUrlId, this.state.pageSize, this.state.pageNumber, userLists)} />
           </div>
         </div>
       );
@@ -109,22 +107,20 @@ class UserLists extends React.Component {
 
   /**
   * _addItems()
-  * Add five items more every time hitting the button
+  * Add five more items every time hitting the pagination button
   *
   */
-  _addItems(userUrlId, pageSize, pageNumber) {
+  _addItems(userUrlId, pageSize, pageNumber, originalData) {
      $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: `/api/ajax/username/${userUrlId}/${pageSize}/${pageNumber}`,
+      url: `/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`,
       success: data => {
-        // Update the store for the list of lists a user has.
-        // Actions.updateUserLists(data.data);
-        // _.extend(this.state.data, data.data);
-        this.state.data = this.state.data.concat(data.data);
-        console.log(this.state.data);
-
-        // move to the next page if click the button again
+        // Update the store. Add five more items each time clicking pagination button
+        originalData = originalData.concat(data.data);
+        // Update the state after adding five more items to Store
+        this.setState({data: originalData});
+        // Move to the next page if click the button again
         pageNumber++;
         this.setState({pageNumber: pageNumber});
       }

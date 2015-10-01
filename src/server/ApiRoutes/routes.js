@@ -202,7 +202,7 @@ router
   .get(ListID);
 
 router
-  .route('/api/ajax/username/:username/:pageSize/:pageNumber')
+  .route('/api/ajax/username/:username&:pageSize&:pageNumber')
   .get(AjaxBookListUser);
 
 router
