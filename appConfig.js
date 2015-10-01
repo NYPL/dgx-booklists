@@ -9,7 +9,8 @@ const config = {
     baseEndpoint: '/api/nypl/ndo/v0.1/book-lists',
     bookListUserEndpoint: '/book-list-users',
     fields: '',
-    pageSize: '&page[size]=4',
+    // default setting is loading five items at first
+    pageSize: '&page[size]=5',
     pageNumber: '&page[number]=1',
     includes: '?include=list-items.item,user'
   }

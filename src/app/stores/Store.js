@@ -18,6 +18,7 @@ class Store {
       this.allUsersList = [];
       this.userLists = [];
       this.bookItemList = {};
+      this.listsNumber = 0;
       this.errorMessage = null;
     });
   }

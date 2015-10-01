@@ -13,7 +13,7 @@ import SimpleButton from '../Buttons/SimpleButton.jsx';
 let Navigation = Router.Navigation;
 
 // Create the class. Use ES5 for react-router Navigation
-let Booklists = React.createClass({
+let AllUsersList = React.createClass({
 
   mixins: [Navigation],
 
@@ -42,7 +42,7 @@ let Booklists = React.createClass({
             <div style={styles.userLinks} key={i}>
               <a id={element.attributes.username}  
                 className={element.attributes.username}
-                onClick={this._fetchUserLists.bind(this, element.attributes.username)}>
+                onClick={this._fetchUserLists.bind(this, element.attributes.username, 5, 1)}>
                   {element.attributes.name}
               </a>
             </div>
@@ -73,16 +73,22 @@ let Booklists = React.createClass({
     this.setState(Store.getState());
   },
 
-  _fetchUserLists(username) {
+  /**
+  * _fetchUserLists(username)
+  * Fetch the data we need for UserLists
+  * before the app transit us to UserLists page
+  *
+  * @param (String) username
+  */
+  _fetchUserLists(username, pageSize, pageNumber) {
     if (!username) {
       return;
     }
-
     // First fetch the data and then transition. Must also handle errors.
     $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: `/api/ajax/username/${username}`,
+      url: `/api/ajax/username/${username}/${pageSize}/${pageNumber}`,
       success: data => {
         // Update the store for the list of lists a user has.
         Actions.updateUserLists(data.data);
@@ -93,16 +99,22 @@ let Booklists = React.createClass({
     });
   },
 
+  /**
+  * _transitionTo(username)
+  * Transit to the page of UserLists
+  *
+  * @param (String) username
+  */
   _transitionTo(username) {
     // Now transitition to the route.
-    this.transitionTo('ownerlists', {
-      ownerlists: username
+    this.transitionTo('UserLists', {
+      UserLists: username
     });
   }
 
 });
 
-Booklists.defaultProps = {
+AllUsersList.defaultProps = {
   lang: 'en'
 };
 
@@ -111,8 +123,9 @@ const styles = {
     margin: '20px'
   },
   userLinks: {
-    margin: '20px'
+    margin: '20px',
+    cursor: 'pointer'
   }
 };
 
-export default Booklists;
+export default AllUsersList;

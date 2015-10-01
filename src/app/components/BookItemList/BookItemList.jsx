@@ -16,7 +16,7 @@ import BookCover from '../BookCover/BookCover.jsx'
 let Navigation = Router.Navigation;
 
 // Create the class. Use ES5 for react-router Navigation
-let Singlelist = React.createClass({
+let BookItemList = React.createClass({
 
   mixins: [Navigation],
 
@@ -147,18 +147,18 @@ let Singlelist = React.createClass({
 
   _transitionTo(userId) {
     // Now transitition to the route.
-    this.transitionTo('ownerlists', {
-      ownerlists: userId
+    this.transitionTo('UserLists', {
+      UserLists: userId
     });
   }
 });
 
 
-Singlelist.defaultProps = {
+BookItemList.defaultProps = {
   lang: 'en'
 };
 
 const styles = {
 };
 
-export default Singlelist;
+export default BookItemList;

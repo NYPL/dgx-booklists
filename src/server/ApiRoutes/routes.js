@@ -15,7 +15,7 @@ parser.setChildrenObjects(options);
 
 /**
 * BookListUsers(req, res, next)
-* The route for rendering the page of all BookListUsers/Owners.
+* This route is for rendering the page of AllUsersList.
 * It utilizes the method of promise.
 *
 * @param (HTTP methods)
@@ -54,7 +54,7 @@ function BookListUsers(req, res, next) {
 
 /**
 * BookListUser(req, res, next)
-* The route for rendering the page of one BookListUsers/Owners.
+* This route is for rendering the page of UserLists.
 * It utilizes the method of promise.
 *
 * @param (HTTP methods)
@@ -62,14 +62,16 @@ function BookListUsers(req, res, next) {
 function BookListUser(req, res, next) {
   let username = req.params.username,
     endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
-      `${username}/links/book-lists${api.includes}`;
+      `${username}/links/book-lists${api.includes}${api.pageSize}${api.pageNumber}`;
 
   axios
     .get(endpoint)
     .then(data => {
       let returnedData = data.data,
         parsed = parser.parse(returnedData);
+        // console.log(data.meta.count);
 
+      // Put the parsed data into Store
       res.locals.data = {
         Store: {
           userLists: parsed
@@ -92,7 +94,7 @@ function BookListUser(req, res, next) {
 
 /**
 * ListID(req, res, next)
-* The route for rendering the page of Singlelist.
+* This route is for rendering the page of BookItemList.
 * It utilizes the method of promise.
 *
 * @param (HTTP methods)
@@ -128,25 +130,28 @@ function ListID(req, res, next) {
 
 /**
 * AjaxBookListUser(req, res, next)
-* The AJAX call for internal browsing to the page of one BookListUsers/Owners.
+* The AJAX call for internal browsing to the page of UserLists.
 * It utilizes the method of promise.
 *
 * @param (HTTP methods)
 */
 function AjaxBookListUser(req, res, next) {
   let username = req.params.username,
+    pageSize = `&page[size]=${req.params.pageSize}`,
+    pageNumber = `&page[number]=${req.params.pageNumber}`,
     endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
-      `${username}/links/book-lists${api.includes}`;
-
+      `${username}/links/book-lists${api.includes}${pageSize}${pageNumber}`;
   axios
     .get(endpoint)
     .then(data => {
       let returnedData = data.data,
         parsed = parser.parse(returnedData);
+        // listsNumber = data.meta.count;
 
+      // Return the data as a JSON, it will be updated to Store at UserLists component
       res.json({
         user: username,
-        data: parsed
+        data: parsed,
       });
     })
     .catch(error => {
@@ -157,7 +162,7 @@ function AjaxBookListUser(req, res, next) {
 
 /**
 * AjaxListID(req, res, next)
-* The AJAX call for internal browsing to the page of one Singlelist.
+* The AJAX call for internal browsing to the page of BookItemList.
 * It utilizes the method of promise.
 *
 * @param (HTTP methods)
@@ -197,7 +202,7 @@ router
   .get(ListID);
 
 router
-  .route('/api/ajax/username/:username')
+  .route('/api/ajax/username/:username/:pageSize/:pageNumber')
   .get(AjaxBookListUser);
 
 router

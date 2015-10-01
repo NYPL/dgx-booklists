@@ -7,6 +7,7 @@ import Actions from '../../actions/Actions.js';
 
 // Misc
 import Moment from 'moment';
+import _ from 'underscore';
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
@@ -14,11 +15,16 @@ import Item from '../Item/Item.jsx';
 import BasicButton from '../Buttons/BasicButton.jsx';
 
 // Create the class. Use ES5 for react-router Navigation
-class Ownerlists extends React.Component {
+class UserLists extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Store.getState();
+    this.state = {
+      data: Store.getState().userLists,
+      pageSize: 5,
+      pageNumber: 2,
+      listsNumber: Store.getState().listsNumber
+    }
   }
 
   // Listen to the change from data
@@ -34,25 +40,29 @@ class Ownerlists extends React.Component {
   // Render DOM
   render() {
     // Throw error message if anything's wrong
-    if (this.state.errorMessage) {
+    if (Store.getState().errorMessage) {
       return (
         <div>Something is wrong</div>
       );
     }
 
     // The variable to store the data from Store
-    let userLists = this.state.userLists,
+    let userLists = this.state.data,
       // The title of the page is the name of the owner.
       // Every object has the same `user` object so we can fetch the first one:
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
-      lists;
+      userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
+      lists,
+      pageLeft = this.state.listsNumber - (this.state.pageSize * (this.state.pageNumber-1));
+
+      // console.log(userLists);
 
     // Throw message if there's no data found
     if (!userLists.length) {
       return (
          <div>No list under this owner</div>
       );
-    } else {   
+    } else {
       // Parse the list of books if data is correctly delivered
       lists = userLists.map((element, i) => {
         let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do'),
@@ -67,7 +77,8 @@ class Ownerlists extends React.Component {
               name={element.attributes['list-name']}
               target=''
               sampleBookCovers={element['list-items']}
-              description={`${dateCreated}, ${yearCreated}`}
+              description={element.attributes['list-description']}
+              createdDate={`${dateCreated}, ${yearCreated}`}
               userId={element.user.id}
               listId={element.id} />
           </div>
@@ -82,7 +93,9 @@ class Ownerlists extends React.Component {
             {lists}
           </div>
           <div>
-            <BasicButton />
+            <BasicButton
+            label={`${pageLeft}...lists left`}
+            onClick={this._addItems.bind(this, userUrlId, this.state.pageSize, this.state.pageNumber)} />
           </div>
         </div>
       );
@@ -93,13 +106,37 @@ class Ownerlists extends React.Component {
   _onChange() {
     this.setState(Store.getState());
   }
+
+  /**
+  * _addItems()
+  * Add five items more every time hitting the button
+  *
+  */
+  _addItems(userUrlId, pageSize, pageNumber) {
+     $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: `/api/ajax/username/${userUrlId}/${pageSize}/${pageNumber}`,
+      success: data => {
+        // Update the store for the list of lists a user has.
+        // Actions.updateUserLists(data.data);
+        // _.extend(this.state.data, data.data);
+        this.state.data = this.state.data.concat(data.data);
+        console.log(this.state.data);
+
+        // move to the next page if click the button again
+        pageNumber++;
+        this.setState({pageNumber: pageNumber});
+      }
+    });
+  }
 };
 
-Ownerlists.defaultProps = {
+UserLists.defaultProps = {
   lang: 'en'
 };
 
 const styles = {
 };
 
-export default Ownerlists;
+export default UserLists;

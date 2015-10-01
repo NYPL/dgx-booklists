@@ -44,6 +44,7 @@ let Item = React.createClass({
             target={this.props.target}
             onClick={this._fetchBookData} />
           <p>{this.props.description}</p>
+          <p>{this.props.createdDate}</p>
         </div>
       </div>
     );
@@ -73,8 +74,8 @@ let Item = React.createClass({
 
   _transitionTo(userId, listId) {
     // Transition to the new route.
-    this.transitionTo('singlelist', {
-      ownerlists: userId,
+    this.transitionTo('BookItemList', {
+      UserLists: userId,
       id: listId
     });
   }
