@@ -68,15 +68,14 @@ function BookListUser(req, res, next) {
     .get(endpoint)
     .then(data => {
       let returnedData = data.data,
-        parsed = parser.parse(returnedData);
-        // listsNumber = data.meta.count;
-        // console.log(data.meta.count);
+        parsed = parser.parse(returnedData),
+        listsNumber = returnedData.meta.count;
 
       // Put the parsed data into Store
       res.locals.data = {
         Store: {
           userLists: parsed,
-          // listsNumber: listsNumber
+          listsNumber: listsNumber
         }
       };
       next();
@@ -147,13 +146,14 @@ function AjaxBookListUser(req, res, next) {
     .get(endpoint)
     .then(data => {
       let returnedData = data.data,
-        parsed = parser.parse(returnedData);
-        // listsNumber = data.meta.count;
+        parsed = parser.parse(returnedData),
+        listsNumber = returnedData.meta.count;
 
       // Return the data as a JSON, it will be updated to Store at UserLists component
       res.json({
         user: username,
         data: parsed,
+        listsNumber: listsNumber
       });
     })
     .catch(error => {

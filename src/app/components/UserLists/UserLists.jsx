@@ -52,9 +52,9 @@ class UserLists extends React.Component {
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
       userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
       lists,
-      pageLeft = this.state.listsNumber;
+      pageLeft = this.state.listsNumber - this.state.data.length;
 
-      console.log(userLists);
+      console.log(this.state.listsNumber);
 
     // Throw message if there's no data found
     if (!userLists) {

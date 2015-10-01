@@ -7,6 +7,7 @@ class Store {
       handleUpdateAllUsersList: Actions.UPDATE_ALL_USERS_LIST,
       handleUpdateUserLists: Actions.UPDATE_USER_LISTS,
       handleUpdateBookList: Actions.UPDATE_BOOK_LIST,
+      handleUpdateListsNumber: Actions.UPDATE_LISTS_NUMBER,
       handleDataFailedFetch: Actions.FAILED_DATA
     });
 
@@ -33,6 +34,10 @@ class Store {
 
   handleUpdateBookList(data) {
     this.bookItemList = data;
+  }
+
+  handleUpdateListsNumber(data) {
+    this.listsNumber = data;
   }
 
   handleDataFailedFetch(errorMessage) {

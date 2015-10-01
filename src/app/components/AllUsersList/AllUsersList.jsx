@@ -92,6 +92,8 @@ let AllUsersList = React.createClass({
       success: data => {
         // Update the store for the list of lists a user has.
         Actions.updateUserLists(data.data);
+        // Update the number of the lists we get from the refinery API
+        Actions.updateListsNumber(data.listsNumber);
 
         // Now transitition to the route.
         this._transitionTo(username);
