@@ -21,7 +21,8 @@ class UserLists extends React.Component {
     this.state = {
       data: Store.getState().userLists,
       pageSize: 5,
-      pageNumber: 2
+      pageNumber: 2,
+      listsNumber: Store.getState().listsNumber
     }
   }
 
@@ -51,9 +52,9 @@ class UserLists extends React.Component {
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
       userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
       lists,
-      pageLeft = this.state.data.listsNumber - (this.state.pageSize * (this.state.pageNumber-1));
+      pageLeft = this.state.listsNumber;
 
-      // console.log(userLists);
+      console.log(userLists);
 
     // Throw message if there's no data found
     if (!userLists) {

@@ -69,12 +69,14 @@ function BookListUser(req, res, next) {
     .then(data => {
       let returnedData = data.data,
         parsed = parser.parse(returnedData);
+        // listsNumber = data.meta.count;
         // console.log(data.meta.count);
 
       // Put the parsed data into Store
       res.locals.data = {
         Store: {
-          userLists: parsed
+          userLists: parsed,
+          // listsNumber: listsNumber
         }
       };
       next();

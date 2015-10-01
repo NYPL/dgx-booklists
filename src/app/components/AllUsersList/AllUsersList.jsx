@@ -88,7 +88,7 @@ let AllUsersList = React.createClass({
     $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: `/api/ajax/username/${username}/${pageSize}/${pageNumber}`,
+      url: `/api/ajax/username/${username}&${pageSize}&${pageNumber}`,
       success: data => {
         // Update the store for the list of lists a user has.
         Actions.updateUserLists(data.data);
