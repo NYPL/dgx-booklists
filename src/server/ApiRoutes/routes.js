@@ -22,18 +22,18 @@ function BookListUsers(req, res, next) {
 
       res.locals.data = {
         Store: {
-          Data: parsed
+          allUsersList: parsed
         }
       };
 
       next();
     })
     .catch(error => {
-      console.log('Error calling API : ' + error);
-      console.log('Attempted to call : ' + options.endpoint);
+      console.log('Error calling API BookListUsers: ' + error);
+      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          Data: {}
+          allUsersList: []
         }
       };
       next();
@@ -53,17 +53,17 @@ function BookListUser(req, res, next) {
 
       res.locals.data = {
         Store: {
-          Data: parsed
+          userLists: parsed
         }
       };
       next();
     })
     .catch(error => {
-      console.log('Error calling API : ' + error);
-      console.log('Attempted to call : ' + options.endpoint);
+      console.log('Error calling API BookListUser: ' + error.error);
+      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          Data: {}
+          userLists: []
         }
       };
       next();
@@ -82,17 +82,17 @@ function ListID(req, res, next) {
 
       res.locals.data = {
         Store: {
-          Data: parsed
+          bookItemList: parsed
         }
       };
       next();
     })
     .catch(error => {
-      console.log('Error calling API : ' + error);
-      console.log('Attempted to call : ' + options.endpoint);
+      console.log('Error calling API ListID: ' + error);
+      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          Data: {}
+          bookItemList: {}
         }
       };
       next();
@@ -116,7 +116,7 @@ function AjaxBookListUser(req, res, next) {
       });
     })
     .catch(error => {
-      console.log('Error calling API');
+      console.log('Error calling API: AjaxBookListUser');
       res.json({'error': 'error calling API'});
     }); /* end Axios call */
 }
@@ -137,7 +137,7 @@ function AjaxListID(req, res, next) {
       });
     })
     .catch(error => {
-      console.log('Error calling API');
+      console.log('Error calling API: AjaxListID');
       res.json({'error': 'error calling API'});
     }); /* end Axios call */
 }

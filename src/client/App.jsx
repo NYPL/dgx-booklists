@@ -1,9 +1,8 @@
 import React from 'react';
-import Iso from 'iso';
-// Import Router
 import Router from 'react-router';
 import ga from 'react-ga';
 
+import Iso from 'iso';
 import alt from '../app/alt.js';
 import routes from '../app/routes/routes.jsx';
 
@@ -18,13 +17,14 @@ if (typeof window !== 'undefined') {
     }
 
 		// Render Isomorphically
-	  Iso.bootstrap(function (state, meta, container) {
+	  Iso.bootstrap((state, meta, container) => {
 	  	console.log('Application rendered Isomorphically.');
-	    alt.bootstrap(state);
 
-	    Router.run(routes, Router.HistoryLocation, function (Handler, routerState) {
+	    alt.bootstrap(state);
+	    Router.run(routes, Router.HistoryLocation, (Handler, routerState) => {
+        let node = React.createElement(Handler);
+        
         ga.pageview(routerState.pathname);
-        var node = React.createElement(Handler);
         React.render(node, container);
       });
 	  });
