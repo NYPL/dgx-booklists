@@ -103,7 +103,7 @@ let Navigation = Router.Navigation,
             className={`${this.props.className}__back-button-wrapper`}>
               <a id={`${this.props.id}__back-button-wrapper__button`}
               className={`${this.props.className}__back-button-wrapper__button`}
-                onClick={this._transitionToUser.bind(this, userId)}>
+                onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
                 <p>back to</p>
                 <p>{userDisplayName}</p>
                 <p>lists</p>
@@ -114,7 +114,7 @@ let Navigation = Router.Navigation,
               className={`${this.props.className}__name`}>
                 <a id={`${this.props.id}__name__button`}
                 className={`${this.props.className}__name__button`}
-                  onClick={this._transitionToUser.bind(this, userId)}>
+                  onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
                   {userDisplayName}
                 </a>
                 {items}
@@ -125,13 +125,13 @@ let Navigation = Router.Navigation,
       }
     },
 
-    _transitionToUser(userId) {
+    _transitionToUser(userId, pageSize, pageNumber) {
       if (!Store.getUserLists()) {
         // First fetch the data and then transition. Must also handle errors.
         $.ajax({
           type: 'GET',
           dataType: 'json',
-          url: `/api/ajax/username/${userId}`,
+          url: `/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
           success: data => {
             // Update the store for the list of lists a user has.
             Actions.updateUserLists(data.data);
