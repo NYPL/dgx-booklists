@@ -77,11 +77,11 @@ class UserLists extends React.Component {
           counter = `${i+1}.`;
 
         return(
-          <div key={i} className='userlists__item-wrapper'>
-            <span className='userlists__item-divide'></span>
-            <p className='userlists__item-index'>{counter}</p>
+          <div key={i} className={`${this.props.className}__item-wrapper`}>
+            <span className={`${this.props.className}__item-divide`}></span>
+            <p className={`${this.props.className}__item-index`}>{counter}</p>
             <Item id={`userlists__item-${element.attributes['list-name']}`}
-              className='userlists__item'
+              className={`${this.props.className}__item`}
               name={element.attributes['list-name']}
               target=''
               sampleBookCovers={element['list-items']}
@@ -97,12 +97,13 @@ class UserLists extends React.Component {
       return (
         <div id='main'>
           <Hero name={username} />
-          <div id='userlists' className='userlists'>
+          <div id={this.props.id} className={this.props.id}>
             {lists}
           </div>
-          <div id='userlists__page-button-wrapper' className='userlists__page-button-wrapper'>
-            <PaginationButton id='userlists__page-button-wrapper__button'
-            className='userlists__page-button-wrapper__button'
+          <div id={`${this.props.id}__page-button-wrapper`}
+          className={`${this.props.className}__page-button-wrapper`}>
+            <PaginationButton id={`${this.props.id}__page-button-wrapper__button`}
+            className={`${this.props.className}__page-button-wrapper__button`}
             dots='3' label={pageLeft}
             isLoading={this.state.isLoading}
             onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber, userLists)}/>
@@ -149,7 +150,9 @@ class UserLists extends React.Component {
 };
 
 UserLists.defaultProps = {
-  lang: 'en'
+  lang: 'en',
+  id: 'userlists',
+  className: 'userlists'
 };
 
 const styles = {
