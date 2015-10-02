@@ -77,10 +77,11 @@ class UserLists extends React.Component {
           counter = `${i+1}.`;
 
         return(
-          <div key={i} className='userlists__item-container'>
+          <div key={i} className='userlists__item-wrapper'>
             <span className='userlists__item-divide'></span>
             <p className='userlists__item-index'>{counter}</p>
-            <Item className='userlists__item'
+            <Item id={`userlists__item-${element.attributes['list-name']}`}
+              className='userlists__item'
               name={element.attributes['list-name']}
               target=''
               sampleBookCovers={element['list-items']}
