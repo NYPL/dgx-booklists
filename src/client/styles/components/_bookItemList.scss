@@ -1,23 +1,4 @@
-.back-button-container {
-  cursor: pointer;
-  display: inline-block;
-  float: left;
-  margin: 20px 40px 0 5px;
-  padding: 0 0 0 40px;
-  text-align: right;
-  &__button {
-    border-color: #A3A19E;
-    border-top-style: solid;
-    border-width: 1px;
-    color: #A3A19E;
-    float: right;
-    font-size: 14px;
-    text-decoration: none;
-    text-transform: capitalize;
-  }
-}
-
-.singlelist {
+.bookItemList {
   display: inline-block;
   margin: 20px auto 0 auto;
   max-width: 1312px;
@@ -27,23 +8,37 @@
     border-top-style: solid;
     border-width: 1px;
     padding: 10px 0 0 0;
-
     &__button {
       color: #ED1C24;
       text-decoration: none;
       text-transform: capitalize;
     }
   }
-
+  &__back-button-wrapper {
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    margin: 20px 40px 0 5px;
+    padding: 0 0 0 40px;
+    text-align: right;
+    &__button {
+      border-color: #A3A19E;
+      border-top-style: solid;
+      border-width: 1px;
+      color: #A3A19E;
+      float: right;
+      font-size: 14px;
+      text-decoration: none;
+      text-transform: capitalize;
+    }
+  }
   &__item {
     margin: 20px 0;
-
-    &__image-container {
+    &__image-wrapper {
       display: inline-block;
       width: 28%;
     }
-
-    &__text-container {
+    &__text-wrapper {
       display: inline-block;
       vertical-align: top;
       width: 60%;
@@ -57,7 +52,6 @@
         margin: 40px 0 0 0;
       }
     }
-
     &__checkout {
       display: inline-block;
       float: right;

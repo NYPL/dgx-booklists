@@ -36,11 +36,11 @@ let Navigation = Router.Navigation,
       // The variable to store the data from Store
       let allUsersList = this.state.allUsersList,
         // Render the data
-        userLinks = (allUsersList && allUsersList.length) ? 
+        userLinks = (allUsersList && allUsersList.length) ?
           allUsersList.map((element, i) => {
             return (
               <div className={`${this.props.className}__userlink-wrapper`} key={i}>
-                <a id={`${this.props.id}__${element.attributes.username}`}  
+                <a id={`${this.props.id}__${element.attributes.username}`}
                   className={`${this.props.className}__userlink`}
                   onClick={this._fetchUserLists.bind(this, element.attributes.username, 5, 1)}>
                     {element.attributes.name}
@@ -106,7 +106,6 @@ let Navigation = Router.Navigation,
         UserLists: username
       });
     }
-
 });
 
 AllUsersList.defaultProps = {

@@ -13,27 +13,27 @@ import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx'
 
-let Navigation = Router.Navigation;
-
+// The method allows us to transit between pages internally
+let Navigation = Router.Navigation,
 // Create the class. Use ES5 for react-router Navigation
-let BookItemList = React.createClass({
-
+  BookItemList = React.createClass({
+  // For internal transition
   mixins: [Navigation],
-
   getInitialState() {
     return Store.getState();
   },
-
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
   },
-
   // Stop listening
   componentWillUnmount() {
     Store.unlisten(this._onChange.bind(this));
   },
-
+  // Change the this.state here if find any different
+  _onChange() {
+    this.setState(Store.getState());
+  },
   // Render DOM
   render() {
     // Throw error message if anything's wrong
@@ -65,28 +65,28 @@ let BookItemList = React.createClass({
           publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`;
 
         return(
-          <div className='singlelist__item' key={i}>
-            <a className='singlelist__item__image-container' href={target}>
+          <div id={`${this.props.id}__item`} className={`${this.props.className}__item`} key={i}>
+            <a className={`${this.props.className}__item__image-wrapper`} href={target}>
               <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
             </a>
-            <div className='singlelist__item__text-container'>
-              <p className='singlelist__item__text-container__catalog'>
+            <div className={`${this.props.className}__item__text-wrapper`}>
+              <p className={`${this.props.className}__item__text-wrapper__catalog`}>
                 {publishedDate}
               </p>
-              <SimpleButton id='singlelist__item__text-container__name'
-                className='singlelist__item__text-container__name'
+              <SimpleButton id={`${this.props.id}__item__text-wrapper__${element.item.id}`}
+                className={`${this.props.className}__item__text-wrapper__name`}
                 label={element.item.attributes.title}
                 target={target} />
-              <p className='singlelist__item__text-container__author'>
-                {`By ${element.item.attributes.authors}`}
+              <p className={`${this.props.className}__item__text-wrapper__author`}>
+                By {element.item.attributes.authors}
               </p>
-              <p className='singlelist__item__text-container__description'>
+              <p className={`${this.props.className}__item__text-wrapper__description`}>
                 {element.attributes.annotation}
               </p>
             </div>
-            <div className='singlelist__item__checkout'>
-              <SimpleButton id='check-available'
-                className='singlelist__item__checkout__button'
+            <div className={`${this.props.className}__item__checkout`}>
+              <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
+                className={`${this.props.className}__item__checkout__button`}
                 label='Check Available'
                 target={target} />
             </div>
@@ -98,17 +98,21 @@ let BookItemList = React.createClass({
       return (
         <div id='main'>
           <Hero name={listName} intro={listIntro}/>
-          <div className='back-button-container'>
-            <a className='back-button-container__button'
+          <div id={`${this.props.id}__back-button-wrapper`}
+          className={`${this.props.className}__back-button-wrapper`}>
+            <a id={`${this.props.id}__back-button-wrapper__button`}
+            className={`${this.props.className}__back-button-wrapper__button`}
               onClick={this._transitionToUser.bind(this, userId)}>
               <p>back to</p>
               <p>{userDisplayName}</p>
               <p>lists</p>
             </a>
           </div>
-          <div id='singlelist' className='singlelist'>
-            <div className='singlelist__name'>
-              <a className='singlelist__name__button'
+          <div id={this.props.id} className={this.props.className}>
+            <div id={`${this.props.id}__name`}
+            className={`${this.props.className}__name`}>
+              <a id={`${this.props.id}__name__button`}
+              className={`${this.props.className}__name__button`}
                 onClick={this._transitionToUser.bind(this, userId)}>
                 {userDisplayName}
               </a>
@@ -118,11 +122,6 @@ let BookItemList = React.createClass({
         </div>
       );
     }
-  },
-
-  // Change the this.state here if find any different
-  _onChange() {
-    this.setState(Store.getState());
   },
 
   _transitionToUser(userId) {
@@ -135,7 +134,6 @@ let BookItemList = React.createClass({
         success: data => {
           // Update the store for the list of lists a user has.
           Actions.updateUserLists(data.data);
-
           // Now transitition to the route.
           this._transitionTo(userId);
         }
@@ -155,7 +153,9 @@ let BookItemList = React.createClass({
 
 
 BookItemList.defaultProps = {
-  lang: 'en'
+  lang: 'en',
+  id: 'bookItemList',
+  className: 'bookItemList'
 };
 
 const styles = {
