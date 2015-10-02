@@ -22,7 +22,9 @@ class UserLists extends React.Component {
       data: Store.getState().userLists,
       pageSize: 5,
       pageNumber: 2,
-      listsNumber: Store.getState().listsNumber
+      listsNumber: Store.getState().listsNumber,
+      // Tell pagination button if it is loading new pages now
+      isLoading: false
     }
   }
 
@@ -54,9 +56,8 @@ class UserLists extends React.Component {
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
       lists,
+      // Show the how many pages left in the pagination button
       pageLeft = this.state.listsNumber - this.state.data.length;
-
-      console.log(this.state.listsNumber);
 
     // Throw message if there's no data found
     if (!userLists) {
@@ -97,6 +98,7 @@ class UserLists extends React.Component {
             <PaginationButton id='userlists__page-button-wrapper__button'
             className='userlists__page-button-wrapper__button'
             dots='3' label={pageLeft}
+            isLoading={this.state.isLoading}
             onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber, userLists)}/>
           </div>
         </div>
@@ -119,6 +121,13 @@ class UserLists extends React.Component {
       type: 'GET',
       dataType: 'json',
       url: `/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`,
+      // Update isLoading in state to pass loading status
+      beforeSend: () => {
+        this.setState({isLoading: true});
+      },
+      complete: () => {
+        this.setState({isLoading: false});
+      },
       success: data => {
         // Update the store. Add five more items each time clicking pagination button
         originalData = originalData.concat(data.data);
