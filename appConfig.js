@@ -12,7 +12,19 @@ const config = {
     pageSize: '&page[size]=4',
     pageNumber: '&page[number]=1',
     includes: '?include=list-items.item,user'
-  }
+  },
+  metaTags: [
+    {property: "og:type", content: 'website'},
+    {property: "og:image:type", content: 'image/png'},
+    // Just examples of width and height:
+    {property: "og:image:width", content: '400'},
+    {property: "og:image:height", content: '300'},
+    {property: "og:site_name", content: 'Lists | The New York Public Library'},
+    {name: "twitter:card", content: 'summary_large_image'},
+    {name: "twitter:site", content: '@nypl'},
+    {name: "twitter:creator", content: '@nypl'},
+    {name: "twitter:title", content: 'List | The New York Public Library'},
+  ]
 };
 
 export default config;

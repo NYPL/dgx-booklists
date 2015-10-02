@@ -13,7 +13,9 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
-import BookCover from '../BookCover/BookCover.jsx'
+import BookCover from '../BookCover/BookCover.jsx';
+
+import utils from '../../utils/utils.js';
 
 let Navigation = Router.Navigation;
 
@@ -54,26 +56,16 @@ let Singlelist = React.createClass({
       listName = bookItemList.attributes['list-name'],
       listIntro = bookItemList.attributes['list-description'],
       encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
-      tags = [
+      pageTags = [
         // Required OG meta tags
         {property: "og:title", content: `${listName}`},
-        {property: "og:type", content: 'website'},
         {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userId}/${listId}`},
         {property: "og:image", content: ''},
-        {property: "og:image:type", content: 'image/png'},
-        // Just examples of width and height:
-        {property: "og:image:width", content: '400'},
-        {property: "og:image:height", content: '300'},
-        // Optional OG meta tags
         {property: "og:description", content: 'A list created by staff at The New York Public Library'},
-        {property: "og:site_name", content: 'Lists | The New York Public Library'},
-        {name: "twitter:card", content: 'summary_large_image'},
-        {name: "twitter:site", content: '@nypl'},
-        {name: "twitter:creator", content: '@nypl'},
-        {name: "twitter:title", content: 'List | The New York Public Library'},
         {name: "twitter:description", content: 'A list created by staff at The New York Public Library'},
         {name: "twitter:image", content: ''}
       ],
+      tags = utils.metaTagUnion(pageTags),
       items;
 
     // Throw message if there's no data found

@@ -14,6 +14,8 @@ import Moment from 'moment';
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
 
+import utils from '../../utils/utils.js';
+
 // Create the class. Use ES5 for react-router Navigation
 class Ownerlists extends React.Component {
   constructor(props) {
@@ -47,26 +49,17 @@ class Ownerlists extends React.Component {
       // The title of the page is the name of the owner.
       // Every object has the same `user` object so we can fetch the first one:
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
-      tags = [
+      description = 'A list created by staff at The New York Public Library',
+      pageTags = [
         // Required OG meta tags
         {property: "og:title", content: 'Lists | The New York Public Library'},
-        {property: "og:type", content: 'website'},
         {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userId}`},
         {property: "og:image", content: ''},
-        {property: "og:image:type", content: 'image/png'},
-        // Just examples of width and height:
-        {property: "og:image:width", content: '400'},
-        {property: "og:image:height", content: '300'},
-        // Optional OG meta tags
-        {property: "og:description", content: 'A list created by staff at The New York Public Library'},
-        {property: "og:site_name", content: 'Lists | The New York Public Library'},
-        {name: "twitter:card", content: 'summary_large_image'},
-        {name: "twitter:site", content: '@nypl'},
-        {name: "twitter:creator", content: '@nypl'},
-        {name: "twitter:title", content: 'List | The New York Public Library'},
-        {name: "twitter:description", content: 'A list created by staff at The New York Public Library'},
+        {property: "og:description", content: description},
+        {name: "twitter:description", content: description},
         {name: "twitter:image", content: ''}
       ],
+      tags = utils.metaTagUnion(pageTags),
       lists;
 
     // Throw message if there's no data found
