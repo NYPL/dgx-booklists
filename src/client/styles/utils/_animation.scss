@@ -1,0 +1,49 @@
+/* PAGINATION BUTTON LOADING ANIMATION
+ * ---------------------
+ * Usage: The animation for the loader
+ * in the pagaination button.
+*/
+
+.loading {
+  -webkit-animation-name: loading;
+  animation: loading 2s infinite;
+  &:nth-child(1n) {
+    animation-delay: 0s;
+  }
+  &:nth-child(2n) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3n) {
+    animation-delay: 0.4s;
+  }
+}
+
+@keyframes loading {
+  0% { 
+    transform: scale(0.5);
+    background: $COOL_GRAY_LIGHT;
+  }
+  50% { 
+    transform: scale(1);
+    background: #FFFFFF;
+  }
+  100% { 
+    transform: scale(0.5);
+    background: $COOL_GRAY_LIGHT;
+  }
+}
+
+@-webkit-keyframes loading {
+  0% { 
+    transform: scale(0.5);
+    background: $COOL_GRAY_LIGHT;
+  }
+  50% { 
+    transform: scale(1);
+    background: #FFFFFF;
+  }
+  100% { 
+    transform: scale(0.5);
+    background: $COOL_GRAY_LIGHT;
+  }
+}

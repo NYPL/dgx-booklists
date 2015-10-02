@@ -4,9 +4,9 @@
 
   @import '_item';
 
-  &_page-button-wrapper {
+  &__page-button-wrapper {
     text-align: center;
-    &_button {
+    &__button {
       -moz-appearance: none;
       -webkit-appearance: none;
       appearance: none;
@@ -14,11 +14,30 @@
       border-color: $COOL_GRAY_LIGHT;
       border-style: solid;
       border-width: 2px;
-      border-radius: 45%;
+      border-radius: 33px;
       color: $COOL_GRAY_LIGHT;
+      cursor: pointer;
+      display: inline-block;
       font-size: 16px;
       overflow: hidden;
-      padding: 10px 23px ;
+      padding: 5px 20px;
+      &__dot-ul {
+        display: block;
+        list-style: none;
+        margin: 0 auto;
+        padding: 0;
+        &__element {
+          border: 3px solid $COOL_GRAY_LIGHT;
+          border-radius: 100%;
+          display: inline-table;
+          margin: 0 4px 0 0;
+          vertical-align: middle;
+        }
+        &__number {
+          display: inline-table;
+          margin: 0 4px 0 0;
+        }
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ import Moment from 'moment';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
-import BasicButton from '../Buttons/BasicButton.jsx';
+import PaginationButton from '../Buttons/PaginationButton.jsx';
 
 // Create the class. Use ES5 for react-router Navigation
 class UserLists extends React.Component {
@@ -51,6 +51,8 @@ class UserLists extends React.Component {
       // Every object has the same `user` object so we can fetch the first one:
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
       userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
+      pageSize = this.state.pageSize,
+      pageNumber = this.state.pageNumber,
       lists,
       pageLeft = this.state.listsNumber - this.state.data.length;
 
@@ -69,10 +71,10 @@ class UserLists extends React.Component {
           counter = `${i+1}.`;
 
         return(
-          <div key={i} className='ownerlists__item-container'>
-            <span className='ownerlists__item-divide'></span>
-            <p className='ownerlists__item-index'>{counter}</p>
-            <Item className='ownerlists__item'
+          <div key={i} className='userlists__item-container'>
+            <span className='userlists__item-divide'></span>
+            <p className='userlists__item-index'>{counter}</p>
+            <Item className='userlists__item'
               name={element.attributes['list-name']}
               target=''
               sampleBookCovers={element['list-items']}
@@ -91,12 +93,11 @@ class UserLists extends React.Component {
           <div id='userlists' className='userlists'>
             {lists}
           </div>
-          <div id='userlists_page-button-wrapper' className='userlists_page-button-wrapper'>
-            <BasicButton
-            id='userlists_page-button-wrapper_button'
-            className='userlists_page-button-wrapper_button'
-            label={`...${pageLeft}`}
-            onClick={this._addItems.bind(this, userUrlId, this.state.pageSize, this.state.pageNumber, userLists)} />
+          <div id='userlists__page-button-wrapper' className='userlists__page-button-wrapper'>
+            <PaginationButton id='userlists__page-button-wrapper__button'
+            className='userlists__page-button-wrapper__button'
+            dots='3' label={pageLeft}
+            onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber, userLists)}/>
           </div>
         </div>
       );
