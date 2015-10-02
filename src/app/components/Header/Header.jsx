@@ -6,7 +6,6 @@ import Radium from 'radium';
 import Logo from '../Logo/Logo.jsx';
 import SSOContainer from '../SSOContainer/SSOContainer.jsx';
 import DonateButton from '../DonateButton/DonateButton.jsx';
-import SubscribeButton from '../SubscribeButton/SubscribeButton.jsx';
 import NavMenu from '../NavMenu/NavMenu.jsx';
 
 // API Mocked Data
@@ -37,7 +36,6 @@ class Header extends React.Component {
         <Logo className='Header-Logo' style={styles.logo} />
         <div id='Header-Buttons' style={styles.topButtons}>
           <SSOContainer />
-          <SubscribeButton label='Subscribe' lang={this.props.lang} />
           <DonateButton lang={this.props.lang} />
         </div>
         <NavMenu className='Header-NavMenu' items={this.state.data} lang={this.props.lang} />
