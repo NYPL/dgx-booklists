@@ -88,12 +88,14 @@ class UserLists extends React.Component {
       return (
         <div id='main'>
           <Hero name={username} />
-          <div id='ownerlists' className='ownerlists'>
+          <div id='userlists' className='userlists'>
             {lists}
           </div>
-          <div>
+          <div id='userlists_page-button-wrapper' className='userlists_page-button-wrapper'>
             <BasicButton
-            label={`${pageLeft}...lists left`}
+            id='userlists_page-button-wrapper_button'
+            className='userlists_page-button-wrapper_button'
+            label={`...${pageLeft}`}
             onClick={this._addItems.bind(this, userUrlId, this.state.pageSize, this.state.pageNumber, userLists)} />
           </div>
         </div>
