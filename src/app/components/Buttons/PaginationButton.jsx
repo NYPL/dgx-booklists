@@ -15,11 +15,12 @@ class PaginationButton extends React.Component {
       // Add loading class and the loading animation if it is loading now
       isLoading = cx({'loading': this.props.isLoading});
     
-    // Generate the dots for pagination button. The number of the dots is determinated by the props.
+    // Generate the dots for the pagination button. The number of the dots is determinated by the props.
     for(let i = 0; i < this.props.dots; i++) {
       dotElements.push(
         <li id={`${this.props.id}__dot-ul__element`}
-        className={`${this.props.id}__dot-ul__element ${isLoading}`}>
+        className={`${this.props.id}__dot-ul__element ${isLoading}`}
+        key={i}>
         </li>
       );
     }

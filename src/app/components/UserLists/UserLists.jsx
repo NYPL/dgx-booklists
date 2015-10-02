@@ -20,8 +20,8 @@ class UserLists extends React.Component {
 
     this.state = {
       data: Store.getState().userLists,
-      pageSize: 5,
-      pageNumber: 2,
+      pageSize: '5',
+      pageNumber: '2',
       listsNumber: Store.getState().listsNumber,
       // Tell pagination button if it is loading new pages now
       isLoading: false
@@ -36,6 +36,11 @@ class UserLists extends React.Component {
   // Stop listening
   componentWillUnmount() {
     Store.unlisten(this._onChange.bind(this));
+  }
+
+  // Change the this.state here if find any different
+  _onChange() {
+    this.setState(Store.getState());
   }
 
   // Render DOM
@@ -106,25 +111,26 @@ class UserLists extends React.Component {
     }
   }
 
-  // Change the this.state here if find any different
-  _onChange() {
-    this.setState(Store.getState());
-  }
-
   /**
-  * _addItems()
+  * _addItems(userUrlId, pageSize, pageNumber, originalData)
   * Add five more items every time hitting the pagination button
   *
+  * @param {String} UserId 
+  *        {String} pageSize
+  *        {String} pageNumber
+  *        {Array}  originalData
   */
   _addItems(userUrlId, pageSize, pageNumber, originalData) {
      $.ajax({
       type: 'GET',
       dataType: 'json',
       url: `/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`,
-      // Update isLoading in state to pass loading status
+      // Update isLoading in state to pass AJAX loading status
+      // Trigger loading animaiton when the call starts
       beforeSend: () => {
         this.setState({isLoading: true});
       },
+      // Stop loading animaiton when the call completes
       complete: () => {
         this.setState({isLoading: false});
       },
