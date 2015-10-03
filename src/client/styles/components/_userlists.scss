@@ -1,8 +1,12 @@
 .userlists {
-  margin: 20px auto 0 auto;
+  @import '_item';
+
+  margin: 20px 20px 0 20px;
   max-width: 1312px;
 
-  @import '_item';
+  @desktop {
+
+  }
 
   &__page-button-wrapper {
     text-align: center;

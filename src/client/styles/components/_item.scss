@@ -1,35 +1,89 @@
 &__item {
   &-wrapper {
-    margin: 20px 0 20px 0;
+    margin: 20px 0 40px 0;
+    width: 100%;
+    @desktop {
+      margin: 20px 0 20px 0;
+    }
   }
 
   &-divide {
-    border-color: #A3A19E;
+    border-color: $COOL_GRAY_LIGHT;
     border-top-style: solid;
     border-width: 2px;
     display: block;
-    width: 120px;
+    width: 50px;
+    @desktop {
+      width: 120px;
+    }
   }
 
   &-index {
-    color: #ED1C24;
-  }
-
-  &__image-wrapper {
-    display: inline-block;
-    text-align: left;
-    width: 30%;
+    color: $LIBRARY_RED;
+    margin: 10px 0 4px 0;
   }
 
   &__text-wrapper {
     display: inline-block;
     vertical-align: top;
-    width: 70%;
+    width: 100%;
+    @desktop {
+      width: 70%;
+    }
     &__name {
       color: #000000;
       font-size: 20px;
       text-decoration: none;
       text-transform: uppercase;
+    }
+    &__description {
+      display: none;
+      @desktop {
+        display: block;
+      }
+    }
+    &__createdDate {
+        font-size: 14px;
+        margin: 4px 0 10px 0;
+      @desktop {
+      }
+    }
+  }
+
+  &__image-wrapper {
+    display: inline-block;
+    height: 200px;
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+    @desktop {
+      width: 30%;
+    }
+    &__book-cover {
+      display: inline-block;
+      position: relative;
+      &:nth-child(1n) {
+        margin: 0;
+        z-index: 200;
+      }
+      &:nth-child(2n) {
+        margin: 0 0 0 -80px;
+        z-index: 199;
+      }
+      &:nth-child(3n) {
+        margin: 0 0 0 -80px;
+        z-index: 198;
+      }
+      &:nth-child(4n) {
+        margin: 0 0 0 -80px;
+        z-index: 197;
+      }
+      &__cover-imgae {
+        background-repeat: no-repeat;
+        display: inline-block;
+        height: 200px;
+        width: auto;
+      }
     }
   }
 }
