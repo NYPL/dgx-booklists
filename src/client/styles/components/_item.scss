@@ -24,10 +24,11 @@
   }
 
   &__text-wrapper {
-    display: inline-block;
+    display: block;
     vertical-align: top;
     width: 100%;
     @desktop {
+      display: inline-block;
       width: 70%;
     }
     &__name {
@@ -51,12 +52,13 @@
   }
 
   &__image-wrapper {
-    display: inline-block;
+    display: block;
     height: 200px;
     overflow: hidden;
     text-align: left;
     width: 100%;
     @desktop {
+      display: inline-block;
       width: 30%;
     }
     &__book-cover {

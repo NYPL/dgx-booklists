@@ -67,9 +67,6 @@ let Navigation = Router.Navigation,
 
           return(
             <div id={itemId} className={`${this.props.className}__item`} key={i}>
-              <a className={`${this.props.className}__item__image-wrapper`} href={target}>
-                <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
-              </a>
               <div className={`${this.props.className}__item__text-wrapper`}>
                 <p className={`${this.props.className}__item__text-wrapper__catalog`}>
                   {publishedDate}
@@ -85,6 +82,9 @@ let Navigation = Router.Navigation,
                   {element.attributes.annotation}
                 </p>
               </div>
+              <a className={`${this.props.className}__item__image-wrapper`} href={target}>
+                <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
+              </a>
               <div className={`${this.props.className}__item__checkout`}>
                 <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
                   className={`${this.props.className}__item__checkout__button`}
@@ -110,7 +110,7 @@ let Navigation = Router.Navigation,
               </a>
             </div>
             <div id={this.props.id} className={this.props.className}>
-              <div id={`${this.props.id}__name`}
+              <div id={`${this.props.id}__${listName}`}
               className={`${this.props.className}__name`}>
                 <a id={`${this.props.id}__name__button`}
                 className={`${this.props.className}__name__button`}
