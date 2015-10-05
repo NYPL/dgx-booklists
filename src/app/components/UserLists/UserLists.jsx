@@ -60,9 +60,9 @@ class UserLists extends React.Component {
       userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
-      lists,
       // Show the how many pages left in the pagination button
-      pageLeft = this.state.listsNumber - this.state.userListsData.length;
+      pageLeft = this.state.listsNumber - this.state.userListsData.length,
+      lists;
 
     // Throw message if there's no data found
     if (!userLists) {
@@ -103,10 +103,10 @@ class UserLists extends React.Component {
           <div id={`${this.props.id}__page-button-wrapper`}
           className={`${this.props.className}__page-button-wrapper`}>
             <PaginationButton id={`${this.props.id}__page-button-wrapper__button`}
-            className={`${this.props.className}__page-button-wrapper__button`}
-            dots='3' label={pageLeft}
-            isLoading={this.state.isLoading}
-            onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber, userLists)}/>
+              className={`${this.props.className}__page-button-wrapper__button`}
+              dots='3' label={pageLeft}
+              isLoading={this.state.isLoading}
+              onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber)}/>
           </div>
         </div>
       );
@@ -122,7 +122,7 @@ class UserLists extends React.Component {
   * @param {String} pageNumber
   * @param {Array}  originalData
   */
-  _addItems(userUrlId, pageSize, pageNumber, originalData) {
+  _addItems(userUrlId, pageSize, pageNumber) {
     if (!userUrlId || !pageSize || !pageNumber) {
       console.log('Unavailable parameters for the request.');
       return;
@@ -142,9 +142,7 @@ class UserLists extends React.Component {
       },
       success: data => {
         // Update the store. Add five more items each time clicking pagination button
-        originalData = originalData.concat(data.data);
-        // Update the state after adding five more items to Store
-        this.setState({userListsData: originalData});
+        this.setState({userListsData: this.state.userListsData.concat(data.data)});
         // Move to the next page if click the button again
         pageNumber++;
         this.setState({pageNumber: pageNumber});

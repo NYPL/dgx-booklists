@@ -18,7 +18,9 @@ parser.setChildrenObjects(options);
 * This route is for rendering the page of AllUsersList.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Promise function) next
 */
 function BookListUsers(req, res, next) {
   let endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}`;
@@ -30,6 +32,7 @@ function BookListUsers(req, res, next) {
       let returnedData = data.data,
         // parse the data
         parsed = parser.parse(returnedData);
+
       // put the data in Store
       res.locals.data = {
         Store: {
@@ -57,7 +60,9 @@ function BookListUsers(req, res, next) {
 * This route is for rendering the page of UserLists.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Promise function) next
 */
 function BookListUser(req, res, next) {
   let username = req.params.username,
@@ -98,7 +103,9 @@ function BookListUser(req, res, next) {
 * This route is for rendering the page of BookItemList.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Promise function) next
 */
 function ListID(req, res, next) {
   let listID = req.params.listID,
@@ -134,7 +141,9 @@ function ListID(req, res, next) {
 * The AJAX call for internal browsing to the page of UserLists.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Promise function) next
 */
 function AjaxBookListUser(req, res, next) {
   let username = req.params.username,
@@ -142,6 +151,7 @@ function AjaxBookListUser(req, res, next) {
     pageNumber = `&page[number]=${req.params.pageNumber}`,
     endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
       `${username}/links/book-lists${api.includes}${pageSize}${pageNumber}`;
+
   axios
     .get(endpoint)
     .then(data => {
@@ -167,7 +177,9 @@ function AjaxBookListUser(req, res, next) {
 * The AJAX call for internal browsing to the page of BookItemList.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Promise function) next
 */
 function AjaxListID(req, res, next) {
   let listID = req.params.listID,
