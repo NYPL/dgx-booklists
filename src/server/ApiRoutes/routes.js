@@ -91,7 +91,8 @@ function BookListUser(req, res, next) {
       console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          userLists: []
+          userLists: [],
+          listsNumber: 1
         }
       };
       next();
