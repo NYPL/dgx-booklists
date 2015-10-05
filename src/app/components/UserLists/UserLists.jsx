@@ -7,6 +7,7 @@ import Actions from '../../actions/Actions.js';
 
 // Misc
 import Moment from 'moment';
+import _ from 'underscore';
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
@@ -18,14 +19,12 @@ class UserLists extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      userListsData: Store.getState().userLists,
+    this.state = _.extend({
       pageSize: '5',
       pageNumber: '2',
-      listsNumber: Store.getState().listsNumber,
       // Tell pagination button if it is loading new pages now
       isLoading: false
-    }
+    }, Store.getState());
   }
 
   // Listen to the change from data
@@ -53,7 +52,7 @@ class UserLists extends React.Component {
     }
 
     // The variable of the array of UserLists
-    let userLists = this.state.userListsData,
+    let userLists = this.state.userLists,
       // The title of the page is the name of the owner.
       // Every object has the same `user` object so we can fetch the first one:
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
@@ -61,11 +60,11 @@ class UserLists extends React.Component {
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
       // Show the how many pages left in the pagination button
-      pageLeft = this.state.listsNumber - this.state.userListsData.length,
+      pageLeft = this.state.listsNumber - this.state.userLists.length,
       lists;
 
     // Throw message if there's no data found
-    if (!userLists) {
+    if (!this.state.userLists) {
       return (
          <div>No list under this owner</div>
       );
@@ -142,7 +141,7 @@ class UserLists extends React.Component {
       },
       success: data => {
         // Update the store. Add five more items each time clicking pagination button
-        this.setState({userListsData: this.state.userListsData.concat(data.data)});
+        this.setState({userLists: this.state.userLists.concat(data.data)});
         // Move to the next page if click the button again
         pageNumber++;
         this.setState({pageNumber: pageNumber});
