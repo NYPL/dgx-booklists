@@ -51,78 +51,70 @@ let Navigation = Router.Navigation,
         listName = bookItemList.attributes['list-name'],
         listIntro = bookItemList.attributes['list-description'],
         encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
-        items;
+        items = (listItems && listItems.length) ?
+          listItems.map((element, i) => {
+            let target = `${encoreUrl}${element.item.id}?lang=eng`,
+              publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
+              bookItemId = `${this.props.id}__item-${element.item.id}`;
 
-      // Throw message if there's no data found
-      if (!listItems.length) {
-        return (
-          <div>No book under this list</div>
-        );
-      } else {
-        // Parse the list of books if data is correctly delivered
-        items = listItems.map((element, i) => {
-          let target = `${encoreUrl}${element.item.id}?lang=eng`,
-            publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
-            bookItemId = `${this.props.id}__item-${element.item.id}`;
-
-          return(
-            <div id={bookItemId} className={`${this.props.className}__item`} key={i}>
-              <a className={`${this.props.className}__item__image-wrapper`} href={target}>
-                <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
-              </a>
-              <div className={`${this.props.className}__item__text-wrapper`}>
-                <p className={`${this.props.className}__item__text-wrapper__catalog`}>
-                  {publishedDate}
-                </p>
-                <SimpleButton id={`${this.props.id}__item__text-wrapper__${element.item.id}`}
-                  className={`${this.props.className}__item__text-wrapper__name`}
-                  label={element.item.attributes.title}
-                  target={target} />
-                <p className={`${this.props.className}__item__text-wrapper__author`}>
-                  By {element.item.attributes.authors}
-                </p>
-                <p className={`${this.props.className}__item__text-wrapper__description`}>
-                  {element.attributes.annotation}
-                </p>
-              </div>
-              <div className={`${this.props.className}__item__checkout`}>
-                <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
-                  className={`${this.props.className}__item__checkout__button`}
-                  label='request this item'
-                  target={target} />
-              </div>
-            </div>
-          );
-        });
-
-        // Render the list of owners on DOM
-        return (
-          <div id='main'>
-            <Hero name={listName} intro={listIntro}/>
-            <div id={`${this.props.id}__back-button-wrapper`}
-            className={`${this.props.className}__back-button-wrapper`}>
-              <a id={`${this.props.id}__back-button-wrapper__button`}
-              className={`${this.props.className}__back-button-wrapper__button`}
-                onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                <p>back to</p>
-                <p>{userDisplayName}</p>
-                <p>lists</p>
-              </a>
-            </div>
-            <div id={this.props.id} className={this.props.className}>
-              <div id={`${this.props.id}__name`}
-              className={`${this.props.className}__name`}>
-                <a id={`${this.props.id}__name__button`}
-                className={`${this.props.className}__name__button`}
-                  onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                  {userDisplayName}
+            return(
+              <div id={bookItemId} className={`${this.props.className}__item`} key={i}>
+                <a className={`${this.props.className}__item__image-wrapper`} href={target}>
+                  <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
                 </a>
-                {items}
+                <div className={`${this.props.className}__item__text-wrapper`}>
+                  <p className={`${this.props.className}__item__text-wrapper__catalog`}>
+                    {publishedDate}
+                  </p>
+                  <SimpleButton id={`${this.props.id}__item__text-wrapper__${element.item.id}`}
+                    className={`${this.props.className}__item__text-wrapper__name`}
+                    label={element.item.attributes.title}
+                    target={target} />
+                  <p className={`${this.props.className}__item__text-wrapper__author`}>
+                    By {element.item.attributes.authors}
+                  </p>
+                  <p className={`${this.props.className}__item__text-wrapper__description`}>
+                    {element.attributes.annotation}
+                  </p>
+                </div>
+                <div className={`${this.props.className}__item__checkout`}>
+                  <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
+                    className={`${this.props.className}__item__checkout__button`}
+                    label='request this item'
+                    target={target} />
+                </div>
               </div>
+            );
+          })
+          :<div>No book under this list</div>;
+
+      // Render the list of owners on DOM
+      return (
+        <div id='main'>
+          <Hero name={listName} intro={listIntro}/>
+          <div id={`${this.props.id}__back-button-wrapper`}
+          className={`${this.props.className}__back-button-wrapper`}>
+            <a id={`${this.props.id}__back-button-wrapper__button`}
+            className={`${this.props.className}__back-button-wrapper__button`}
+              onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
+              <p>back to</p>
+              <p>{userDisplayName}</p>
+              <p>lists</p>
+            </a>
+          </div>
+          <div id={this.props.id} className={this.props.className}>
+            <div id={`${this.props.id}__name`}
+            className={`${this.props.className}__name`}>
+              <a id={`${this.props.id}__name__button`}
+              className={`${this.props.className}__name__button`}
+                onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
+                {userDisplayName}
+              </a>
+              {items}
             </div>
           </div>
-        );
-      }
+        </div>
+      );
     },
 
     /**
