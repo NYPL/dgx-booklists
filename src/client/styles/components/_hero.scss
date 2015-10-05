@@ -1,24 +1,23 @@
 .hero {
-  background-color: #ED1C24;
+  background-color: $LIBRARY_RED;
   color: white;
   height: auto;
+  margin: 50px 0 0 0;
   min-height: 72px;
   padding: 0;
   width: 100%;
-
   &__container {
     height: auto;
-    margin: 50px auto 0 auto; 
+    margin: 0 auto;
     max-width: 1312px;
     overflow: hidden;
+    padding: 20px;
     position: relative;
     @include breakpoint($min, 720px) { 
       margin: 0 auto;
     }
-
     &__text-container {
       float: left;
-      margin: 4px 0 0 22px; 
       position: relative;
       @include breakpoint($min, $post-palm) {
         margin: 10px 40px 40px 70px;  
@@ -34,14 +33,15 @@
       &__title {
         box-sizing: border-box;
         color: white;
+        font-family: Kievit-Medium;
+        letter-spacing: 0.01em;
         position: relative;
         width: 100%;
         h3 {
-          font-family: 'KievitWeb-Bold', sans-serif;
-          font-size: 12px;
+          font-size: 16px;
           font-weight: normal;
-          letter-spacing: 0.09rem;
-          margin: 24px 0 10px 0;
+          letter-spacing: 0.01em;
+          margin: 0 0 10px 0;
           text-transform: uppercase;
           @include breakpoint($min, $post-palm) {
             margin: 40px 0 10px 0;
@@ -53,29 +53,28 @@
             margin: 0 0 20px 0;
           }
         }
-      }
-
-      &___title__des {
-        display: none;
-        font-family: MiloSlabPro, RobotoSlabLight, serif;
-        font-size: 36px;
-        line-height: 36px;
-        margin: 0 0 5px 0;
-        text-align: left;
-        @include breakpoint($min, 720px) {
+        &__des {
           display: block;
-          font-size: 20px; 
-          line-height: 24px;
-          margin: 0 0 20px 0;
-        } 
-        @include breakpoint($min, $post-laptop) {
-          display: block;
-          font-size: 28px; 
-          line-height: 28px;
-          margin: 0 0 10px 0;
+          font-family: Milo-Light;
+          font-size: 20px;
+          letter-spacing: 0;
+          line-height: 20px;
+          margin: 0;
+            text-align: left;
+          @include breakpoint($min, 720px) {
+            display: block;
+            font-size: 20px; 
+            line-height: 24px;
+            margin: 0 0 20px 0;
+          } 
+          @include breakpoint($min, $post-laptop) {
+            display: block;
+            font-size: 28px; 
+            line-height: 28px;
+            margin: 0 0 10px 0;
+          }
         }
       }
-
       &__title__intro {
         display: none;
         font-family: 'KievitWeb-Book', sans-serif;
@@ -94,7 +93,6 @@
         }
       }
     }
-
     &__image-container {
       /* background-image: url('/recommendations/staff-picks/client/images/shelftalker.4.2.png'); */
       background-position: -10px 20px;
