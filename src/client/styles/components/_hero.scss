@@ -20,6 +20,7 @@
     &__text-container {
       float: left;
       position: relative;
+      width: 80%;
       @include desktop {
         margin: 0;
         padding: 0 0 0 100px;
@@ -29,6 +30,7 @@
         color: white;
         font-family: Kievit-Medium;
         letter-spacing: 0.01em;
+        line-height: 28px;
         position: relative;
         width: 100%;
         h3 {
