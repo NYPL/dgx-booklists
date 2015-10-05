@@ -32,7 +32,8 @@ class PaginationButton extends React.Component {
         <ul id={`${this.props.id}__dot-ul`} className={`${this.props.id}__dot-ul`}>
           {dotElements}
           <li id={`${this.props.id}__dot-ul__number`} className={`${this.props.id}__dot-ul__number`}>
-          {this.props.label}</li>
+            {this.props.label}
+          </li>
         </ul>
       </div>
     );
@@ -45,6 +46,7 @@ PaginationButton.defaultProps = {
   name: 'pagination button',
   label: 'Pagination Button',
   lang: 'en',
+  dots: 3,
   onClick() {}
 };
 

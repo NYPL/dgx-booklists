@@ -19,7 +19,7 @@ class UserLists extends React.Component {
     super(props);
 
     this.state = {
-      data: Store.getState().userLists,
+      userListsData: Store.getState().userLists,
       pageSize: '5',
       pageNumber: '2',
       listsNumber: Store.getState().listsNumber,
@@ -53,7 +53,7 @@ class UserLists extends React.Component {
     }
 
     // The variable of the array of UserLists
-    let userLists = this.state.data,
+    let userLists = this.state.userListsData,
       // The title of the page is the name of the owner.
       // Every object has the same `user` object so we can fetch the first one:
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
@@ -62,7 +62,7 @@ class UserLists extends React.Component {
       pageNumber = this.state.pageNumber,
       lists,
       // Show the how many pages left in the pagination button
-      pageLeft = this.state.listsNumber - this.state.data.length;
+      pageLeft = this.state.listsNumber - this.state.userListsData.length;
 
     // Throw message if there's no data found
     if (!userLists) {
@@ -144,7 +144,7 @@ class UserLists extends React.Component {
         // Update the store. Add five more items each time clicking pagination button
         originalData = originalData.concat(data.data);
         // Update the state after adding five more items to Store
-        this.setState({data: originalData});
+        this.setState({userListsData: originalData});
         // Move to the next page if click the button again
         pageNumber++;
         this.setState({pageNumber: pageNumber});
