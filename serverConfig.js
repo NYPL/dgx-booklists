@@ -106,17 +106,12 @@ if (!isProduction) {
   new WebpackDevServer(webpack(webpackConfig), {
     publicPath: webpackConfig.output.publicPath,
     hot: true,
-    inline: true,
     stats: false,
-    historyApiFallback: true,
-    headers: {
-      'Access-Control-Allow-Origin': 'http://localhost:3001',
-      'Access-Control-Allow-Headers': 'X-Requested-With'
-    }
-  }).listen(3000, 'localhost', function (err, result) {
+    historyApiFallback: true
+  }).listen(WEBPACK_DEV_PORT, 'localhost', (err, result) => {
     if (err) {
-      console.log(err);
+      console.log(colors.red(err));
     }
-    console.log('Listening at localhost:3000');
+    console.log(colors.magenta('Webpack Dev Server listening at'), colors.cyan('localhost' + WEBPACK_DEV_PORT));
   });
 }
