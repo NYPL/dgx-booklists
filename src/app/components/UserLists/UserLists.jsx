@@ -60,56 +60,50 @@ class UserLists extends React.Component {
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
       // Show the how many pages left in the pagination button
-      pageLeft = this.state.listsNumber - this.state.userLists.length,
-      lists;
+      pageLeft = this.state.listsNumber - userLists.length,
+      // Render the lists if data is correctly delivered
+      lists = (userLists && userLists.length) ?
+        userLists.map((element, i) => {
+          let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do'),
+            yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
+            counter = `${i+1}.`;
 
-    // Throw message if there's no data found
-    if (!this.state.userLists) {
-      return (
-         <div>No list under this owner</div>
-      );
-    } else {
-      // Parse the list of books if data is correctly delivered
-      lists = userLists.map((element, i) => {
-        let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do'),
-          yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
-          counter = `${i+1}.`;
+            return(
+              <div key={i} className={`${this.props.className}__item-wrapper`}>
+                <span className={`${this.props.className}__item-divide`}></span>
+                <p className={`${this.props.className}__item-index`}>{counter}</p>
+                <Item id={`userlists__item-${element.attributes['list-name']}`}
+                  className={`${this.props.className}__item`}
+                  name={element.attributes['list-name']}
+                  target=''
+                  sampleBookCovers={element['list-items']}
+                  description={element.attributes['list-description']}
+                  createdDate={`${dateCreated}, ${yearCreated}`}
+                  userId={element.user.id}
+                  listId={element.id} />
+              </div>
+            );
+          })
+          // Show the error element if there's no data found
+          : <div>No list under this owner</div>;
 
-        return(
-          <div key={i} className={`${this.props.className}__item-wrapper`}>
-            <span className={`${this.props.className}__item-divide`}></span>
-            <p className={`${this.props.className}__item-index`}>{counter}</p>
-            <Item id={`userlists__item-${element.attributes['list-name']}`}
-              className={`${this.props.className}__item`}
-              name={element.attributes['list-name']}
-              target=''
-              sampleBookCovers={element['list-items']}
-              description={element.attributes['list-description']}
-              createdDate={`${dateCreated}, ${yearCreated}`}
-              userId={element.user.id}
-              listId={element.id} />
-          </div>
-        );
-      });
-
-      // Render the list of owners on DOM
-      return (
-        <div id='main'>
-          <Hero name={username} />
-          <div id={this.props.id} className={this.props.id}>
-            {lists}
-          </div>
-          <div id={`${this.props.id}__page-button-wrapper`}
-          className={`${this.props.className}__page-button-wrapper`}>
-            <PaginationButton id={`${this.props.id}__page-button-wrapper__button`}
-              className={`${this.props.className}__page-button-wrapper__button`}
-              dots='3' label={pageLeft}
-              isLoading={this.state.isLoading}
-              onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber)}/>
-          </div>
+    // Render the list of owners on DOM
+    return (
+      <div id='main'>
+        <Hero name={username} />
+        <div id={this.props.id} className={this.props.id}>
+          {lists}
         </div>
-      );
-    }
+        <div id={`${this.props.id}__page-button-wrapper`}
+        className={`${this.props.className}__page-button-wrapper`}>
+          <PaginationButton id={`${this.props.id}__page-button-wrapper__button`}
+            className={`${this.props.className}__page-button-wrapper__button`}
+            dots='3' label={pageLeft}
+            isLoading={this.state.isLoading}
+            onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber)}/>
+        </div>
+      </div>
+    );
   }
 
   /**
