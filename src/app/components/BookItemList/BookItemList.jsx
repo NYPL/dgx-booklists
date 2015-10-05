@@ -147,6 +147,7 @@ let Navigation = Router.Navigation,
           success: data => {
             // Update the store for the list of lists a user has.
             Actions.updateUserLists(data.data);
+            Actions.updateListsNumber(data.listsNumber);
             // Now transitition to the route.
             this._transitionTo(userId);
           }

@@ -143,6 +143,7 @@
           height: auto;
           width: 100px;
           @include desktop {
+            height: 300px;
             width: 200px;
           }
         }
