@@ -88,7 +88,7 @@ let Navigation = Router.Navigation,
               <div className={`${this.props.className}__item__checkout`}>
                 <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
                   className={`${this.props.className}__item__checkout__button`}
-                  label='Check Available'
+                  label='request this item'
                   target={target} />
               </div>
             </div>
