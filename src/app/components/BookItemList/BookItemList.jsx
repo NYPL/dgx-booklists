@@ -65,9 +65,6 @@ let Navigation = Router.Navigation,
                   <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
                 </a>
                 <div className={`${this.props.className}__item__text-wrapper`}>
-                  <p className={`${this.props.className}__item__text-wrapper__catalog`}>
-                    {publishedDate}
-                  </p>
                   <SimpleButton id={`${this.props.id}__item__text-wrapper__${element.item.id}`}
                     className={`${this.props.className}__item__text-wrapper__name`}
                     label={element.item.attributes.title}
@@ -77,6 +74,9 @@ let Navigation = Router.Navigation,
                   </p>
                   <p className={`${this.props.className}__item__text-wrapper__description`}>
                     {element.attributes.annotation}
+                  </p>
+                  <p className={`${this.props.className}__item__text-wrapper__catalog`}>
+                    {publishedDate}
                   </p>
                 </div>
                 <div className={`${this.props.className}__item__checkout`}>
