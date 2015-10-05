@@ -64,7 +64,7 @@ class UserLists extends React.Component {
       // Render the lists if data is correctly delivered
       lists = (userLists && userLists.length) ?
         userLists.map((element, i) => {
-          let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do'),
+          let dateCreated = Moment(element.attributes['date-created']).format('MMMM D'),
             yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
             counter = `${i+1}.`;
 
