@@ -55,7 +55,9 @@ let Navigation = Router.Navigation,
           listItems.map((element, i) => {
             let target = `${encoreUrl}${element.item.id}?lang=eng`,
               publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
-              bookItemId = `${this.props.id}__item-${element.item.id}`;
+              bookItemId = `${this.props.id}__item-${element.item.id}`,
+              authors = (element.item.attributes.authors.length) ?
+                `By ${element.item.attributes.authors}` : `The author of this item is not available`;
 
             return(
               <div id={bookItemId} className={`${this.props.className}__item`} key={i}>
@@ -71,7 +73,7 @@ let Navigation = Router.Navigation,
                     label={element.item.attributes.title}
                     target={target} />
                   <p className={`${this.props.className}__item__text-wrapper__author`}>
-                    By {element.item.attributes.authors}
+                    {authors}
                   </p>
                   <p className={`${this.props.className}__item__text-wrapper__description`}>
                     {element.attributes.annotation}

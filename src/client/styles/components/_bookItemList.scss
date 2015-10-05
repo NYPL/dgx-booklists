@@ -49,6 +49,9 @@
         text-decoration: none;
         text-transform: capitalize;
       }
+      &__author {
+        text-transform: capitalize;
+      }
       &__description {
         margin: 40px 0 0 0;
       }
