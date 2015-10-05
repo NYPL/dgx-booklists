@@ -63,10 +63,10 @@ let Navigation = Router.Navigation,
         items = listItems.map((element, i) => {
           let target = `${encoreUrl}${element.item.id}?lang=eng`,
             publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
-            itemId = `${this.props.id}__item-${element.item.id}`;
+            bookItemId = `${this.props.id}__item-${element.item.id}`;
 
           return(
-            <div id={itemId} className={`${this.props.className}__item`} key={i}>
+            <div id={bookItemId} className={`${this.props.className}__item`} key={i}>
               <a className={`${this.props.className}__item__image-wrapper`} href={target}>
                 <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
               </a>
