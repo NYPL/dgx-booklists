@@ -1,8 +1,12 @@
 .bookItemList {
-  display: inline-block;
-  margin: 20px 20px 0 20px;
+  display: block;
   max-width: 1312px;
-  width: 100%;
+  padding: 20px 20px 0 20px;
+  @desktop {
+    display: inline-block;
+    margin: 20px 20px 0 20px;
+    width: 100%;
+  }
   &__name {
     border-color: $LIBRARY_RED;
     border-top-style: solid;
@@ -22,13 +26,14 @@
   &__back-button-wrapper {
     cursor: pointer;
     display: block;
-    margin: 20px 40px 0 5px;
-    padding: 0 0 0 40px;
+    margin: 20px 20px 0 20px;
+    padding: 0;
     text-align: left;
     @desktop {
       display: inline-block;
       float: left;
       margin: 20px 40px 0 5px;
+      padding: 0 0 0 40px;
       text-align: right;
     }
     &__button {
@@ -37,16 +42,23 @@
       color: $COOL_GRAY_LIGHT;
       font-size: 14px;
       text-decoration: none;
-      text-transform: capitalize;
+      text-transform: uppercase;
       @desktop {
         border-color: $COOL_GRAY_LIGHT;
         border-top-style: solid;
         border-width: 1px;
         float: right;
+        text-transform: capitalize;
+      }
+      &__icon {
+        display: inline-block;
+        font-size: 30px;
+        margin: 0 8px 0 0;
+        vertical-align: -8px;
       }
       p {
         display: inline-block;
-        margin: 0 0 4px 0;
+        margin: 0 0 0 4px;
         @desktop {
           display: block;
         }
@@ -54,10 +66,11 @@
     }
   }
   &__item {
-    margin: 20px 0 40px 0;
-    &__text-wrapper {
+    margin: 20px 0 60px 0;
+    &__title-wrapper {
       display: block;
       width: 100%;
+      margin: 0 0 14px 0;
       @desktop {
         display: inline-block;
         vertical-align: top;
@@ -66,6 +79,7 @@
       &__catalog {
         font-size: 14px;
         margin: 4px 0 4px 0;
+        text-transform: uppercase;
       }
       &__name {
         color: #000000;
@@ -74,30 +88,59 @@
         text-transform: capitalize;
       }
       &__author {
+        font-size: 14px;
         margin: 0;
       }
+    }
+    &__detail-wrapper {
+      width: 100%;
+      margin: 0 0 26px 0;
+      &__image-wrapper {
+        display: inline-block;
+        margin: 0 16px 0 0;
+        @desktop {
+          display: inline-block;
+          width: 28%;
+        }
+        &__cover-image {
+          backgroundRepeat: no-repeat;
+          display: inline-block;
+          height: auto;
+          width: 100px;
+          @desktop {
+            width: 200px;
+          }
+        }
+      }
       &__description {
-        margin: 4px 0 4px 0;
+        @include calculation(width, '100% - 116px');
+        display: inline-block;
+        font-size: 14px;
+        margin: 0;
+        vertical-align: top;
         @desktop {
           margin: 40px 0 0 0;
         }
       }
     }
-    &__image-wrapper {
-      display: block;
-      margin: 0 0 20px 0;
-      width: 100%;
-      @desktop {
-        display: inline-block;
-        width: 28%;
-      }
-    }
     &__checkout {
       display: block;
+      text-align: center;
       @desktop {
         display: inline-block;
         float: right;
+        text-align: left;
         vertical-align: top;
+      }
+      &__button {
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 33px;
+        color: $UI_BLUE;
+        font-size: 10px;
+        padding: 12px 20px;;
+        text-decoration: none;
+        text-transform: uppercase;
       }
     }
   }

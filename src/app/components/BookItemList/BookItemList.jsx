@@ -67,24 +67,28 @@ let Navigation = Router.Navigation,
 
           return(
             <div id={itemId} className={`${this.props.className}__item`} key={i}>
-              <div className={`${this.props.className}__item__text-wrapper`}>
-                <p className={`${this.props.className}__item__text-wrapper__catalog`}>
+              <div className={`${this.props.className}__item__title-wrapper`}>
+                <p className={`${this.props.className}__item__title-wrapper__catalog`}>
                   {publishedDate}
                 </p>
-                <SimpleButton id={`${this.props.id}__item__text-wrapper__${element.item.id}`}
-                  className={`${this.props.className}__item__text-wrapper__name`}
+                <SimpleButton id={`${this.props.id}__item__title-wrapper__${element.item.id}`}
+                  className={`${this.props.className}__item__title-wrapper__name`}
                   label={element.item.attributes.title}
                   target={target} />
-                <p className={`${this.props.className}__item__text-wrapper__author`}>
-                  By {element.item.attributes.authors}
+                <p className={`${this.props.className}__item__title-wrapper__author`}>
+                  by {element.item.attributes.authors}
                 </p>
-                <p className={`${this.props.className}__item__text-wrapper__description`}>
+              </div>
+              <div className={`${this.props.className}__item__detail-wrapper`}>
+                <a className={`${this.props.className}__item__detail-wrapper__image-wrapper`} href={target}>
+                  <BookCover isbn={element.item.attributes.isbns[0]}
+                  name={element.item.attributes.title}
+                  className={`${this.props.className}__item__detail-wrapper__image-wrapper__cover-image`} />
+                </a>
+                <p className={`${this.props.className}__item__detail-wrapper__description`}>
                   {element.attributes.annotation}
                 </p>
               </div>
-              <a className={`${this.props.className}__item__image-wrapper`} href={target}>
-                <BookCover isbn={element.item.attributes.isbns[0]} name={element.item.attributes.title} />
-              </a>
               <div className={`${this.props.className}__item__checkout`}>
                 <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
                   className={`${this.props.className}__item__checkout__button`}
@@ -104,6 +108,10 @@ let Navigation = Router.Navigation,
               <a id={`${this.props.id}__back-button-wrapper__button`}
               className={`${this.props.className}__back-button-wrapper__button`}
                 onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
+                <div
+                className=
+                {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
+                </div>
                 <p>back to</p>
                 <p>{userDisplayName}</p>
                 <p>lists</p>
