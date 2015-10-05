@@ -52,9 +52,8 @@ let Navigation = Router.Navigation,
     // event.preventDefault() call here.
     _fetchBookData(e) {
       e.preventDefault();
-      console.log('go to booklist: ' + this.props.userId + ' ' + this.props.listId);
 
-      // First call and get the data and then transition to the route.
+    // First call and get the data and then transition to the route.
       // Errors need to be handled.
       $.ajax({
         type: 'GET',
