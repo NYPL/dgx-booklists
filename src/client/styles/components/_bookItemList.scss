@@ -1,24 +1,32 @@
 .bookItemList {
   display: block;
+  margin: 0;
   max-width: 1312px;
   padding: 20px 20px 0 20px;
-  @desktop {
+  position: relative;
+  @include desktop {
     display: inline-block;
-    margin: 20px 20px 0 20px;
-    width: 100%;
+    margin: 20px auto 0 auto;
+    padding: 0;
+    @include calculation(width, '100% - 185px');
   }
   &__name {
     border-color: $LIBRARY_RED;
     border-top-style: solid;
-    border-width: 1px;
+    border-width: 2px;
+    display: block;
     padding: 10px 0 0 0;
     &__button {
       color: $LIBRARY_RED;
       cursor: pointer;
       display: none;
+      font-family: Kievit-Book;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      line-height: 16.21px;
       text-decoration: none;
       text-transform: capitalize;
-      @desktop {
+      @include desktop {
         display: block;
       }
     }
@@ -29,12 +37,13 @@
     margin: 0;
     padding: 20px 20px 0 20px;;
     text-align: left;
-    @desktop {
+    @include desktop {
       display: inline-block;
       float: left;
-      margin: 20px 40px 0 5px;
-      padding: 0 0 0 40px;
+      margin: 20px 40px 0 0;
+      padding: 0;
       text-align: right;
+      width: 125px;
     }
     &__button {
       border-color: $COOL_GRAY_LIGHT;
@@ -58,6 +67,18 @@
         font-size: 30px;
         margin: 0 4px 0 0;
         vertical-align: -8px;
+        @include desktop {
+          display: none;
+        }
+      }
+       &__icon-desktop {
+        display: none;
+        font-size: 30px;
+        margin: 0 4px 0 0;
+        vertical-align: -8px;
+        @include desktop {
+          display: inline-block;
+        }
       }
       p {
         display: inline-block;
@@ -76,9 +97,10 @@
       letter-spacing: 0.01em;
       width: 100%;
       margin: 0 0 14px 0;
-      @desktop {
+      @include desktop {
         display: inline-block;
-        vertical-align: top;
+        position: absolute;
+        left: 250px;
         width: 60%;
       }
       &__catalog {
@@ -95,6 +117,9 @@
         margin: 4px 0 4px 0;
         text-decoration: none;
         text-transform: capitalize;
+        @include desktop {
+          width: 80%;
+        }
       }
       &__author {
         font-size: 16px;
@@ -117,7 +142,7 @@
           display: inline-block;
           height: auto;
           width: 100px;
-          @desktop {
+          @include desktop {
             width: 200px;
           }
         }
@@ -130,19 +155,22 @@
         line-height: 16px;
         margin: 0;
         vertical-align: top;
-        @desktop {
-          margin: 40px 0 0 0;
+        @include desktop {
+          left: 250px;
+          margin: 120px 0 0 0;
+          position: absolute;
+          width: 60%;
         }
       }
     }
     &__checkout {
       display: block;
       text-align: center;
-      @desktop {
+      @include desktop {
         display: inline-block;
         float: right;
+        margin: -310px 0 0 0;
         text-align: left;
-        vertical-align: top;
       }
       &__button {
         border-style: solid;

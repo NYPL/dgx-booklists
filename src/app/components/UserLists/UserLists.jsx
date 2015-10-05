@@ -74,11 +74,13 @@ class UserLists extends React.Component {
       lists = userLists.map((element, i) => {
         let dateCreated = Moment(element.attributes['date-created']).format('MMMM Do'),
           yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
-          counter = `${i+1}.`;
+          counter = `${i+1}.`,
+          firstDivide = i === 0 ? 'first-divide' : '';
 
         return(
           <div key={i} className={`${this.props.className}__item-wrapper`}>
-            <span className={`${this.props.className}__item-divide`}></span>
+            <span className={`${this.props.className}__item-divide ${firstDivide}`}>
+            </span>
             <p className={`${this.props.className}__item-index`}>{counter}</p>
             <Item id={`userlists__item-${element.attributes['list-name']}`}
               className={`${this.props.className}__item`}

@@ -1,9 +1,14 @@
 .userlists {
   @import '_item';
-
-  margin: 20px 20px 0 20px;
+  display: block;
+  margin: 0;
   max-width: 1312px;
-  @desktop {
+  padding: 20px 20px 0 20px;
+  position: relative;
+  @include desktop {
+    margin: 20px auto 0 auto;
+    padding: 0 0 0 166px;
+    width: 100%;
   }
   &__page-button-wrapper {
     text-align: center;

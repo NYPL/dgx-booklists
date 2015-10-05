@@ -13,22 +13,16 @@
     overflow: hidden;
     padding: 20px;
     position: relative;
-    @include breakpoint($min, 720px) { 
-      margin: 0 auto;
+    width: 100%;
+    @include desktop {
+      padding: 60px 0;
     }
     &__text-container {
       float: left;
       position: relative;
-      @include breakpoint($min, $post-palm) {
-        margin: 10px 40px 40px 70px;  
-        width: 40%;
-      }
-      @include breakpoint($min, 720px) {
-        margin: 70px 40px 40px 70px;
-      }
-      @include breakpoint($min, $post-laptop) {
-        margin: 120px 40px 56px 60px;  
-        width: 45%;
+      @include desktop {
+        margin: 0;
+        padding: 0 0 0 100px;
       }
       &__title {
         box-sizing: border-box;
@@ -60,36 +54,26 @@
           letter-spacing: 0;
           line-height: 20px;
           margin: 0;
-            text-align: left;
-          @include breakpoint($min, 720px) {
+          text-align: left;
+          @include desktop {
             display: block;
-            font-size: 20px;
-            line-height: 24px;
+            font-size: 36px;
+            line-height: 28px;
             margin: 0 0 20px 0;
           }
-          @include breakpoint($min, $post-laptop) {
+        }
+        &__intro {
+          display: none;
+          font-family: Kievit-Book;
+          font-size: 15px;
+          letter-spacing: 0.01em;
+          line-height: 20px;
+          text-align: left;
+          @include desktop {
             display: block;
-            font-size: 28px;
-            line-height: 28px;
-            margin: 0 0 10px 0;
+            margin: 0 0 20px 0;
+            width: 60%;
           }
-        }
-      }
-      &__title__intro {
-        display: none;
-        font-family: 'KievitWeb-Book', sans-serif;
-        font-size: 12px;
-        line-height: 14px;
-        text-align: left;
-        @include breakpoint($min, 720px) {
-          display: block;
-          font-size: 12px;
-          line-height: 14px;
-        }
-         @include breakpoint($min, $post-laptop) {
-          display: block;
-          font-size: 14px;
-          line-height: 18px;
         }
       }
     }
@@ -104,13 +88,13 @@
       overflow: hidden;
       position: relative;
       @include breakpoint($min, 720px) {
-        display: inline-block;
+        display: none;
         height: auto;
         margin: -45px 0 -10px 0;
         width: 300px;
       }
       @include breakpoint($min, $post-laptop) {
-        display: inline-block;
+        display: none;
         height: auto;
         margin: -60px 0 -10px 0;
         width: 380px;

@@ -112,6 +112,10 @@ let Navigation = Router.Navigation,
                 className=
                 {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
                 </div>
+                 <div
+                className=
+                {`${this.props.className}__back-button-wrapper__button__icon-desktop nypl-icon-arrow-up`}>
+                </div>
                 <p>back to</p>
                 <p>{userDisplayName}</p>
                 <p>lists</p>
