@@ -103,7 +103,7 @@ let Navigation = Router.Navigation,
             className={`${this.props.className}__back-button-wrapper`}>
               <a id={`${this.props.id}__back-button-wrapper__button`}
               className={`${this.props.className}__back-button-wrapper__button`}
-                onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
+                onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
                 <p>back to</p>
                 <p>{userDisplayName}</p>
                 <p>lists</p>
@@ -114,7 +114,7 @@ let Navigation = Router.Navigation,
               className={`${this.props.className}__name`}>
                 <a id={`${this.props.id}__name__button`}
                 className={`${this.props.className}__name__button`}
-                  onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
+                  onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
                   {userDisplayName}
                 </a>
                 {items}
@@ -125,7 +125,16 @@ let Navigation = Router.Navigation,
       }
     },
 
-    _transitionToUser(userId, pageSize, pageNumber) {
+    /**
+    * _fetchUserLists(userId, pageSize, pageNumber)
+    * Fetch the data we need for UserLists
+    * before the app transit us to UserLists page
+    *
+    * @param (String) userId
+    * @param (String) pageSize
+    *@ param (String) pageNumber
+    */
+    _fetchUserLists(userId, pageSize, pageNumber) {
       if (!userId || !pageSize || !pageNumber) {
         console.log('Unavailable parameters for the request.');
         return;

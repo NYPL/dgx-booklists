@@ -118,9 +118,9 @@ class UserLists extends React.Component {
   * Add five more items every time hitting the pagination button
   *
   * @param {String} UserId 
-  *        {String} pageSize
-  *        {String} pageNumber
-  *        {Array}  originalData
+  * @param {String} pageSize
+  * @param {String} pageNumber
+  * @param {Array}  originalData
   */
   _addItems(userUrlId, pageSize, pageNumber, originalData) {
     if (!userUrlId || !pageSize || !pageNumber) {
