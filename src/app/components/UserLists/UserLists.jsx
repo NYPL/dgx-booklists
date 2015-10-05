@@ -123,7 +123,11 @@ class UserLists extends React.Component {
   *        {Array}  originalData
   */
   _addItems(userUrlId, pageSize, pageNumber, originalData) {
-     $.ajax({
+    if (!userUrlId || !pageSize || !pageNumber) {
+      console.log('Unavailable parameters for the request.');
+      return;
+    }
+    $.ajax({
       type: 'GET',
       dataType: 'json',
       url: `/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`,

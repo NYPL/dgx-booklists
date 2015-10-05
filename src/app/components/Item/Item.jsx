@@ -60,10 +60,12 @@ let Navigation = Router.Navigation,
         type: 'GET',
         dataType: 'json',
         url: `/api/ajax/listID/${this.props.listId}`,
+        error: (jqXHR, textStatus, errorThrown) => {
+          console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
+        },
         success: data => {
           // Update the Store for a specific list of books:
           Actions.updateBookList(data.data);
-
           // Transition to the new route.
           this._transitionTo(this.props.userId, this.props.listId);
         }

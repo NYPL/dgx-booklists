@@ -126,6 +126,10 @@ let Navigation = Router.Navigation,
     },
 
     _transitionToUser(userId, pageSize, pageNumber) {
+      if (!userId || !pageSize || !pageNumber) {
+        console.log('Unavailable parameters for the request.');
+        return;
+      }
       if (!Store.getUserLists()) {
         // First fetch the data and then transition. Must also handle errors.
         $.ajax({
