@@ -20,7 +20,7 @@ parser.setChildrenObjects(options);
 *
 * @param (HTTP methods) req
 * @param (HTTP methods) res
-* @param (Promise function) next
+* @param (Express function) next - call the next function after the previous function has coompleted
 */
 function BookListUsers(req, res, next) {
   let endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}`;
@@ -62,7 +62,7 @@ function BookListUsers(req, res, next) {
 *
 * @param (HTTP methods) req
 * @param (HTTP methods) res
-* @param (Promise function) next
+* @param (Express function) next - call the next function after the previous function has coompleted
 */
 function BookListUser(req, res, next) {
   let username = req.params.username,
@@ -106,7 +106,7 @@ function BookListUser(req, res, next) {
 *
 * @param (HTTP methods) req
 * @param (HTTP methods) res
-* @param (Promise function) next
+* @param (Express function) next - call the next function after the previous function has coompleted
 */
 function ListID(req, res, next) {
   let listID = req.params.listID,
@@ -138,15 +138,14 @@ function ListID(req, res, next) {
 }
 
 /**
-* AjaxBookListUser(req, res, next)
+* AjaxBookListUser(req, res)
 * The AJAX call for internal browsing to the page of UserLists.
 * It utilizes the method of promise.
 *
 * @param (HTTP methods) req
 * @param (HTTP methods) res
-* @param (Promise function) next
 */
-function AjaxBookListUser(req, res, next) {
+function AjaxBookListUser(req, res) {
   let username = req.params.username,
     pageSize = `&page[size]=${req.params.pageSize}`,
     pageNumber = `&page[number]=${req.params.pageNumber}`,
@@ -174,15 +173,14 @@ function AjaxBookListUser(req, res, next) {
 }
 
 /**
-* AjaxListID(req, res, next)
+* AjaxListID(req, res)
 * The AJAX call for internal browsing to the page of BookItemList.
 * It utilizes the method of promise.
 *
 * @param (HTTP methods) req
 * @param (HTTP methods) res
-* @param (Promise function) next
 */
-function AjaxListID(req, res, next) {
+function AjaxListID(req, res) {
   let listID = req.params.listID,
     endpoint = `${api.root}${api.baseEndpoint}/${listID}${api.includes}`;
 
