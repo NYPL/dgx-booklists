@@ -20,11 +20,17 @@
 
   &-index {
     color: $LIBRARY_RED;
+    font-family: Kievit-Medium;
+    font-size: 16px;
+    letter-spacing: 0.01em;
     margin: 10px 0 4px 0;
   }
 
   &__text-wrapper {
     display: block;
+    font-family: Kievit-Medium;
+    font-size: 16px;
+    letter-spacing: 0.01em;
     vertical-align: top;
     width: 100%;
     @desktop {
@@ -33,7 +39,9 @@
     }
     &__name {
       color: #000000;
+      font-family: Milo-Light;
       font-size: 20px;
+      letter-spacing: 0;
       text-decoration: none;
       text-transform: uppercase;
     }
