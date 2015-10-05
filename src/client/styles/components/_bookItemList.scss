@@ -157,6 +157,8 @@
         margin: 0;
         vertical-align: top;
         @include desktop {
+          font-size: 16px;
+          line-height: 20px;
           left: 250px;
           margin: 120px 0 0 0;
           position: absolute;
