@@ -70,12 +70,15 @@ function BookListUsers(req, res, next) {
 
       next();
     }))
-    .catch(error => {
+    .catch(response => {
       console.log('Error calling API BookListUsers: ' + error);
-      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
           allUsersList: []
+        },
+        HeaderStore: {
+          headerData: [],
+          subscribeFormVisible: false
         }
       };
       next();
@@ -114,10 +117,13 @@ function BookListUser(req, res, next) {
     }))
     .catch(error => {
       console.log('Error calling API BookListUser: ' + error.error);
-      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
           userLists: []
+        },
+        HeaderStore: {
+          headerData: [],
+          subscribeFormVisible: false
         }
       };
       next();
@@ -155,10 +161,13 @@ function ListID(req, res, next) {
     }))
     .catch(error => {
       console.log('Error calling API ListID: ' + error);
-      console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
           bookItemList: {}
+        },
+        HeaderStore: {
+          headerData: [],
+          subscribeFormVisible: false
         }
       };
       next();
