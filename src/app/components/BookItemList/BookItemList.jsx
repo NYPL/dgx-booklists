@@ -98,33 +98,35 @@ let Navigation = Router.Navigation,
       return (
         <div id='main'>
           <Hero name={listName} intro={listIntro}/>
-          <div id={`${this.props.id}__back-button-wrapper`}
-          className={`${this.props.className}__back-button-wrapper`}>
-            <a id={`${this.props.id}__back-button-wrapper__button`}
-            className={`${this.props.className}__back-button-wrapper__button`}
-              onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-              <div
-              className=
-              {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
-              </div>
-               <div
-              className=
-              {`${this.props.className}__back-button-wrapper__button__icon-desktop nypl-icon-arrow-up`}>
-              </div>
-              <p>back to</p>
-              <p>{userDisplayName}</p>
-              <p>lists</p>
-            </a>
-          </div>
-          <div id={this.props.id} className={this.props.className}>
-            <div id={`${this.props.id}__${listName}`}
-            className={`${this.props.className}__name`}>
-              <a id={`${this.props.id}__name__button`}
-              className={`${this.props.className}__name__button`}
+          <div className='bookItemList-wrapper'>
+            <div id={`${this.props.id}__back-button-wrapper`}
+            className={`${this.props.className}__back-button-wrapper`}>
+              <a id={`${this.props.id}__back-button-wrapper__button`}
+              className={`${this.props.className}__back-button-wrapper__button`}
                 onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                {userDisplayName}
+                <div
+                className=
+                {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
+                </div>
+                 <div
+                className=
+                {`${this.props.className}__back-button-wrapper__button__icon-desktop nypl-icon-arrow-up`}>
+                </div>
+                <p>back to</p>
+                <p>{userDisplayName}</p>
+                <p>lists</p>
               </a>
-              {items}
+            </div>
+            <div id={this.props.id} className={this.props.className}>
+              <div id={`${this.props.id}__${listName}`}
+              className={`${this.props.className}__name`}>
+                <a id={`${this.props.id}__name__button`}
+                className={`${this.props.className}__name__button`}
+                  onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
+                  {userDisplayName}
+                </a>
+                {items}
+              </div>
             </div>
           </div>
         </div>

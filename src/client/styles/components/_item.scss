@@ -3,7 +3,7 @@
     margin: 20px 0 40px 0;
     width: 100%;
     @include desktop {
-      margin: 20px 0 140px 97px;
+      margin: 0 0 30px 97px;
       @include calculation(width, '100% - 166px');
     }
   }
@@ -52,6 +52,7 @@
       text-transform: capitalize;
       @include desktop {
         font-size: 36px;
+        margin: 0 0 12px 0;
       }
     }
     &__description {
@@ -62,7 +63,7 @@
       line-height: 20px;
       @include desktop {
         display: block;
-        margin: 20px 0;
+        margin: 12px 0 24px 0;
       }
     }
     &__createdDate {
@@ -73,7 +74,7 @@
       text-transform: uppercase;
       @include desktop {
         font-size: 16px;
-        margin: 20px 0 0 0;
+        margin: 24px 0 0 0;
       }
     }
   }

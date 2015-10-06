@@ -1,3 +1,17 @@
+.bookItemList-wrapper {
+  display: block;
+  margin: 0 auto;
+  max-width: 1312px;
+  padding: 20px 20px 0 20px;
+  position: relative;
+  @include desktop {
+    display: block;
+    margin: 0 auto;
+    padding: 24px 0 0 0;
+    width: 100%;
+  }
+}
+
 .bookItemList {
   display: block;
   margin: 0;
@@ -6,9 +20,9 @@
   position: relative;
   @include desktop {
     display: inline-block;
-    margin: 20px auto 0 auto;
-    padding: 0;
-    @include calculation(width, '100% - 185px');
+    margin: 0 auto 0 auto;
+    padding: 0 0 0 29px;
+    @include calculation(width, '100% - 149px');
   }
   &__name {
     border-color: $LIBRARY_RED;
@@ -38,12 +52,15 @@
     padding: 20px 20px 0 20px;;
     text-align: left;
     @include desktop {
+      border-color: $COOL_GRAY_LIGHT;
+      border-top-style: solid;
+      border-width: 2px;
       display: inline-block;
       float: left;
-      margin: 20px 40px 0 0;
+      margin: 0;
       padding: 0;
       text-align: right;
-      width: 125px;
+      width: 68px;
     }
     &__button {
       border-color: $COOL_GRAY_LIGHT;

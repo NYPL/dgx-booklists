@@ -7,7 +7,7 @@
   position: relative;
   @include desktop {
     margin: 0 auto 0 auto;
-    padding: 0;
+    padding: 24px 0 0 0;
     width: 100%;
   }
   &__page-button-wrapper {
