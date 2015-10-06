@@ -11,6 +11,7 @@ import alt from './src/app/alt.js';
 // Import Router
 import Router from 'react-router';
 import routes from './src/app/routes/routes.jsx';
+import DocMeta from 'react-doc-meta';
 
 // Server Configurations
 import appConfig from './appConfig.js';
@@ -73,7 +74,11 @@ app.use((req, res) => {
 
   router.run((Handler, state) => {
     // App is the component we are going to render. It is determined by route handler
-    let App = React.renderToString(<Handler />);
+    let App = React.renderToString(<Handler />),
+      metaTags = DocMeta.rewind(),
+      renderedTags = metaTags.map((tag, index) =>
+        React.renderToString(<meta data-doc-meta="true" key={index} {...tag} />)
+      );
 
     // Inject the stringified data in to App
     iso.add(App, alt.flush());
@@ -83,7 +88,8 @@ app.use((req, res) => {
       App: iso.render(), 
       appTitle: appConfig.appName, 
       favicon: appConfig.favIconPath,
-      isProduction: isProduction
+      isProduction: isProduction,
+      metatags: renderedTags
     });
   });
 });

@@ -3,6 +3,7 @@ import React from 'react';
 
 // Import Router
 import Router from 'react-router';
+import DocMeta from 'react-doc-meta';
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -13,6 +14,7 @@ import Header from '../Header/Header.jsx';
 import Footer from '../Footer/Footer.jsx';
 // import Footer from 'dgx-react-footer';
 
+import utils from '../../utils/utils.js';
 
 // Set up the handler for route
 const RouteHandler = Router.RouteHandler,
@@ -26,10 +28,23 @@ class Application extends React.Component {
   }
 
   // Render DOM
-  render () {     
+  render () {
+    let description = 'Love a good list? So do we. Peruse book, music, and movie recommendations from our librart staff.',
+      pageTags = [
+        // Required OG meta tags
+        {property: "og:title", content: 'Lists | The New York Public Library'},
+        {property: "og:url", content: 'http://www.nypl.org/browse/recommendations/lists/'},
+        {property: "og:image", content: ''},
+        {property: "og:description", content: description},
+        {name: "twitter:description", content: description},
+        {name: "twitter:image", content: ''}
+      ],
+      tags = utils.metaTagUnion(pageTags);
+
     // Render the main components
     return (
       <div className='app-container'>
+        <DocMeta tags={tags} />
         <Header />
         <RouteHandler />
         <Footer />

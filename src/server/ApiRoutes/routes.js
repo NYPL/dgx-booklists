@@ -18,7 +18,9 @@ parser.setChildrenObjects(options);
 * This route is for rendering the page of AllUsersList.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Express function) next - call the next function after the previous function has coompleted
 */
 function BookListUsers(req, res, next) {
   let endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}`;
@@ -30,13 +32,13 @@ function BookListUsers(req, res, next) {
       let returnedData = data.data,
         // parse the data
         parsed = parser.parse(returnedData);
+
       // put the data in Store
       res.locals.data = {
         Store: {
           allUsersList: parsed
         }
       };
-
       next();
     })
     // console error messages
@@ -57,7 +59,9 @@ function BookListUsers(req, res, next) {
 * This route is for rendering the page of UserLists.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Express function) next - call the next function after the previous function has coompleted
 */
 function BookListUser(req, res, next) {
   let username = req.params.username,
@@ -86,7 +90,8 @@ function BookListUser(req, res, next) {
       console.log('Attempted to call : ' + endpoint);
       res.locals.data = {
         Store: {
-          userLists: []
+          userLists: [],
+          listsNumber: 1
         }
       };
       next();
@@ -98,7 +103,9 @@ function BookListUser(req, res, next) {
 * This route is for rendering the page of BookItemList.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Express function) next - call the next function after the previous function has coompleted
 */
 function ListID(req, res, next) {
   let listID = req.params.listID,
@@ -130,18 +137,20 @@ function ListID(req, res, next) {
 }
 
 /**
-* AjaxBookListUser(req, res, next)
+* AjaxBookListUser(req, res)
 * The AJAX call for internal browsing to the page of UserLists.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
 */
-function AjaxBookListUser(req, res, next) {
+function AjaxBookListUser(req, res) {
   let username = req.params.username,
     pageSize = `&page[size]=${req.params.pageSize}`,
     pageNumber = `&page[number]=${req.params.pageNumber}`,
     endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
       `${username}/links/book-lists${api.includes}${pageSize}${pageNumber}`;
+
   axios
     .get(endpoint)
     .then(data => {
@@ -152,7 +161,7 @@ function AjaxBookListUser(req, res, next) {
       // Return the data as a JSON, it will be updated to Store at UserLists component
       res.json({
         user: username,
-        data: parsed,
+        userLists: parsed,
         listsNumber: listsNumber
       });
     })
@@ -163,13 +172,14 @@ function AjaxBookListUser(req, res, next) {
 }
 
 /**
-* AjaxListID(req, res, next)
+* AjaxListID(req, res)
 * The AJAX call for internal browsing to the page of BookItemList.
 * It utilizes the method of promise.
 *
-* @param (HTTP methods)
+* @param (HTTP methods) req
+* @param (HTTP methods) res
 */
-function AjaxListID(req, res, next) {
+function AjaxListID(req, res) {
   let listID = req.params.listID,
     endpoint = `${api.root}${api.baseEndpoint}/${listID}${api.includes}`;
 

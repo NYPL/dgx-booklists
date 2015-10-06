@@ -76,7 +76,8 @@ let Navigation = Router.Navigation,
     * @param (String) username
     */
     _fetchUserLists(username, pageSize, pageNumber) {
-      if (!username) {
+      if (!username || !pageSize || !pageNumber) {
+        console.log('Unavailable parameters for the request.');
         return;
       }
       // First fetch the data and then transition. Must also handle errors.

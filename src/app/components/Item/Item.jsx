@@ -57,18 +57,19 @@ let Navigation = Router.Navigation,
     // event.preventDefault() call here.
     _fetchBookData(e) {
       e.preventDefault();
-      console.log('go to booklist: ' + this.props.userId + ' ' + this.props.listId);
 
-      // First call and get the data and then transition to the route.
+    // First call and get the data and then transition to the route.
       // Errors need to be handled.
       $.ajax({
         type: 'GET',
         dataType: 'json',
         url: `/api/ajax/listID/${this.props.listId}`,
+        error: (jqXHR, textStatus, errorThrown) => {
+          console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
+        },
         success: data => {
           // Update the Store for a specific list of books:
           Actions.updateBookList(data.data);
-
           // Transition to the new route.
           this._transitionTo(this.props.userId, this.props.listId);
         }

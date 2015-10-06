@@ -51,93 +51,100 @@ let Navigation = Router.Navigation,
         listName = bookItemList.attributes['list-name'],
         listIntro = bookItemList.attributes['list-description'],
         encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
-        items;
+        items = (listItems && listItems.length) ?
+          listItems.map((element, i) => {
+            let target = `${encoreUrl}${element.item.id}?lang=eng`,
+              publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
+              bookItemId = `${this.props.id}__item-${element.item.id}`,
+              authors = (element.item.attributes.authors.length) ?
+                `By ${element.item.attributes.authors}` : `The author of this item is not available`;
 
-      // Throw message if there's no data found
-      if (!listItems.length) {
-        return (
-          <div>No book under this list</div>
-        );
-      } else {
-        // Parse the list of books if data is correctly delivered
-        items = listItems.map((element, i) => {
-          let target = `${encoreUrl}${element.item.id}?lang=eng`,
-            publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
-            itemId = `${this.props.id}__item-${element.item.id}`;
+            return(
+              <div id={bookItemId} className={`${this.props.className}__item`} key={i}>
+                <div className={`${this.props.className}__item__title-wrapper`}>
+                  <SimpleButton id={`${this.props.id}__item__title-wrapper__${element.item.id}`}
+                    className={`${this.props.className}__item__title-wrapper__name`}
+                    label={element.item.attributes.title}
+                    target={target} />
+                  <p className={`${this.props.className}__item__title-wrapper__author`}>
+                    by {element.item.attributes.authors}
+                  </p>
+                </div>
+                <div className={`${this.props.className}__item__detail-wrapper`}>
+                  <a className={`${this.props.className}__item__detail-wrapper__image-wrapper`} href={target}>
+                    <BookCover isbn={element.item.attributes.isbns[0]}
+                    name={element.item.attributes.title}
+                    className={`${this.props.className}__item__detail-wrapper__image-wrapper__cover-image`} />
+                  </a>
+                  <p className={`${this.props.className}__item__detail-wrapper__description`}>
+                    {element.attributes.annotation}
+                  </p>
+                  <p className={`${this.props.className}__item__detail-wrapper__catalog`}>
+                    {publishedDate}
+                  </p>
+                </div>
+                <div className={`${this.props.className}__item__checkout`}>
+                  <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
+                    className={`${this.props.className}__item__checkout__button`}
+                    label='request this item'
+                    target={target} />
+                </div>
+              </div>
+            );
+          })
+          :<div>No book under this list</div>;
 
-          return(
-            <div id={itemId} className={`${this.props.className}__item`} key={i}>
-              <div className={`${this.props.className}__item__title-wrapper`}>
-                <p className={`${this.props.className}__item__title-wrapper__catalog`}>
-                  {publishedDate}
-                </p>
-                <SimpleButton id={`${this.props.id}__item__title-wrapper__${element.item.id}`}
-                  className={`${this.props.className}__item__title-wrapper__name`}
-                  label={element.item.attributes.title}
-                  target={target} />
-                <p className={`${this.props.className}__item__title-wrapper__author`}>
-                  by {element.item.attributes.authors}
-                </p>
+      // Render the list of owners on DOM
+      return (
+        <div id='main'>
+          <Hero name={listName} intro={listIntro}/>
+          <div id={`${this.props.id}__back-button-wrapper`}
+          className={`${this.props.className}__back-button-wrapper`}>
+            <a id={`${this.props.id}__back-button-wrapper__button`}
+            className={`${this.props.className}__back-button-wrapper__button`}
+              onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
+              <div
+              className=
+              {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
               </div>
-              <div className={`${this.props.className}__item__detail-wrapper`}>
-                <a className={`${this.props.className}__item__detail-wrapper__image-wrapper`} href={target}>
-                  <BookCover isbn={element.item.attributes.isbns[0]}
-                  name={element.item.attributes.title}
-                  className={`${this.props.className}__item__detail-wrapper__image-wrapper__cover-image`} />
-                </a>
-                <p className={`${this.props.className}__item__detail-wrapper__description`}>
-                  {element.attributes.annotation}
-                </p>
+               <div
+              className=
+              {`${this.props.className}__back-button-wrapper__button__icon-desktop nypl-icon-arrow-up`}>
               </div>
-              <div className={`${this.props.className}__item__checkout`}>
-                <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
-                  className={`${this.props.className}__item__checkout__button`}
-                  label='Check Availability'
-                  target={target} />
-              </div>
-            </div>
-          );
-        });
-
-        // Render the list of owners on DOM
-        return (
-          <div id='main'>
-            <Hero name={listName} intro={listIntro}/>
-            <div id={`${this.props.id}__back-button-wrapper`}
-            className={`${this.props.className}__back-button-wrapper`}>
-              <a id={`${this.props.id}__back-button-wrapper__button`}
-              className={`${this.props.className}__back-button-wrapper__button`}
+              <p>back to</p>
+              <p>{userDisplayName}</p>
+              <p>lists</p>
+            </a>
+          </div>
+          <div id={this.props.id} className={this.props.className}>
+            <div id={`${this.props.id}__${listName}`}
+            className={`${this.props.className}__name`}>
+              <a id={`${this.props.id}__name__button`}
+              className={`${this.props.className}__name__button`}
                 onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
-                <div
-                className=
-                {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
-                </div>
-                 <div
-                className=
-                {`${this.props.className}__back-button-wrapper__button__icon-desktop nypl-icon-arrow-up`}>
-                </div>
-                <p>back to</p>
-                <p>{userDisplayName}</p>
-                <p>lists</p>
+                {userDisplayName}
               </a>
-            </div>
-            <div id={this.props.id} className={this.props.className}>
-              <div id={`${this.props.id}__${listName}`}
-              className={`${this.props.className}__name`}>
-                <a id={`${this.props.id}__name__button`}
-                className={`${this.props.className}__name__button`}
-                  onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
-                  {userDisplayName}
-                </a>
-                {items}
-              </div>
+              {items}
             </div>
           </div>
-        );
-      }
+        </div>
+      );
     },
 
-    _transitionToUser(userId, pageSize, pageNumber) {
+    /**
+    * _fetchUserLists(userId, pageSize, pageNumber)
+    * Fetch the data we need for UserLists
+    * before the app transit us to UserLists page
+    *
+    * @param (String) userId
+    * @param (String) pageSize
+    *@ param (String) pageNumber
+    */
+    _fetchUserLists(userId, pageSize, pageNumber) {
+      if (!userId || !pageSize || !pageNumber) {
+        console.log('Unavailable parameters for the request.');
+        return;
+      }
       if (!Store.getUserLists()) {
         // First fetch the data and then transition. Must also handle errors.
         $.ajax({
@@ -146,19 +153,19 @@ let Navigation = Router.Navigation,
           url: `/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
           success: data => {
             // Update the store for the list of lists a user has.
-            Actions.updateUserLists(data.data);
+            Actions.updateUserLists(data.userLists);
             Actions.updateListsNumber(data.listsNumber);
-            // Now transitition to the route.
-            this._transitionTo(userId);
+            // Now transit to the route.
+            this._transitionToUser(userId);
           }
         });
       } else {
-        this._transitionTo(userId);
+        this._transitionToUser(userId);
       }
     },
 
-    _transitionTo(userId) {
-      // Now transitition to the route.
+    _transitionToUser(userId) {
+      // Now transit to the route.
       this.transitionTo('UserLists', {
         UserLists: userId
       });
