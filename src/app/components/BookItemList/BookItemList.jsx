@@ -67,7 +67,7 @@ let Navigation = Router.Navigation,
                     label={element.item.attributes.title}
                     target={target} />
                   <p className={`${this.props.className}__item__title-wrapper__author`}>
-                    by {element.item.attributes.authors}
+                    {authors}
                   </p>
                 </div>
                 <div className={`${this.props.className}__item__detail-wrapper`}>

@@ -67,7 +67,7 @@
       border-top-style: none;
       color: $COOL_GRAY_LIGHT;
       font-family: Kievit-Medium;
-      font-size: 13px;
+      font-size: 12px;
       letter-spacing: 0.04em;
       line-height: 16.21px;
       text-decoration: none;
@@ -136,6 +136,7 @@
         font-size: 16px;
         line-height: 20px;
         margin: 4px 0 4px 0;
+        text-transform: capitalize;
       }
     }
     &__detail-wrapper {
