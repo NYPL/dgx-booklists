@@ -20,9 +20,11 @@ import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
 
 import ApiRoutes from './src/server/ApiRoutes/routes.js';
+import WidgetRoutes from './src/server/ApiRoutes/widgetRoutes.js';
 
 // Import components
 import Application from './src/app/components/Application/Application.jsx';
+import OwnerLists from './src/app/components/OwnerLists/OwnerLists.jsx';
 
 // URL configuration
 const ROOT_PATH = __dirname;
@@ -58,10 +60,48 @@ app.set('views', INDEX_PATH);
 // application's dist files are located.
 app.use(express.static(DIST_PATH));
 
+app.use('/widget', WidgetRoutes);
+
+// Match all routes to render the index page.
+app.use('/widget', (req, res) => {
+  console.log('widget app');
+  let router = Router.create({
+      routes: routes,
+      location: req.path
+    }),
+    iso;
+
+  // bootstrap will stringify the data
+  alt.bootstrap(JSON.stringify(res.locals.data || {}));
+  iso = new Iso();
+
+  // router.run((Handler, state) => {
+    // App is the component we are going to render. It is determined by route handler
+  let App = React.renderToString(<OwnerLists />),
+    metaTags = DocMeta.rewind(),
+    renderedTags = metaTags.map((tag, index) =>
+      React.renderToString(<meta data-doc-meta="true" key={index} {...tag} />)
+    );
+
+    // Inject the stringified data in to App
+  iso.add(App, alt.flush());
+
+  // The data we render by iso and pass to index.ejs
+  res.render('index', {
+    App: iso.render(), 
+    appTitle: appConfig.appName, 
+    favicon: appConfig.favIconPath,
+    isProduction: isProduction,
+    metatags: renderedTags
+  });
+  // });
+});
+
 app.use('/', ApiRoutes);
 
 // Match all routes to render the index page.
-app.use((req, res) => {  
+app.use('/', (req, res) => {
+  console.log('normal app');
   let router = Router.create({
       routes: routes,
       location: req.path
@@ -93,6 +133,7 @@ app.use((req, res) => {
     });
   });
 });
+
 
 // Start the server.
 app.listen(serverPort, (err, result) => {
