@@ -4,8 +4,10 @@ import cx from 'classnames';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import EmailSubscription from '../EmailSubscription/EmailSubscription.jsx';
 
-import HeaderStore from '../../stores/HeaderStore';
-import HeaderActions from '../../actions/HeaderActions';
+import Store from '../../stores/HeaderStore.js';
+import Actions from '../../actions/HeaderActions.js';
+
+import gaUtils from '../../utils/gaUtils.js';
 
 class SubscribeButton extends React.Component {
 
@@ -15,7 +17,7 @@ class SubscribeButton extends React.Component {
 
     // Holds the initial state, replaces getInitialState() method
     this.state = {
-      subscribeFormVisible: HeaderStore.getSubscribeFormVisible()
+      subscribeFormVisible: Store._getSubscribeFormVisible()
     };
 
     // Allows binding methods that reference this
@@ -23,11 +25,11 @@ class SubscribeButton extends React.Component {
   }
 
   componentDidMount () {
-    HeaderStore.addChangeListener(this._onChange.bind(this));
+    Store.listen(this._onChange.bind(this));
   }
 
   componentWillUnmount () {
-    HeaderStore.removeChangeListener(this._onChange.bind(this));
+    Store.unListen(this._onChange.bind(this));
   }
 
   render () {
@@ -35,33 +37,45 @@ class SubscribeButton extends React.Component {
     //let showDialog = this.state.showDialog;
     let showDialog = this.state.subscribeFormVisible;
     // Dynamic class assignment based on boolean flag
-    const classes =  cx({ show: showDialog, hide: !showDialog });
+    const classes = cx({
+        'active': showDialog,
+        '': !showDialog
+      }),
+      iconClass = cx({
+        'nypl-icon-solo-x': showDialog,
+        'nypl-icon-wedge-down': !showDialog
+      });
 
     //console.log(this.state);
-
     return (
       <div className='SubscribeButton-Wrapper'
-      ref='SubscribeButton'
-      style={[
-        styles.base,
-        this.props.style //allows for parent-to-child css styling
-      ]}>
-        <SimpleButton
-        className={'SubscribeButton'}
-        id={'SubscribeButton'}
-        lang={this.props.lang}
-        label={this.props.label}
-        target={this.props.target}
-        onClick={this._handleClick}
-        style={styles.SimpleButton} />
-        <div className={'EmailSubscribeForm-Wrapper up-arrow '}
+        ref='SubscribeButton'
         style={[
-          styles.EmailSubscribeForm,
-          showDialog ? styles.show : styles.hide
+          styles.base,
+          this.props.style //allows for parent-to-child css styling
         ]}>
+
+        <a
+          id={'SubscribeButton'}
+          className={'SubscribeButton ' + classes}
+          href={this.props.target}
+          onClick={this._handleClick}
+          style={[
+            styles.SimpleButton,
+            this.props.style
+          ]}>
+          {this.props.label}
+          <span className={iconClass + ' icon'} style={styles.SubscribeIcon}></span>
+        </a>
+
+        <div className={'EmailSubscription-Wrapper'}
+          style={[
+            styles.EmailSubscribeForm,
+            showDialog ? styles.show : styles.hide
+          ]}>
           <EmailSubscription
-          list_id='1061'
-          target='https://dev-mailinglistapi.nypl.org' />
+            list_id='1061'
+            target='https://dev-mailinglistapi.nypl.org' />
         </div>
       </div>
     );
@@ -76,20 +90,17 @@ class SubscribeButton extends React.Component {
     if(this.props.target === '') {
       event.preventDefault();
 
-      HeaderActions.toggleSubscribeFormVisible();
-      // Toggle the Constant to show/hide the Subscribe Form
-      /*if (HeaderStore.getSubscribeFormVisible() === false) {
-        HeaderActions.updateSubscribeFormVisible(true);
-      } else {
-        HeaderActions.updateSubscribeFormVisible(false);
-      }*/
+      Actions.toggleSubscribeFormVisible(!this.state.subscribeFormVisible);
+
+      let visibleState = this.state.subscribeFormVisible ? 'Closed' : 'Open';
+      gaUtils._trackEvent('Click', `Subscribe - ${visibleState}`);
     }
   }
 
   // Updates the state of the form based off the Header Store.
   // The central point of access to the value is in the Store.
   _onChange () {
-    this.setState({subscribeFormVisible: HeaderStore.getSubscribeFormVisible()});
+    this.setState({subscribeFormVisible: Store._getSubscribeFormVisible()});
   }
 }
 
@@ -104,21 +115,29 @@ SubscribeButton.defaultProps = {
 
 const styles = {
   base: {
-    margin: '0px 5px'
+    margin: '0px 15px',
+    position: 'relative',
+    display: 'inline-block'
   },
   SimpleButton: {
-    padding: '1em',
     display: 'block',
-    color: '#000'
+    padding: '9px 15px 11px 20px'
+  },
+  SubscribeIcon: {
+    fontSize: '15px',
+    verticalAlign: 'text-bottom',
+    marginLeft: '5px',
+    display: 'inline',
+    opacity: '0.8'
   },
   EmailSubscribeForm: {
     position: 'absolute',
     zIndex: 1000,
-    right: '0px',
-    width: '310px',
-    backgroundColor: '#EDEDED',
-    padding: '10px',
-    margin: '5px 0 0 0'
+    right: '0',
+    width: '250px',
+    height: '210px',
+    backgroundColor: '#1DA1D4',
+    padding: '25px 30px'
   },
   hide: {
     display: 'none'

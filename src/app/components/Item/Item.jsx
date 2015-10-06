@@ -38,11 +38,12 @@ let Item = React.createClass({
           {bookCovers}
         </div>
         <div className={`${this.props.className}__text-container`}>
-          <SimpleButton id={this.props.name}
+          <a id={this.props.name}
             className={`${this.props.className}__text-container__name`}
-            label={this.props.name}
             target={this.props.target}
-            onClick={this._fetchBookData} />
+            onClick={this._fetchBookData}>
+            {this.props.name}
+          </a>
           <p>{this.props.description}</p>
         </div>
       </div>
