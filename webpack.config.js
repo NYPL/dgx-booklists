@@ -82,7 +82,6 @@ if (ENV === 'development') {
 				{
 			    test: /\.jsx?$/,
 			    exclude: /(node_modules|bower_components)/,
-			    include: path.resolve(ROOT_PATH, 'src'),
 			    loaders: ['react-hot', 'babel']
 			  }
 			]
