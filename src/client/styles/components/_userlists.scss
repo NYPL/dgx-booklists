@@ -1,9 +1,15 @@
 .userlists {
-  margin: 20px auto 0 auto;
-  max-width: 1312px;
-
   @import '_item';
-
+  display: block;
+  margin: 0;
+  max-width: 1312px;
+  padding: 20px 20px 0 20px;
+  position: relative;
+  @include desktop {
+    margin: 20px auto 0 auto;
+    padding: 0;
+    width: 100%;
+  }
   &__page-button-wrapper {
     text-align: center;
     &__button {
@@ -18,7 +24,10 @@
       color: $COOL_GRAY_LIGHT;
       cursor: pointer;
       display: inline-block;
-      font-size: 16px;
+      font-family: Kievit-Medium;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      line-height: 16.21px;
       overflow: hidden;
       padding: 5px 20px;
       &__dot-ul {

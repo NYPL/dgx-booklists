@@ -1,100 +1,80 @@
 .hero {
-  background-color: #ED1C24;
+  background-color: $LIBRARY_RED;
   color: white;
   height: auto;
+  margin: 0;
   min-height: 72px;
   padding: 0;
   width: 100%;
-
+  @include desktop {
+    margin: 50px 0 0 0;
+  }
   &__container {
     height: auto;
-    margin: 50px auto 0 auto; 
+    margin: 0 auto;
     max-width: 1312px;
     overflow: hidden;
+    padding: 20px;
     position: relative;
-    @include breakpoint($min, 720px) { 
-      margin: 0 auto;
+    @include desktop {
+      padding: 60px 0;
     }
-
     &__text-container {
       float: left;
-      margin: 4px 0 0 22px; 
       position: relative;
-      @include breakpoint($min, $post-palm) {
-        margin: 10px 40px 40px 70px;  
-        width: 40%;
-      }
-      @include breakpoint($min, 720px) {
-        margin: 70px 40px 40px 70px;
-      }
-      @include breakpoint($min, $post-laptop) {
-        margin: 120px 40px 56px 60px;  
-        width: 45%;
+      @include desktop {
+        margin: 0;
+        padding: 0 0 0 97px;
       }
       &__title {
         box-sizing: border-box;
         color: white;
+        font-family: Kievit-Medium;
+        letter-spacing: 0.01em;
+        line-height: 28px;
         position: relative;
         width: 100%;
         h3 {
-          font-family: 'KievitWeb-Bold', sans-serif;
-          font-size: 12px;
-          font-weight: normal;
-          letter-spacing: 0.09rem;
-          margin: 24px 0 10px 0;
-          text-transform: uppercase;
-          @include breakpoint($min, $post-palm) {
-            margin: 40px 0 10px 0;
-          }
-          @include breakpoint($min, 720px) {
-            margin: 0 0 20px 0;
-          }
-          @include breakpoint($min, $post-laptop) {
-            margin: 0 0 20px 0;
-          }
-        }
-      }
-
-      &___title__des {
-        display: none;
-        font-family: MiloSlabPro, RobotoSlabLight, serif;
-        font-size: 36px;
-        line-height: 36px;
-        margin: 0 0 5px 0;
-        text-align: left;
-        @include breakpoint($min, 720px) {
-          display: block;
-          font-size: 20px; 
-          line-height: 24px;
-          margin: 0 0 20px 0;
-        } 
-        @include breakpoint($min, $post-laptop) {
-          display: block;
-          font-size: 28px; 
-          line-height: 28px;
-          margin: 0 0 10px 0;
-        }
-      }
-
-      &__title__intro {
-        display: none;
-        font-family: 'KievitWeb-Book', sans-serif;
-        font-size: 12px;
-        line-height: 14px;
-        text-align: left;
-        @include breakpoint($min, 720px) {
-          display: block;
-          font-size: 12px;
-          line-height: 14px;
-        }
-         @include breakpoint($min, $post-laptop) {
-          display: block;
           font-size: 14px;
-          line-height: 18px;
+          font-weight: normal;
+          letter-spacing: 0.01em;
+          margin: 0 0 10px 0;
+          text-transform: uppercase;
+          @include desktop {
+            font-size: 16px;
+            margin: 0 0 20px 0;
+          }
+        }
+        &__des {
+          display: block;
+          font-family: Milo-Light;
+          font-size: 20px;
+          letter-spacing: 0;
+          line-height: 28px;
+          margin: 0;
+          text-align: left;
+          @include desktop {
+            display: block;
+            font-size: 36px;
+            line-height: 28px;
+            margin: 0 0 20px 0;
+          }
+        }
+        &__intro {
+          display: none;
+          font-family: Kievit-Book;
+          font-size: 15px;
+          letter-spacing: 0.01em;
+          line-height: 20px;
+          text-align: left;
+          @include desktop {
+            display: block;
+            margin: 0 0 20px 0;
+            width: 60%;
+          }
         }
       }
     }
-
     &__image-container {
       /* background-image: url('/recommendations/staff-picks/client/images/shelftalker.4.2.png'); */
       background-position: -10px 20px;
@@ -106,13 +86,13 @@
       overflow: hidden;
       position: relative;
       @include breakpoint($min, 720px) {
-        display: inline-block;
+        display: none;
         height: auto;
         margin: -45px 0 -10px 0;
         width: 300px;
       }
       @include breakpoint($min, $post-laptop) {
-        display: inline-block;
+        display: none;
         height: auto;
         margin: -60px 0 -10px 0;
         width: 380px;

@@ -1,35 +1,118 @@
 &__item {
   &-wrapper {
-    margin: 20px 0 20px 0;
+    margin: 0 0 40px 0;
+    width: 100%;
+    @include desktop {
+      margin: 0 0 120px 97px;
+      @include calculation(width, '100% - 166px');
+    }
   }
-
   &-divide {
-    border-color: #A3A19E;
+    border-color: $COOL_GRAY_LIGHT;
     border-top-style: solid;
     border-width: 2px;
     display: block;
-    width: 120px;
+    width: 50px;
+    &.first-divide {
+      @include desktop {
+        border-color: $LIBRARY_RED;
+        border-top-style: solid;
+        border-width: 2px;
+        width: 93%;
+      }
+    }
   }
-
   &-index {
-    color: #ED1C24;
+    color: $LIBRARY_RED;
+    font-family: Kievit-Medium;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+    margin: 10px 0 4px 0;
   }
-
-  &__image-wrapper {
-    display: inline-block;
-    text-align: left;
-    width: 30%;
-  }
-
   &__text-wrapper {
-    display: inline-block;
+    display: block;
+    font-family: Kievit-Medium;
+    letter-spacing: 0.01em;
+    position: relative;
     vertical-align: top;
-    width: 70%;
+    width: 100%;
+    @include desktop {
+      display: inline-block;
+      left: 486px;
+      position: absolute;
+      width: 50%;
+    }
     &__name {
       color: #000000;
+      cursor: pointer;
+      font-family: Milo-Light;
       font-size: 20px;
+      letter-spacing: 0;
       text-decoration: none;
+      text-transform: capitalize;
+      @include desktop {
+        font-size: 36px;
+        margin: 0 0 12px 0;
+      }
+    }
+    &__description {
+      display: none;
+      font-family: Milo-Light;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: 20px;
+      @include desktop {
+        display: block;
+        margin: 12px 0 24px 0;
+      }
+    }
+    &__createdDate {
+      font-size: 12px;
+      letter-spacing: 0.01em;
+      line-height: 20px;
+      margin: 4px 0 10px 0;
       text-transform: uppercase;
+      @include desktop {
+        font-size: 16px;
+        margin: 24px 0 0 0;
+      }
+    }
+  }
+  &__image-wrapper {
+    cursor: pointer;
+    display: block;
+    height: 200px;
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+    @include desktop {
+      width: 300px;
+    }
+    &__book-cover {
+      display: inline-block;
+      position: relative;
+      &:nth-child(1n) {
+        margin: 0;
+        z-index: 200;
+      }
+      &:nth-child(2n) {
+        margin: 0 0 0 -90px;
+        z-index: 199;
+      }
+      &:nth-child(3n) {
+        margin: 0 0 0 -90px;
+        z-index: 198;
+      }
+      &:nth-child(4n) {
+        margin: 0 0 0 -90px;
+        z-index: 197;
+      }
+      &__cover-image {
+        background-repeat: no-repeat;
+        display: inline-block;
+        height: 200px;
+        width: auto;
+      }
     }
   }
 }

@@ -14,9 +14,8 @@ class BookCover extends React.Component {
         `Value=${this.props.isbn}&content=M&Return=1&Type=M`;
 
     return (
-      <div style={styles.BookCoverContainer}>
-        <img src={imageSrc} style={styles.BookCover} alt={this.props.name} />
-      </div>
+      <img id={this.props.id} className={this.props.className} src={imageSrc}
+      alt={this.props.name} />
     );
   }
 };
@@ -24,18 +23,6 @@ class BookCover extends React.Component {
 BookCover.defaultProps = {
   lang: 'en'
 };
-
-const styles = {
-    BookCoverContainer: {
-      marginRight: '-100px'
-    },
-    BookCover: {
-      backgroundRepeat: 'no-repeat',
-      display: 'inline-block',
-      height: '200px',
-      width: 'auto'
-    }
-  };
 
 // Export components
 export default BookCover;

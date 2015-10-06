@@ -50,7 +50,6 @@ class UserLists extends React.Component {
         <div>Something is wrong</div>
       );
     }
-
     // The variable of the array of UserLists
     let userLists = this.state.userLists,
       // The title of the page is the name of the owner.

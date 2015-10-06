@@ -1,65 +1,227 @@
-.bookItemList {
-  display: inline-block;
-  margin: 20px auto 0 auto;
+.bookItemList-wrapper {
+  display: block;
+  margin: 0 auto;
   max-width: 1312px;
-  width: 100%;
+  padding: 20px 0 0 0;
+  position: relative;
+  @include desktop {
+    display: block;
+    margin: 0 auto;
+    padding: 24px 0 0 0;
+    width: 100%;
+  }
+}
+
+.bookItemList {
+  display: block;
+  margin: 0;
+  max-width: 1312px;
+  padding: 20px 20px 0 20px;
+  position: relative;
+  @include desktop {
+    display: inline-block;
+    margin: 0 auto 0 auto;
+    padding: 0 0 0 29px;
+    @include calculation(width, '100% - 149px');
+  }
   &__name {
     border-color: $LIBRARY_RED;
     border-top-style: solid;
-    border-width: 1px;
-    padding: 10px 0 0 0;
+    border-width: 2px;
+    display: block;
+    padding: 12px 0 0 0;
+    @include desktop {
+      padding: 10px 0 0 0;
+    }
     &__button {
       color: $LIBRARY_RED;
       cursor: pointer;
+      display: none;
+      font-family: Kievit-Book;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      line-height: 16.21px;
       text-decoration: none;
       text-transform: capitalize;
+      @include desktop {
+        display: block;
+      }
     }
   }
   &__back-button-wrapper {
     cursor: pointer;
-    display: inline-block;
-    float: left;
-    margin: 20px 40px 0 5px;
-    padding: 0 0 0 40px;
-    text-align: right;
-    &__button {
+    display: block;
+    margin: 0;
+    padding: 0 20px 0 20px;;
+    text-align: left;
+    @include desktop {
       border-color: $COOL_GRAY_LIGHT;
       border-top-style: solid;
-      border-width: 1px;
-      color: #A3A19E;
-      float: right;
-      font-size: 14px;
+      border-width: 2px;
+      display: inline-block;
+      float: left;
+      margin: 0;
+      padding: 0;
+      text-align: right;
+      width: 68px;
+    }
+    &__button {
+      border-color: $COOL_GRAY_LIGHT;
+      border-top-style: none;
+      color: $COOL_GRAY_LIGHT;
+      font-family: Kievit-Medium;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      line-height: 16.21px;
       text-decoration: none;
-      text-transform: capitalize;
+      text-transform: uppercase;
+      @desktop {
+        border-color: $COOL_GRAY_LIGHT;
+        border-top-style: solid;
+        border-width: 1px;
+        float: right;
+        text-transform: capitalize;
+      }
+      &__icon {
+        display: inline-block;
+        font-size: 30px;
+        margin: 0 4px 0 0;
+        vertical-align: -8px;
+        @include desktop {
+          display: none;
+        }
+      }
+       &__icon-desktop {
+        display: none;
+        font-size: 30px;
+        margin: 0 4px 0 0;
+        vertical-align: -8px;
+        @include desktop {
+          display: inline-block;
+        }
+      }
+      p {
+        display: inline-block;
+        margin: 0 0 0 4px;
+        @desktop {
+          display: block;
+        }
+      }
     }
   }
   &__item {
-    margin: 20px 0;
-    &__image-wrapper {
-      display: inline-block;
-      width: 28%;
+    margin: 0 0 60px 0;
+    @include desktop {
+      margin: 20px 0 60px 0;
     }
-    &__text-wrapper {
-      display: inline-block;
-      vertical-align: top;
-      width: 60%;
+    &__title-wrapper {
+      display: block;
+      font-family: Kievit-Medium;
+      letter-spacing: 0.01em;
+      width: 100%;
+      margin: 0 0 14px 0;
+      @include desktop {
+        display: inline-block;
+        position: absolute;
+        left: 250px;
+        width: 60%;
+      }
       &__name {
         color: #000000;
-        font-size: 20px;
+        font-family: Milo-Light;
+        font-size: 36px;
+        letter-spacing: 0;
+        margin: 4px 0 4px 0;
         text-decoration: none;
         text-transform: capitalize;
+        @include desktop {
+          width: 80%;
+        }
+      }
+      &__author {
+        font-size: 16px;
+        line-height: 20px;
+        margin: 4px 0 4px 0;
+        text-transform: capitalize;
+      }
+    }
+    &__detail-wrapper {
+      width: 100%;
+      margin: 0 0 26px 0;
+      &__image-wrapper {
+        display: inline-block;
+        margin: 0 16px 0 0;
+        @desktop {
+          display: inline-block;
+          width: 28%;
+        }
+        &__cover-image {
+          backgroundRepeat: no-repeat;
+          display: inline-block;
+          height: auto;
+          width: 100px;
+          @include desktop {
+            height: 300px;
+            width: 200px;
+          }
+        }
       }
       &__author {
         text-transform: capitalize;
       }
       &__description {
-        margin: 40px 0 0 0;
+        @include calculation(width, '100% - 116px');
+        display: inline-block;
+        font-family: Milo-Light;
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0;
+        vertical-align: top;
+        @include desktop {
+          font-size: 16px;
+          line-height: 20px;
+          left: 250px;
+          margin: 120px 0 0 0;
+          position: absolute;
+          width: 60%;
+        }
+      }
+      &__catalog {
+        font-size: 16px;
+        line-height: 20px;
+        margin: 4px 0 4px 0;
+        text-transform: uppercase;
+        @include desktop {
+          left: 250px;
+          margin: 0;
+          position: relative;
+          top: -100px;
+          width: 60%;
+        }
       }
     }
     &__checkout {
-      display: inline-block;
-      float: right;
-      vertical-align: top;
+      display: block;
+      text-align: center;
+      @include desktop {
+        display: inline-block;
+        float: right;
+        margin: -310px 0 0 0;
+        text-align: left;
+      }
+      &__button {
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 33px;
+        color: $UI_BLUE;
+        font-family: Kievit-Medium;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        line-height: 16.21px;
+        padding: 12px 20px;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
     }
   }
 }
