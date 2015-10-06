@@ -59,7 +59,7 @@ class UserLists extends React.Component {
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
       // Show how many pages left in the pagination button
-      pageLeft = this.state.listsNumber,
+      pageLeft = this.state.listsNumber - userLists.length,
       // Render the lists if data is correctly delivered
       lists = (userLists && userLists.length) ?
         userLists.map((element, i) => {
@@ -85,8 +85,6 @@ class UserLists extends React.Component {
           })
           // Show the error element if there's no data found
           : <div>No list under this owner</div>;
-
-                      console.log(Store.getState());
 
     // Render the list of owners on DOM
     return (

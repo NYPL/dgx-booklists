@@ -102,7 +102,7 @@ let Navigation = Router.Navigation,
           className={`${this.props.className}__back-button-wrapper`}>
             <a id={`${this.props.id}__back-button-wrapper__button`}
             className={`${this.props.className}__back-button-wrapper__button`}
-              onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
+              onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
               <div
               className=
               {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
@@ -121,7 +121,7 @@ let Navigation = Router.Navigation,
             className={`${this.props.className}__name`}>
               <a id={`${this.props.id}__name__button`}
               className={`${this.props.className}__name__button`}
-                onClick={this._transitionToUser.bind(this, userId, 5, 1)}>
+                onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
                 {userDisplayName}
               </a>
               {items}
@@ -153,7 +153,7 @@ let Navigation = Router.Navigation,
           url: `/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
           success: data => {
             // Update the store for the list of lists a user has.
-            Actions.updateUserLists(data.userLists);
+            Actions.updateUserLists(data.data);
             Actions.updateListsNumber(data.listsNumber);
             // Now transit to the route.
             this._transitionToUser(userId);
