@@ -3,7 +3,7 @@
     margin: 20px 0 40px 0;
     width: 100%;
     @include desktop {
-      margin: 20px 0 140px 0;
+      margin: 20px 0 140px 97px;
       @include calculation(width, '100% - 166px');
     }
   }
@@ -44,6 +44,7 @@
     }
     &__name {
       color: #000000;
+      cursor: pointer;
       font-family: Milo-Light;
       font-size: 20px;
       letter-spacing: 0;
@@ -77,6 +78,7 @@
     }
   }
   &__image-wrapper {
+    cursor: pointer;
     display: block;
     height: 200px;
     overflow: hidden;

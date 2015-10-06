@@ -110,7 +110,7 @@ function BookListUser(req, res, next) {
   function getUserLists() {
     let username = req.params.username,
       endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
-        `${username}/links/book-lists${api.includes}`;
+        `${username}/links/book-lists${api.includes}${api.pageSize}${api.pageNumber}`;
 
     return axios.get(endpoint);
   }
@@ -144,14 +144,13 @@ function BookListUser(req, res, next) {
       res.locals.data = {
         Store: {
           userLists: [],
-          listsNumber: 1
+          listsNumber: 0
         },
         HeaderStore: {
           headerData: [],
           subscribeFormVisible: false
         }
       };
-
       next();
     }); // end Axios call
 }
@@ -234,7 +233,7 @@ function AjaxBookListUser(req, res) {
       // Return the data as a JSON, it will be updated to Store at UserLists component
       res.json({
         user: username,
-        userLists: parsed,
+        data: parsed,
         listsNumber: listsNumber
       });
     })

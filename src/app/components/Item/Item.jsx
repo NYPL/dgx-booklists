@@ -37,7 +37,9 @@ let Navigation = Router.Navigation,
             <a id={this.props.name}
               className={`${this.props.className}__text-wrapper__name`}
               target={this.props.target}
-              onClick={this._fetchBookData} />
+              onClick={this._fetchBookData}>
+                {this.props.name}
+            </a>
             <p className={`${this.props.className}__text-wrapper__description`}>
               {this.props.description}
             </p>
@@ -45,7 +47,7 @@ let Navigation = Router.Navigation,
               {this.props.createdDate}
             </p>
           </div>
-          <div className={`${this.props.className}__image-wrapper`}>
+          <div className={`${this.props.className}__image-wrapper`} onClick={this._fetchBookData}>
             {bookCovers}
           </div>
         </div>
