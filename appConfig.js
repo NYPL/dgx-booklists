@@ -160,6 +160,18 @@ const config = {
       url: 'https://secure3.convio.net/nypl/site/SPageServer?pagename=donation_form&amt=0&s_src=FRQ16ZZ_TNN',
       amount: 'Other'
     }
+  ],
+  metaTags: [
+    {property: "og:type", content: 'website'},
+    {property: "og:image:type", content: 'image/png'},
+    // Just examples of width and height:
+    {property: "og:image:width", content: '400'},
+    {property: "og:image:height", content: '300'},
+    {property: "og:site_name", content: 'Lists | The New York Public Library'},
+    {name: "twitter:card", content: 'summary_large_image'},
+    {name: "twitter:site", content: '@nypl'},
+    {name: "twitter:creator", content: '@nypl'},
+    {name: "twitter:title", content: 'List | The New York Public Library'}
   ]
 };
 

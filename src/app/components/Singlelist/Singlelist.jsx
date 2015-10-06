@@ -4,6 +4,8 @@ import React from 'react';
 // Import Router and it's navigation
 import Router from 'react-router';
 
+import DocMeta from 'react-doc-meta';
+
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -11,7 +13,9 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
-import BookCover from '../BookCover/BookCover.jsx'
+import BookCover from '../BookCover/BookCover.jsx';
+
+import utils from '../../utils/utils.js';
 
 let Navigation = Router.Navigation;
 
@@ -47,10 +51,21 @@ let Singlelist = React.createClass({
     let bookItemList = this.state.bookItemList,
       userId = bookItemList.user.id,
       userDisplayName = bookItemList.user.attributes.name,
+      listId = bookItemList.id,
       listItems = bookItemList['list-items'],
       listName = bookItemList.attributes['list-name'],
       listIntro = bookItemList.attributes['list-description'],
       encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
+      pageTags = [
+        // Required OG meta tags
+        {property: "og:title", content: `${listName}`},
+        {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userId}/${listId}`},
+        {property: "og:image", content: ''},
+        {property: "og:description", content: 'A list created by staff at The New York Public Library'},
+        {name: "twitter:description", content: 'A list created by staff at The New York Public Library'},
+        {name: "twitter:image", content: ''}
+      ],
+      tags = utils.metaTagUnion(pageTags),
       items;
 
     // Throw message if there's no data found
@@ -97,6 +112,7 @@ let Singlelist = React.createClass({
       // Render the list of owners on DOM
       return (
         <div id='main'>
+          <DocMeta tags={tags} />
           <Hero name={listName} intro={listIntro}/>
           <div className='back-button-container'>
             <a className='back-button-container__button'

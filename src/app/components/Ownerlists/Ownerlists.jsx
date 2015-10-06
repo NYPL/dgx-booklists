@@ -1,6 +1,8 @@
 // Import React Libraries
 import React from 'react';
 
+import DocMeta from 'react-doc-meta';
+
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -11,6 +13,8 @@ import Moment from 'moment';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
+
+import utils from '../../utils/utils.js';
 
 // Create the class. Use ES5 for react-router Navigation
 class Ownerlists extends React.Component {
@@ -41,9 +45,21 @@ class Ownerlists extends React.Component {
 
     // The variable to store the data from Store
     let userLists = this.state.userLists,
+      userId = (userLists && userLists.length) ? userLists[0].user.id : '',
       // The title of the page is the name of the owner.
       // Every object has the same `user` object so we can fetch the first one:
       username = (userLists && userLists.length) ? userLists[0].user.attributes.name : '',
+      description = 'A list created by staff at The New York Public Library',
+      pageTags = [
+        // Required OG meta tags
+        {property: "og:title", content: 'Lists | The New York Public Library'},
+        {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userId}`},
+        {property: "og:image", content: ''},
+        {property: "og:description", content: description},
+        {name: "twitter:description", content: description},
+        {name: "twitter:image", content: ''}
+      ],
+      tags = utils.metaTagUnion(pageTags),
       lists;
 
     // Throw message if there's no data found
@@ -76,6 +92,7 @@ class Ownerlists extends React.Component {
       // Render the list of owners on DOM
       return (
         <div id='main'>
+          <DocMeta tags={tags} />
           <Hero name={username} />
           <div id='ownerlists' className='ownerlists'>
             {lists}
