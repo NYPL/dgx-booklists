@@ -1,4 +1,7 @@
 import React from 'react';
+import Radium from 'radium';
+
+import gaUtils from '../../utils/gaUtils.js';
 
 class SimpleButton extends React.Component {
   // Constructor used in ES6
@@ -9,18 +12,23 @@ class SimpleButton extends React.Component {
   render () {
     return (
       <a
-        ref='SimpleButton'
-        id={this.props.id}
-        className={this.props.className}
-        href={this.props.target}
-        onClick={this.props.onClick}
-        style={[
-          styles.base,
-          this.props.style
-        ]}>
+      ref='SimpleButton'
+      id={this.props.id}
+      className={this.props.className}
+      href={this.props.target}
+      onClick={this._onClick.bind(this)}
+      style={[
+        styles.base,
+        this.props.style
+      ]}>
         {this.props.label}
       </a>
     );
+  }
+
+  _onClick() {
+    gaUtils._trackEvent(this.props.gaAction, this.props.gaLabel);
+    this.props.onClick();
   }
 };
 
@@ -30,14 +38,13 @@ SimpleButton.defaultProps = {
   label: 'Button',
   lang: 'en',
   target: '#',
-  onClick() {
-    console.log('Go to link...');
-  }
+  onClick() {}
 };
 
 const styles = {
   base: {
+
   }
 };
 
-export default SimpleButton;
+export default Radium(SimpleButton);
