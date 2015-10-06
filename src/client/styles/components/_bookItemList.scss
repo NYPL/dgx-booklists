@@ -61,7 +61,7 @@
       display: inline-block;
       float: left;
       margin: 0;
-      padding: 0;
+      padding: 10px 0 0 0;
       text-align: right;
       width: 68px;
     }
@@ -93,18 +93,29 @@
       }
        &__icon-desktop {
         display: none;
-        font-size: 30px;
-        margin: 0 4px 0 0;
-        vertical-align: -8px;
+        float: left;
+        margin: -4px 0 0 0;
+        &:before {
+          display: inline-block;
+          font-size: 18px;
+        }
         @include desktop {
           display: inline-block;
         }
       }
-      p {
-        display: inline-block;
-        margin: 0 0 0 4px;
-        @desktop {
-          display: block;
+      &__text-wrapper {
+        display: none;
+        margin: -16px 0 0 4px;
+        width: 56px;
+        @include desktop {
+          display: inline-block;
+        }
+        p {
+          display: inline-block;
+          margin: 0;
+          @dinclude esktop {
+            display: block;
+          }
         }
       }
     }
