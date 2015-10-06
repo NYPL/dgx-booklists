@@ -1,5 +1,5 @@
 &__item {
-  &-container {
+  &-wrapper {
     margin: 20px 0 20px 0;
   }
 
@@ -15,14 +15,16 @@
     color: #ED1C24;
   }
 
-  &__image-container {
+  &__image-wrapper {
     display: inline-block;
+    text-align: left;
     width: 30%;
   }
 
-  &__text-container {
+  &__text-wrapper {
     display: inline-block;
     vertical-align: top;
+    width: 70%;
     &__name {
       color: #000000;
       font-size: 20px;

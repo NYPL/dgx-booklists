@@ -13,6 +13,10 @@ class Actions {
     this.dispatch(data);
   }
 
+  updateListsNumber(data) {
+    this.dispatch(data);
+  }
+
   failedData(errorMessage) {
     this.dispatch(errorMessage);
   }

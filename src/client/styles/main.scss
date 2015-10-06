@@ -7,11 +7,13 @@
 @import 'utils/animations';
 @import 'utils/breakpoint';
 @import 'utils/transitions';
+@import 'utils/animation';
 
 @import 'components/hero';
 @import 'components/footer';
-@import 'components/ownerlists';
-@import 'components/singlelist';
+@import 'components/_allUsersList';
+@import 'components/_userLists';
+@import 'components/_bookItemList';
 
 body {
   @include Kievit-Regular;
