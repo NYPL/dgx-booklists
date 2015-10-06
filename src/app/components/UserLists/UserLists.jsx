@@ -59,7 +59,7 @@ class UserLists extends React.Component {
       userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
-      // Show the how many pages left in the pagination button
+      // Show how many pages left in the pagination button
       pageLeft = this.state.listsNumber - userLists.length,
       // Render the lists if data is correctly delivered
       lists = (userLists && userLists.length) ?
