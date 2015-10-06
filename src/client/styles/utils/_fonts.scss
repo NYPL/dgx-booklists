@@ -1,5 +1,5 @@
 @import 'mixins';
-@import url('http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700');
+@import url('//fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700');
 
 $FONT_PATH: '//ux-static.nypl.org';
 
@@ -61,23 +61,23 @@ $THIRD_FONT_MILO: 'serif';
 
 /* MILO INCLUDES */
 @mixin Milo-Regular {
-	font-family: 'Milo-Regular', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
+  font-family: 'Milo-Regular', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
 }
 
 @mixin Milo-Regular-Italic {
-	font-family: 'Milo-Regular-Italic', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
+  font-family: 'Milo-Regular-Italic', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
 }
 
 @mixin Milo-Light {
-	font-family: 'Milo-Light', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
+  font-family: 'Milo-Light', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
 }
 
 @mixin Milo-Light-Italic {
-	font-family: 'Milo-Light-Italic', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
+  font-family: 'Milo-Light-Italic', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
 }
 
 @mixin Milo-Medium {
-	font-family: 'Milo-Medium', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
+  font-family: 'Milo-Medium', $SECONDARY_FONT_MILO, $THIRD_FONT_MILO;
 }
 
 /* NYPL ICON FONT RULES */

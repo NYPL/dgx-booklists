@@ -179,7 +179,4 @@ BookItemList.defaultProps = {
   className: 'bookItemList'
 };
 
-const styles = {
-};
-
 export default BookItemList;

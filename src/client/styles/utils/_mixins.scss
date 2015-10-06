@@ -37,6 +37,16 @@
   font-size: calculate-rem($size);
 }
 
+/* BORDER RADIUS MIXIN
+ * -------------------
+ * Usage: @include border-radius(5px);
+ * Desc: Creates a border radius
+*/ 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
 /* OPACITY MIXIN
  * ---------------
  * Usage: @include opacity(0.8);
