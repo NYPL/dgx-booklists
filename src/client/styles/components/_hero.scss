@@ -2,10 +2,13 @@
   background-color: $LIBRARY_RED;
   color: white;
   height: auto;
-  margin: 50px 0 0 0;
+  margin: 0;
   min-height: 72px;
   padding: 0;
   width: 100%;
+  @include desktop {
+    margin: 50px 0 0 0;
+  }
   &__container {
     height: auto;
     margin: 0 auto;

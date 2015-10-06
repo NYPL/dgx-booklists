@@ -1,9 +1,9 @@
 &__item {
   &-wrapper {
-    margin: 20px 0 40px 0;
+    margin: 0 0 40px 0;
     width: 100%;
     @include desktop {
-      margin: 0 0 30px 97px;
+      margin: 0 0 120px 97px;
       @include calculation(width, '100% - 166px');
     }
   }
