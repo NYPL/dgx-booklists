@@ -7,24 +7,10 @@ import Model from '../../app/utils/HeaderItemModel.js';
 
 // Set up variables for routing and its options
 let router = express.Router(),
-  options = {
+  listOptions = {
     includes: ['user', 'list-items.item']
-  };
-
-// Have parser to take the options
-parser.setChildrenObjects(options);
-
-/**
-* BookListUsers(req, res, next)
-* This route is for rendering the page of AllUsersList.
-* It utilizes the method of promise.
-*
-* @param (HTTP methods) req
-* @param (HTTP methods) res
-* @param (Express function) next - call the next function after the previous function has coompleted
-*/
-function getHeaderData() {
-  let options = {
+  },
+  headerOptions = {
     endpoint: 'http://dev.refinery.aws.nypl.org/api/nypl/ndo/v0.1/site-data/' +
       'header-items?filter\[relationships\]\[parent\]=null&include=' +
       'children,' +
@@ -47,11 +33,24 @@ function getHeaderData() {
     }
   };
 
+// // Have parser to take the options
+// parser.setChildrenObjects(listOptions);
+
+/**
+* BookListUsers(req, res, next)
+* This route is for rendering the page of AllUsersList.
+* It utilizes the method of promise.
+*
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Express function) next - call the next function after the previous function has coompleted
+*/
+function getHeaderData() {
   // Set the actual children relationships you want to create
   // for the embedded properties.
-  parser.setChildrenObjects(options);
+  // parser.setChildrenObjects(headerOptions);
 
-  return axios.get(options.endpoint);
+  return axios.get(headerOptions.endpoint);
 }
 
 function BookListUsers(req, res, next) {
@@ -64,9 +63,9 @@ function BookListUsers(req, res, next) {
     .then(axios.spread((headerData, allUsersList) => {
       // Booklist data
       let returnedData = allUsersList.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
       // put the data in Store
@@ -119,10 +118,10 @@ function BookListUser(req, res, next) {
     .then(axios.spread((headerData, userListsData) => {
       // Booklist data
       let returnedData = userListsData.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
         listsNumber = returnedData.meta.count,
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
       // Put the parsed data into Store
@@ -177,9 +176,9 @@ function ListID(req, res, next) {
     .then(axios.spread((headerData, userList) => {
       // Booklist data
       let returnedData = userList.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
       res.locals.data = {
@@ -227,7 +226,7 @@ function AjaxBookListUser(req, res) {
     .get(endpoint)
     .then(data => {
       let returnedData = data.data,
-        parsed = parser.parse(returnedData),
+        parsed = parser.parse(returnedData, listOptions),
         listsNumber = returnedData.meta.count;
 
       // Return the data as a JSON, it will be updated to Store at UserLists component
@@ -259,7 +258,7 @@ function AjaxListID(req, res) {
     .get(endpoint)
     .then(data => {
       let returnedData = data.data,
-        parsed = parser.parse(returnedData);
+        parsed = parser.parse(returnedData, listOptions);
 
       res.json({
         listID: listID,
