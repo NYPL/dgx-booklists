@@ -36,11 +36,12 @@ let Navigation = Router.Navigation,
             {bookCovers}
           </div>
           <div className={`${this.props.className}__text-wrapper`}>
-            <SimpleButton id={this.props.name}
+            <a id={this.props.name}
               className={`${this.props.className}__text-wrapper__name`}
-              label={this.props.name}
               target={this.props.target}
-              onClick={this._fetchBookData} />
+              onClick={this._fetchBookData}>
+                {this.props.name}
+            </a>
             <p>{this.props.description}</p>
             <p>{this.props.createdDate}</p>
           </div>

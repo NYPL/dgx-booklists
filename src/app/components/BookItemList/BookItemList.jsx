@@ -144,15 +144,15 @@ let Navigation = Router.Navigation,
             Actions.updateUserLists(data.data);
             Actions.updateListsNumber(data.listsNumber);
             // Now transitition to the route.
-            this._transitionTo(userId);
+            this._transitionToUser(userId);
           }
         });
       } else {
-        this._transitionTo(userId);
+        this._transitionToUser(userId);
       }
     },
 
-    _transitionTo(userId) {
+    _transitionToUser(userId) {
       // Now transitition to the route.
       this.transitionTo('UserLists', {
         UserLists: userId
