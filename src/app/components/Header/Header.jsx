@@ -30,7 +30,7 @@ class Header extends React.Component {
   componentDidMount() {
     HeaderStore.listen(this._onChange.bind(this));
 
-    // If the HeaderStore is not populated with
+    // If the Store is not populated with
     // the proper Data, then fetch.
     this._fetchDataIfNeeded();
 
@@ -69,6 +69,7 @@ class Header extends React.Component {
                 label='Get a Library Card' 
                 target='//catalog.nypl.org/screens/selfregpick.html' 
                 className='LibraryCardButton'
+                id='LibraryCardButton'
                 gaAction='Get a Library Card'
                 gaLabel=''
                 style={styles.libraryCardButton} />
@@ -94,7 +95,7 @@ class Header extends React.Component {
   /**
    * _fetchDataIfNeeded() 
    * checks the existence of headerData items,
-   * triggers the HeaderActions.fetchHeaderData()
+   * triggers the Actions.fetchHeaderData()
    * method to dispatch a client-side event
    * to obtain data.
    */
@@ -106,9 +107,9 @@ class Header extends React.Component {
 
   /**
    * _handleStickyHeader() 
-   * returns the HeaderActions.updateIsHeaderSticky()
+   * returns the Actions.updateIsHeaderSticky()
    * with the proper boolean value to update the 
-   * HeaderStore.isSticky value based on the window 
+   * Store.isSticky value based on the window 
    * vertical scroll position surpassing the height
    * of the Header DOM element.
    */

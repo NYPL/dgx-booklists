@@ -7,7 +7,7 @@ class LocationFinder extends React.Component {
 
     // Holds the initial component state
     this.state = {
-    	zipcode: null,
+      zipcode: null,
       disableSubmit: true,
       nearestLocation: null
     };
@@ -18,7 +18,7 @@ class LocationFinder extends React.Component {
 
   render() {
     // Reference the zipcode from the state.
-  	let zipcode = this.state.zipcode;
+    let zipcode = this.state.zipcode;
 
     return (
       <div className={this.props.className}>
@@ -80,10 +80,10 @@ class LocationFinder extends React.Component {
    * @return {Boolean} true/false
    */
   _validateZipcode(zipcode) {
-  	if (zipcode && !isNaN(zipcode) && zipcode.length === 5) {
-  		return true;
-  	}
-  	return false;
+    if (zipcode && !isNaN(zipcode) && zipcode.length === 5) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -119,7 +119,7 @@ class LocationFinder extends React.Component {
   _handleChange() {
     let zipcode = React.findDOMNode(this.refs.zipCodeInput).value;
 
-  	if(this._validateZipcode(zipcode)) {
+    if(this._validateZipcode(zipcode)) {
 
       // Update the state.zipcode value
       this._setZipcodeValue(zipcode);
@@ -127,11 +127,11 @@ class LocationFinder extends React.Component {
       // Enable the submitButton
       this._enableSubmitButton();
 
-  		// Execute Autocomplete Search Suggestions
-  		console.log('Input is valid, suggestions should be enabled');
-  	} else {
-  		// Do not execute Autocomplete
-  	}
+      // Execute Autocomplete Search Suggestions
+      console.log('Input is valid, suggestions should be enabled');
+    } else {
+      // Do not execute Autocomplete
+    }
   }
 }
 
