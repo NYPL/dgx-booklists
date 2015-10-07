@@ -1,6 +1,7 @@
 // Import React Libraries
 import React from 'react';
 import Router from 'react-router';
+import DocMeta from 'react-doc-meta';
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -8,6 +9,8 @@ import Actions from '../../actions/Actions.js';
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
+
+import utils from '../../utils/utils.js';
 
 // The method allows us to transit between pages internally
 let Navigation = Router.Navigation,

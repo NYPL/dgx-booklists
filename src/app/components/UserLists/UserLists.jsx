@@ -1,5 +1,6 @@
 // Import React Libraries
 import React from 'react';
+import DocMeta from 'react-doc-meta';
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -13,6 +14,8 @@ import _ from 'underscore';
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
+
+import utils from '../../utils/utils.js';
 
 // Create the class. Use ES5 for react-router Navigation
 class UserLists extends React.Component {
@@ -60,6 +63,17 @@ class UserLists extends React.Component {
       pageNumber = this.state.pageNumber,
       // Show how many pages left in the pagination button
       pageLeft = this.state.listsNumber - userLists.length,
+      description = 'A list created by staff at The New York Public Library',
+      pageTags = [
+        // Required OG meta tags
+        {property: "og:title", content: 'Lists | The New York Public Library'},
+        {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userUrlId}`},
+        {property: "og:image", content: ''},
+        {property: "og:description", content: description},
+        {name: "twitter:description", content: description},
+        {name: "twitter:image", content: ''}
+      ],
+      tags = utils.metaTagUnion(pageTags),
       // Render the lists if data is correctly delivered
       lists = (userLists && userLists.length) ?
         userLists.map((element, i) => {
@@ -89,6 +103,7 @@ class UserLists extends React.Component {
     // Render the list of owners on DOM
     return (
       <div id='main'>
+        <DocMeta tags={tags} />
         <Hero name={username} />
         <div id={this.props.id} className={this.props.id}>
           {lists}
