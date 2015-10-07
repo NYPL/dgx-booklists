@@ -45,11 +45,11 @@ let Navigation = Router.Navigation,
 
       // The variable to store the data from Store
       let bookItemList = this.state.bookItemList,
-        userId = bookItemList.user.id,
-        userDisplayName = bookItemList.user.attributes.name,
-        listItems = bookItemList['list-items'],
-        listName = bookItemList.attributes['list-name'],
-        listIntro = bookItemList.attributes['list-description'],
+        userId = bookItemList.user ? bookItemList.user.id : '',
+        userDisplayName = bookItemList.user ? bookItemList.user.attributes.name : '',
+        listItems = bookItemList['list-items'] ? bookItemList['list-items'] : [],
+        listName = bookItemList.attributes ? bookItemList.attributes['list-name'] : '',
+        listIntro = bookItemList.attributes ? bookItemList.attributes['list-description'] : '',
         encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
         items = (listItems && listItems.length) ?
           listItems.map((element, i) => {

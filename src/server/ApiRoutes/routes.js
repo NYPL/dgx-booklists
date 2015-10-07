@@ -33,9 +33,6 @@ let router = express.Router(),
     }
   };
 
-// // Have parser to take the options
-// parser.setChildrenObjects(listOptions);
-
 /**
 * BookListUsers(req, res, next)
 * This route is for rendering the page of AllUsersList.
@@ -46,10 +43,6 @@ let router = express.Router(),
 * @param (Express function) next - call the next function after the previous function has coompleted
 */
 function getHeaderData() {
-  // Set the actual children relationships you want to create
-  // for the embedded properties.
-  // parser.setChildrenObjects(headerOptions);
-
   return axios.get(headerOptions.endpoint);
 }
 
