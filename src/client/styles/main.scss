@@ -7,11 +7,13 @@
 @import 'utils/animations';
 @import 'utils/breakpoint';
 @import 'utils/transitions';
+@import 'utils/animation';
 
 @import 'components/hero';
 @import 'components/footer';
-@import 'components/ownerlists';
-@import 'components/singlelist';
+@import 'components/_allUsersList';
+@import 'components/_userLists';
+@import 'components/_bookItemList';
 
 body {
   @include Kievit-Regular;
@@ -138,6 +140,10 @@ body {
 				background-color: #1980A9;
 				color: #FFF;
 			}
+
+			.icon {
+				opacity: .8;
+			}
 		}
 
 		.DonateButton {
@@ -211,6 +217,11 @@ body {
 
 	.EmailSubscription-Wrapper {
 		text-transform: none;
+		display: none;
+
+		&.active {
+			display: block;
+		}
 
 		.EmailSubscription {
 			.SubscribeMessageBox {
@@ -225,12 +236,13 @@ body {
 				&-Title {
 					color: #fff;
 					font-size: 20px;
-					@include Kievit-Light;
+					@include Kievit-Book;
 					font-weight: normal;
 					line-height: 1.2em;
 
 					&-BestNYPL {
-						@include Kievit-Book;
+						@include Kievit-Medium;
+						font-weight: normal;
 			    }
 				}
 			}
@@ -280,6 +292,7 @@ body {
 				font-size: 20px;
 				line-height: 1.2em;
 				padding-top: 40px;
+				@include Kievit-Book;
 
 				.icon {
 					vertical-align: middle;
@@ -317,8 +330,10 @@ body {
 		    height: 35px;
 		    margin: 15px 0 0 0;
 		    width: 95%;
-		    font-size: 12.5px;
+		    font-size: 14.5px;
 		    border: 3px solid #1DA1D4;
+		    color: #837e77;
+		    @include Kievit-Book-Italic;
 
 				&:focus {
 	  			border: 3px solid #1980A9;

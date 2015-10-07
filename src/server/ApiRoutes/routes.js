@@ -1,18 +1,16 @@
+// Import libraries
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 import {api} from '../../../appConfig.js';
 import Model from '../../app/utils/HeaderItemModel.js';
 
+// Set up variables for routing and its options
 let router = express.Router(),
-  options = {
+  listOptions = {
     includes: ['user', 'list-items.item']
-  };
-
-parser.setChildrenObjects(options);
-
-function getHeaderData() {
-  let options = {
+  },
+  headerOptions = {
     endpoint: 'http://dev.refinery.aws.nypl.org/api/nypl/ndo/v0.1/site-data/' +
       'header-items?filter\[relationships\]\[parent\]=null&include=' +
       'children,' +
@@ -35,15 +33,20 @@ function getHeaderData() {
     }
   };
 
-  // Set the actual children relationships you want to create
-  // for the embedded properties.
-  parser.setChildrenObjects(options);
-
-  return axios.get(options.endpoint);
+/**
+* BookListUsers(req, res, next)
+* This route is for rendering the page of AllUsersList.
+* It utilizes the method of promise.
+*
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Express function) next - call the next function after the previous function has coompleted
+*/
+function getHeaderData() {
+  return axios.get(headerOptions.endpoint);
 }
 
 function BookListUsers(req, res, next) {
-
   function getAllUsers() {
     let endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}`;
     return axios.get(endpoint)
@@ -53,11 +56,12 @@ function BookListUsers(req, res, next) {
     .then(axios.spread((headerData, allUsersList) => {
       // Booklist data
       let returnedData = allUsersList.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
+      // put the data in Store
       res.locals.data = {
         Store: {
           allUsersList: parsed
@@ -67,10 +71,10 @@ function BookListUsers(req, res, next) {
           subscribeFormVisible: false
         }
       };
-
       next();
     }))
-    .catch(response => {
+    // console error messages
+    .catch(error => {
       console.log('Error calling API BookListUsers: ' + error);
       res.locals.data = {
         Store: {
@@ -82,15 +86,23 @@ function BookListUsers(req, res, next) {
         }
       };
       next();
-    }); /* end Axios call */
+    }); // end Axios call
 }
 
+/**
+* BookListUser(req, res, next)
+* This route is for rendering the page of UserLists.
+* It utilizes the method of promise.
+*
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Express function) next - call the next function after the previous function has coompleted
+*/
 function BookListUser(req, res, next) {
-
   function getUserLists() {
     let username = req.params.username,
       endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
-        `${username}/links/book-lists${api.includes}`;
+        `${username}/links/book-lists${api.includes}${api.pageSize}${api.pageNumber}`;
 
     return axios.get(endpoint);
   }
@@ -99,14 +111,17 @@ function BookListUser(req, res, next) {
     .then(axios.spread((headerData, userListsData) => {
       // Booklist data
       let returnedData = userListsData.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
+        listsNumber = returnedData.meta.count,
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
+      // Put the parsed data into Store
       res.locals.data = {
         Store: {
-          userLists: parsed
+          userLists: parsed,
+          listsNumber: listsNumber
         },
         HeaderStore: {
           headerData: modelData,
@@ -115,11 +130,13 @@ function BookListUser(req, res, next) {
       };
       next();
     }))
+    // console error messages
     .catch(error => {
       console.log('Error calling API BookListUser: ' + error.error);
       res.locals.data = {
         Store: {
-          userLists: []
+          userLists: [],
+          listsNumber: 0
         },
         HeaderStore: {
           headerData: [],
@@ -127,9 +144,18 @@ function BookListUser(req, res, next) {
         }
       };
       next();
-    }); /* end Axios call */
+    }); // end Axios call
 }
 
+/**
+* ListID(req, res, next)
+* This route is for rendering the page of BookItemList.
+* It utilizes the method of promise.
+*
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+* @param (Express function) next - call the next function after the previous function has coompleted
+*/
 function ListID(req, res, next) {
 
   function getList() {
@@ -143,9 +169,9 @@ function ListID(req, res, next) {
     .then(axios.spread((headerData, userList) => {
       // Booklist data
       let returnedData = userList.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
       res.locals.data = {
@@ -171,32 +197,53 @@ function ListID(req, res, next) {
         }
       };
       next();
-    }); /* end Axios call */
+    }); // end Axios call
 }
 
-function AjaxBookListUser(req, res, next) {
+/**
+* AjaxBookListUser(req, res)
+* The AJAX call for internal browsing to the page of UserLists.
+* It utilizes the method of promise.
+*
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+*/
+function AjaxBookListUser(req, res) {
   let username = req.params.username,
+    pageSize = `&page[size]=${req.params.pageSize}`,
+    pageNumber = `&page[number]=${req.params.pageNumber}`,
     endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
-      `${username}/links/book-lists${api.includes}`;
+      `${username}/links/book-lists${api.includes}${pageSize}${pageNumber}`;
 
   axios
     .get(endpoint)
     .then(data => {
       let returnedData = data.data,
-        parsed = parser.parse(returnedData);
+        parsed = parser.parse(returnedData, listOptions),
+        listsNumber = returnedData.meta.count;
 
+      // Return the data as a JSON, it will be updated to Store at UserLists component
       res.json({
         user: username,
-        data: parsed
+        data: parsed,
+        listsNumber: listsNumber
       });
     })
     .catch(error => {
       console.log('Error calling API: AjaxBookListUser');
       res.json({'error': 'error calling API'});
-    }); /* end Axios call */
+    }); // end Axios call
 }
 
-function AjaxListID(req, res, next) {
+/**
+* AjaxListID(req, res)
+* The AJAX call for internal browsing to the page of BookItemList.
+* It utilizes the method of promise.
+*
+* @param (HTTP methods) req
+* @param (HTTP methods) res
+*/
+function AjaxListID(req, res) {
   let listID = req.params.listID,
     endpoint = `${api.root}${api.baseEndpoint}/${listID}${api.includes}`;
 
@@ -204,7 +251,7 @@ function AjaxListID(req, res, next) {
     .get(endpoint)
     .then(data => {
       let returnedData = data.data,
-        parsed = parser.parse(returnedData);
+        parsed = parser.parse(returnedData, listOptions);
 
       res.json({
         listID: listID,
@@ -214,9 +261,10 @@ function AjaxListID(req, res, next) {
     .catch(error => {
       console.log('Error calling API: AjaxListID');
       res.json({'error': 'error calling API'});
-    }); /* end Axios call */
+    }); // end Axios call
 }
 
+// Express routing methods, execute the methods via URL to render the pages
 router
   .route('/')
   .get(BookListUsers);
@@ -230,7 +278,7 @@ router
   .get(ListID);
 
 router
-  .route('/api/ajax/username/:username')
+  .route('/api/ajax/username/:username&:pageSize&:pageNumber')
   .get(AjaxBookListUser);
 
 router

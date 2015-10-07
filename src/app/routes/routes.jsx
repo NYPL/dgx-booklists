@@ -5,16 +5,16 @@ import {DefaultRoute, NotFoundRoute, Route} from 'react-router';
 
 // Import components
 import Application from '../components/Application/Application.jsx'
-import Booklists from '../components/Booklists/Booklists.jsx';
-import Ownerlists from '../components/Ownerlists/Ownerlists.jsx';
-import Singlelist from '../components/Singlelist/Singlelist.jsx';
+import AllUsersList from '../components/AllUsersList/AllUsersList.jsx';
+import UserLists from '../components/UserLists/UserLists.jsx';
+import BookItemList from '../components/BookItemList/BookItemList.jsx';
 
 // Routes we need
 const routes = (
   <Route name='root' handler={Application} ignoreScrollBehavior>
-	  <Route name='booklists' path='/' handler={Booklists} ignoreScrollBehavior />
-    <Route name='ownerlists' path='/:ownerlists?/?' handler={Ownerlists} ignoreScrollBehavior />
-    <Route name='singlelist' path='/:ownerlists/:id?/?' handler={Singlelist} ignoreScrollBehavior />
+    <Route name='AllUsersList' path='/' handler={AllUsersList} ignoreScrollBehavior />
+    <Route name='UserLists' path='/:UserLists?/?' handler={UserLists} ignoreScrollBehavior />
+    <Route name='BookItemList' path='/:UserLists/:id?/?' handler={BookItemList} ignoreScrollBehavior />
   </Route>
 );
 
