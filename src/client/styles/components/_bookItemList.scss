@@ -2,7 +2,7 @@
   display: block;
   margin: 0 auto;
   max-width: 1312px;
-  padding: 20px 0 0 0;
+  padding: 24px 0 0 0;
   position: relative;
   @include desktop {
     display: block;
@@ -16,7 +16,7 @@
   display: block;
   margin: 0;
   max-width: 1312px;
-  padding: 20px 20px 0 20px;
+  padding: 24px 20px 0 20px;
   position: relative;
   @include desktop {
     display: inline-block;
@@ -133,7 +133,7 @@
       font-family: Kievit-Medium;
       letter-spacing: 0.01em;
       width: 100%;
-      margin: 0 0 14px 0;
+      margin: 0 0 12px 0;
       @include desktop {
         display: inline-block;
         position: absolute;
@@ -155,13 +155,13 @@
       &__author {
         font-size: 16px;
         line-height: 20px;
-        margin: 4px 0 4px 0;
+        margin: 4px 0 12px 0;
         text-transform: capitalize;
       }
     }
     &__detail-wrapper {
       width: 100%;
-      margin: 0 0 26px 0;
+      margin: 0 0 24px 0;
       &__image-wrapper {
         display: inline-block;
         margin: 0 16px 0 0;
@@ -207,7 +207,7 @@
         &__catalog {
           font-size: 14px;
           line-height: 20px;
-          margin: 14px 0 14px 0;
+          margin: 12px 0 24px 0;
           text-transform: uppercase;
           @include desktop {
             left: 250px;
@@ -233,6 +233,7 @@
         border-width: 2px;
         border-radius: 33px;
         color: $UI_BLUE;
+        display: inline-block;
         font-family: Kievit-Medium;
         font-size: 13px;
         letter-spacing: 0.04em;
