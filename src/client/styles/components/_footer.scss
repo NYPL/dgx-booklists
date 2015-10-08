@@ -2,19 +2,37 @@
 ** Footer Styles
 **
 **/
-Footer {
+
+.footer-wrapper {
   position: relative;
   clear: both;
   margin-top: 20px;
   padding: 30px 20px 100px;
   background: #7d7972;
-    
+  @include desktop {
+    padding: 30px 0 100px;
+  }
+}
+
+.footer {
+  max-width: 1312px;
+  margin: 0 auto;
+  padding: 0;
+  @include desktop {
+    padding: 0;
+    width: 100%;
+  }
+
   .footerlinks {
+    padding: 0px;
+    @include desktop {
+      padding: 0 0 0 97px;
+    }
     ul {
       list-style: none;
-      margin: 0px;
+      padding: 0;
 
-      @include breakpoint($min, $post-mobile-phone) {
+      @include tablet {
         margin: 0 20px;
 
         &:first-of-type {
@@ -36,8 +54,9 @@ Footer {
         }
       }
 
-      @include breakpoint($min, 730px) {
+      @include desktop {
         float: left;
+        padding: 0;
         width: 18% !important;
 
         &:nth-of-type(3) {
@@ -51,7 +70,7 @@ Footer {
         margin: 0px 0px 12px;
         display: none;
 
-        @include breakpoint($min, $post-mobile-phone) {
+        @include desktop {
           display: list-item;
         }
 
@@ -93,7 +112,7 @@ Footer {
         font-size: 24px;
         text-decoration: none;
 
-        @include breakpoint($min, $post-mobile-phone) {
+        @include desktop {
           opacity: .5;
           @include transition(all .1s ease);
         }
