@@ -4,7 +4,10 @@ import ga from 'react-ga';
 
 import Iso from 'iso';
 import alt from '../app/alt.js';
+
 import routes from '../app/routes/routes.jsx';
+
+import BookItemList from '../app/components/BookItemList/BookItemList.jsx';
 
 import './styles/main.scss';
 
@@ -18,15 +21,23 @@ if (typeof window !== 'undefined') {
 
 		// Render Isomorphically
 	  Iso.bootstrap((state, meta, container) => {
+      let node;
+
 	  	console.log('Application rendered Isomorphically.');
 
 	    alt.bootstrap(state);
-	    Router.run(routes, Router.HistoryLocation, (Handler, routerState) => {
-        let node = React.createElement(Handler);
-        
-        ga.pageview(routerState.pathname);
-        React.render(node, container);
-      });
+
+      if (window.widget === 'false') {
+  	    Router.run(routes, Router.HistoryLocation, (Handler, routerState) => {
+          node = React.createElement(Handler);
+
+          ga.pageview(routerState.pathname);
+          React.render(node, container);
+        });
+      } else {
+        node = React.createElement(BookItemList);
+        React.render(node, document.getElementById('app'));
+      }
 	  });
 	}
 }

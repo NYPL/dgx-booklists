@@ -4,11 +4,11 @@ import parser from 'jsonapi-parserinator';
 import {api} from '../../../appConfig.js';
 
 let router = express.Router(),
-  options = {
+  listOptions = {
     includes: ['user', 'list-items.item']
   };
 
-parser.setChildrenObjects(options);
+parser.setChildrenObjects(listOptions);
 
 function ListID(req, res, next) {
   let listID = req.params.listID,
@@ -20,7 +20,7 @@ function ListID(req, res, next) {
       // Booklist data
       let returnedData = data.data,
         parsed = parser.parse(returnedData);
-console.log(data.data);
+
       res.locals.data = {
         Store: {
           bookItemList: parsed
