@@ -8,6 +8,7 @@ import Actions from '../../actions/Actions.js';
 // Misc
 import Moment from 'moment';
 import _ from 'underscore';
+import cx from 'classnames'
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
@@ -65,11 +66,12 @@ class UserLists extends React.Component {
         userLists.map((element, i) => {
           let dateCreated = Moment(element.attributes['date-created']).format('MMMM D'),
             yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
-            counter = `${i+1}.`;
+            counter = `${i+1}.`,
+            firstDivide = cx({'first-divide': i === 0});
 
             return(
               <div key={i} className={`${this.props.className}__item-wrapper`}>
-                <span className={`${this.props.className}__item-divide`}></span>
+                <span className={`${this.props.className}__item-divide ${firstDivide}`}></span>
                 <p className={`${this.props.className}__item-index`}>{counter}</p>
                 <Item id={`userlists__item-${element.attributes['list-name']}`}
                   className={`${this.props.className}__item`}

@@ -1,9 +1,10 @@
 &__item {
   &-wrapper {
-    margin: 0 0 40px 0;
+    margin: 0 0 30px 0;
     width: 100%;
     @include desktop {
-      margin: 0 0 120px 97px;
+      clear: both;
+      margin: 0 0 30px 97px;
       @include calculation(width, '100% - 166px');
     }
   }
@@ -18,7 +19,7 @@
         border-color: $LIBRARY_RED;
         border-top-style: solid;
         border-width: 2px;
-        width: 93%;
+        width: 100%;
       }
     }
   }
@@ -27,20 +28,25 @@
     font-family: Kievit-Medium;
     font-size: 14px;
     letter-spacing: 0.01em;
-    margin: 10px 0 4px 0;
+    margin: 12px 0 4px 0;
+    @include desktop {
+      margin: 12px 0 4px 0;
+    }
   }
   &__text-wrapper {
     display: block;
     font-family: Kievit-Medium;
     letter-spacing: 0.01em;
+    margin:0 0 12px 0;
     position: relative;
     vertical-align: top;
     width: 100%;
     @include desktop {
       display: inline-block;
-      left: 486px;
-      position: absolute;
-      width: 50%;
+      float: right;
+      margin: 0 0 0 50px;
+      position: relative;
+      @include calculation(width, '100% - 350px');
     }
     &__name {
       color: #000000;
@@ -52,7 +58,7 @@
       text-transform: capitalize;
       @include desktop {
         font-size: 36px;
-        margin: 0 0 12px 0;
+        margin: 0;
       }
     }
     &__description {
@@ -63,18 +69,18 @@
       line-height: 20px;
       @include desktop {
         display: block;
-        margin: 12px 0 24px 0;
+        margin: 24px 0 24px 0;
       }
     }
     &__createdDate {
       font-size: 12px;
       letter-spacing: 0.01em;
       line-height: 20px;
-      margin: 4px 0 10px 0;
+      margin: 4px 0 0 0;
       text-transform: uppercase;
       @include desktop {
         font-size: 16px;
-        margin: 24px 0 0 0;
+        margin: 24px 0 30px 0;
       }
     }
   }

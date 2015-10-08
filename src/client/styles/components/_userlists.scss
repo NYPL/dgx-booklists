@@ -3,14 +3,15 @@
   display: block;
   margin: 0;
   max-width: 1312px;
-  padding: 20px 20px 0 20px;
+  padding: 24px 20px 0 20px;
   position: relative;
   @include desktop {
-    margin: 20px auto 0 auto;
+    margin: 24px auto 0 auto;
     padding: 0;
     width: 100%;
   }
   &__page-button-wrapper {
+    margin: 60px 0 60px 0;
     text-align: center;
     &__button {
       -moz-appearance: none;
