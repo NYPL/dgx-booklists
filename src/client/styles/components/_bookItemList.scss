@@ -104,16 +104,17 @@
         }
       }
       &__text-wrapper {
-        display: none;
+        display: inline-block;
+        font-size: 16px;
         margin: -16px 0 0 4px;
-        width: 56px;
         @include desktop {
           display: inline-block;
+          width: 56px;
         }
         p {
           display: inline-block;
-          margin: 0;
-          @dinclude esktop {
+          margin: 0 0 0 4px;
+          @dinclude desktop {
             display: block;
           }
         }
