@@ -98,6 +98,7 @@
         &:before {
           display: inline-block;
           font-size: 18px;
+          vertical-align: 1px;
         }
         @include desktop {
           display: inline-block;
@@ -109,6 +110,7 @@
         margin: -16px 0 0 4px;
         @include desktop {
           display: inline-block;
+          font-size: 12px;
           width: 56px;
         }
         p {
