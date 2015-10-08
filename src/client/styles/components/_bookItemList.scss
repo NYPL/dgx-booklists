@@ -173,7 +173,6 @@
           height: auto;
           width: 100px;
           @include desktop {
-            height: 300px;
             width: 200px;
           }
         }
@@ -181,34 +180,40 @@
       &__author {
         text-transform: capitalize;
       }
-      &__description {
+      &__text{
         @include calculation(width, '100% - 116px');
         display: inline-block;
-        font-family: Milo-Light;
-        font-size: 14px;
-        line-height: 16px;
-        margin: 0;
         vertical-align: top;
         @include desktop {
-          font-size: 16px;
-          line-height: 20px;
-          left: 250px;
-          margin: 120px 0 0 0;
-          position: absolute;
           width: 60%;
         }
-      }
-      &__catalog {
-        font-size: 16px;
-        line-height: 20px;
-        margin: 4px 0 4px 0;
-        text-transform: uppercase;
-        @include desktop {
-          left: 250px;
+        &__description {
+          display: block;
+          font-family: Milo-Light;
+          font-size: 14px;
+          line-height: 16px;
           margin: 0;
-          position: relative;
-          top: -100px;
-          width: 60%;
+          @include desktop {
+            font-size: 16px;
+            line-height: 20px;
+            left: 250px;
+            margin: 120px 0 0 0;
+            position: absolute;
+            width: 60%;
+          }
+        }
+        &__catalog {
+          font-size: 14px;
+          line-height: 20px;
+          margin: 14px 0 14px 0;
+          text-transform: uppercase;
+          @include desktop {
+            left: 250px;
+            margin: 0;
+            position: relative;
+            top: -100px;
+            width: 60%;
+          }
         }
       }
     }

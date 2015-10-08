@@ -76,12 +76,14 @@ let Navigation = Router.Navigation,
                     name={element.item.attributes.title}
                     className={`${this.props.className}__item__detail-wrapper__image-wrapper__cover-image`} />
                   </a>
-                  <p className={`${this.props.className}__item__detail-wrapper__description`}>
-                    {element.attributes.annotation}
-                  </p>
-                  <p className={`${this.props.className}__item__detail-wrapper__catalog`}>
-                    {publishedDate}
-                  </p>
+                  <div className={`${this.props.className}__item__detail-wrapper__text`}>
+                    <p className={`${this.props.className}__item__detail-wrapper__text__description`}>
+                      {element.attributes.annotation}
+                    </p>
+                    <p className={`${this.props.className}__item__detail-wrapper__text__catalog`}>
+                      {publishedDate}
+                    </p>
+                  </div>
                 </div>
                 <div className={`${this.props.className}__item__checkout`}>
                   <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
