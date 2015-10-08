@@ -31,7 +31,8 @@
     display: block;
     padding: 12px 0 0 0;
     @include desktop {
-      padding: 10px 0 0 0;
+      padding: 12px 0 0 0;
+      width: 865px;
     }
     &__button {
       color: $LIBRARY_RED;
@@ -41,10 +42,12 @@
       font-size: 20px;
       letter-spacing: -0.01em;
       line-height: 16.21px;
+      margin: 0;
       text-decoration: none;
       text-transform: capitalize;
       @include desktop {
         display: block;
+        margin: 0 0 24px 0;
       }
     }
   }
@@ -75,13 +78,6 @@
       line-height: 16.21px;
       text-decoration: none;
       text-transform: uppercase;
-      @desktop {
-        border-color: $COOL_GRAY_LIGHT;
-        border-top-style: solid;
-        border-width: 1px;
-        float: right;
-        text-transform: capitalize;
-      }
       &__icon {
         display: inline-block;
         font-size: 30px;
@@ -124,9 +120,9 @@
     }
   }
   &__item {
-    margin: 0 0 60px 0;
+    margin: 0 0 30px 0;
     @include desktop {
-      margin: 20px 0 60px 0;
+      margin: 0 0 30px 0;
     }
     &__title-wrapper {
       display: block;
@@ -135,10 +131,7 @@
       width: 100%;
       margin: 0 0 12px 0;
       @include desktop {
-        display: inline-block;
-        position: absolute;
-        left: 250px;
-        width: 60%;
+        display: none;
       }
       &__name {
         color: #000000;
@@ -148,9 +141,6 @@
         margin: 4px 0 4px 0;
         text-decoration: none;
         text-transform: capitalize;
-        @include desktop {
-          width: 80%;
-        }
       }
       &__author {
         font-size: 16px;
@@ -162,12 +152,16 @@
     &__detail-wrapper {
       width: 100%;
       margin: 0 0 24px 0;
+      @include desktop {
+        display: inline-block;
+        width: 717px;
+      }
       &__image-wrapper {
         display: inline-block;
-        margin: 0 16px 0 0;
-        @desktop {
+        margin: 0 12px 0 0;
+        @include desktop {
           display: inline-block;
-          width: 28%;
+          margin: 0 29px 0 0;
         }
         &__cover-image {
           backgroundRepeat: no-repeat;
@@ -175,7 +169,7 @@
           height: auto;
           width: 100px;
           @include desktop {
-            width: 200px;
+            width: 120px;
           }
         }
       }
@@ -187,7 +181,29 @@
         display: inline-block;
         vertical-align: top;
         @include desktop {
-          width: 60%;
+          width: 567px;
+        }
+        &__desktop-title {
+          display: none;
+          @include desktop {
+            display: inline-block;
+            position: relative;
+          }
+          &__name {
+            color: #000000;
+            font-family: Milo-Light;
+            font-size: 36px;
+            letter-spacing: 0;
+            margin: 0 0 12px 0;
+            text-decoration: none;
+            text-transform: capitalize;
+          }
+          &__author {
+            font-size: 16px;
+            line-height: 20px;
+            margin: 0 0 24px 0;
+            text-transform: capitalize;
+          }
         }
         &__description {
           display: block;
@@ -198,10 +214,8 @@
           @include desktop {
             font-size: 16px;
             line-height: 20px;
-            left: 250px;
-            margin: 120px 0 0 0;
-            position: absolute;
-            width: 60%;
+            margin: 0 0 24px 0;
+            position: relative;
           }
         }
         &__catalog {
@@ -210,11 +224,8 @@
           margin: 12px 0 24px 0;
           text-transform: uppercase;
           @include desktop {
-            left: 250px;
-            margin: 0;
+            margin: 24px 0 30px 0;
             position: relative;
-            top: -100px;
-            width: 60%;
           }
         }
       }
@@ -224,9 +235,8 @@
       text-align: center;
       @include desktop {
         display: inline-block;
-        float: right;
-        margin: -310px 0 0 0;
-        text-align: left;
+        margin: 0;
+        vertical-align: top;
       }
       &__button {
         border-style: solid;
@@ -235,10 +245,10 @@
         color: $UI_BLUE;
         display: inline-block;
         font-family: Kievit-Medium;
-        font-size: 13px;
+        font-size: 12px;
         letter-spacing: 0.04em;
         line-height: 16.21px;
-        padding: 12px 20px;
+        padding: 10px 14px;
         text-decoration: none;
         text-transform: uppercase;
       }
