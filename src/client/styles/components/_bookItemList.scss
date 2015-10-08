@@ -29,7 +29,7 @@
     border-top-style: solid;
     border-width: 2px;
     display: block;
-    padding: 12px 0 0 0;
+    padding: 64px 0 0 0;
     @include desktop {
       padding: 12px 0 0 0;
       width: 865px;
@@ -102,11 +102,14 @@
       }
       &__text-wrapper {
         display: inline-block;
-        font-size: 16px;
+        font-size: 14px;
         margin: -16px 0 0 4px;
+        padding: 0 0 0 31px;
+        @include calculation(width, '100% - 66px');
         @include desktop {
           display: inline-block;
           font-size: 12px;
+          padding: 0;
           width: 56px;
         }
         p {
@@ -120,7 +123,7 @@
     }
   }
   &__item {
-    margin: 0 0 30px 0;
+    margin: 0 0 64px 0;
     @include desktop {
       margin: 0 0 30px 0;
     }
@@ -129,7 +132,7 @@
       font-family: Kievit-Medium;
       letter-spacing: 0.01em;
       width: 100%;
-      margin: 0 0 12px 0;
+      margin: 0 0 32px 0;
       @include desktop {
         display: none;
       }
@@ -138,20 +141,20 @@
         font-family: Milo-Light;
         font-size: 36px;
         letter-spacing: 0;
-        margin: 4px 0 4px 0;
+        margin: 0px 0 16px 0;
         text-decoration: none;
         text-transform: capitalize;
       }
       &__author {
         font-size: 16px;
         line-height: 20px;
-        margin: 4px 0 12px 0;
+        margin: 16px 0 32px 0;
         text-transform: capitalize;
       }
     }
     &__detail-wrapper {
       width: 100%;
-      margin: 0 0 24px 0;
+      margin: 0 0 32px 0;
       @include desktop {
         display: inline-block;
         width: 717px;
@@ -172,9 +175,6 @@
             width: 120px;
           }
         }
-      }
-      &__author {
-        text-transform: capitalize;
       }
       &__text{
         @include calculation(width, '100% - 116px');
@@ -201,7 +201,7 @@
           &__author {
             font-size: 16px;
             line-height: 20px;
-            margin: 0 0 24px 0;
+            margin: 12px 0 24px 0;
             text-transform: capitalize;
           }
         }
@@ -221,7 +221,7 @@
         &__catalog {
           font-size: 14px;
           line-height: 20px;
-          margin: 12px 0 24px 0;
+          margin: 0 0 32px 0;
           text-transform: uppercase;
           @include desktop {
             margin: 24px 0 30px 0;

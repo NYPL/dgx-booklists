@@ -11,7 +11,8 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
-import BookCover from '../BookCover/BookCover.jsx'
+import BookCover from '../BookCover/BookCover.jsx';
+import BookItem from '../BookItem/BookItem.jsx'
 
 // The method allows us to transit between pages internally
 let Navigation = Router.Navigation,
@@ -51,56 +52,30 @@ let Navigation = Router.Navigation,
         listName = bookItemList.attributes['list-name'],
         listIntro = bookItemList.attributes['list-description'],
         encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
-        items = (listItems && listItems.length) ?
+        bookItems = (listItems && listItems.length) ?
           listItems.map((element, i) => {
             let target = `${encoreUrl}${element.item.id}?lang=eng`,
               publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
+              idTag = element.item.id,
+              bookItemName = element.item.attributes.title,
+              bookItemDescription = element.attributes.annotation,
+              bookCoverIsbn = element.item.attributes.isbns[0],
               bookItemId = `${this.props.id}__item-${element.item.id}`,
               authors = (element.item.attributes.authors.length) ?
                 `By ${element.item.attributes.authors}` : `The author of this item is not available`;
 
             return(
-              <div id={bookItemId} className={`${this.props.className}__item`} key={i}>
-                <div className={`${this.props.className}__item__title-wrapper`}>
-                  <SimpleButton id={`${this.props.id}__item__title-wrapper__${element.item.id}`}
-                    className={`${this.props.className}__item__title-wrapper__name`}
-                    label={element.item.attributes.title}
-                    target={target} />
-                  <p className={`${this.props.className}__item__title-wrapper__author`}>
-                    {authors}
-                  </p>
-                </div>
-                <div className={`${this.props.className}__item__detail-wrapper`}>
-                  <a className={`${this.props.className}__item__detail-wrapper__image-wrapper`} href={target}>
-                    <BookCover isbn={element.item.attributes.isbns[0]}
-                    name={element.item.attributes.title}
-                    className={`${this.props.className}__item__detail-wrapper__image-wrapper__cover-image`} />
-                  </a>
-                  <div className={`${this.props.className}__item__detail-wrapper__text`}>
-                    <div className={`${this.props.className}__item__detail-wrapper__text__desktop-title`}>
-                      <SimpleButton id={`${this.props.id}__item__detail-wrapper__text__desktop-title__${element.item.id}`}
-                        className={`${this.props.className}__item__detail-wrapper__text__desktop-title__name`}
-                        label={element.item.attributes.title}
-                        target={target} />
-                      <p className={`${this.props.className}__item__detail-wrapper__text__desktop-title__author`}>
-                        {authors}
-                      </p>
-                    </div>
-                    <p className={`${this.props.className}__item__detail-wrapper__text__description`}>
-                      {element.attributes.annotation}
-                    </p>
-                    <p className={`${this.props.className}__item__detail-wrapper__text__catalog`}>
-                      {publishedDate}
-                    </p>
-                  </div>
-                </div>
-                <div className={`${this.props.className}__item__checkout`}>
-                  <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
-                    className={`${this.props.className}__item__checkout__button`}
-                    label='request this item'
-                    target={target} />
-                </div>
-              </div>
+              <BookItem id={this.props.id}
+              className={this.props.className}
+              key={i}
+              idTag={idTag}
+              target={target}
+              publishedDate={publishedDate}
+              bookItemId={bookItemId}
+              bookItemName={bookItemName}
+              bookItemDescription={bookItemDescription}
+              bookCoverIsbn={bookCoverIsbn}
+              authors={authors} />
             );
           })
           :<div>No book under this list</div>;
@@ -138,7 +113,7 @@ let Navigation = Router.Navigation,
                   onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
                   {userDisplayName}
                 </a>
-                {items}
+                {bookItems}
               </div>
             </div>
           </div>
@@ -146,7 +121,7 @@ let Navigation = Router.Navigation,
       );
     },
 
-    /**
+     /**
     * _fetchUserLists(userId, pageSize, pageNumber)
     * Fetch the data we need for UserLists
     * before the app transit us to UserLists page
@@ -186,7 +161,6 @@ let Navigation = Router.Navigation,
       });
     }
   });
-
 
 BookItemList.defaultProps = {
   lang: 'en',
