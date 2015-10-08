@@ -90,7 +90,8 @@ app.use((req, res) => {
       favicon: appConfig.favIconPath,
       isProduction: isProduction,
       metatags: renderedTags,
-      appEnv: process.env.APP_ENV || 'no APP_ENV'
+      appEnv: process.env.APP_ENV || 'no APP_ENV',
+      apiUrl: res.locals.data.completeApiUrl
     });
   });
 });
