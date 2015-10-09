@@ -81,20 +81,18 @@ let Navigation = Router.Navigation,
 
             return(
               <BookItem id={this.props.id}
-              className={this.props.className}
-              key={i}
-              itemId={itemId}
-              target={target}
-              publishedDate={publishedDate}
-              bookItemName={bookItemName}
-              bookItemDescription={bookItemDescription}
-              bookCoverIsbn={bookCoverIsbn}
-              authors={authors} />
+                className={this.props.className}
+                key={i}
+                itemId={itemId}
+                target={target}
+                publishedDate={publishedDate}
+                bookItemName={bookItemName}
+                bookItemDescription={bookItemDescription}
+                bookCoverIsbn={bookCoverIsbn}
+                authors={authors} />
             );
           })
           :<div>No book under this list</div>;
-
-                          console.log(listItems);
 
       // Render the list of owners on DOM
       return (
