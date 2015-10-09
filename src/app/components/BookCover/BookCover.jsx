@@ -13,14 +13,16 @@ class BookCover extends React.Component {
       `https://contentcafe2.btol.com/ContentCafe/` +
       `Jacket.aspx?&userID=NYPL49807&password=CC68707&` +
       `Value=${this.props.isbn}&content=M&Return=1&Type=M` :
-      // Set up place holde if isbn is not available
+      // Show the place holder if the book cover's ISBN is not available
       `/images/book-place-holder.png`;
 
       console.log(imageSrc);
 
     return (
-      <img id={this.props.id} className={this.props.className} src={imageSrc}
-      alt={this.props.name} />
+      <div id={`${this.props.id}-place-holder`} className={`place-holder`}>
+        <img id={this.props.id} className={this.props.className}
+        src={imageSrc} alt={this.props.name} />
+      </div>
     );
   }
 };

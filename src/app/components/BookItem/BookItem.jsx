@@ -30,7 +30,8 @@ let Navigation = Router.Navigation,
           </div>
           <div className={`${this.props.className}__item__detail-wrapper`}>
             <a className={`${this.props.className}__item__detail-wrapper__image-wrapper`} href={this.props.target}>
-              <BookCover isbn={this.props.bookCoverIsbn}
+              <BookCover id={`${this.props.id}____item__detail-wrapper__image-wrapper__${this.props.idTag}`}
+              isbn={this.props.bookCoverIsbn}
               name={this.props.bookItemName}
               className={`${this.props.className}__item__detail-wrapper__image-wrapper__cover-image`} />
             </a>
