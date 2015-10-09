@@ -44,9 +44,9 @@
     @include desktop {
       display: inline-block;
       float: right;
-      margin: 0 0 0 50px;
+      margin: 0 0 0 29px;
       position: relative;
-      @include calculation(width, '100% - 350px');
+      @include calculation(width, '100% - 298px');
     }
     &__name {
       color: #000000;
@@ -92,7 +92,7 @@
     text-align: left;
     width: 100%;
     @include desktop {
-      width: 300px;
+      width: 269px;
     }
     &__book-cover {
       display: inline-block;
