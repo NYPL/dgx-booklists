@@ -20,8 +20,8 @@ class Footer extends React.Component {
   	});
 
 		return (
-			<footer id={`${this.props.id}-wrapper`} className={`${this.props.className}-wrapper`}>
-				<div id={this.props.id} className={this.props.className}>
+			<footer id={this.props.id} className={this.props.className}>
+				<div id={`${this.props.id}-content`} className={`${this.props.className}-content`}>
 					<SocialMediaList
 						data={data.SocialMedia}
 						id='SocialMediaList'
