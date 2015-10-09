@@ -60,6 +60,9 @@ app.use(express.static(DIST_PATH));
 
 app.use('/', ApiRoutes);
 
+// Assign the path for static client files
+app.use(express.static(INDEX_PATH));
+
 // Match all routes to render the index page.
 app.use((req, res) => {  
   let router = Router.create({
