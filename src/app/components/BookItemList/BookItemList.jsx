@@ -80,8 +80,8 @@ let Navigation = Router.Navigation,
                 `By ${element.item.attributes.authors}` : `The author of this item is not available`;
 
             return(
-              <BookItem id={this.props.id}
-                className={this.props.className}
+              <BookItem id={`bookItem`}
+                className={`bookItem`}
                 key={i}
                 itemId={itemId}
                 target={target}

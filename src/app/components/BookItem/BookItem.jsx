@@ -20,43 +20,44 @@ class BookItem extends React.Component {
 
   render() {
     return (
-      <div id={this.props.itemId} className={`${this.props.className}__item`} key={this.props.key}>
-        <div className={`${this.props.className}__item__title-wrapper`}>
-          <SimpleButton id={`${this.props.id}__item__title-wrapper__${this.props.itemId}`}
-            className={`${this.props.className}__item__title-wrapper__name`}
+      <div id={`${this.props.id}-${this.props.itemId}`}
+        className={this.props.className} key={this.props.key}>
+        <div className={`${this.props.className}__title`}>
+          <SimpleButton id={`${this.props.itemId}`}
+            className={`name`}
             label={this.props.bookItemName}
             target={this.props.target} />
-          <p className={`${this.props.className}__item__title-wrapper__author`}>
+          <p className={`author`}>
             {this.props.authors}
           </p>
         </div>
-        <div className={`${this.props.className}__item__detail-wrapper`}>
-          <a className={`${this.props.className}__item__detail-wrapper__image-wrapper`} href={this.props.target}>
+        <div className={`${this.props.className}__detail`}>
+          <a className={`image-wrapper`} href={this.props.target}>
             <BookCover isbn={this.props.bookCoverIsbn}
               name={this.props.bookItemName}
-              className={`${this.props.className}__item__detail-wrapper__image-wrapper__cover-image`} />
+              className={`cover-image`} />
           </a>
-          <div className={`${this.props.className}__item__detail-wrapper__text`}>
-            <div className={`${this.props.className}__item__detail-wrapper__text__desktop-title`}>
-              <SimpleButton id={`${this.props.id}__item__detail-wrapper__text__desktop-title__${this.props.itemId}`}
-                className={`${this.props.className}__item__detail-wrapper__text__desktop-title__name`}
+          <div className={`text-wrapper`}>
+            <div className={`desktop-title`}>
+              <SimpleButton id={`desktop-title__${this.props.itemId}`}
+                className={`desktop-title__name`}
                 label={this.props.bookItemName}
                 target={this.props.target} />
-              <p className={`${this.props.className}__item__detail-wrapper__text__desktop-title__author`}>
+              <p className={`desktop-title__author`}>
                 {this.props.authors}
               </p>
             </div>
-            <p className={`${this.props.className}__item__detail-wrapper__text__description`}>
+            <p className={`description`}>
               {this.props.bookItemDescription}
             </p>
-            <p className={`${this.props.className}__item__detail-wrapper__text__catalog`}>
+            <p className={`catalog`}>
               {this.props.publishedDate}
             </p>
           </div>
         </div>
-        <div className={`${this.props.className}__item__checkout`}>
-          <SimpleButton id={`${this.props.id}__item__checkout__${this.props.itemId}`}
-            className={`${this.props.className}__item__checkout__button`}
+        <div className={`request`}>
+          <SimpleButton id={`request__${this.props.itemId}`}
+            className={`request__button`}
             label='request this item'
             target={this.props.target} />
         </div>

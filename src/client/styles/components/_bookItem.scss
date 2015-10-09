@@ -1,11 +1,11 @@
-&__item {
+.bookItem {
   margin: 0 0 64px 0;
 
   @include desktop {
     margin: 0 0 30px 0;
   }
 
-  &__title-wrapper {
+  &__title {
     display: block;
     font-family: Kievit-Medium;
     letter-spacing: 0.01em;
@@ -16,7 +16,7 @@
       display: none;
     }
 
-    &__name {
+    .name {
       color: #000000;
       font-family: Milo-Light;
       font-size: 36px;
@@ -25,14 +25,14 @@
       text-decoration: none;
       text-transform: capitalize;
     }
-    &__author {
+    .author {
       font-size: 16px;
       line-height: 20px;
       margin: 16px 0 32px 0;
       text-transform: capitalize;
     }
   }
-  &__detail-wrapper {
+  &__detail {
     width: 100%;
     margin: 0 0 32px 0;
 
@@ -41,7 +41,7 @@
       width: 717px;
     }
 
-    &__image-wrapper {
+    .image-wrapper {
       display: inline-block;
       margin: 0 12px 0 0;
 
@@ -50,7 +50,7 @@
         margin: 0 29px 0 0;
       }
 
-      &__cover-image {
+      .cover-image {
         backgroundRepeat: no-repeat;
         display: inline-block;
         height: auto;
@@ -62,7 +62,7 @@
 
       }
     }
-    &__text{
+    .text-wrapper{
       @include calculation(width, '100% - 116px');
       display: inline-block;
       vertical-align: top;
@@ -71,7 +71,7 @@
         width: 567px;
       }
 
-      &__desktop-title {
+      .desktop-title {
         display: none;
 
         @include desktop {
@@ -95,7 +95,7 @@
           text-transform: capitalize;
         }
       }
-      &__description {
+      .description {
         display: block;
         font-family: Milo-Light;
         font-size: 14px;
@@ -110,7 +110,7 @@
         }
 
       }
-      &__catalog {
+      .catalog {
         font-size: 14px;
         line-height: 20px;
         margin: 0 0 32px 0;
@@ -124,7 +124,7 @@
       }
     }
   }
-  &__checkout {
+  .request {
     display: block;
     text-align: center;
 
