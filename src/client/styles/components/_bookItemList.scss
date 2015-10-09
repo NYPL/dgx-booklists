@@ -81,8 +81,9 @@
       &__icon {
         display: inline-block;
         font-size: 30px;
-        margin: 0 4px 0 0;
-        vertical-align: -8px;
+        line-height: 30px;
+        margin: 0;
+        vertical-align: top;
         @include desktop {
           display: none;
         }
@@ -103,14 +104,18 @@
       &__text-wrapper {
         display: inline-block;
         font-size: 14px;
-        margin: -16px 0 0 4px;
-        padding: 0 0 0 31px;
-        @include calculation(width, '100% - 66px');
+        line-height: 34px;
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+        @include calculation(width, '100% - 31px');
         @include desktop {
           display: inline-block;
           font-size: 12px;
-          padding: 0;
+          line-height: 18px;
+          margin: -16px 0 0 4px;
           width: 56px;
+          vertical-align: top;
         }
         p {
           display: inline-block;
