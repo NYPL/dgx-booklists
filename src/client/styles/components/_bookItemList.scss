@@ -12,55 +12,7 @@
     width: 100%;
   }
 
-}
-
-.bookItemList {
-  @import '_bookItem';
-  display: block;
-  margin: 0;
-  max-width: 1312px;
-  padding: 24px 20px 0 20px;
-  position: relative;
-
-  @include desktop {
-    display: inline-block;
-    margin: 0 auto 0 auto;
-    padding: 0 0 0 29px;
-    @include calculation(width, '100% - 149px');
-  }
-
-  &__name {
-    border-color: $LIBRARY_RED;
-    border-top-style: solid;
-    border-width: 2px;
-    display: block;
-    padding: 64px 0 0 0;
-
-    @include desktop {
-      padding: 12px 0 0 0;
-      width: 865px;
-    }
-
-    &__button {
-      color: $LIBRARY_RED;
-      cursor: pointer;
-      display: none;
-      font-family: Kievit-Book;
-      font-size: 20px;
-      letter-spacing: -0.01em;
-      line-height: 16.21px;
-      margin: 0;
-      text-decoration: none;
-      text-transform: capitalize;
-
-      @include desktop {
-        display: block;
-        margin: 0 0 24px 0;
-      }
-
-    }
-  }
-  &__back-button-wrapper {
+  .back-button-wrapper {
     cursor: pointer;
     display: block;
     margin: 0;
@@ -79,7 +31,7 @@
       width: 68px;
     }
 
-    &__button {
+    .back-button {
       border-color: $COOL_GRAY_LIGHT;
       border-top-style: none;
       color: $COOL_GRAY_LIGHT;
@@ -116,7 +68,7 @@
         }
 
       }
-      &__text-wrapper {
+      &__text {
         display: inline-block;
         font-size: 14px;
         line-height: 34px;
@@ -144,6 +96,54 @@
 
         }
       }
+    }
+  }
+}
+
+.bookItemList {
+  @import '_bookItem';
+  display: block;
+  margin: 0;
+  max-width: 1312px;
+  padding: 24px 20px 0 20px;
+  position: relative;
+
+  @include desktop {
+    display: inline-block;
+    margin: 0 auto 0 auto;
+    padding: 0 0 0 29px;
+    @include calculation(width, '100% - 149px');
+  }
+
+  &__content {
+    border-color: $LIBRARY_RED;
+    border-top-style: solid;
+    border-width: 2px;
+    display: block;
+    padding: 64px 0 0 0;
+
+    @include desktop {
+      padding: 12px 0 0 0;
+      width: 865px;
+    }
+
+    .title-button {
+      color: $LIBRARY_RED;
+      cursor: pointer;
+      display: none;
+      font-family: Kievit-Book;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      line-height: 16.21px;
+      margin: 0;
+      text-decoration: none;
+      text-transform: capitalize;
+
+      @include desktop {
+        display: block;
+        margin: 0 0 24px 0;
+      }
+
     }
   }
 }

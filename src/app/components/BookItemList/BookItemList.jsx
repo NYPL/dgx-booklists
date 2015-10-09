@@ -100,20 +100,16 @@ let Navigation = Router.Navigation,
           <DocMeta tags={tags} />
           <Hero name={listName} intro={listIntro}/>
           <div className='bookItemList-wrapper'>
-            <div id={`${this.props.id}__back-button-wrapper`}
-            className={`${this.props.className}__back-button-wrapper`}>
-              <a id={`${this.props.id}__back-button-wrapper__button`}
-              className={`${this.props.className}__back-button-wrapper__button`}
+            <div id={`back-button-wrapper`}
+            className={`back-button-wrapper`}>
+              <a id={`back-button`}
+              className={`back-button`}
                 onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                <div
-                className=
-                {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
+                <div className={`back-button__icon nypl-icon-circle-arrow-left`}>
                 </div>
-                 <div
-                className=
-                {`${this.props.className}__back-button-wrapper__button__icon-desktop nypl-icon-arrow-up`}>
+                 <div className={`back-button__icon-desktop nypl-icon-arrow-up`}>
                 </div>
-                <div className={`${this.props.className}__back-button-wrapper__button__text-wrapper`}>
+                <div className={`back-button__text`}>
                   <p>back to</p>
                   <p>{userDisplayName}</p>
                   <p>lists</p>
@@ -122,9 +118,9 @@ let Navigation = Router.Navigation,
             </div>
             <div id={this.props.id} className={this.props.className}>
               <div id={`${this.props.id}__${listName}`}
-              className={`${this.props.className}__name`}>
-                <a id={`${this.props.id}__name__button`}
-                className={`${this.props.className}__name__button`}
+              className={`${this.props.className}__content`}>
+                <a id={`title-button`}
+                className={`title-button`}
                   onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
                   {userDisplayName}
                 </a>
