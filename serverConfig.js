@@ -81,7 +81,8 @@ app.use('/widget', (req, res) => {
     isProduction: isProduction,
     metatags: [],
     appEnv: process.env.APP_ENV || 'no APP_ENV',
-    widget: 'true'
+    widget: 'true',
+    apiUrl: res.locals.data.completeApiUrl
   });
 });
 
@@ -117,7 +118,8 @@ app.use('/', (req, res) => {
       isProduction: isProduction,
       metatags: renderedTags,
       appEnv: process.env.APP_ENV || 'no APP_ENV',
-      widget: 'false'
+      widget: 'false',
+      apiUrl: res.locals.data.completeApiUrl
     });
   });
 });

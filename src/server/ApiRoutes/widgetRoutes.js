@@ -4,7 +4,10 @@ import parser from 'jsonapi-parserinator';
 import {api} from '../../../appConfig.js';
 
 let router = express.Router(),
+  appEnvironment = process.env.APP_ENV || 'development',
+  apiRoot = api.root[appEnvironment],
   listOptions = {
+    endpoint: '',
     includes: ['user', 'list-items.item']
   };
 
@@ -12,10 +15,14 @@ parser.setChildrenObjects(listOptions);
 
 function ListID(req, res, next) {
   let listID = req.params.listID,
-    endpoint = `${api.root}${api.baseEndpoint}/${listID}${api.includes}`;
+    endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`,
+    completeApiUrl;
+
+  listOptions.endpoint = endpoint;
+  completeApiUrl = parser.getCompleteApi(listOptions);
 
   axios
-    .get(endpoint)
+    .get(completeApiUrl)
     .then(data => {
       // Booklist data
       let returnedData = data.data,
@@ -24,7 +31,8 @@ function ListID(req, res, next) {
       res.locals.data = {
         Store: {
           bookItemList: parsed
-        }
+        },
+        completeApiUrl
       };
       next();
     })
@@ -33,20 +41,12 @@ function ListID(req, res, next) {
       res.locals.data = {
         Store: {
           bookItemList: {}
-        }
+        },
+        completeApiUrl: ''
       };
       next();
     }); /* end Axios call */
 }
-
-
-// router
-//   .route('/')
-//   .get(BookListUsers);
-
-// router
-//   .route('/:username/?')
-//   .get(BookListUser);
 
 router
   .route('/:listID/?')
