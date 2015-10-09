@@ -4,6 +4,8 @@ import React from 'react';
 // Import Router and it's navigation
 import Router from 'react-router';
 
+import DocMeta from 'react-doc-meta';
+
 // ALT FLUX
 import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
@@ -13,6 +15,8 @@ import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
 import BookItem from '../BookItem/BookItem.jsx'
+
+import utils from '../../utils/utils.js';
 
 // The method allows us to transit between pages internally
 let Navigation = Router.Navigation,
@@ -46,12 +50,24 @@ let Navigation = Router.Navigation,
 
       // The variable to store the data from Store
       let bookItemList = this.state.bookItemList,
-        userId = bookItemList.user.id,
-        userDisplayName = bookItemList.user.attributes.name,
-        listItems = bookItemList['list-items'],
-        listName = bookItemList.attributes['list-name'],
-        listIntro = bookItemList.attributes['list-description'],
+        userId = bookItemList.user ? bookItemList.user.id : '',
+        userDisplayName = bookItemList.user ? bookItemList.user.attributes.name : '',
+        listId = bookItemList.id || '',
+        listItems = bookItemList['list-items'] ? bookItemList['list-items'] : [],
+        listName = bookItemList.attributes ? bookItemList.attributes['list-name'] : '',
+        listIntro = bookItemList.attributes ? bookItemList.attributes['list-description'] : '',
         encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
+        description = 'A list created by staff at The New York Public Library',
+        pageTags = [
+          // Required OG meta tags
+          {property: "og:title", content: `${listName} | The New York Public Library`},
+          {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userId}/${listId}`},
+          {property: "og:image", content: ''},
+          {property: "og:description", content: description},
+          {name: "twitter:description", content: description},
+          {name: "twitter:image", content: ''}
+        ],
+        tags = utils.metaTagUnion(pageTags),
         bookItems = (listItems && listItems.length) ?
           listItems.map((element, i) => {
             let target = `${encoreUrl}${element.item.id}?lang=eng`,
@@ -83,6 +99,7 @@ let Navigation = Router.Navigation,
       // Render the list of owners on DOM
       return (
         <div id='main'>
+          <DocMeta tags={tags} />
           <Hero name={listName} intro={listIntro}/>
           <div className='bookItemList-wrapper'>
             <div id={`${this.props.id}__back-button-wrapper`}

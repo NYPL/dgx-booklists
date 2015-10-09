@@ -2,17 +2,31 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
-import {api} from '../../../appConfig.js';
+import {api, headerApi} from '../../../appConfig.js';
 import Model from '../../app/utils/HeaderItemModel.js';
 
 // Set up variables for routing and its options
 let router = express.Router(),
-  options = {
-    includes: ['user', 'list-items.item']
+  appEnvironment = process.env.APP_ENV || 'development',
+  apiRoot = api.root[appEnvironment],
+  listOptions = {
+    endpoint: '',
+    includes: []
+  },
+  headerOptions = {
+    endpoint: `${apiRoot}${headerApi.endpoint}`,
+    includes: headerApi.includes,
+    filters: headerApi.filters
   };
 
-// Have parser to take the options
-parser.setChildrenObjects(options);
+function getHeaderData() {
+  let completeApiUrl = parser.getCompleteApi(headerOptions);
+  return fetchApiData(completeApiUrl);
+}
+
+function fetchApiData(url) {
+  return axios.get(url);
+}
 
 /**
 * BookListUsers(req, res, next)
@@ -23,50 +37,22 @@ parser.setChildrenObjects(options);
 * @param (HTTP methods) res
 * @param (Express function) next - call the next function after the previous function has coompleted
 */
-function getHeaderData() {
-  let options = {
-    endpoint: 'http://dev.refinery.aws.nypl.org/api/nypl/ndo/v0.1/site-data/' +
-      'header-items?filter\[relationships\]\[parent\]=null&include=' +
-      'children,' +
-      'related-mega-menu-panes.current-mega-menu-item.images,' +
-      'related-mega-menu-panes.current-mega-menu-item.related-content.authors.nypl-location,' +
-      'related-mega-menu-panes.current-mega-menu-item.related-content.location,' +
-      'related-mega-menu-panes.default-mega-menu-item.images,' +
-      'related-mega-menu-panes.default-mega-menu-item.related-content.authors.nypl-location,' +
-      'related-mega-menu-panes.default-mega-menu-item.related-content.location',
-    includes: [
-      'children',
-      'related-mega-menu-panes.current-mega-menu-item.images',
-      'related-mega-menu-panes.current-mega-menu-item.related-content.authors.nypl-location',
-      'related-mega-menu-panes.current-mega-menu-item.related-content.location',
-      'related-mega-menu-panes.default-mega-menu-item',
-      'related-mega-menu-panes.default-mega-menu-item.related-content.authors.nypl-location',
-      'related-mega-menu-panes.default-mega-menu-item.related-content.location'],
-    filters: {
-      'relationships': {'parent': 'null'}
-    }
-  };
-
-  // Set the actual children relationships you want to create
-  // for the embedded properties.
-  parser.setChildrenObjects(options);
-
-  return axios.get(options.endpoint);
-}
-
 function BookListUsers(req, res, next) {
-  function getAllUsers() {
-    let endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}`;
-    return axios.get(endpoint)
-  }
+  let completeApiUrl;
 
-  axios.all([getHeaderData(), getAllUsers()])
+  listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}`;
+  listOptions.includes = [];
+
+  completeApiUrl = parser.getCompleteApi(listOptions);
+
+
+  axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
     .then(axios.spread((headerData, allUsersList) => {
       // Booklist data
       let returnedData = allUsersList.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
       // put the data in Store
@@ -77,7 +63,8 @@ function BookListUsers(req, res, next) {
         HeaderStore: {
           headerData: modelData,
           subscribeFormVisible: false
-        }
+        },
+        completeApiUrl
       };
       next();
     }))
@@ -91,7 +78,8 @@ function BookListUsers(req, res, next) {
         HeaderStore: {
           headerData: [],
           subscribeFormVisible: false
-        }
+        },
+        completeApiUrl: ''
       };
       next();
     }); // end Axios call
@@ -107,22 +95,24 @@ function BookListUsers(req, res, next) {
 * @param (Express function) next - call the next function after the previous function has coompleted
 */
 function BookListUser(req, res, next) {
-  function getUserLists() {
-    let username = req.params.username,
-      endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
-        `${username}/links/book-lists${api.includes}${api.pageSize}${api.pageNumber}`;
+  let username = req.params.username,
+    completeApiUrl;
 
-    return axios.get(endpoint);
-  }
+  listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
+        `${username}/links/book-lists`;
+  listOptions.includes = api.includes;
+  
+  completeApiUrl = parser.getCompleteApi(listOptions, `${api.pageSize}${api.pageNumber}`);
 
-  axios.all([getHeaderData(), getUserLists()])
+
+  axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
     .then(axios.spread((headerData, userListsData) => {
       // Booklist data
       let returnedData = userListsData.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
         listsNumber = returnedData.meta.count,
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
       // Put the parsed data into Store
@@ -134,7 +124,8 @@ function BookListUser(req, res, next) {
         HeaderStore: {
           headerData: modelData,
           subscribeFormVisible: false
-        }
+        },
+        completeApiUrl
       };
       next();
     }))
@@ -149,7 +140,8 @@ function BookListUser(req, res, next) {
         HeaderStore: {
           headerData: [],
           subscribeFormVisible: false
-        }
+        },
+        completeApiUrl: ''
       };
       next();
     }); // end Axios call
@@ -165,21 +157,21 @@ function BookListUser(req, res, next) {
 * @param (Express function) next - call the next function after the previous function has coompleted
 */
 function ListID(req, res, next) {
+  let listID = req.params.listID,
+    completeApiUrl;
 
-  function getList() {
-    let listID = req.params.listID,
-      endpoint = `${api.root}${api.baseEndpoint}/${listID}${api.includes}`;
+  listOptions.endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`;
+  listOptions.includes = api.includes;
+  
+  completeApiUrl = parser.getCompleteApi(listOptions);
 
-    return axios.get(endpoint);
-  }
-
-  axios.all([getHeaderData(), getList()])
+  axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
     .then(axios.spread((headerData, userList) => {
       // Booklist data
       let returnedData = userList.data,
-        parsed = parser.parse(returnedData),
+        HeaderParsed = parser.parse(headerData.data, headerOptions),
+        parsed = parser.parse(returnedData, listOptions),
         // Header data
-        HeaderParsed = parser.parse(headerData.data),
         modelData = Model.build(HeaderParsed);
 
       res.locals.data = {
@@ -189,7 +181,8 @@ function ListID(req, res, next) {
         HeaderStore: {
           headerData: modelData,
           subscribeFormVisible: false
-        }
+        },
+        completeApiUrl
       };
       next();
     }))
@@ -202,7 +195,8 @@ function ListID(req, res, next) {
         HeaderStore: {
           headerData: [],
           subscribeFormVisible: false
-        }
+        },
+        completeApiUrl: ''
       };
       next();
     }); // end Axios call
@@ -220,14 +214,19 @@ function AjaxBookListUser(req, res) {
   let username = req.params.username,
     pageSize = `&page[size]=${req.params.pageSize}`,
     pageNumber = `&page[number]=${req.params.pageNumber}`,
-    endpoint = `${api.root}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
-      `${username}/links/book-lists${api.includes}${pageSize}${pageNumber}`;
+    completeApiUrl;
+
+  listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
+      `${username}/links/book-lists`;
+  listOptions.includes = api.includes;
+  
+  completeApiUrl = parser.getCompleteApi(listOptions, `${pageSize}${pageNumber}`);
 
   axios
-    .get(endpoint)
+    .get(completeApiUrl)
     .then(data => {
       let returnedData = data.data,
-        parsed = parser.parse(returnedData),
+        parsed = parser.parse(returnedData, listOptions),
         listsNumber = returnedData.meta.count;
 
       // Return the data as a JSON, it will be updated to Store at UserLists component
@@ -253,13 +252,18 @@ function AjaxBookListUser(req, res) {
 */
 function AjaxListID(req, res) {
   let listID = req.params.listID,
-    endpoint = `${api.root}${api.baseEndpoint}/${listID}${api.includes}`;
+    completeApiUrl;
+
+  listOptions.endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`;
+  listOptions.includes = api.includes;
+  
+  completeApiUrl = parser.getCompleteApi(listOptions);
 
   axios
-    .get(endpoint)
+    .get(completeApiUrl)
     .then(data => {
       let returnedData = data.data,
-        parsed = parser.parse(returnedData);
+        parsed = parser.parse(returnedData, listOptions);
 
       res.json({
         listID: listID,

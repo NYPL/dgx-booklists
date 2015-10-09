@@ -89,7 +89,9 @@ app.use((req, res) => {
       appTitle: appConfig.appName, 
       favicon: appConfig.favIconPath,
       isProduction: isProduction,
-      metatags: renderedTags
+      metatags: renderedTags,
+      appEnv: process.env.APP_ENV || 'no APP_ENV',
+      apiUrl: res.locals.data.completeApiUrl
     });
   });
 });
