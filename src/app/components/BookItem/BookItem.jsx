@@ -18,9 +18,9 @@ let Navigation = Router.Navigation,
     },
     render() {
       return (
-        <div id={this.props.bookItemId} className={`${this.props.className}__item`} key={this.props.key}>
+        <div id={this.props.itemId} className={`${this.props.className}__item`} key={this.props.key}>
           <div className={`${this.props.className}__item__title-wrapper`}>
-            <SimpleButton id={`${this.props.id}__item__title-wrapper__${this.props.idTag}`}
+            <SimpleButton id={`${this.props.id}__item__title-wrapper__${this.props.itemId}`}
               className={`${this.props.className}__item__title-wrapper__name`}
               label={this.props.bookItemName}
               target={this.props.target} />
@@ -36,7 +36,7 @@ let Navigation = Router.Navigation,
             </a>
             <div className={`${this.props.className}__item__detail-wrapper__text`}>
               <div className={`${this.props.className}__item__detail-wrapper__text__desktop-title`}>
-                <SimpleButton id={`${this.props.id}__item__detail-wrapper__text__desktop-title__${this.props.idTag}`}
+                <SimpleButton id={`${this.props.id}__item__detail-wrapper__text__desktop-title__${this.props.itemId}`}
                   className={`${this.props.className}__item__detail-wrapper__text__desktop-title__name`}
                   label={this.props.bookItemName}
                   target={this.props.target} />
@@ -53,7 +53,7 @@ let Navigation = Router.Navigation,
             </div>
           </div>
           <div className={`${this.props.className}__item__checkout`}>
-            <SimpleButton id={`${this.props.id}__item__checkout__${this.props.idTag}`}
+            <SimpleButton id={`${this.props.id}__item__checkout__${this.props.itemId}`}
               className={`${this.props.className}__item__checkout__button`}
               label='request this item'
               target={this.props.target} />

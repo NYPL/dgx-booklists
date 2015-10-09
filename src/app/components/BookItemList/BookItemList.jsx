@@ -72,11 +72,10 @@ let Navigation = Router.Navigation,
           listItems.map((element, i) => {
             let target = `${encoreUrl}${element.item.id}?lang=eng`,
               publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
-              idTag = element.item.id,
+              itemId = element.item.id,
               bookItemName = element.item.attributes.title,
               bookItemDescription = element.attributes.annotation,
               bookCoverIsbn = element.item.attributes.isbns[0],
-              bookItemId = `${this.props.id}__item-${element.item.id}`,
               authors = (element.item.attributes.authors.length) ?
                 `By ${element.item.attributes.authors}` : `The author of this item is not available`;
 
@@ -84,10 +83,9 @@ let Navigation = Router.Navigation,
               <BookItem id={this.props.id}
               className={this.props.className}
               key={i}
-              idTag={idTag}
+              itemId={itemId}
               target={target}
               publishedDate={publishedDate}
-              bookItemId={bookItemId}
               bookItemName={bookItemName}
               bookItemDescription={bookItemDescription}
               bookCoverIsbn={bookCoverIsbn}
@@ -95,6 +93,8 @@ let Navigation = Router.Navigation,
             );
           })
           :<div>No book under this list</div>;
+
+                          console.log(listItems);
 
       // Render the list of owners on DOM
       return (
