@@ -18,7 +18,6 @@ import PaginationButton from '../Buttons/PaginationButton.jsx';
 
 import utils from '../../utils/utils.js';
 
-// Create the class. Use ES5 for react-router Navigation
 class UserLists extends React.Component {
   constructor(props) {
     super(props);
