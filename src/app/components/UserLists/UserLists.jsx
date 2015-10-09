@@ -106,13 +106,13 @@ class UserLists extends React.Component {
       <div id='main'>
         <DocMeta tags={tags} />
         <Hero name={username} />
-        <div id={this.props.id} className={this.props.id}>
+        <div id={this.props.id} className={this.props.className}>
           {lists}
         </div>
-        <div id={`${this.props.id}__page-button-wrapper`}
-        className={`${this.props.className}__page-button-wrapper`}>
-          <PaginationButton id={`${this.props.id}__page-button-wrapper__button`}
-            className={`${this.props.className}__page-button-wrapper__button`}
+        <div id={`page-button-wrapper`}
+        className={`page-button-wrapper`}>
+          <PaginationButton id={`page-button`}
+            className={`page-button`}
             dots='3' label={pageLeft}
             isLoading={this.state.isLoading}
             onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber)}/>
@@ -163,9 +163,6 @@ UserLists.defaultProps = {
   lang: 'en',
   id: 'userlists',
   className: 'userlists'
-};
-
-const styles = {
 };
 
 export default UserLists;

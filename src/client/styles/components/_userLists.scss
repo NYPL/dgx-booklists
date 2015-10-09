@@ -1,3 +1,5 @@
+@import '_pageButton';
+
 .userlists {
   @import '_item';
   display: block;
@@ -5,49 +7,10 @@
   max-width: 1312px;
   padding: 24px 20px 0 20px;
   position: relative;
+
   @include desktop {
     margin: 24px auto 0 auto;
     padding: 0;
     width: 100%;
-  }
-  &__page-button-wrapper {
-    margin: 60px 0 60px 0;
-    text-align: center;
-    &__button {
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      appearance: none;
-      background-color: transparent;
-      border-color: $COOL_GRAY_LIGHT;
-      border-style: solid;
-      border-width: 2px;
-      border-radius: 33px;
-      color: $COOL_GRAY_LIGHT;
-      cursor: pointer;
-      display: inline-block;
-      font-family: Kievit-Medium;
-      font-size: 13px;
-      letter-spacing: 0.04em;
-      line-height: 16.21px;
-      overflow: hidden;
-      padding: 5px 20px;
-      &__dot-ul {
-        display: block;
-        list-style: none;
-        margin: 0 auto;
-        padding: 0;
-        &__element {
-          border: 3px solid $COOL_GRAY_LIGHT;
-          border-radius: 100%;
-          display: inline-table;
-          margin: 0 4px 0 0;
-          vertical-align: middle;
-        }
-        &__number {
-          display: inline-table;
-          margin: 0 4px 0 0;
-        }
-      }
-    }
   }
 }
