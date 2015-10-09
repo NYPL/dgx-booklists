@@ -1,44 +1,6 @@
-&__item {
-  &-wrapper {
-    margin: 0 0 30px 0;
-    width: 100%;
+@import '_bookCover';
 
-    @include desktop {
-      clear: both;
-      margin: 0 0 30px 97px;
-      @include calculation(width, '100% - 166px');
-    }
-
-  }
-  &-divide {
-    border-color: $COOL_GRAY_LIGHT;
-    border-top-style: solid;
-    border-width: 2px;
-    display: block;
-    width: 50px;
-    &.first-divide {
-
-      @include desktop {
-        border-color: $LIBRARY_RED;
-        border-top-style: solid;
-        border-width: 2px;
-        width: 100%;
-      }
-
-    }
-  }
-  &-index {
-    color: $LIBRARY_RED;
-    font-family: Kievit-Medium;
-    font-size: 14px;
-    letter-spacing: 0.01em;
-    margin: 12px 0 4px 0;
-
-    @include desktop {
-      margin: 12px 0 4px 0;
-    }
-
-  }
+.item {
   &__text-wrapper {
     display: block;
     font-family: Kievit-Medium;
@@ -56,7 +18,7 @@
       @include calculation(width, '100% - 298px');
     }
 
-    &__name {
+    .name {
       color: #000000;
       cursor: pointer;
       font-family: Milo-Light;
@@ -71,7 +33,7 @@
       }
 
     }
-    &__description {
+    .description {
       display: none;
       font-family: Milo-Light;
       font-size: 16px;
@@ -84,7 +46,7 @@
       }
 
     }
-    &__createdDate {
+    .createdDate {
       font-size: 12px;
       letter-spacing: 0.01em;
       line-height: 20px;
@@ -110,31 +72,5 @@
       width: 269px;
     }
 
-    &__book-cover {
-      display: inline-block;
-      position: relative;
-      &:nth-child(1n) {
-        margin: 0;
-        z-index: 200;
-      }
-      &:nth-child(2n) {
-        margin: 0 0 0 -90px;
-        z-index: 199;
-      }
-      &:nth-child(3n) {
-        margin: 0 0 0 -90px;
-        z-index: 198;
-      }
-      &:nth-child(4n) {
-        margin: 0 0 0 -90px;
-        z-index: 197;
-      }
-      &__cover-image {
-        background-repeat: no-repeat;
-        display: inline-block;
-        height: 200px;
-        width: auto;
-      }
-    }
   }
 }

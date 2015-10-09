@@ -83,11 +83,11 @@ class UserLists extends React.Component {
             firstDivide = cx({'first-divide': i === 0});
 
             return(
-              <div key={i} className={`${this.props.className}__item-wrapper`}>
-                <span className={`${this.props.className}__item-divide ${firstDivide}`}></span>
-                <p className={`${this.props.className}__item-index`}>{counter}</p>
-                <Item id={`userlists__item-${element.attributes['list-name']}`}
-                  className={`${this.props.className}__item`}
+              <div key={i} className={`item-wrapper`}>
+                <span className={`divide ${firstDivide}`}></span>
+                <p className={`index`}>{counter}</p>
+                <Item id={`item-${element.attributes['list-name']}`}
+                  className={`item`}
                   name={element.attributes['list-name']}
                   target=''
                   sampleBookCovers={element['list-items']}
