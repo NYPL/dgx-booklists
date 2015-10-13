@@ -60,8 +60,7 @@
 
       @include desktop {
         float: left;
-        padding: 0;
-        width: 18% !important;
+        width: 25% !important;
 
         &:nth-of-type(3) {
           margin-left: 20px;
@@ -71,7 +70,7 @@
 
       li {
 
-        margin: 0px 0px 12px;
+        margin: 0px 0px 16px;
         display: none;
 
         @include desktop {
