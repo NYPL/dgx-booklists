@@ -11,10 +11,10 @@ import BookItemList from '../components/BookItemList/BookItemList.jsx';
 
 // Routes we need
 const routes = (
-  <Route name='root' handler={Application} ignoreScrollBehavior>
-    <Route name='AllUsersList' path='/' handler={AllUsersList} ignoreScrollBehavior />
-    <Route name='UserLists' path='/:UserLists?/?' handler={UserLists} ignoreScrollBehavior />
-    <Route name='BookItemList' path='/:UserLists/:id?/?' handler={BookItemList} ignoreScrollBehavior />
+  <Route name='root' handler={Application}>
+    <Route name='AllUsersList' path='/' handler={AllUsersList} />
+    <Route name='UserLists' path='/:UserLists?/?' handler={UserLists} />
+    <Route name='BookItemList' path='/:UserLists/:id?/?' handler={BookItemList} />
   </Route>
 );
 
