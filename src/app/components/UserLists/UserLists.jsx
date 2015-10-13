@@ -9,6 +9,7 @@ import Actions from '../../actions/Actions.js';
 // Misc
 import Moment from 'moment';
 import _ from 'underscore';
+import cx from 'classnames'
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
@@ -17,7 +18,6 @@ import PaginationButton from '../Buttons/PaginationButton.jsx';
 
 import utils from '../../utils/utils.js';
 
-// Create the class. Use ES5 for react-router Navigation
 class UserLists extends React.Component {
   constructor(props) {
     super(props);
@@ -79,14 +79,15 @@ class UserLists extends React.Component {
         userLists.map((element, i) => {
           let dateCreated = Moment(element.attributes['date-created']).format('MMMM D'),
             yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
-            counter = `${i+1}.`;
+            counter = `${i+1}.`,
+            firstDivide = cx({'first-divide': i === 0});
 
             return(
-              <div key={i} className={`${this.props.className}__item-wrapper`}>
-                <span className={`${this.props.className}__item-divide`}></span>
-                <p className={`${this.props.className}__item-index`}>{counter}</p>
-                <Item id={`userlists__item-${element.attributes['list-name']}`}
-                  className={`${this.props.className}__item`}
+              <div key={i} className={`item-wrapper`}>
+                <span className={`divide ${firstDivide}`}></span>
+                <p className={`index`}>{counter}</p>
+                <Item id={`item-${element.attributes['list-name']}`}
+                  className={`item`}
                   name={element.attributes['list-name']}
                   target=''
                   sampleBookCovers={element['list-items']}
@@ -105,13 +106,13 @@ class UserLists extends React.Component {
       <div id='main'>
         <DocMeta tags={tags} />
         <Hero name={username} />
-        <div id={this.props.id} className={this.props.id}>
+        <div id={this.props.id} className={this.props.className}>
           {lists}
         </div>
-        <div id={`${this.props.id}__page-button-wrapper`}
-        className={`${this.props.className}__page-button-wrapper`}>
-          <PaginationButton id={`${this.props.id}__page-button-wrapper__button`}
-            className={`${this.props.className}__page-button-wrapper__button`}
+        <div id={`page-button-wrapper`}
+        className={`page-button-wrapper`}>
+          <PaginationButton id={`page-button`}
+            className={`page-button`}
             dots='3' label={pageLeft}
             isLoading={this.state.isLoading}
             onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber)}/>
@@ -162,9 +163,6 @@ UserLists.defaultProps = {
   lang: 'en',
   id: 'userlists',
   className: 'userlists'
-};
-
-const styles = {
 };
 
 export default UserLists;

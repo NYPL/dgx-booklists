@@ -13,7 +13,8 @@ import Actions from '../../actions/Actions.js';
 // Import Components
 import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
-import BookCover from '../BookCover/BookCover.jsx'
+import BookCover from '../BookCover/BookCover.jsx';
+import BookItem from '../BookItem/BookItem.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -67,45 +68,28 @@ let Navigation = Router.Navigation,
           {name: "twitter:image", content: ''}
         ],
         tags = utils.metaTagUnion(pageTags),
-        items = (listItems && listItems.length) ?
+        bookItems = (listItems && listItems.length) ?
           listItems.map((element, i) => {
             let target = `${encoreUrl}${element.item.id}?lang=eng`,
               publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
-              bookItemId = `${this.props.id}__item-${element.item.id}`,
+              itemId = element.item.id,
+              bookItemName = element.item.attributes.title,
+              bookItemDescription = element.attributes.annotation,
+              bookCoverIsbn = element.item.attributes.isbns[0],
               authors = (element.item.attributes.authors.length) ?
                 `By ${element.item.attributes.authors}` : `The author of this item is not available`;
 
             return(
-              <div id={bookItemId} className={`${this.props.className}__item`} key={i}>
-                <div className={`${this.props.className}__item__title-wrapper`}>
-                  <SimpleButton id={`${this.props.id}__item__title-wrapper__${element.item.id}`}
-                    className={`${this.props.className}__item__title-wrapper__name`}
-                    label={element.item.attributes.title}
-                    target={target} />
-                  <p className={`${this.props.className}__item__title-wrapper__author`}>
-                    {authors}
-                  </p>
-                </div>
-                <div className={`${this.props.className}__item__detail-wrapper`}>
-                  <a className={`${this.props.className}__item__detail-wrapper__image-wrapper`} href={target}>
-                    <BookCover isbn={element.item.attributes.isbns[0]}
-                    name={element.item.attributes.title}
-                    className={`${this.props.className}__item__detail-wrapper__image-wrapper__cover-image`} />
-                  </a>
-                  <p className={`${this.props.className}__item__detail-wrapper__description`}>
-                    {element.attributes.annotation}
-                  </p>
-                  <p className={`${this.props.className}__item__detail-wrapper__catalog`}>
-                    {publishedDate}
-                  </p>
-                </div>
-                <div className={`${this.props.className}__item__checkout`}>
-                  <SimpleButton id={`${this.props.id}__item__checkout__${element.item.id}`}
-                    className={`${this.props.className}__item__checkout__button`}
-                    label='request this item'
-                    target={target} />
-                </div>
-              </div>
+              <BookItem id={`bookItem`}
+                className={`bookItem`}
+                key={i}
+                itemId={itemId}
+                target={target}
+                publishedDate={publishedDate}
+                bookItemName={bookItemName}
+                bookItemDescription={bookItemDescription}
+                bookCoverIsbn={bookCoverIsbn}
+                authors={authors} />
             );
           })
           :<div>No book under this list</div>;
@@ -116,33 +100,31 @@ let Navigation = Router.Navigation,
           <DocMeta tags={tags} />
           <Hero name={listName} intro={listIntro}/>
           <div className='bookItemList-wrapper'>
-            <div id={`${this.props.id}__back-button-wrapper`}
-            className={`${this.props.className}__back-button-wrapper`}>
-              <a id={`${this.props.id}__back-button-wrapper__button`}
-              className={`${this.props.className}__back-button-wrapper__button`}
+            <div id={`back-button-wrapper`}
+            className={`back-button-wrapper`}>
+              <a id={`back-button`}
+              className={`back-button`}
                 onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                <div
-                className=
-                {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
+                <div className={`back-button__icon nypl-icon-circle-arrow-left`}>
                 </div>
-                 <div
-                className=
-                {`${this.props.className}__back-button-wrapper__button__icon-desktop nypl-icon-arrow-up`}>
+                 <div className={`back-button__icon-desktop nypl-icon-arrow-up`}>
                 </div>
-                <p>back to</p>
-                <p>{userDisplayName}</p>
-                <p>lists</p>
+                <div className={`back-button__text`}>
+                  <p>back to</p>
+                  <p>{userDisplayName}</p>
+                  <p>lists</p>
+                </div>
               </a>
             </div>
             <div id={this.props.id} className={this.props.className}>
               <div id={`${this.props.id}__${listName}`}
-              className={`${this.props.className}__name`}>
-                <a id={`${this.props.id}__name__button`}
-                className={`${this.props.className}__name__button`}
+              className={`${this.props.className}__content`}>
+                <a id={`title-button`}
+                className={`title-button`}
                   onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
                   {userDisplayName}
                 </a>
-                {items}
+                {bookItems}
               </div>
             </div>
           </div>
@@ -150,7 +132,7 @@ let Navigation = Router.Navigation,
       );
     },
 
-    /**
+     /**
     * _fetchUserLists(userId, pageSize, pageNumber)
     * Fetch the data we need for UserLists
     * before the app transit us to UserLists page
@@ -190,7 +172,6 @@ let Navigation = Router.Navigation,
       });
     }
   });
-
 
 BookItemList.defaultProps = {
   lang: 'en',

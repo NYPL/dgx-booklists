@@ -21,15 +21,17 @@ class Footer extends React.Component {
 
 		return (
 			<footer id={this.props.id} className={this.props.className}>
-				<SocialMediaList
-					data={data.SocialMedia}
-					id='SocialMediaList'
-					className='socialmedia' />
-				<div className='footerlinks'>
-					{FooterLinkLists}
-				</div>
-				<div id='copyright' className='copyright'>
-					<p>© The New York Public Library, {new Date().getFullYear()}</p>
+				<div id={`${this.props.id}-content`} className={`${this.props.className}-content`}>
+					<SocialMediaList
+						data={data.SocialMedia}
+						id='SocialMediaList'
+						className='socialmedia' />
+					<div className='footerlinks'>
+						{FooterLinkLists}
+					</div>
+					<div id='copyright' className='copyright'>
+						<p>© The New York Public Library, {new Date().getFullYear()}</p>
+					</div>
 				</div>
 			</footer>
     );
@@ -38,7 +40,7 @@ class Footer extends React.Component {
 
 Footer.defaultProps = {
   id: 'Footer',
-  className: 'ng-isolate-scope',
+  className: 'footer',
   label: '',
   lang: 'en'
 };
