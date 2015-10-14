@@ -84,14 +84,14 @@
           font-family: Milo-Light;
           font-size: 36px;
           letter-spacing: 0;
-          margin: 0 0 12px 0;
+          margin: 0;
           text-decoration: none;
           text-transform: capitalize;
         }
         &__author {
           font-size: 16px;
           line-height: 20px;
-          margin: 12px 0 24px 0;
+          margin: 12px 0 0 0;
           text-transform: capitalize;
         }
       }
@@ -105,7 +105,7 @@
         @include desktop {
           font-size: 16px;
           line-height: 20px;
-          margin: 0 0 24px 0;
+          margin: 24px 0 0 0;
           position: relative;
         }
 
@@ -113,7 +113,7 @@
       .catalog {
         font-size: 14px;
         line-height: 20px;
-        margin: 0 0 32px 0;
+        margin: 24px 0 30px 0;
         text-transform: uppercase;
 
         @include desktop {
