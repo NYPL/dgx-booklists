@@ -14,7 +14,7 @@ import Actions from '../../actions/Actions.js';
 import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
-import BookItem from '../BookItem/BookItem.jsx'
+import BookItem from '../BookItem/BookItem.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -72,26 +72,24 @@ let Navigation = Router.Navigation,
           listItems.map((element, i) => {
             let target = `${encoreUrl}${element.item.id}?lang=eng`,
               publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
-              idTag = element.item.id,
+              itemId = element.item.id,
               bookItemName = element.item.attributes.title,
               bookItemDescription = element.attributes.annotation,
               bookCoverIsbn = element.item.attributes.isbns[0],
-              bookItemId = `${this.props.id}__item-${element.item.id}`,
               authors = (element.item.attributes.authors.length) ?
                 `By ${element.item.attributes.authors}` : `The author of this item is not available`;
 
             return(
-              <BookItem id={this.props.id}
-              className={this.props.className}
-              key={i}
-              idTag={idTag}
-              target={target}
-              publishedDate={publishedDate}
-              bookItemId={bookItemId}
-              bookItemName={bookItemName}
-              bookItemDescription={bookItemDescription}
-              bookCoverIsbn={bookCoverIsbn}
-              authors={authors} />
+              <BookItem id={`bookItem`}
+                className={`bookItem`}
+                key={i}
+                itemId={itemId}
+                target={target}
+                publishedDate={publishedDate}
+                bookItemName={bookItemName}
+                bookItemDescription={bookItemDescription}
+                bookCoverIsbn={bookCoverIsbn}
+                authors={authors} />
             );
           })
           :<div>No book under this list</div>;
@@ -102,20 +100,16 @@ let Navigation = Router.Navigation,
           <DocMeta tags={tags} />
           <Hero name={listName} intro={listIntro}/>
           <div className='bookItemList-wrapper'>
-            <div id={`${this.props.id}__back-button-wrapper`}
-            className={`${this.props.className}__back-button-wrapper`}>
-              <a id={`${this.props.id}__back-button-wrapper__button`}
-              className={`${this.props.className}__back-button-wrapper__button`}
+            <div id={`back-button-wrapper`}
+            className={`back-button-wrapper`}>
+              <a id={`back-button`}
+              className={`back-button`}
                 onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                <div
-                className=
-                {`${this.props.className}__back-button-wrapper__button__icon nypl-icon-circle-arrow-left`}>
+                <div className={`back-button__icon nypl-icon-circle-arrow-left`}>
                 </div>
-                 <div
-                className=
-                {`${this.props.className}__back-button-wrapper__button__icon-desktop nypl-icon-arrow-up`}>
+                 <div className={`back-button__icon-desktop nypl-icon-arrow-up`}>
                 </div>
-                <div className={`${this.props.className}__back-button-wrapper__button__text-wrapper`}>
+                <div className={`back-button__text`}>
                   <p>back to</p>
                   <p>{userDisplayName}</p>
                   <p>lists</p>
@@ -124,9 +118,9 @@ let Navigation = Router.Navigation,
             </div>
             <div id={this.props.id} className={this.props.className}>
               <div id={`${this.props.id}__${listName}`}
-              className={`${this.props.className}__name`}>
-                <a id={`${this.props.id}__name__button`}
-                className={`${this.props.className}__name__button`}
+              className={`${this.props.className}__content`}>
+                <a id={`title-button`}
+                className={`title-button`}
                   onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
                   {userDisplayName}
                 </a>

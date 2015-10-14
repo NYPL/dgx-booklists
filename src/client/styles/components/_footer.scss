@@ -3,21 +3,24 @@
 **
 **/
 
-.footer-wrapper {
+.footer {
   position: relative;
   clear: both;
   margin-top: 20px;
   padding: 30px 20px 100px;
   background: #7d7972;
+
   @include desktop {
     padding: 30px 0 100px;
   }
+
 }
 
-.footer {
+.footer-content {
   max-width: 1312px;
   margin: 0 auto;
   padding: 0;
+
   @include desktop {
     padding: 0;
     width: 100%;
@@ -25,16 +28,17 @@
 
   .footerlinks {
     padding: 0px;
+
     @include desktop {
       padding: 0 0 0 97px;
     }
+
     ul {
       list-style: none;
       padding: 0;
 
       @include tablet {
         margin: 0 20px;
-
         &:first-of-type {
           margin-left: 0px;
           float: left;
@@ -56,8 +60,7 @@
 
       @include desktop {
         float: left;
-        padding: 0;
-        width: 18% !important;
+        width: 25% !important;
 
         &:nth-of-type(3) {
           margin-left: 20px;
@@ -67,7 +70,7 @@
 
       li {
 
-        margin: 0px 0px 12px;
+        margin: 0px 0px 16px;
         display: none;
 
         @include desktop {
