@@ -19,7 +19,7 @@ class BookCover extends React.Component {
       console.log(imageSrc);
 
     return (
-      <div id={`${this.props.id}-place-holder`} className={`place-holder`}>
+      <div id={`${this.props.id}-place-holder`}>
         <img id={this.props.id} className={this.props.className}
         src={imageSrc} alt={this.props.name} />
       </div>
