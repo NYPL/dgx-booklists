@@ -8,32 +8,9 @@ import BookCover from '../BookCover/BookCover.jsx';
 
 import Actions from '../../actions/Actions.js';
 
-// <<<<<<< HEAD
-// // The method allows us to transit between pages internally
-// let Navigation = Router.Navigation,
-//   BookItem = React.createClass({
-//     // For internal transition
-//     mixins: [Navigation],
-//     getInitialState() {
-//       return {};
-//     },
-//     render() {
-//       return (
-//         <div id={this.props.bookItemId} className={`${this.props.className}__item`} key={this.props.key}>
-//           <div className={`${this.props.className}__item__title-wrapper`}>
-//             <SimpleButton id={`${this.props.id}__item__title-wrapper__${this.props.idTag}`}
-//               className={`${this.props.className}__item__title-wrapper__name`}
-//               label={this.props.bookItemName}
-//               target={this.props.target} />
-//             <p className={`${this.props.className}__item__title-wrapper__author`}>
-//               {this.props.authors}
-//             </p>
-//           </div>
-//           <div className={`${this.props.className}__item__detail-wrapper`}>
-//             <a className={`${this.props.className}__item__detail-wrapper__image-wrapper`} href={this.props.target}>
-//               <BookCover id={`${this.props.id}____item__detail-wrapper__image-wrapper__${this.props.idTag}`}
-//               isbn={this.props.bookCoverIsbn}
-// =======
+// Import Misc
+import cx from 'classnames'
+
 class BookItem extends React.Component {
   // Constructor used in ES6
   constructor(props) {
@@ -45,6 +22,11 @@ class BookItem extends React.Component {
   }
 
   render() {
+    let haveContentClass = cx({
+      '':this.props.bookItemDescription,
+      'no-content': !this.props.bookItemDescription
+    });
+
     return (
       <div id={`${this.props.id}-${this.props.itemId}`}
         className={this.props.className} key={this.props.key}>
@@ -73,11 +55,11 @@ class BookItem extends React.Component {
                 {this.props.authors}
               </p>
             </div>
-            <p className='description'>
+            <p className={`description ${haveContentClass}`}>
               {this.props.bookItemDescription}
             </p>
             <p className='catalog'>
-              {this.props.publishedDate}
+              {this.props.catalogInfo}
             </p>
           </div>
         </div>
