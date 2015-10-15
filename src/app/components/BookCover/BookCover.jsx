@@ -32,21 +32,22 @@ class BookCover extends React.Component {
       `${this.state.imageEndpoint}${this.props.isbn}${this.state.imageArgument}` :
       // Show the place holder if the book cover's ISBN is not available
       this.state.placeHolderEndpoint,
+      theImage = this.refs.coverImage,
       isLoaded = this.state.isLoaded,
       wait = setInterval(function () {
-        isLoaded ? clearInterval(wait) : console.log('keep loading');
-      }, 1000),
-      imageElement,
-      test = function(){
-        console.log('done');
-        clearInterval(wait);
-      };
+        if (isLoaded) {
+          clearInterval(wait);
+          console.log('done!');
+        } else {
+          console.log(theImage.width);
+        }
+      }, 1000);
 
     return (
       <div id={`${this.props.id}-place-holder`}>
         <img id={this.props.id} className={this.props.className}
-        ref='coverImage'
-        src={imageSrc} alt={this.props.name} />
+          ref='coverImage'
+          src={imageSrc} alt={this.props.name} />
       </div>
     );
   }
