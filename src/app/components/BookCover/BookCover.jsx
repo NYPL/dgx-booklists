@@ -13,13 +13,17 @@ class BookCover extends React.Component {
         'Value=',
       imageArgument : '&content=M&Return=1&Type=M',
       placeHolderEndpoint : '/images/book-place-holder.png',
-      isLoaded : false
+      isLoaded : false,
+      nativeWidth: 0
     }
   }
 
   // Listen to the change from data
   componentDidMount() {
-    this.refs.coverImage.getDOMNode().addEventListener('load', () => {this.setState({isLoaded: true}); }, true);
+    this.refs.coverImage.getDOMNode().addEventListener('load', () => {
+      this.setState({nativeWidth: this.refs.coverImage.getDOMNode().width});
+      this.setState({isLoaded: true});
+     }, true);
   }
 
   // Stop listening
@@ -34,14 +38,19 @@ class BookCover extends React.Component {
       this.state.placeHolderEndpoint,
       theImage = this.refs.coverImage,
       isLoaded = this.state.isLoaded,
-      wait = setInterval(function () {
-        if (isLoaded) {
-          clearInterval(wait);
-          console.log('done!');
+      nh,
+      getNaturalDimension = setInterval(() => {
+        if (isLoaded === true) {
+          clearInterval(getNaturalDimension);
+          console.log(this.state.nativeWidth);
         } else {
-          console.log(theImage.width);
+// nh = this.refs.coverImage.getDOMNode().naturalHeight;
+// if (nh < 10) {
+//   console.log(nh);
+// }
+          
         }
-      }, 1000);
+      }.bind(this), 1000);
 
     return (
       <div id={`${this.props.id}-place-holder`}>
