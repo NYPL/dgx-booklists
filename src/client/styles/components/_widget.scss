@@ -1,0 +1,16 @@
+#widget-container {
+  width: 700px;
+  height: 626px;
+  overflow: hidden;
+
+  .bookListWidget {
+    height: 406px;
+    width: 6000px;
+    margin: 100px 30px 120px 30px;
+
+    .bookItem {
+      max-height: 406px;
+      margin-right: 30px;
+    }
+  }
+}

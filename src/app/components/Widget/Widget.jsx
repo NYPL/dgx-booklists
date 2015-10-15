@@ -51,18 +51,17 @@ class BookItemList extends React.Component {
             bookCoverIsbn = element.item.attributes.isbns[0];
 
           return(
-            <a href={`${target}`}>
+            <a href={`${target}`} className='bookItem'>
               <BookCover isbn={bookCoverIsbn} name={bookItemName} className='cover-image' key={i}/>
             </a>
           );
         })
-        :
-        (<PaginationButton id='page-button' className='page-button' dots='3' isLoading={true} />);
+        : null;
 
     // Render the list of owners on DOM
     return (
-      <div id='main'>
-        <div id={`${this.props.id}__${listName}`} className={`${this.props.className}__content`}>
+      <div id='widget-container'>
+        <div id={`${this.props.id}`} className={`${this.props.className}`}>
           {bookItems}
         </div>
       </div>
@@ -72,8 +71,8 @@ class BookItemList extends React.Component {
 
 BookItemList.defaultProps = {
   lang: 'en',
-  id: 'bookItemList',
-  className: 'bookItemList'
+  id: 'bookListWidget',
+  className: 'bookListWidget'
 };
 
 export default BookItemList;
