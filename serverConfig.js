@@ -88,8 +88,16 @@ app.use('/widget', (req, res) => {
 
 app.use('/', ApiRoutes);
 
+app.use('/', (req, res, next) => {
+  if (req.path === '/browse/recommendations/lists') {
+    return res.redirect('/browse/recommendations/lists/');
+  }
+  next();
+});
+
 // Match all routes to render the index page.
 app.use('/', (req, res) => {
+  console.log(req.path);
   let router = Router.create({
       routes: routes,
       location: req.path
