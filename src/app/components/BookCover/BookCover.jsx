@@ -10,8 +10,8 @@ class BookCover extends React.Component {
 
   render () {
     let imageSrc=`https://contentcafe2.btol.com/ContentCafe/` +
-        `Jacket.aspx?&userID=NYPL49807&password=CC68707&` +
-        `Value=${this.props.isbn}&content=M&Return=1&Type=M`;
+      `Jacket.aspx?&userID=NYPL49807&password=CC68707&` +
+      `Value=${this.props.isbn}&content=M&Return=1&Type=M`;
 
     return (
       <img id={this.props.id} className={this.props.className} src={imageSrc}
