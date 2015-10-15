@@ -19,7 +19,7 @@ class BookCover extends React.Component {
 
   // Listen to the change from data
   componentDidMount() {
-    this.refs.coverImage.getDOMNode().addEventListener('load', () => {loaded = true; }, true);
+    this.refs.coverImage.getDOMNode().addEventListener('load', () => {this.setState({isLoaded: true}); }, true);
   }
 
   // Stop listening
@@ -32,18 +32,15 @@ class BookCover extends React.Component {
       `${this.state.imageEndpoint}${this.props.isbn}${this.state.imageArgument}` :
       // Show the place holder if the book cover's ISBN is not available
       this.state.placeHolderEndpoint,
-      loaded = false,
+      isLoaded = this.state.isLoaded,
       wait = setInterval(function () {
-        loaded ? clearInterval(wait) : console.log('done!');
-      }, 0),
-      imageElement;
-
-      // console.log(imageSrc);
-
-//   img.addEventListener('load', () => {loaded = true; }, true);
-
-
-    
+        isLoaded ? clearInterval(wait) : console.log('keep loading');
+      }, 1000),
+      imageElement,
+      test = function(){
+        console.log('done');
+        clearInterval(wait);
+      };
 
     return (
       <div id={`${this.props.id}-place-holder`}>
@@ -52,16 +49,7 @@ class BookCover extends React.Component {
         src={imageSrc} alt={this.props.name} />
       </div>
     );
-
-//  imageElement = this.refs.coverImage;
-
-// console.log(imageElement);
-
   }
-
- // this.imageElement = document.getElementById(this.props.id);
- // console.log('>>>>>>>>>>>>>' + this.img);
-
 };
 
 
