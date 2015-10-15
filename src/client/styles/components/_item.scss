@@ -15,7 +15,7 @@
       float: right;
       margin: 0 0 0 29px;
       position: relative;
-      @include calculation(width, '100% - 298px');
+      width: 567px;
     }
 
     .name {

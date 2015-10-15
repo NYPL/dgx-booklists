@@ -12,45 +12,15 @@ class BookCover extends React.Component {
         'Jacket.aspx?&userID=NYPL49807&password=CC68707&' +
         'Value=',
       imageArgument : '&content=M&Return=1&Type=M',
-      placeHolderEndpoint : '/images/book-place-holder.png',
-      isLoaded : false,
-      nativeWidth: 0
+      placeHolderEndpoint : '/images/book-place-holder.png'
     }
-  }
-
-  // Listen to the change from data
-  componentDidMount() {
-    this.refs.coverImage.getDOMNode().addEventListener('load', () => {
-      this.setState({nativeWidth: this.refs.coverImage.getDOMNode().width});
-      this.setState({isLoaded: true});
-     }, true);
-  }
-
-  // Stop listening
-  componentWillUnmount() {
-    
   }
 
   render () {
     let imageSrc = (this.props.isbn && this.props.isbn !== undefined) ?
       `${this.state.imageEndpoint}${this.props.isbn}${this.state.imageArgument}` :
       // Show the place holder if the book cover's ISBN is not available
-      this.state.placeHolderEndpoint,
-      theImage = this.refs.coverImage,
-      isLoaded = this.state.isLoaded,
-      nh,
-      getNaturalDimension = setInterval(() => {
-        if (isLoaded === true) {
-          clearInterval(getNaturalDimension);
-          console.log(this.state.nativeWidth);
-        } else {
-// nh = this.refs.coverImage.getDOMNode().naturalHeight;
-// if (nh < 10) {
-//   console.log(nh);
-// }
-          
-        }
-      }.bind(this), 1000);
+      this.state.placeHolderEndpoint;
 
     return (
       <div id={`${this.props.id}-place-holder`}>
@@ -61,9 +31,6 @@ class BookCover extends React.Component {
     );
   }
 };
-
-
-
 
 BookCover.defaultProps = {
   lang: 'en'
