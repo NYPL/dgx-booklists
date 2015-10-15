@@ -1,11 +1,14 @@
 .hero {
   background-color: $LIBRARY_RED;
   color: white;
+  display: block;
   height: auto;
   margin: 0;
   min-height: 72px;
   padding: 0;
+  position: relative;
   width: 100%;
+  z-index: -1;
 
   @include desktop {
     margin: 50px 0 0 0;
