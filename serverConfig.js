@@ -58,7 +58,7 @@ app.set('views', INDEX_PATH);
 
 // Assign the proper path where the
 // application's dist files are located.
-app.use('*/src/client', express.static(path.join(process.cwd(), '/src/client')));
+app.use('*/dist', express.static(path.join(process.cwd(), '/dist')));
 app.use(express.static(DIST_PATH));
 
 app.use('/widget', WidgetRoutes);
