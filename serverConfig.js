@@ -56,10 +56,11 @@ app.set('view engine', 'ejs');
 // Set the path where to find EJS files
 app.set('views', INDEX_PATH);
 
+
 // Assign the proper path where the
 // application's dist files are located.
 app.use('*/dist', express.static(path.join(process.cwd(), '/dist')));
-app.use(express.static(DIST_PATH));
+// app.use(express.static(DIST_PATH));
 
 app.use('/widget', WidgetRoutes);
 
@@ -87,7 +88,6 @@ app.use('/widget', (req, res) => {
   });
 });
 
-app.use('/', ApiRoutes);
 
 app.use('/', (req, res, next) => {
   if (req.path === '/browse/recommendations/lists') {
@@ -96,11 +96,13 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+app.use('/', ApiRoutes);
+
 // Match all routes to render the index page.
 app.use('/', (req, res) => {
   console.log(req.path);
   let router = Router.create({
-      routes: routes,
+      routes: routes.server,
       location: req.path
     }),
     iso = new Iso();
