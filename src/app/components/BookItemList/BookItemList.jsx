@@ -151,7 +151,7 @@ let Navigation = Router.Navigation,
         $.ajax({
           type: 'GET',
           dataType: 'json',
-          url: `api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
+          url: `/browse/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
           success: data => {
             // Update the store for the list of lists a user has.
             Actions.updateUserLists(data.data);
