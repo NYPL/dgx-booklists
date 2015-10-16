@@ -106,8 +106,8 @@ let Navigation = Router.Navigation,
               <a id={`back-button`}
                 className={`back-button`}
                 onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                <div className={`back-button__icon nypl-icon-circle-arrow-left`}>
-                </div>
+                <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
+                </span>
                 <div className={`back-button__text`}>
                   <p>back to
                     <span className={`back-button__text__icon-desktop nypl-icon-arrow-up`}>
