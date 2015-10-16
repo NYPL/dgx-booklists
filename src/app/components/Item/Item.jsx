@@ -24,7 +24,7 @@ let Navigation = Router.Navigation,
           return(
             <div className={`book-cover`} key={i}>
               <BookCover id={`book-cover__${element.item.attributes.title}`}
-              className={`book-cover__image`}
+                className={`book-cover__image`}
                 name={element.item.attributes.title}
                 isbn={element.item.attributes.isbns[0]} />
             </div>
