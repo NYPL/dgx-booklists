@@ -16,7 +16,7 @@
     cursor: pointer;
     display: block;
     margin: 0;
-    padding: 0 20px 0 20px;;
+    padding: 0 20px 0 20px;
     text-align: left;
 
     @include desktop {
@@ -53,21 +53,7 @@
         }
 
       }
-       &__icon-desktop {
-        display: none;
-        float: left;
-        margin: -4px 0 0 0;
-        &:before {
-          display: inline-block;
-          font-size: 18px;
-          vertical-align: 1px;
-        }
 
-        @include desktop {
-          display: inline-block;
-        }
-
-      }
       &__text {
         display: inline-block;
         font-size: 14px;
@@ -81,17 +67,33 @@
           display: inline-block;
           font-size: 12px;
           line-height: 18px;
-          margin: 0 0 0 4px;
-          width: 97px;
-          vertical-align: top;
+          margin: 0;
+          width: 100%;
+        }
+
+        &__icon-desktop {
+          display: none;
+          float: left;
+          margin: -4px 0 0 0;
+          &:before {
+            display: inline-block;
+            font-size: 18px;
+            vertical-align: 1px;
+          }
+
+          @include desktop {
+            display: inline-block;
+          }
+
         }
 
         p {
           display: inline-block;
           margin: 0 0 0 4px;
 
-          @dinclude desktop {
+          @include desktop {
             display: block;
+            margin: 0;
           }
 
         }
