@@ -42,7 +42,7 @@ class BookItemList extends React.Component {
       listItems = bookItemList['list-items'] ? bookItemList['list-items'] : [],
       listName = bookItemList.attributes ? bookItemList.attributes['list-name'] : '',
       listIntro = bookItemList.attributes ? bookItemList.attributes['list-description'] : '',
-      encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
+      encoreUrl = 'http://browse.nypl.org/iii/encore/record/C__Rb',
       bookItems = (listItems && listItems.length) ?
         listItems.map((element, i) => {
           let target = `${encoreUrl}${element.item.id}?lang=eng`,
