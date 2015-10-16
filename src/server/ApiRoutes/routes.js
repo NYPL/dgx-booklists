@@ -7,7 +7,7 @@ import Model from '../../app/utils/HeaderItemModel.js';
 
 // Set up variables for routing and its options
 let router = express.Router(),
-  appEnvironment = process.env.APP_ENV || 'development',
+  appEnvironment = 'qa', //process.env.APP_ENV || 'development',
   apiRoot = api.root[appEnvironment],
   listOptions = {
     endpoint: '',
@@ -295,6 +295,27 @@ router
 
 router
   .route('/api/ajax/listID/:listID')
+  .get(AjaxListID);
+
+// Reverse Proxy routes.
+router
+  .route('/browse/recommendations/lists/')
+  .get(BookListUsers);
+
+router
+  .route('/browse/recommendations/lists/:username/?')
+  .get(BookListUser);
+
+router
+  .route('/browse/recommendations/lists/:username/:listID/?')
+  .get(ListID);
+
+router
+  .route('/browse/recommendations/lists/api/ajax/username/:username&:pageSize&:pageNumber')
+  .get(AjaxBookListUser);
+
+router
+  .route('/browse/recommendations/lists/api/ajax/listID/:listID')
   .get(AjaxListID);
 
 

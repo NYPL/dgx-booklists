@@ -64,7 +64,7 @@ let Navigation = Router.Navigation,
       $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: `/api/ajax/listID/${this.props.listId}`,
+        url: `/browse/recommendations/lists/api/ajax/listID/${this.props.listId}`,
         error: (jqXHR, textStatus, errorThrown) => {
           console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
         },

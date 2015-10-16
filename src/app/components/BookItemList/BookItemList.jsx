@@ -56,7 +56,7 @@ let Navigation = Router.Navigation,
         listItems = bookItemList['list-items'] ? bookItemList['list-items'] : [],
         listName = bookItemList.attributes ? bookItemList.attributes['list-name'] : '',
         listIntro = bookItemList.attributes ? bookItemList.attributes['list-description'] : '',
-        encoreUrl = 'http://nypl-encore-test.iii.com/iii/encore/record/C__Rb',
+        encoreUrl = 'http://browse.nypl.org/iii/encore/record/C__Rb',
         description = 'A list created by staff at The New York Public Library',
         pageTags = [
           // Required OG meta tags
@@ -153,7 +153,7 @@ let Navigation = Router.Navigation,
         $.ajax({
           type: 'GET',
           dataType: 'json',
-          url: `/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
+          url: `/browse/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
           success: data => {
             // Update the store for the list of lists a user has.
             Actions.updateUserLists(data.data);

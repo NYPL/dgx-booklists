@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
-    <title><%- appTitle %></title>
+    <title>NYPL | Lists</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -13,7 +13,7 @@
     
 <% if (isProduction) { %>
     <!-- Minified Styles -->
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="dist/styles.css">
 <% } else { %>
     <link rel="stylesheet" type="text/css" href="http://localhost:3000/styles.css">
 <% } %>
@@ -30,7 +30,7 @@
   </script>
 
 <% if (isProduction) { %>
-  <script async src="/bundle.js"></script>
+  <script async src="dist/bundle.js"></script>
 <% } else { %>
   <script src="http://localhost:3000/bundle.js"></script>
 <% } %>
