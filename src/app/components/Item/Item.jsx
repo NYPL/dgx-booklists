@@ -18,13 +18,23 @@ let Navigation = Router.Navigation,
     },
     render() {
       // Only need the covers from the first 4 books
-      let bookCoverArray = this.props.sampleBookCovers.slice(0, 4),
+             // this.props.sampleBookCovers.slice(0, 4),
+      let bookCoverArray = [],
+        bookCovers;
+      
+      for (let i = 0; i < 4; i ++) {
+        if(this.props.sampleBookCovers[i].item.attributes.isbns[0] !== undefined) {
+          bookCoverArray.push(this.props.sampleBookCovers[i]);
+        } else {
+          // i --;
+        // }
+      }
         // Parse the list of book covers if data is correctly delivered
         bookCovers = bookCoverArray.map((element, i) => {
           return(
             <div className={`book-cover`} key={i}>
               <BookCover id={`book-cover__${element.item.attributes.title}`}
-              className={`book-cover__image`}
+                className={`book-cover__image`}
                 name={element.item.attributes.title}
                 isbn={element.item.attributes.isbns[0]} />
             </div>
