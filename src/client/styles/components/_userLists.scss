@@ -5,14 +5,13 @@
 
   display: block;
   margin: 0;
-  max-width: 1312px;
+  max-width: 1353px;
   padding: 24px 20px 0 20px;
   position: relative;
 
   @include desktop {
-    margin: 24px auto 0 auto;
-    padding: 0;
-    width: 100%;
+    margin: 0 auto;
+    padding: 24px 20px 0 21px;
   }
 
   .item-wrapper {
@@ -21,7 +20,7 @@
 
     @include desktop {
       clear: both;
-      margin: 0 0 30px 97px;
+      margin: 0 0 30px 149px;
       width: 865px;
     }
 
