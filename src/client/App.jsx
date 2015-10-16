@@ -7,7 +7,7 @@ import alt from '../app/alt.js';
 
 import routes from '../app/routes/routes.jsx';
 
-import BookItemList from '../app/components/BookItemList/BookItemList.jsx';
+import Widget from '../app/components/Widget/Widget.jsx';
 
 import './styles/main.scss';
 
@@ -28,14 +28,14 @@ if (typeof window !== 'undefined') {
 	    alt.bootstrap(state);
 
       if (window.widget === 'false') {
-  	    Router.run(routes, Router.HistoryLocation, (Handler, routerState) => {
+  	    Router.run(routes.client, Router.HistoryLocation, (Handler, routerState) => {
           node = React.createElement(Handler);
 
           ga.pageview(routerState.pathname);
           React.render(node, container);
         });
       } else {
-        node = React.createElement(BookItemList);
+        node = React.createElement(Widget);
         React.render(node, document.getElementById('app'));
       }
 	  });

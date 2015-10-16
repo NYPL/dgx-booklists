@@ -138,7 +138,7 @@ class UserLists extends React.Component {
     $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: `/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`,
+      url: `/browse/recommendations/lists/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`,
       // Update isLoading in state to pass AJAX loading status
       // Trigger loading animaiton when the call starts
       beforeSend: () => {
