@@ -18,17 +18,7 @@ let Navigation = Router.Navigation,
     },
     render() {
       // Only need the covers from the first 4 books
-             // this.props.sampleBookCovers.slice(0, 4),
-      let bookCoverArray = [],
-        bookCovers;
-      
-      for (let i = 0; i < 4; i ++) {
-        if(this.props.sampleBookCovers[i].item.attributes.isbns[0] !== undefined) {
-          bookCoverArray.push(this.props.sampleBookCovers[i]);
-        } else {
-          // i --;
-        // }
-      }
+      let bookCoverArray = this.props.sampleBookCovers.slice(0, 4),
         // Parse the list of book covers if data is correctly delivered
         bookCovers = bookCoverArray.map((element, i) => {
           return(
