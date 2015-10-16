@@ -24,7 +24,7 @@ import WidgetRoutes from './src/server/ApiRoutes/widgetRoutes.js';
 
 // Import components
 import Application from './src/app/components/Application/Application.jsx';
-import BookItemList from './src/app/components/BookItemList/BookItemList.jsx';
+import Widget from './src/app/components/Widget/Widget.jsx';
 
 // URL configuration
 const ROOT_PATH = __dirname;
@@ -70,7 +70,7 @@ app.use('/widget', WidgetRoutes);
 // Match all routes to render the index page.
 app.use('/widget', (req, res) => {
   let iso = new Iso(),
-    App = React.renderToString(<BookItemList />);
+    App = React.renderToString(<Widget />);
 
   // bootstrap will stringify the data
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
