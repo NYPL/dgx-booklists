@@ -58,7 +58,7 @@ BookCover.defaultProps = {
     'Jacket.aspx?&userID=NYPL49807&password=CC68707&' +
     'Value=',
   imageArgument : '&content=M&Return=1&Type=M',
-  placeHolderEndpoint : '/images/book-place-holder.png',
+  placeHolderEndpoint : '/browse/recommendations/lists/images/book-place-holder.png',
   isbn: ''
 };
 
