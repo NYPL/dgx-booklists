@@ -88,6 +88,9 @@ app.use('/widget', (req, res) => {
 
 app.use('/', ApiRoutes);
 
+// Assign the path for static client files
+app.use(express.static(INDEX_PATH));
+
 // Match all routes to render the index page.
 app.use('/', (req, res) => {
   let router = Router.create({

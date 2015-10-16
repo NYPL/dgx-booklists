@@ -3,19 +3,19 @@
   position: relative;
   &:nth-child(1n) {
     margin: 0;
-    z-index: 200;
+    z-index: 4;
   }
   &:nth-child(2n) {
     margin: 0 0 0 -90px;
-    z-index: 199;
+    z-index: 3;
   }
   &:nth-child(3n) {
     margin: 0 0 0 -90px;
-    z-index: 198;
+    z-index: 2;
   }
   &:nth-child(4n) {
     margin: 0 0 0 -90px;
-    z-index: 197;
+    z-index: 1;
   }
   &__image {
     background-repeat: no-repeat;
