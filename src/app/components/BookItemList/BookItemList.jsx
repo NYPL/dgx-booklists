@@ -71,13 +71,15 @@ let Navigation = Router.Navigation,
         bookItems = (listItems && listItems.length) ?
           listItems.map((element, i) => {
             let target = `${encoreUrl}${element.item.id}?lang=eng`,
-              publishedDate = `${element.item.attributes.format} - ${element.item.attributes['publication-date']}`,
               itemId = element.item.id,
               bookItemName = element.item.attributes.title,
               bookItemDescription = element.attributes.annotation,
               bookCoverIsbn = element.item.attributes.isbns[0],
               authors = (element.item.attributes.authors.length) ?
-                `By ${element.item.attributes.authors}` : `The author of this item is not available`;
+                `By ${element.item.attributes.authors}` : `The author of this item is not available`,
+              publishedDate = (element.item.attributes['publication-date'] && !undefined) ?
+                element.item.attributes['publication-date'] : 'publish date is not available',
+              catalogInfo = `${element.item.attributes.format} - ${publishedDate}`;
 
             return(
               <BookItem id={`bookItem`}
@@ -85,7 +87,7 @@ let Navigation = Router.Navigation,
                 key={i}
                 itemId={itemId}
                 target={target}
-                publishedDate={publishedDate}
+                catalogInfo={catalogInfo}
                 bookItemName={bookItemName}
                 bookItemDescription={bookItemDescription}
                 bookCoverIsbn={bookCoverIsbn}
