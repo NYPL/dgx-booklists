@@ -51,19 +51,28 @@ class BookItemList extends React.Component {
             bookCoverIsbn = element.item.attributes.isbns[0];
 
           return(
-            <a href={`${target}`} className='bookItem'>
-              <BookCover isbn={bookCoverIsbn} name={bookItemName} className='cover-image' key={i}/>
-            </a>
+            <li>
+              <a href={`${target}`} className='bookItem'>
+                <BookCover
+                  id={itemId}
+                  isbn={bookCoverIsbn}
+                  name={bookItemName}
+                  className='cover-image' key={i}/>
+              </a>
+            </li>
           );
         })
         : null;
 
     // Render the list of owners on DOM
     return (
-      <div id='widget-container'>
-        <div id={`${this.props.id}`} className={`${this.props.className}`}>
-          {bookItems}
+      <div>
+        <div id='widget-container'>
+          <ul id={`${this.props.id}`} className={`${this.props.className}`}>
+            {bookItems}
+          </ul>
         </div>
+        <p className={`${this.props.className}-listTitle`}>{listName} @ {userDisplayName}</p>
       </div>
     );
   }
