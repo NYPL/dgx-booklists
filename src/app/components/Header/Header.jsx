@@ -5,7 +5,9 @@ import cx from 'classnames';
 
 // ALT Flux
 import HeaderStore from '../../stores/HeaderStore.js';
-import HeaderActions from '../../actions/HeaderActions.js';
+import Actions from '../../actions/HeaderActions.js';
+
+import gaUtils from '../../utils/gaUtils.js';
 
 // NYPL Components
 import Logo from '../Logo/Logo.jsx';
@@ -15,8 +17,6 @@ import SubscribeButton from '../SubscribeButton/SubscribeButton.jsx';
 import NavMenu from '../NavMenu/NavMenu.jsx';
 import MobileHeader from './MobileHeader.jsx';
 import GlobalAlerts from '../GlobalAlerts/GlobalAlerts.jsx';
-
-import gaUtils from '../../utils/gaUtils.js';
 
 class Header extends React.Component {
 
@@ -30,19 +30,16 @@ class Header extends React.Component {
   componentDidMount() {
     HeaderStore.listen(this._onChange.bind(this));
 
-    // If the Store is not populated with
+    // If the HeaderStore is not populated with
     // the proper Data, then fetch.
-    this._fetchDataIfNeeded();
+    // this._fetchDataIfNeeded();
 
-    // Assign method for proper scope
-    let handleHeaderScroll = this._handleStickyHeader.bind(this);
+    // Once the component mounts,
+    // enable the sticky header depending on position.
+    this._handleStickyHeader();
 
-    // Allows us to use window only after component has mounted
-    window.addEventListener('scroll',
-      function() {
-        handleHeaderScroll();
-      }
-    );
+    // Listen to the scroll event for the sticky header.
+    window.addEventListener('scroll', this._handleStickyHeader.bind(this));
   }
 
   componentWillUnmount() {
@@ -101,7 +98,7 @@ class Header extends React.Component {
    */
   _fetchDataIfNeeded() {
     if (HeaderStore.getState().headerData.length < 1) {
-      HeaderActions.fetchHeaderData();
+      Actions.fetchHeaderData();
     }
   }
 
@@ -122,7 +119,7 @@ class Header extends React.Component {
     }
 
     return (windowVerticalDistance > headerHeight)
-      ? HeaderActions.updateIsHeaderSticky(true) : HeaderActions.updateIsHeaderSticky(false);
+      ? Actions.updateIsHeaderSticky(true) : Actions.updateIsHeaderSticky(false);
   }
 
   /**
