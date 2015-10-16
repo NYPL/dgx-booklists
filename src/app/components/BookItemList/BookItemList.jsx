@@ -102,17 +102,17 @@ let Navigation = Router.Navigation,
           <DocMeta tags={tags} />
           <Hero name={listName} intro={listIntro}/>
           <div className='bookItemList-wrapper'>
-            <div id={`back-button-wrapper`}
-            className={`back-button-wrapper`}>
+            <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
               <a id={`back-button`}
-              className={`back-button`}
+                className={`back-button`}
                 onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                <div className={`back-button__icon nypl-icon-circle-arrow-left`}>
-                </div>
-                 <div className={`back-button__icon-desktop nypl-icon-arrow-up`}>
-                </div>
+                <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
+                </span>
                 <div className={`back-button__text`}>
-                  <p>back to</p>
+                  <p>back to
+                    <span className={`back-button__text__icon-desktop nypl-icon-arrow-up`}>
+                    </span>
+                  </p>
                   <p>{userDisplayName}</p>
                   <p>lists</p>
                 </div>
