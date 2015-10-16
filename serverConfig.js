@@ -62,6 +62,9 @@ app.set('views', INDEX_PATH);
 app.use('*/dist', express.static(DIST_PATH));
 // app.use(express.static(DIST_PATH));
 
+// Assign the path for static client files
+app.use('*/src/client', express.static(INDEX_PATH));
+
 app.use('/widget', WidgetRoutes);
 
 // Match all routes to render the index page.
@@ -97,9 +100,6 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('/', ApiRoutes);
-
-// Assign the path for static client files
-app.use(express.static(INDEX_PATH));
 
 // Match all routes to render the index page.
 app.use('/', (req, res) => {
