@@ -10,12 +10,21 @@ import UserLists from '../components/UserLists/UserLists.jsx';
 import BookItemList from '../components/BookItemList/BookItemList.jsx';
 
 // Routes we need
-const routes = (
-  <Route name='root' handler={Application}>
-    <Route name='AllUsersList' path='/' handler={AllUsersList} />
-    <Route name='UserLists' path='/:UserLists?/?' handler={UserLists} />
-    <Route name='BookItemList' path='/:UserLists/:id?/?' handler={BookItemList} />
-  </Route>
-);
+const routes = {
+  client: (
+    <Route name='root' handler={Application}>
+      <Route name='AllUsersList' path='/browse/recommendations/lists/?' handler={AllUsersList} />
+      <Route name='UserLists' path='/browse/recommendations/lists/:UserLists?/?' handler={UserLists} />
+      <Route name='BookItemList' path='/browse/recommendations/lists/:UserLists/:id?/?' handler={BookItemList} />
+    </Route>
+  ),
+  server: (
+    <Route name='root' handler={Application}>
+      <Route name='AllUsersList' path='/?' handler={AllUsersList} />
+      <Route name='UserLists' path='/:UserLists?/?' handler={UserLists} />
+      <Route name='BookItemList' path='/:UserLists/:id?/?' handler={BookItemList} />
+    </Route>
+  )
+};
 
 export default routes;

@@ -28,7 +28,7 @@ if (typeof window !== 'undefined') {
 	    alt.bootstrap(state);
 
       if (window.widget === 'false') {
-  	    Router.run(routes, Router.HistoryLocation, (Handler, routerState) => {
+  	    Router.run(routes.client, Router.HistoryLocation, (Handler, routerState) => {
           node = React.createElement(Handler);
 
           ga.pageview(routerState.pathname);
