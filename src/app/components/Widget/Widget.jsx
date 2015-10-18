@@ -22,7 +22,6 @@ let Navigation = Router.Navigation,
   BookItemList = React.createClass({
   // For internal transition
     mixins: [Navigation],
-
     getInitialState() {
       return {
         storeData: Store.getState()
@@ -72,6 +71,8 @@ let Navigation = Router.Navigation,
           })
           : null;
 
+          console.log(userId+listId);
+
       if (bookCoverItems !== null) {
         styles.bookItemsWidth.width = `${bookCoverItems.length * 149 - 29}px`;
       }
@@ -85,7 +86,7 @@ let Navigation = Router.Navigation,
               {bookCoverItems}
             </ul>
           </div>
-          <a className={`${this.props.className}-listLink`} onClick={this._fetchBookData}>
+          <a className={`${this.props.className}-listLink`} href={`/browse/recommendations/lists/${userId}/${listId}`} target='_parent'>
             <p className={`${this.props.className}-listTitle`}>{listName} @ {userDisplayName}</p>
           </a>
         </div>
@@ -103,7 +104,7 @@ let Navigation = Router.Navigation,
       $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: `/browse/recommendations/lists/api/ajax/listID/${this.props.listId}`,
+        url: `/browse/recommendations/lists/api/ajax/listID/${this.state.storeData.bookItemList.id}`,
         error: (jqXHR, textStatus, errorThrown) => {
           console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
         },
@@ -111,7 +112,7 @@ let Navigation = Router.Navigation,
           // Update the Store for a specific list of books:
           Actions.updateBookList(data.data);
           // Transition to the new route.
-          this._transitionTo(this.props.userId, this.props.listId);
+          this._transitionTo.bind(this, this.state.storeData.bookItemList.user, this.state.storeData.bookItemList.id);
         }
       });
     },
