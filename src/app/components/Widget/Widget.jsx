@@ -53,7 +53,7 @@ class BookItemList extends React.Component {
 
           return(
             <li>
-              <a href={target} className='bookItem'>
+              <a href={target} className='bookItem' target='_parent'>
                 <BookCover
                   id={itemId}
                   isbn={bookCoverIsbn}
