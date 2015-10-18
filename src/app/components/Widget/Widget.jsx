@@ -53,7 +53,7 @@ class BookItemList extends React.Component {
 
           return(
             <li>
-              <a href={target} className='bookItem'>
+              <a href={target} className='bookItem' target='_parent'>
                 <BookCover
                   id={itemId}
                   isbn={bookCoverIsbn}
@@ -66,19 +66,21 @@ class BookItemList extends React.Component {
         : null;
 
     if (bookCoverItems !== null) {
-      styles.bookItemsWidth.width = `${bookCoverItems.length * 260}px`;
+      styles.bookItemsWidth.width = `${bookCoverItems.length * 149 - 29}px`;
     }
 
     // Render the list of owners on DOM
     return (
       <div>
-        <div id='widget-container'>
+        <div id='widget-container' className='widget-container'>
           <ul id={`${this.props.id}`} className={`${this.props.className}`}
             style={styles.bookItemsWidth}>
             {bookCoverItems}
           </ul>
         </div>
-        <p className={`${this.props.className}-listTitle`}>{listName} @ {userDisplayName}</p>
+        <p className={`${this.props.className}-listTitle`}>
+          <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`} target='_parent'>{listName}</a> @ {userDisplayName}
+        </p>
       </div>
     );
   }
