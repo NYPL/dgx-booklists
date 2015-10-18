@@ -78,9 +78,9 @@ class BookItemList extends React.Component {
             {bookCoverItems}
           </ul>
         </div>
-        <a className={`${this.props.className}-listLink`} href={`/browse/recommendations/lists/${userId}/${listId}`} target='_parent'>
-          <p className={`${this.props.className}-listTitle`}>{listName} @ {userDisplayName}</p>
-        </a>
+        <p className={`${this.props.className}-listTitle`}>
+          <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`} target='_parent'>{listName}</a> @ {userDisplayName}
+        </p>
       </div>
     );
   }
