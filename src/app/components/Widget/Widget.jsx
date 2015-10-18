@@ -66,7 +66,7 @@ class BookItemList extends React.Component {
         : null;
 
     if (bookCoverItems !== null) {
-      styles.bookItemsWidth.width = `${bookCoverItems.length * 250}px`;
+      styles.bookItemsWidth.width = `${bookCoverItems.length * 260}px`;
     }
 
     // Render the list of owners on DOM
