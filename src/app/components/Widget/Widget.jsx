@@ -1,5 +1,6 @@
 // Import React Libraries
 import React from 'react';
+import Radium from 'radium';
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -43,7 +44,7 @@ class BookItemList extends React.Component {
       listName = bookItemList.attributes ? bookItemList.attributes['list-name'] : '',
       listIntro = bookItemList.attributes ? bookItemList.attributes['list-description'] : '',
       encoreUrl = 'http://browse.nypl.org/iii/encore/record/C__Rb',
-      bookItems = (listItems && listItems.length) ?
+      bookCoverItems = (listItems && listItems.length) ?
         listItems.map((element, i) => {
           let target = `${encoreUrl}${element.item.id}?lang=eng`,
             itemId = element.item.id,
@@ -52,7 +53,7 @@ class BookItemList extends React.Component {
 
           return(
             <li>
-              <a href={`${target}`} className='bookItem'>
+              <a href={target} className='bookItem'>
                 <BookCover
                   id={itemId}
                   isbn={bookCoverIsbn}
@@ -64,12 +65,17 @@ class BookItemList extends React.Component {
         })
         : null;
 
+    if (bookCoverItems !== null) {
+      styles.bookItemsWidth.width = `${bookCoverItems.length * 250}px`;
+    }
+
     // Render the list of owners on DOM
     return (
       <div>
         <div id='widget-container'>
-          <ul id={`${this.props.id}`} className={`${this.props.className}`}>
-            {bookItems}
+          <ul id={`${this.props.id}`} className={`${this.props.className}`}
+            style={styles.bookItemsWidth}>
+            {bookCoverItems}
           </ul>
         </div>
         <p className={`${this.props.className}-listTitle`}>{listName} @ {userDisplayName}</p>
@@ -78,10 +84,16 @@ class BookItemList extends React.Component {
   }
 }
 
+let styles = {
+  bookItemsWidth: {
+    width: '4500px'
+  }
+};
+
 BookItemList.defaultProps = {
   lang: 'en',
   id: 'bookListWidget',
   className: 'bookListWidget'
 };
 
-export default BookItemList;
+export default Radium(BookItemList);

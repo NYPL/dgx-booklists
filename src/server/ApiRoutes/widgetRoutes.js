@@ -4,7 +4,7 @@ import parser from 'jsonapi-parserinator';
 import {api} from '../../../appConfig.js';
 
 let router = express.Router(),
-  appEnvironment = process.env.APP_ENV || 'development',
+  appEnvironment = process.env.APP_ENV || 'production',
   apiRoot = api.root[appEnvironment],
   listOptions = {
     endpoint: '',

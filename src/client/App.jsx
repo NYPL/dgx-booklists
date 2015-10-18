@@ -36,7 +36,7 @@ if (typeof window !== 'undefined') {
         });
       } else {
         node = React.createElement(Widget);
-        React.render(node, document.getElementById('app'));
+        React.render(node, container);
       }
 	  });
 	}
