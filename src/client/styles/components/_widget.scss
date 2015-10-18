@@ -27,9 +27,14 @@
 }
 
 .bookListWidget-listLink {
+  color: #000000;
+  cursor: pointer;
+  text-decoration: none;
+
   p {
     font-family: Kievit-Book;
     font-size: 16px;
     margin: 0;
   }
+
 }
