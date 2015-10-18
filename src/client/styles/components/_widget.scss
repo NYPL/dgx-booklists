@@ -1,20 +1,33 @@
-#widget-container {
-  height: 360px;
+.widget-container {
+  height: auto;
   overflow-y: hidden;
+  padding: 58px 0 16px 0;
 
   .bookListWidget {
-    height: 350px;
+    margin: 0;
+    padding: 0;
 
     li {
-      display: inline;
+      display: inline-block;
       list-style-type: none;
-      float: left;
       max-height: 406px;
-      margin-right: 30px;
+      margin-right: 29px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .cover-image {
+        width: 120px;
+        height: auto;
+      }
     }
 
-    &-listTitle {
-      margin: 10px;
-    }
   }
+}
+
+.bookListWidget-listTitle {
+  font-family: Kievit-Book;
+  font-size: 16px;
+  margin: 0;
 }
