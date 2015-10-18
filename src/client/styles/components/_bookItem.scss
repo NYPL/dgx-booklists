@@ -1,0 +1,157 @@
+.bookItem {
+  margin: 0 0 64px 0;
+
+  @include desktop {
+    margin: 0 0 30px 0;
+  }
+
+  &__title {
+    display: block;
+    font-family: Kievit-Medium;
+    letter-spacing: 0.01em;
+    width: 100%;
+    margin: 0 0 32px 0;
+
+    @include desktop {
+      display: none;
+    }
+
+    .name {
+      color: #000000;
+      font-family: Milo-Light;
+      font-size: 36px;
+      letter-spacing: 0;
+      margin: 0px 0 16px 0;
+      text-decoration: none;
+      text-transform: capitalize;
+    }
+    .author {
+      font-size: 16px;
+      line-height: 20px;
+      margin: 16px 0 32px 0;
+      text-transform: capitalize;
+    }
+  }
+  &__detail {
+    width: 100%;
+    margin: 0 0 32px 0;
+
+    @include desktop {
+      display: inline-block;
+      width: 717px;
+    }
+
+    .image-wrapper {
+      display: inline-block;
+      margin: 0 12px 0 0;
+
+      @include desktop {
+        display: inline-block;
+        margin: 0 29px 0 0;
+      }
+
+      .cover-image {
+        display: inline-block;
+        height: auto;
+        width: 100px;
+
+        @include desktop {
+          width: 120px;
+        }
+
+      }
+    }
+    .text-wrapper{
+      @include calculation(width, '100% - 116px');
+      display: inline-block;
+      vertical-align: top;
+
+      @include desktop {
+        width: 567px;
+      }
+
+      .desktop-title {
+        display: none;
+
+        @include desktop {
+          display: inline-block;
+          position: relative;
+        }
+
+        &__name {
+          color: #000000;
+          font-family: Milo-Light;
+          font-size: 36px;
+          letter-spacing: 0;
+          margin: 0;
+          text-decoration: none;
+          text-transform: capitalize;
+        }
+        &__author {
+          font-size: 16px;
+          line-height: 20px;
+          margin: 12px 0 0 0;
+          text-transform: capitalize;
+        }
+      }
+      .description {
+        display: block;
+        font-family: Milo-Light;
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0 0 24px 0;
+
+        &.no-content {
+          display: none;
+        }
+
+        @include desktop {
+          display: block;
+          font-size: 16px;
+          line-height: 20px;
+          margin: 24px 0 0 0;
+          position: relative;
+        }
+
+      }
+      .catalog {
+        display: block;
+        font-size: 14px;
+        line-height: 20px;
+        margin: 0 0 30px 0;
+        text-transform: uppercase;
+
+        @include desktop {
+          margin: 24px 0 30px 0;
+          position: relative;
+        }
+
+      }
+    }
+  }
+  .request {
+    display: block;
+    text-align: center;
+
+    @include desktop {
+      display: inline-block;
+      margin: 0;
+      vertical-align: top;
+    }
+
+    &__button {
+      border-style: solid;
+      border-width: 2px;
+      border-radius: 33px;
+      color: $UI_BLUE;
+      display: inline-block;
+      font-family: Kievit-Medium;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      line-height: 16.21px;
+      padding: 10px 14px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
+}

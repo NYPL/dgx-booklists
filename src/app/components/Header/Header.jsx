@@ -1,17 +1,22 @@
-// Non-NYPL module imports
+// NPM Modules
 import React from 'react';
 import Radium from 'radium';
+import cx from 'classnames';
 
-// ALT FLUX
-import Store from '../../stores/Store.js';
-import Actions from '../../actions/Actions.js';
+// ALT Flux
+import HeaderStore from '../../stores/HeaderStore.js';
+import Actions from '../../actions/HeaderActions.js';
 
-// NYPL module imports
+import gaUtils from '../../utils/gaUtils.js';
+
+// NYPL Components
 import Logo from '../Logo/Logo.jsx';
-import SSOContainer from '../SSOContainer/SSOContainer.jsx';
 import DonateButton from '../DonateButton/DonateButton.jsx';
+import SimpleButton from '../Buttons/SimpleButton.jsx';
 import SubscribeButton from '../SubscribeButton/SubscribeButton.jsx';
 import NavMenu from '../NavMenu/NavMenu.jsx';
+import MobileHeader from './MobileHeader.jsx';
+import GlobalAlerts from '../GlobalAlerts/GlobalAlerts.jsx';
 
 class Header extends React.Component {
 
@@ -19,55 +24,134 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     // replaces getInitialState()
-    this.state = Store.getState();
+    this.state = HeaderStore.getState();
   }
 
   componentDidMount() {
-    Store.listen(this._onChange.bind(this));
-    // Here we would fetch our data async
-    //Actions.fetchHeaderData();
+    HeaderStore.listen(this._onChange.bind(this));
+
+    // If the HeaderStore is not populated with
+    // the proper Data, then fetch.
+    // this._fetchDataIfNeeded();
+
+    // Once the component mounts,
+    // enable the sticky header depending on position.
+    this._handleStickyHeader();
+
+    // Listen to the scroll event for the sticky header.
+    window.addEventListener('scroll', this._handleStickyHeader.bind(this));
   }
 
   componentWillUnmount() {
-    Store.unlisten(this._onChange.bind(this));
+    HeaderStore.unlisten(this._onChange.bind(this));
   }
 
   _onChange() {
-    this.setState(Store.getState());
+    this.setState(HeaderStore.getState());
   }
 
   render () {
-    console.log(this.state);
+    let isHeaderSticky = this.state.isSticky,
+      headerClasses = cx(this.props.className, {'sticky': isHeaderSticky});
+
     return (
-      <header id='Header' className='Header'>
-        <div className='Header-TopWrapper' style={styles.wrapper}>
-          <Logo className='Header-Logo' style={styles.logo} />
-          <div id='Header-Buttons' style={styles.topButtons}>
-            <SSOContainer style={styles.ssoContainer} />
-            <SubscribeButton label='Subscribe' lang={this.props.lang} style={styles.subscribeButton} />
-            <DonateButton lang={this.props.lang} style={styles.donateButton} />
+      <header id={this.props.id} className={headerClasses}>
+        <GlobalAlerts className={`${this.props.className}-GlobalAlerts`} />
+        <div className={`${this.props.className}-Wrapper`}>
+          <MobileHeader className={`${this.props.className}-Mobile`} locatorUrl={'//www.nypl.org/locations/map?nearme=true'} />
+          <div className={`${this.props.className}-TopWrapper`} style={styles.wrapper}>
+            <Logo className={`${this.props.className}-Logo`} />
+            <div className={`${this.props.className}-Buttons`} style={styles.topButtons}>
+              <SimpleButton 
+                label='Get a Library Card' 
+                target='//catalog.nypl.org/screens/selfregpick.html' 
+                className='LibraryCardButton'
+                id='LibraryCardButton'
+                gaAction='Get a Library Card'
+                gaLabel=''
+                style={styles.libraryCardButton} />
+              <SubscribeButton 
+                label='Get Email Updates'
+                lang={this.props.lang}
+                style={styles.subscribeButton} />
+              <DonateButton
+                lang={this.props.lang}
+                style={styles.donateButton}
+                gaLabel={'Header Button'} />
+            </div>
           </div>
+          <NavMenu 
+            className={`${this.props.className}-NavMenu`}
+            lang={this.props.lang}
+            items={this.state.headerData}  />
         </div>
-        <NavMenu className='Header-NavMenu' items={this.state.headerData} lang={this.props.lang} />
       </header>
     );
+  }
+
+  /**
+   * _fetchDataIfNeeded() 
+   * checks the existence of headerData items,
+   * triggers the Actions.fetchHeaderData()
+   * method to dispatch a client-side event
+   * to obtain data.
+   */
+  _fetchDataIfNeeded() {
+    if (HeaderStore.getState().headerData.length < 1) {
+      Actions.fetchHeaderData();
+    }
+  }
+
+  /**
+   * _handleStickyHeader() 
+   * returns the Actions.updateIsHeaderSticky()
+   * with the proper boolean value to update the 
+   * Store.isSticky value based on the window 
+   * vertical scroll position surpassing the height
+   * of the Header DOM element.
+   */
+  _handleStickyHeader() {
+    let headerHeight = this._getHeaderHeight(),
+      windowVerticalDistance = this._getWindowVerticalScroll();
+
+    if (windowVerticalDistance > headerHeight) {
+      gaUtils._trackEvent.bind(this, 'scroll', 'Sticky Header');
+    }
+
+    return (windowVerticalDistance > headerHeight)
+      ? Actions.updateIsHeaderSticky(true) : Actions.updateIsHeaderSticky(false);
+  }
+
+  /**
+   * _getHeaderHeight() 
+   * returns the Height of the Header DOM
+   * element in pixels.
+   */
+  _getHeaderHeight() {
+    let headerContainer = document.getElementById(this.props.id);
+    return headerContainer.clientHeight;
+  }
+
+  /**
+   * _getWindowVerticallScroll() 
+   * returns the current window vertical
+   * scroll position in pixels.
+   */
+  _getWindowVerticalScroll() {
+    return window.scrollY;
   }
 };
 
 Header.defaultProps = {
-  lang: 'en'
+  lang: 'en',
+  className: 'Header',
+  id: 'Header'
 };
 
 const styles = {
   wrapper: {
     position: 'relative',
     margin: '0 auto'
-  },
-  logo: {
-    display: 'block',
-    width: '230px',
-    position: 'relative',
-    left: '-8px'
   },
   topButtons: {
     position: 'absolute',
@@ -76,14 +160,19 @@ const styles = {
     textTransform: 'uppercase',
     display: 'block'
   },
-  ssoContainer: {
-    display: 'inline-block'
+  libraryCardButton: {
+    display: 'inline-block',
+    color: '#000',
+    margin: 0,
+    padding: 0
   },
   subscribeButton: {
     display: 'inline-block'
   },
   donateButton: {
-    display: 'inline-block'
+    display: 'inline-block',
+    padding: '12px 18px 10px 18px',
+    borderRadius: '4px'
   }
 };
 

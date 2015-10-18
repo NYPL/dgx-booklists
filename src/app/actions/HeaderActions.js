@@ -1,35 +1,78 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import HeaderConstants from '../constants/HeaderConstants';
-import HeaderStore from '../stores/HeaderStore';
+import alt from '../alt.js';
+import axios from 'axios';
 
-// Dispatcher will update the App Constants
-export default {
-	// Updates the visibility of the Subscribe Form
-	// by passing in the boolean value.
-	updateSubscribeFormVisible(subscribeFormVisible) {
-  	AppDispatcher.handleAction({
-			actionType: HeaderConstants.SUBSCRIBE_FORM_VISIBLE,
-			subscribeFormVisible: subscribeFormVisible
-		});
-	},
-	// Dispatches assigned action SUBSCRIBE_FORM_VISIBLE with new boolean value
-	toggleSubscribeFormVisible() {
-  	AppDispatcher.handleAction({
-			actionType: HeaderConstants.SUBSCRIBE_FORM_VISIBLE,
-			subscribeFormVisible: HeaderStore.getSubscribeFormVisible()
-		});		
-	},
-	// Dispatches assigned action SSO_WINDOW_VISIBLE with new boolean value
-	toggleSSOWindowVisible() {
-  	AppDispatcher.handleAction({
-			actionType: HeaderConstants.SSO_WINDOW_VISIBLE,
-			ssoWindowVisible: HeaderStore.getSSOWindowVisible()
-		});
-	},
-	updateSubscribeFormStatus(subscribeFormStatus) {
-  	AppDispatcher.handleAction({
-			actionType: HeaderConstants.SUBSCRIBE_FORM_STATUS,
-			subscribeFormStatus: HeaderStore.getSubscribeFormStatus()
-		});	
-	}
-};
+import appConfig from '../../../appConfig.js';
+
+class Actions {
+
+  fetchHeaderData(environment) {
+    let self = this,
+      appEnv = environment,
+      headerRootUrl;
+
+    // Set the proper URL to fetch the Header Data model.
+    if (appEnv === 'development') {
+      headerRootUrl = appConfig.headerClientEnv.development;
+    } else if (appEnv === 'qa') {
+      headerRootUrl = appConfig.headerClientEnv.qa;
+    } else {
+      headerRootUrl = appConfig.headerClientEnv.production;
+    }
+
+    // Here we will use the client side AJAX request
+    // to fetch data
+    axios
+      .get(headerRootUrl + '/header-data')
+      .then(result => {
+        self.actions.updateHeaderData(result.data);
+      })
+      .catch(response => {
+        console.warn('Error on Axios GET request: ' + headerRootUrl + '/header-data');
+
+        if (response instanceof Error) {
+          console.log(response.message);
+        } else {
+          // The request was made, but the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+          console.log(response.config);
+        }
+      });
+  }
+
+  updateHeaderData(data) {
+    this.dispatch(data);
+  }
+
+  failedHeaderData(errorMessage) {
+    this.dispatch(errorMessage);
+  }
+
+  setMobileMenuButtonValue(currentActiveMobileButton) {
+    this.dispatch(currentActiveMobileButton);
+  }
+
+  setLastActiveMenuItem(value) {
+    this.dispatch(value);
+  }
+
+  setClientAppEnv(value) {
+    this.dispatch(value);
+  }
+
+  searchButtonActionValue(actionValue) {
+    this.dispatch(actionValue);
+  }
+
+  updateIsHeaderSticky(value) {
+    this.dispatch(value);
+  }
+
+  toggleSubscribeFormVisible(value) {
+    this.dispatch(value);
+  }
+}
+
+export default alt.createActions(Actions);

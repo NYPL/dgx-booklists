@@ -1,0 +1,26 @@
+.book-cover {
+  display: inline-block;
+  position: relative;
+  &:nth-child(1n) {
+    margin: 0;
+    z-index: 4;
+  }
+  &:nth-child(2n) {
+    margin: 0 0 0 -90px;
+    z-index: 3;
+  }
+  &:nth-child(3n) {
+    margin: 0 0 0 -90px;
+    z-index: 2;
+  }
+  &:nth-child(4n) {
+    margin: 0 0 0 -90px;
+    z-index: 1;
+  }
+  &__image {
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 200px;
+    width: auto;
+  }
+}

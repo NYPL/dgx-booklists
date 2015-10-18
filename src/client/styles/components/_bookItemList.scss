@@ -1,0 +1,150 @@
+.bookItemList-wrapper {
+  display: block;
+  margin: 0 auto;
+  max-width: 1353px;
+  padding: 24px 0 0 0;
+  position: relative;
+
+  @include desktop {
+    display: block;
+    margin: 0 auto;
+    min-width: 1014px;
+    padding: 24px 20px 0 21px;
+  }
+
+  .back-button-wrapper {
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    padding: 0 20px 0 20px;
+    text-align: left;
+
+    @include desktop {
+      border-color: $COOL_GRAY_LIGHT;
+      border-top-style: solid;
+      border-width: 2px;
+      display: inline-block;
+      float: left;
+      margin: 0;
+      padding: 10px 0 0 0;
+      text-align: right;
+      width: 120px;
+    }
+
+    .back-button {
+      border-color: $COOL_GRAY_LIGHT;
+      border-top-style: none;
+      color: $COOL_GRAY_LIGHT;
+      font-family: Kievit-Book;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      line-height: 16.21px;
+      text-decoration: none;
+      text-transform: uppercase;
+      &__icon {
+        display: inline-block;
+        font-size: 30px;
+        line-height: 30px;
+        margin: 0;
+        vertical-align: top;
+
+        @include desktop {
+          display: none;
+        }
+
+      }
+
+      &__text {
+        display: inline-block;
+        font-size: 14px;
+        line-height: 34px;
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+        @include calculation(width, '100% - 31px');
+
+        @include desktop {
+          display: inline-block;
+          font-size: 12px;
+          line-height: 18px;
+          margin: 0;
+          width: 100%;
+        }
+
+        &__icon-desktop {
+          display: none;
+          float: left;
+          margin: -4px 0 0 0;
+          &:before {
+            display: inline-block;
+            font-size: 18px;
+            vertical-align: 1px;
+          }
+
+          @include desktop {
+            display: inline-block;
+          }
+
+        }
+
+        p {
+          display: inline-block;
+          margin: 0 0 0 4px;
+
+          @include desktop {
+            display: block;
+            margin: 0;
+          }
+
+        }
+      }
+    }
+  }
+}
+
+.bookItemList {
+  @import '_bookItem';
+  display: block;
+  margin: 0;
+  max-width: 1312px;
+  padding: 24px 20px 0 20px;
+  position: relative;
+
+  @include desktop {
+    display: inline-block;
+    margin: 0 auto 0 auto;
+    padding: 0 0 0 29px;
+    width: 865px;
+  }
+
+  &__content {
+    border-color: $LIBRARY_RED;
+    border-top-style: solid;
+    border-width: 2px;
+    display: block;
+    padding: 64px 0 0 0;
+
+    @include desktop {
+      padding: 12px 0 0 0;
+    }
+
+    .title-button {
+      color: $LIBRARY_RED;
+      cursor: pointer;
+      display: none;
+      font-family: Kievit-Book;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      line-height: 16.21px;
+      margin: 0;
+      text-decoration: none;
+      text-transform: capitalize;
+
+      @include desktop {
+        display: block;
+        margin: 0 0 24px 0;
+      }
+
+    }
+  }
+}

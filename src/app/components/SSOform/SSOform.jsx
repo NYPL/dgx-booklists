@@ -19,19 +19,19 @@ class SSOSignIn extends React.Component {
         padding: '7px'
       },
       container2 = {
-        width: '100px',
+        width: '95px',
         float: 'left',
         padding: '7px 0'
       },
       checkbox = {
         display: 'inline-block',
-        fontSize: '9px',
+        fontSize: '8px',
         padding: '7px 0',
         color: '#fff'
       },
       formText = {
         display: 'inline-block',
-        fontSize: '9px',
+        fontSize: '8px',
         padding: '7px 0',
         marginTop: '7px',
         color: '#fff'
@@ -150,7 +150,7 @@ const styles = {
   base: {
     backgroundColor: '#666',
     position: 'absolute',
-    width: '365px',
+    width: '355px',
     top: '35px',
     left: '-150px',
     zIndex: '1000',
