@@ -54,13 +54,14 @@ let Navigation = Router.Navigation,
       );
     },
 
-    // Passing the transition function here so that we can execute an
-    // event.preventDefault() call here.
+    /**
+    * _fetchBookData(e)
+    * Make an AJAX call to get the data, and then transit to the route.
+    *
+    * @param {event} e
+    */
     _fetchBookData(e) {
       e.preventDefault();
-
-    // First call and get the data and then transition to the route.
-      // Errors need to be handled.
       $.ajax({
         type: 'GET',
         dataType: 'json',
