@@ -20,14 +20,17 @@
 
 @include keyframes(loading) {
   0% {
+    -webkit-transform: scale(0.5);
     transform: scale(0.5);
     background: $COOL_GRAY_LIGHT;
   }
   50% {
+    -webkit-transform: scale(1);
     transform: scale(1);
     background: #FFFFFF;
   }
   100% {
+    -webkit-transform: scale(0.5);
     transform: scale(0.5);
     background: $COOL_GRAY_LIGHT;
   }
