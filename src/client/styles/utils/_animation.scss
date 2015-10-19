@@ -8,12 +8,15 @@
   @include animation(loading 2s infinite);
 
   &:nth-child(1n) {
+    -webkit-animation-delay: 0s;
     animation-delay: 0s;
   }
   &:nth-child(2n) {
+    -webkit-animation-delay: 0.2s;
     animation-delay: 0.2s;
   }
   &:nth-child(3n) {
+    -webkit-animation-delay: 0.4s;
     animation-delay: 0.4s;
   }
 }
