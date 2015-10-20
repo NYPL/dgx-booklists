@@ -1,5 +1,6 @@
 // Import React Libraries
 import React from 'react';
+import Radium from 'radium';
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -43,7 +44,7 @@ class BookItemList extends React.Component {
       listName = bookItemList.attributes ? bookItemList.attributes['list-name'] : '',
       listIntro = bookItemList.attributes ? bookItemList.attributes['list-description'] : '',
       encoreUrl = 'http://browse.nypl.org/iii/encore/record/C__Rb',
-      bookItems = (listItems && listItems.length) ?
+      bookCoverItems = (listItems && listItems.length) ?
         listItems.map((element, i) => {
           let target = `${encoreUrl}${element.item.id}?lang=eng`,
             itemId = element.item.id,
@@ -51,23 +52,45 @@ class BookItemList extends React.Component {
             bookCoverIsbn = element.item.attributes.isbns[0];
 
           return(
-            <a href={`${target}`} className='bookItem'>
-              <BookCover isbn={bookCoverIsbn} name={bookItemName} className='cover-image' key={i}/>
-            </a>
+            <li>
+              <a href={target} className='bookItem' target='_parent'>
+                <BookCover
+                  id={itemId}
+                  isbn={bookCoverIsbn}
+                  name={bookItemName}
+                  className='cover-image' key={i}/>
+              </a>
+            </li>
           );
         })
         : null;
 
+    if (bookCoverItems !== null) {
+      styles.bookItemsWidth.width = `${bookCoverItems.length * 149 - 29}px`;
+    }
+
     // Render the list of owners on DOM
     return (
-      <div id='widget-container'>
-        <div id={`${this.props.id}`} className={`${this.props.className}`}>
-          {bookItems}
+      <div>
+        <div id='widget-container' className='widget-container'>
+          <ul id={`${this.props.id}`} className={`${this.props.className}`}
+            style={styles.bookItemsWidth}>
+            {bookCoverItems}
+          </ul>
         </div>
+        <p className={`${this.props.className}-listTitle`}>
+          <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`} target='_parent'>{listName}</a> @ {userDisplayName}
+        </p>
       </div>
     );
   }
 }
+
+let styles = {
+  bookItemsWidth: {
+    width: '4500px'
+  }
+};
 
 BookItemList.defaultProps = {
   lang: 'en',
@@ -75,4 +98,4 @@ BookItemList.defaultProps = {
   className: 'bookListWidget'
 };
 
-export default BookItemList;
+export default Radium(BookItemList);

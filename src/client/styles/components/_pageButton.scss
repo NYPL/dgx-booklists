@@ -24,9 +24,9 @@
     &__element {
       border: 3px solid $COOL_GRAY_LIGHT;
       border-radius: 100%;
-      display: inline-table;
+      display: inline-block;
       margin: 0 4px 0 0;
-      vertical-align: middle;
+      vertical-align: 1px;
     }
     &__number {
       display: inline-table;

@@ -7,7 +7,7 @@ import Model from '../../app/utils/HeaderItemModel.js';
 
 // Set up variables for routing and its options
 let router = express.Router(),
-  appEnvironment = 'qa', //process.env.APP_ENV || 'development',
+  appEnvironment = process.env.APP_ENV || 'production',
   apiRoot = api.root[appEnvironment],
   listOptions = {
     endpoint: '',

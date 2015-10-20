@@ -72,6 +72,9 @@ app.use('/widget', (req, res) => {
   let iso = new Iso(),
     App = React.renderToString(<Widget />);
 
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
   // bootstrap will stringify the data
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 

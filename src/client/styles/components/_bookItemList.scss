@@ -1,22 +1,22 @@
 .bookItemList-wrapper {
   display: block;
   margin: 0 auto;
-  max-width: 1312px;
+  max-width: 1353px;
   padding: 24px 0 0 0;
   position: relative;
 
   @include desktop {
     display: block;
     margin: 0 auto;
-    padding: 24px 0 0 0;
-    width: 100%;
+    min-width: 1014px;
+    padding: 24px 20px 0 21px;
   }
 
   .back-button-wrapper {
     cursor: pointer;
     display: block;
     margin: 0;
-    padding: 0 20px 0 20px;;
+    padding: 0 20px 0 20px;
     text-align: left;
 
     @include desktop {
@@ -28,7 +28,7 @@
       margin: 0;
       padding: 10px 0 0 0;
       text-align: right;
-      width: 68px;
+      width: 120px;
     }
 
     .back-button {
@@ -53,21 +53,7 @@
         }
 
       }
-       &__icon-desktop {
-        display: none;
-        float: left;
-        margin: -4px 0 0 0;
-        &:before {
-          display: inline-block;
-          font-size: 18px;
-          vertical-align: 1px;
-        }
 
-        @include desktop {
-          display: inline-block;
-        }
-
-      }
       &__text {
         display: inline-block;
         font-size: 14px;
@@ -81,17 +67,33 @@
           display: inline-block;
           font-size: 12px;
           line-height: 18px;
-          margin: -16px 0 0 4px;
-          width: 56px;
-          vertical-align: top;
+          margin: 0;
+          width: 100%;
+        }
+
+        &__icon-desktop {
+          display: none;
+          float: left;
+          margin: -4px 0 0 0;
+          &:before {
+            display: inline-block;
+            font-size: 18px;
+            vertical-align: 1px;
+          }
+
+          @include desktop {
+            display: inline-block;
+          }
+
         }
 
         p {
           display: inline-block;
           margin: 0 0 0 4px;
 
-          @dinclude desktop {
+          @include desktop {
             display: block;
+            margin: 0;
           }
 
         }
