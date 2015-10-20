@@ -15,6 +15,7 @@ import cx from 'classnames'
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
+import ErrorMessage from '../errorMessage/errorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -49,9 +50,16 @@ class UserLists extends React.Component {
   render() {
     // Throw error message if anything's wrong from Store
     if (Store.getState().errorMessage) {
-      let errorMessage = errorMessage;
+      let errorMessage = Store.getState().errorMessage;
+
       return (
-        <div>{errorMessage}</div>
+        <div id='main'>
+          <DocMeta tags={tags} />
+          <Hero name={username} />
+          <div id={this.props.id} className={this.props.className}>
+            <ErrorMessage className='error-message' messageContent={errorMessage} />
+          </div>
+        </div>
       );
     }
     // The variable of the array of UserLists
@@ -100,7 +108,7 @@ class UserLists extends React.Component {
             );
           })
           // Show the error element if there's no data found
-          : <div>No list under this owner</div>;
+          : <ErrorMessage className='error-message' messageContent='No list under this user.' />;
 
     // Render the list of owners on DOM
     return (
@@ -148,6 +156,10 @@ class UserLists extends React.Component {
       // Stop loading animaiton when the call completes
       complete: () => {
         this.setState({isLoading: false});
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
+        Actions.failedData('Unable to complete this request. Something might be wrong with the server.');
       },
       success: data => {
         // Update the store. Add five more items each time clicking pagination button

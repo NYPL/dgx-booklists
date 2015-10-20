@@ -9,6 +9,7 @@ import Actions from '../../actions/Actions.js';
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
+import ErrorMessage from '../errorMessage/errorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -56,8 +57,15 @@ let Navigation = Router.Navigation,
 
       // Throw error message if anything's wrong
       if (this.state.errorMessage) {
+        let errorMessage = Store.getState().errorMessage;
+
         return (
-          <div>Something is wrong</div>
+          <div id='main' className='main'>
+            <Hero />
+            <div id={this.props.id} className={this.props.className}>
+              <ErrorMessage className='error-message' messageContent={errorMessage} />
+            </div>
+          </div>
         );
       } else {
         return (
@@ -88,6 +96,10 @@ let Navigation = Router.Navigation,
         type: 'GET',
         dataType: 'json',
         url: `/browse/recommendations/lists/api/ajax/username/${username}&${pageSize}&${pageNumber}`,
+        error: (jqXHR, textStatus, errorThrown) => {
+          console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
+          Actions.failedData('Unable to complete this request. Something might be wrong with the server.');
+        },
         success: data => {
           // Update the store for the list of lists a user has.
           Actions.updateUserLists(data.data);

@@ -15,6 +15,7 @@ import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
 import BookItem from '../BookItem/BookItem.jsx';
+import ErrorMessage from '../errorMessage/errorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -42,9 +43,17 @@ let Navigation = Router.Navigation,
     // Render DOM
     render() {
       // Throw error message if anything's wrong
-      if (this.state.errorMessage) {
+      if (Store.getState().errorMessage) {
+        let errorMessage = Store.getState().errorMessage;
+
         return (
-          <div>Something is wrong</div>
+          <div id='main'>
+            <DocMeta tags={tags} />
+            <Hero name={listName} intro={listIntro}/>
+            <div className='bookItemList-wrapper'>
+              <ErrorMessage className='error-message' messageContent={errorMessage} />
+            </div>
+          </div>
         );
       }
 
@@ -94,7 +103,7 @@ let Navigation = Router.Navigation,
                 authors={authors} />
             );
           })
-          :<div>No book under this list</div>;
+          : <ErrorMessage className='error-message book-item-list' messageContent='No book under this list.' />;;
 
       // Render the list of owners on DOM
       return (
@@ -154,6 +163,10 @@ let Navigation = Router.Navigation,
           type: 'GET',
           dataType: 'json',
           url: `/browse/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
+          error: (jqXHR, textStatus, errorThrown) => {
+            console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
+            Actions.failedData('Unable to complete this request. Something might be wrong with the server.');
+          },
           success: data => {
             // Update the store for the list of lists a user has.
             Actions.updateUserLists(data.data);

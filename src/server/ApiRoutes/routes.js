@@ -17,7 +17,8 @@ let router = express.Router(),
     endpoint: `${apiRoot}${headerApi.endpoint}`,
     includes: headerApi.includes,
     filters: headerApi.filters
-  };
+  },
+  errorMessage = 'Unable to complete this request. Something might be wrong with the server.';
 
 function getHeaderData() {
   let completeApiUrl = parser.getCompleteApi(headerOptions);
@@ -73,7 +74,8 @@ function BookListUsers(req, res, next) {
       console.log('Error calling API BookListUsers: ' + error);
       res.locals.data = {
         Store: {
-          allUsersList: []
+          allUsersList: [],
+          errorMessage : errorMessage
         },
         HeaderStore: {
           headerData: [],
@@ -135,7 +137,8 @@ function BookListUser(req, res, next) {
       res.locals.data = {
         Store: {
           userLists: [],
-          listsNumber: 0
+          listsNumber: 0,
+          errorMessage : errorMessage
         },
         HeaderStore: {
           headerData: [],
@@ -190,7 +193,8 @@ function ListID(req, res, next) {
       console.log('Error calling API ListID: ' + error);
       res.locals.data = {
         Store: {
-          bookItemList: {}
+          bookItemList: {},
+          errorMessage : errorMessage
         },
         HeaderStore: {
           headerData: [],

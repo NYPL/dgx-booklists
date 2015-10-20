@@ -14,6 +14,7 @@
 @import 'components/_userLists';
 @import 'components/_bookItemList';
 @import 'components/widget';
+@import 'components/errorMessage';
 
 body {
   @include Kievit-Regular;
