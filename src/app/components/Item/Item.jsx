@@ -65,9 +65,11 @@ let Navigation = Router.Navigation,
       $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: `/browse/recommendations/lists/api/ajax/listID/${this.props.listId}`,
+        // url: `/browse/recommendations/lists/api/ajax/listID/${this.props.listId}`,
+        url: '',
         error: (jqXHR, textStatus, errorThrown) => {
           console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
+          Actions.failedData('Unavailabe to complete the request. Something might be wrong with the server.');
         },
         success: data => {
           // Update the Store for a specific list of books:

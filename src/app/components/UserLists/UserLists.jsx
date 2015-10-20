@@ -49,8 +49,9 @@ class UserLists extends React.Component {
   render() {
     // Throw error message if anything's wrong from Store
     if (Store.getState().errorMessage) {
+      let errorMessage = errorMessage;
       return (
-        <div>Something is wrong</div>
+        <div>{errorMessage}</div>
       );
     }
     // The variable of the array of UserLists
