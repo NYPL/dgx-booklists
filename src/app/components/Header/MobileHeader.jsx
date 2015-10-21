@@ -5,7 +5,7 @@ import ReactTappable from 'react-tappable';
 
 // ALT FLUX
 import HeaderStore from '../../stores/HeaderStore.js';
-import HeaderActions from '../../actions/HeaderActions.js';
+import Actions from '../../actions/HeaderActions.js';
 
 import gaUtils from '../../utils/gaUtils.js';
 
@@ -48,10 +48,14 @@ class MobileHeader extends React.Component {
 
     return (
       <div className={this.props.className} style={styles.base}>
-        <span 
-          style={styles.logoIcon}
-          className={`${this.props.className}-Logo nypl-icon-logo-mark`}>
-        </span>
+        <a
+          style={styles.mobileLogo} 
+          href='//www.nypl.org'>
+          <span 
+            style={styles.logoIcon}
+            className={`${this.props.className}-Logo nypl-icon-logo-mark`}>
+          </span>
+        </a>
 
         <a 
           style={styles.locatorIcon} 
@@ -97,17 +101,17 @@ class MobileHeader extends React.Component {
   _toggleMobileMenu(activeButton) {
     if (activeButton === 'clickSearch') {
       if (HeaderStore._getSearchButtonActionValue() !== activeButton) {
-        HeaderActions.searchButtonActionValue(activeButton);
-        HeaderActions.setMobileMenuButtonValue('');
+        Actions.searchButtonActionValue(activeButton);
+        Actions.setMobileMenuButtonValue('');
       } else {
-        HeaderActions.searchButtonActionValue('');
+        Actions.searchButtonActionValue('');
       }
     } else if (activeButton === 'mobileMenu') {
       if (HeaderStore._getMobileMenuBtnValue() !== activeButton) {
-        HeaderActions.setMobileMenuButtonValue(activeButton);
-        HeaderActions.searchButtonActionValue('');
+        Actions.setMobileMenuButtonValue(activeButton);
+        Actions.searchButtonActionValue('');
       } else {
-        HeaderActions.setMobileMenuButtonValue('');
+        Actions.setMobileMenuButtonValue('');
       }
     }
     gaUtils._trackEvent('Click', `Mobile ${activeButton}`);
@@ -134,6 +138,16 @@ const styles = {
     height: '59px',
     textAlign: 'right',
     borderBottom: '1px solid #979797'
+  },
+  mobileLogo: {
+    color: '#000',
+    textDecoration: 'none',
+    ':hover': {
+      color: '#000'
+    },
+    ':visited': {
+      color: '#000'
+    }
   },
   logoIcon: {
     position: 'absolute',
