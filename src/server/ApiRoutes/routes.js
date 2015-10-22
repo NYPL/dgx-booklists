@@ -105,7 +105,6 @@ function BookListUser(req, res, next) {
   
   completeApiUrl = parser.getCompleteApi(listOptions, `${api.pageSize}${api.pageNumber}`);
 
-
   axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
     .then(axios.spread((headerData, userListsData) => {
       // Booklist data
@@ -241,7 +240,11 @@ function AjaxBookListUser(req, res) {
     })
     .catch(error => {
       console.log('Error calling API: AjaxBookListUser');
-      res.json({'error': 'error calling API'});
+      res.json({
+        errorTitle: error.data.errors[0].title,
+        errorStatus: error.data.errors[0].status,
+        errorMessage: errorMessage
+      });
     }); // end Axios call
 }
 

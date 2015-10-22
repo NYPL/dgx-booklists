@@ -96,15 +96,17 @@ let Navigation = Router.Navigation,
         type: 'GET',
         dataType: 'json',
         url: `/browse/recommendations/lists/api/ajax/username/${username}&${pageSize}&${pageNumber}`,
-        error: (jqXHR, textStatus, errorThrown) => {
-          console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
-          Actions.failedData('Unable to complete this request. Something might be wrong with the server.');
-        },
         success: data => {
           // Update the store for the list of lists a user has.
           Actions.updateUserLists(data.data);
           // Update the number of the lists we get from the refinery API
           Actions.updateListsNumber(data.listsNumber);
+          // Check if any error from the Refinery
+          if (data.errorMessage) {
+            Actions.failedData(data.errorMessage);
+            // console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
+            console.warn(`Server returned a ${data.errorStatus} status. ${data.errorTitle}.`);
+          }
           // Now transitition to the route.
           this._transitionTo(username);
         }
