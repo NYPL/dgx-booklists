@@ -1,10 +1,6 @@
 // Library import
 import React from 'react';
 
-// ALT FLUX
-import Store from '../../stores/Store.js';
-import Actions from '../../actions/Actions.js';
-
 // Component import
 import HeroTitle from './HeroTitle.jsx';
 
