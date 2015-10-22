@@ -57,7 +57,11 @@ let Navigation = Router.Navigation,
 
       // Throw error message if anything's wrong
       if (this.state.errorMessage) {
-        let errorMessage = Store.getState().errorMessage;
+        let errorMessage = Store.getState().errorMessage,
+          errorStatus = Store.getState().errorStatus,
+          errorTitle = Store.getState().errorTitle;
+
+        console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
 
         return (
           <div id='main' className='main'>
