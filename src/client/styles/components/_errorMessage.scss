@@ -23,4 +23,12 @@
     }
 
   }
+
+   &.widget {
+
+    @include desktop {
+      padding: 0 0 0 29px;
+    }
+
+  }
 }

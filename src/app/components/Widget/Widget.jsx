@@ -11,6 +11,7 @@ import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
 import BookItem from '../BookItem/BookItem.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
+import ErrorMessage from '../errorMessage/errorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -35,6 +36,25 @@ class BookItemList extends React.Component {
   }
 
   render() {
+    // Throw error message if anything's wrong
+    if (Store.getState().errorInfo) {
+      let errorMessage = this.props.errorMessage,
+        errorStatus = Store.getState().errorInfo.status,
+        errorTitle = Store.getState().errorInfo.title;
+
+      console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
+
+      return (
+        <div>
+          <div id='widget-container' className='widget-container'>
+            <ul id={`${this.props.id}`} className={`${this.props.className}`}
+              style={styles.errorWidth}>
+              <ErrorMessage className='error-message widget' messageContent={errorMessage} />
+            </ul>
+          </div>
+        </div>
+      );
+    }
     // The variable to store the data from Store
     let bookItemList = this.state.bookItemList,
       userId = bookItemList.user ? bookItemList.user.id : '',
@@ -63,9 +83,9 @@ class BookItemList extends React.Component {
             </li>
           );
         })
-        : null;
+        : <ErrorMessage className='error-message book-item-list' messageContent='No book under this list.' />;;
 
-    if (bookCoverItems !== null) {
+    if (listItems) {
       styles.bookItemsWidth.width = `${bookCoverItems.length * 149 - 29}px`;
     }
 
@@ -89,13 +109,17 @@ class BookItemList extends React.Component {
 let styles = {
   bookItemsWidth: {
     width: '4500px'
+  },
+  errorWidth: {
+    width: '100%'
   }
 };
 
 BookItemList.defaultProps = {
   lang: 'en',
   id: 'bookListWidget',
-  className: 'bookListWidget'
+  className: 'bookListWidget',
+  errorMessage: 'Unable to complete this request. Something might be wrong with the server.'
 };
 
 export default Radium(BookItemList);
