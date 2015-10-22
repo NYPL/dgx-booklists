@@ -108,7 +108,6 @@ let Navigation = Router.Navigation,
           // Check if any error from the Refinery
           if (data.errorInfo) {
             Actions.failedData(data.errorInfo);
-            // console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
             console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
           }
           // Now transitition to the route.

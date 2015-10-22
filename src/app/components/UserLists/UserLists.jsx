@@ -165,10 +165,9 @@ class UserLists extends React.Component {
         // Update the store. Add five more items each time clicking pagination button
         this.setState({userLists: this.state.userLists.concat(data.data)});
         // Check if any error from the Refinery
-        if (data.errorMessage) {
-          Actions.failedData(data.errorMessage);
-          // console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
-          console.warn(`Server returned a ${data.errorStatus} status. ${data.errorTitle}.`);
+        if (data.errorInfo) {
+          Actions.failedData(data.errorInfo);
+          console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
         }
         // Move to the next page if click the button again
         pageNumber++;
