@@ -166,7 +166,7 @@ function ListID(req, res, next) {
 
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`;
   listOptions.includes = api.includes;
-  
+
   completeApiUrl = parser.getCompleteApi(listOptions);
 
   axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
@@ -195,9 +195,7 @@ function ListID(req, res, next) {
       res.locals.data = {
         Store: {
           bookItemList: {},
-          errorTitle: error.data.errors[0].title,
-          errorStatus: error.data.errors[0].status,
-          errorMessage : errorMessage
+          errorInfo: error.data.errors[0]
         },
         HeaderStore: {
           headerData: [],
@@ -264,6 +262,7 @@ function AjaxListID(req, res) {
     completeApiUrl;
 
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`;
+
   listOptions.includes = api.includes;
   
   completeApiUrl = parser.getCompleteApi(listOptions);
@@ -281,7 +280,9 @@ function AjaxListID(req, res) {
     })
     .catch(error => {
       console.log('Error calling API: AjaxListID');
-      res.json({'error': 'error calling API'});
+      res.json({
+        errorInfo: error.data.errors[0]
+      });
     }); // end Axios call
 }
 

@@ -66,13 +66,14 @@ let Navigation = Router.Navigation,
         type: 'GET',
         dataType: 'json',
         url: `/browse/recommendations/lists/api/ajax/listID/${this.props.listId}`,
-        error: (jqXHR, textStatus, errorThrown) => {
-          console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
-          Actions.failedData('Unable to complete this request. Something might be wrong with the server.');
-        },
         success: data => {
           // Update the Store for a specific list of books:
           Actions.updateBookList(data.data);
+          // Check if any error from the Refinery
+          if (data.errorInfo) {
+            Actions.failedData(data.errorInfo);
+            console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+          }
           // Transition to the new route.
           this._transitionTo(this.props.userId, this.props.listId);
         }

@@ -43,10 +43,10 @@ let Navigation = Router.Navigation,
     // Render DOM
     render() {
       // Throw error message if anything's wrong
-      if (Store.getState().errorMessage) {
-        let errorMessage = Store.getState().errorMessage,
-          errorStatus = Store.getState().errorStatus,
-          errorTitle = Store.getState().errorTitle;
+      if (Store.getState().errorInfo) {
+        let errorMessage = this.props.errorMessage,
+          errorStatus = Store.getState().errorInfo.status,
+          errorTitle = Store.getState().errorInfo.title;
 
         console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
 
@@ -167,14 +167,15 @@ let Navigation = Router.Navigation,
           type: 'GET',
           dataType: 'json',
           url: `/browse/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
-          error: (jqXHR, textStatus, errorThrown) => {
-            console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
-            Actions.failedData('Unable to complete this request. Something might be wrong with the server.');
-          },
           success: data => {
             // Update the store for the list of lists a user has.
             Actions.updateUserLists(data.data);
             Actions.updateListsNumber(data.listsNumber);
+            // Check if any error from the Refinery
+            if (data.errorInfo) {
+              Actions.failedData(data.errorInfo);
+              console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+            }
             // Now transit to the route.
             this._transitionToUser(userId);
           }
@@ -195,7 +196,8 @@ let Navigation = Router.Navigation,
 BookItemList.defaultProps = {
   lang: 'en',
   id: 'bookItemList',
-  className: 'bookItemList'
+  className: 'bookItemList',
+  errorMessage: 'Unable to complete this request. Something might be wrong with the server.'
 };
 
 export default BookItemList;
