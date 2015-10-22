@@ -139,9 +139,7 @@ function BookListUser(req, res, next) {
         Store: {
           userLists: [],
           listsNumber: 0,
-          errorTitle: error.data.errors[0].title,
-          errorStatus: error.data.errors[0].status,
-          errorMessage : errorMessage
+          errorInfo: error.data.errors[0]
         },
         HeaderStore: {
           headerData: [],
