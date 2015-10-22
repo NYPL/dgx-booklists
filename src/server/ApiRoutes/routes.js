@@ -46,7 +46,6 @@ function BookListUsers(req, res, next) {
 
   completeApiUrl = parser.getCompleteApi(listOptions);
 
-
   axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
     .then(axios.spread((headerData, allUsersList) => {
       // Booklist data

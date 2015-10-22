@@ -4,6 +4,10 @@
   line-height: 28px;
   padding: 45px 0 45px 149px;
 
+  &.all-user-list {
+    padding: 0 0 45px 149px;
+  }
+
   &.book-item-list {
     padding: 0 0 45px 0;
   }

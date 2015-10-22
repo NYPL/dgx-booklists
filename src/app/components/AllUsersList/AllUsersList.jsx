@@ -53,7 +53,7 @@ let Navigation = Router.Navigation,
             );
           })
           // If there's no data, display the no list message
-          : <div>No List Here</div>;
+          : <ErrorMessage className='error-message all-user-list' messageContent='No user here.' />;
 
       // Throw error message if anything's wrong
       if (this.state.errorMessage) {

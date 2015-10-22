@@ -103,7 +103,7 @@ let Navigation = Router.Navigation,
                 authors={authors} />
             );
           })
-          : <ErrorMessage className='error-message book-item-list' messageContent='No book under this list.' />;;
+          : <ErrorMessage className='error-message book-item-list' messageContent='No book under this list.' />;
 
       // Render the list of owners on DOM
       return (
