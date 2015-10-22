@@ -50,7 +50,11 @@ class UserLists extends React.Component {
   render() {
     // Throw error message if anything's wrong from Store
     if (Store.getState().errorMessage) {
-      let errorMessage = Store.getState().errorMessage;
+      let errorMessage = Store.getState().errorMessage,
+          errorStatus = Store.getState().errorStatus,
+          errorTitle = Store.getState().errorTitle;
+
+        console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
 
       return (
         <div id='main'>
@@ -157,13 +161,15 @@ class UserLists extends React.Component {
       complete: () => {
         this.setState({isLoading: false});
       },
-      error: (jqXHR, textStatus, errorThrown) => {
-        console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
-        Actions.failedData('Unable to complete this request. Something might be wrong with the server.');
-      },
       success: data => {
         // Update the store. Add five more items each time clicking pagination button
         this.setState({userLists: this.state.userLists.concat(data.data)});
+        // Check if any error from the Refinery
+        if (data.errorMessage) {
+          Actions.failedData(data.errorMessage);
+          // console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
+          console.warn(`Server returned a ${data.errorStatus} status. ${data.errorTitle}.`);
+        }
         // Move to the next page if click the button again
         pageNumber++;
         this.setState({pageNumber: pageNumber});

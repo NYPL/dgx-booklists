@@ -18,7 +18,8 @@ let router = express.Router(),
     includes: headerApi.includes,
     filters: headerApi.filters
   },
-  errorMessage = 'Unable to complete this request. Something might be wrong with the server.';
+  errorTitle = '',
+  errorStatus = '';
 
 function getHeaderData() {
   let completeApiUrl = parser.getCompleteApi(headerOptions);
@@ -42,6 +43,7 @@ function BookListUsers(req, res, next) {
   let completeApiUrl;
 
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}`;
+
   listOptions.includes = [];
 
   completeApiUrl = parser.getCompleteApi(listOptions);
@@ -74,9 +76,7 @@ function BookListUsers(req, res, next) {
       res.locals.data = {
         Store: {
           allUsersList: [],
-          errorTitle: error.data.errors[0].title,
-          errorStatus: error.data.errors[0].status,
-          errorMessage : errorMessage
+          errorInfo: error.data.errors[0]
         },
         HeaderStore: {
           headerData: [],
@@ -103,6 +103,7 @@ function BookListUser(req, res, next) {
 
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
         `${username}/links/book-lists`;
+
   listOptions.includes = api.includes;
   
   completeApiUrl = parser.getCompleteApi(listOptions, `${api.pageSize}${api.pageNumber}`);
@@ -138,6 +139,8 @@ function BookListUser(req, res, next) {
         Store: {
           userLists: [],
           listsNumber: 0,
+          errorTitle: error.data.errors[0].title,
+          errorStatus: error.data.errors[0].status,
           errorMessage : errorMessage
         },
         HeaderStore: {
@@ -194,6 +197,8 @@ function ListID(req, res, next) {
       res.locals.data = {
         Store: {
           bookItemList: {},
+          errorTitle: error.data.errors[0].title,
+          errorStatus: error.data.errors[0].status,
           errorMessage : errorMessage
         },
         HeaderStore: {
@@ -243,9 +248,7 @@ function AjaxBookListUser(req, res) {
     .catch(error => {
       console.log('Error calling API: AjaxBookListUser');
       res.json({
-        errorTitle: error.data.errors[0].title,
-        errorStatus: error.data.errors[0].status,
-        errorMessage: errorMessage
+        errorInfo: error.data.errors[0]
       });
     }); // end Axios call
 }

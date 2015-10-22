@@ -56,10 +56,10 @@ let Navigation = Router.Navigation,
           : <ErrorMessage className='error-message all-user-list' messageContent='No user here.' />;
 
       // Throw error message if anything's wrong
-      if (this.state.errorMessage) {
-        let errorMessage = Store.getState().errorMessage,
-          errorStatus = Store.getState().errorStatus,
-          errorTitle = Store.getState().errorTitle;
+      if (this.state.errorInfo) {
+        let errorMessage = this.props.errorMessage,
+          errorStatus = Store.getState().errorInfo.status,
+          errorTitle = Store.getState().errorInfo.title;
 
         console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
 
@@ -133,7 +133,8 @@ let Navigation = Router.Navigation,
 AllUsersList.defaultProps = {
   lang: 'en',
   id: 'all-users-list',
-  className: 'all-users-list'
+  className: 'all-users-list',
+  errorMessage: 'Unable to complete this request. Something might be wrong with the server.'
 };
 
 const styles = {
