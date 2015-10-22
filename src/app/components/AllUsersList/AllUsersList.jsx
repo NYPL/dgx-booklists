@@ -106,10 +106,10 @@ let Navigation = Router.Navigation,
           // Update the number of the lists we get from the refinery API
           Actions.updateListsNumber(data.listsNumber);
           // Check if any error from the Refinery
-          if (data.errorMessage) {
-            Actions.failedData(data.errorMessage);
+          if (data.errorInfo) {
+            Actions.failedData(data.errorInfo);
             // console.log(`Unavailabe to complete the request. Run into a ${textStatus} for ${errorThrown}`);
-            console.warn(`Server returned a ${data.errorStatus} status. ${data.errorTitle}.`);
+            console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
           }
           // Now transitition to the route.
           this._transitionTo(username);

@@ -49,10 +49,10 @@ class UserLists extends React.Component {
   // Render DOM
   render() {
     // Throw error message if anything's wrong from Store
-    if (Store.getState().errorMessage) {
-      let errorMessage = Store.getState().errorMessage,
-          errorStatus = Store.getState().errorStatus,
-          errorTitle = Store.getState().errorTitle;
+    if (Store.getState().errorInfo) {
+      let errorMessage = this.props.errorMessage,
+          errorStatus = Store.getState().errorInfo.status,
+          errorTitle = Store.getState().errorInfo.title;
 
         console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
 
@@ -181,7 +181,8 @@ class UserLists extends React.Component {
 UserLists.defaultProps = {
   lang: 'en',
   id: 'userlists',
-  className: 'userlists'
+  className: 'userlists',
+  errorMessage: 'Unable to complete this request. Something might be wrong with the server.'
 };
 
 export default UserLists;
