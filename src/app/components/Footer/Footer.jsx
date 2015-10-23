@@ -67,11 +67,11 @@ const data = {
 		},
 		{
 			FooterLinkList: [
-				{name: 'Governance', link: '/help/about-nypl/leadership/board-trustees', className: 'footer1'},
-				{name: 'Privacy Policy', link: '/help/about-nypl/legal-notices/privacy-policy'},
-				{name: 'Other Policies', link: '/policies'},
-				{name: 'Terms & Conditions', link: '/terms-conditions'}
-			],
+        {name: 'Privacy Policy', link: '/help/about-nypl/legal-notices/privacy-policy', className: 'footer1'},
+        {name: 'Other Policies', link: '/policies'},
+        {name: 'Terms & Conditions', link: '/terms-conditions'},
+        {name: 'Governance', link: '/help/about-nypl/leadership/board-trustees'}
+      ],
 			ulClass: ''
 		},
 		{
