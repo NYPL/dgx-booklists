@@ -62,7 +62,8 @@ function BookListUsers(req, res, next) {
         },
         HeaderStore: {
           headerData: modelData,
-          subscribeFormVisible: false
+          subscribeFormVisible: false,
+          myNyplVisible: false
         },
         completeApiUrl
       };
@@ -77,7 +78,8 @@ function BookListUsers(req, res, next) {
         },
         HeaderStore: {
           headerData: [],
-          subscribeFormVisible: false
+          subscribeFormVisible: false,
+          myNyplVisible: false
         },
         completeApiUrl: ''
       };
@@ -123,7 +125,8 @@ function BookListUser(req, res, next) {
         },
         HeaderStore: {
           headerData: modelData,
-          subscribeFormVisible: false
+          subscribeFormVisible: false,
+          myNyplVisible: false
         },
         completeApiUrl
       };
@@ -139,7 +142,8 @@ function BookListUser(req, res, next) {
         },
         HeaderStore: {
           headerData: [],
-          subscribeFormVisible: false
+          subscribeFormVisible: false,
+          myNyplVisible: false
         },
         completeApiUrl: ''
       };
@@ -180,7 +184,8 @@ function ListID(req, res, next) {
         },
         HeaderStore: {
           headerData: modelData,
-          subscribeFormVisible: false
+          subscribeFormVisible: false,
+          myNyplVisible: false
         },
         completeApiUrl
       };
@@ -194,7 +199,8 @@ function ListID(req, res, next) {
         },
         HeaderStore: {
           headerData: [],
-          subscribeFormVisible: false
+          subscribeFormVisible: false,
+          myNyplVisible: false
         },
         completeApiUrl: ''
       };
