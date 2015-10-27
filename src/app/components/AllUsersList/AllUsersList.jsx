@@ -39,8 +39,8 @@ let Navigation = Router.Navigation,
     render() {
       // The variable to store the data from Store
       let allUsersList = this.state.allUsersList,
-        // Render the data
-        userLinks = (allUsersList && allUsersList.length) ?
+        // Render data or throw error page
+        content = (allUsersList && allUsersList.length) ?
           allUsersList.map((element, i) => {
             return (
               <div className={`${this.props.className}__userlink-wrapper`} key={i}>
@@ -52,35 +52,29 @@ let Navigation = Router.Navigation,
               </div>
             );
           })
-          // If there's no data, display the no list message
-          : <ErrorMessage className='error-message all-user-list' messageContent='No user here.' />;
+          : <ErrorMessage className='error-message all-user-list'
+            messageContent={this.props.errorMessage.noData} />,
+        errorInfo = this.state.errorInfo,
+        errorStatus,
+        errorTitle;
 
-      // Throw error message if anything's wrong
-      if (this.state.errorInfo) {
-        let errorMessage = this.props.errorMessage,
-          errorStatus = Store.getState().errorInfo.status,
-          errorTitle = Store.getState().errorInfo.title;
-
+      // Throw error message if something's wrong
+      if (errorInfo) {
+        errorStatus = errorInfo.status;
+        errorTitle = errorInfo.title;
+        content = <ErrorMessage className='error-message'
+          messageContent={this.props.errorMessage.failedRequest} />;
         console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
-
-        return (
-          <div id='main' className='main'>
-            <Hero />
-            <div id={this.props.id} className={this.props.className}>
-              <ErrorMessage className='error-message' messageContent={errorMessage} />
-            </div>
-          </div>
-        );
-      } else {
-        return (
-          <div id='main' className='main'>
-            <Hero />
-            <div id={`${this.props.id}`} className={`${this.props.className}`}>
-              {userLinks}
-            </div>
-          </div>
-        );
       }
+
+      return (
+        <div id='main' className='main'>
+          <Hero />
+          <div id={`${this.props.id}`} className={`${this.props.className}`}>
+            {content}
+          </div>
+        </div>
+      );
     },
 
     /**
@@ -133,7 +127,10 @@ AllUsersList.defaultProps = {
   lang: 'en',
   id: 'all-users-list',
   className: 'all-users-list',
-  errorMessage: 'Unable to complete this request. Something might be wrong with the server.'
+  errorMessage: {
+    noData: 'No user here.',
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
+  }
 };
 
 const styles = {

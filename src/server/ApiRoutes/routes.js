@@ -43,7 +43,6 @@ function BookListUsers(req, res, next) {
   let completeApiUrl;
 
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}`;
-
   listOptions.includes = [];
 
   completeApiUrl = parser.getCompleteApi(listOptions);

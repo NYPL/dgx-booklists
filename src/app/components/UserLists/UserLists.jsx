@@ -48,24 +48,6 @@ class UserLists extends React.Component {
 
   // Render DOM
   render() {
-    // Throw error message if anything's wrong from Store
-    if (Store.getState().errorInfo) {
-      let errorMessage = this.props.errorMessage,
-          errorStatus = Store.getState().errorInfo.status,
-          errorTitle = Store.getState().errorInfo.title;
-
-        console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
-
-      return (
-        <div id='main'>
-          <DocMeta tags={tags} />
-          <Hero name={username} />
-          <div id={this.props.id} className={this.props.className}>
-            <ErrorMessage className='error-message' messageContent={errorMessage} />
-          </div>
-        </div>
-      );
-    }
     // The variable of the array of UserLists
     let userLists = this.state.userLists,
       // The title of the page is the name of the owner.
@@ -75,7 +57,7 @@ class UserLists extends React.Component {
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
       // Show how many pages left in the pagination button
-      pageLeft = this.state.listsNumber - userLists.length,
+      pageLeft = (userLists) ? this.state.listsNumber - userLists.length : 0,
       description = 'A list created by staff at The New York Public Library',
       pageTags = [
         // Required OG meta tags
@@ -88,7 +70,7 @@ class UserLists extends React.Component {
       ],
       tags = utils.metaTagUnion(pageTags),
       // Render the lists if data is correctly delivered
-      lists = (userLists && userLists.length) ?
+      content = (userLists && userLists.length) ?
         userLists.map((element, i) => {
           let dateCreated = Moment(element.attributes['date-created']).format('MMMM D'),
             yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
@@ -112,7 +94,19 @@ class UserLists extends React.Component {
             );
           })
           // Show the error element if there's no data found
-          : <ErrorMessage className='error-message' messageContent='No list under this user.' />;
+          : <ErrorMessage className='error-message' messageContent={this.props.errorMessage.noData} />,
+          errorInfo = this.state.errorInfo,
+          errorStatus,
+          errorTitle;
+
+    // Throw error message if something's wrong from Store
+    if (errorInfo) {
+      errorStatus = errorInfo.status;
+      errorTitle = errorInfo.title;
+      content = <ErrorMessage className='error-message'
+        messageContent={this.props.errorMessage.failedRequest} />;
+      console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
+    }
 
     // Render the list of owners on DOM
     return (
@@ -120,7 +114,7 @@ class UserLists extends React.Component {
         <DocMeta tags={tags} />
         <Hero name={username} />
         <div id={this.props.id} className={this.props.className}>
-          {lists}
+          {content}
         </div>
         <div id={`page-button-wrapper`}
         className={`page-button-wrapper`}>
@@ -181,7 +175,10 @@ UserLists.defaultProps = {
   lang: 'en',
   id: 'userlists',
   className: 'userlists',
-  errorMessage: 'Unable to complete this request. Something might be wrong with the server.'
+  errorMessage: {
+    noData: 'No list under this user.',
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
+  }
 };
 
 export default UserLists;

@@ -43,22 +43,14 @@ let Navigation = Router.Navigation,
     // Render DOM
     render() {
       // Throw error message if anything's wrong
-      if (Store.getState().errorInfo) {
-        let errorMessage = this.props.errorMessage,
-          errorStatus = Store.getState().errorInfo.status,
-          errorTitle = Store.getState().errorInfo.title;
-
+      if (errorInfo) {
+        errorStatus = errorInfo.status;
+        errorTitle = errorInfo.title;
+        content = <div className='bookItemList-wrapper'>
+                    <ErrorMessage className='error-message'
+                      messageContent={this.props.errorMessage.failedRequest} />
+                  </div>;
         console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
-
-        return (
-          <div id='main'>
-            <DocMeta tags={tags} />
-            <Hero name={listName} intro={listIntro}/>
-            <div className='bookItemList-wrapper'>
-              <ErrorMessage className='error-message' messageContent={errorMessage} />
-            </div>
-          </div>
-        );
       }
 
       // The variable to store the data from Store
@@ -107,14 +99,9 @@ let Navigation = Router.Navigation,
                 authors={authors} />
             );
           })
-          : <ErrorMessage className='error-message book-item-list' messageContent='No book under this list.' />;
-
-      // Render the list of owners on DOM
-      return (
-        <div id='main'>
-          <DocMeta tags={tags} />
-          <Hero name={listName} intro={listIntro}/>
-          <div className='bookItemList-wrapper'>
+          : <ErrorMessage className='error-message book-item-list'
+            messageContent={this.props.errorMessage.noData} />,
+          content = <div className='bookItemList-wrapper'>
             <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
               <a id={`back-button`}
                 className={`back-button`}
@@ -142,12 +129,22 @@ let Navigation = Router.Navigation,
                 {bookItems}
               </div>
             </div>
-          </div>
+          </div>,
+          errorInfo = this.state.errorInfo,
+          errorStatus,
+          errorTitle;
+
+      // Render the list of owners on DOM
+      return (
+        <div id='main'>
+          <DocMeta tags={tags} />
+          <Hero name={listName} intro={listIntro}/>
+          {content}
         </div>
       );
     },
 
-     /**
+    /**
     * _fetchUserLists(userId, pageSize, pageNumber)
     * Fetch the data we need for UserLists
     * before the app transit us to UserLists page
@@ -197,7 +194,10 @@ BookItemList.defaultProps = {
   lang: 'en',
   id: 'bookItemList',
   className: 'bookItemList',
-  errorMessage: 'Unable to complete this request. Something might be wrong with the server.'
+  errorMessage: {
+    noData: 'No book in this list.',
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
+  }
 };
 
 export default BookItemList;
