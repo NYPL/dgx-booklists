@@ -36,25 +36,6 @@ class BookItemList extends React.Component {
   }
 
   render() {
-    // Throw error message if anything's wrong
-    if (Store.getState().errorInfo) {
-      let errorMessage = this.props.errorMessage,
-        errorStatus = Store.getState().errorInfo.status,
-        errorTitle = Store.getState().errorInfo.title;
-
-      console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
-
-      return (
-        <div>
-          <div id='widget-container' className='widget-container'>
-            <ul id={`${this.props.id}`} className={`${this.props.className}`}
-              style={styles.errorWidth}>
-              <ErrorMessage className='error-message widget' messageContent={errorMessage} />
-            </ul>
-          </div>
-        </div>
-      );
-    }
     // The variable to store the data from Store
     let bookItemList = this.state.bookItemList,
       userId = bookItemList.user ? bookItemList.user.id : '',
@@ -83,24 +64,40 @@ class BookItemList extends React.Component {
             </li>
           );
         })
-        : <ErrorMessage className='error-message book-item-list' messageContent='No book under this list.' />;;
+        : <ErrorMessage className='error-message widget' messageContent={this.props.errorMessage.noData} />,
+      content = <div>
+                  <div id='widget-container' className='widget-container'>
+                      <ul id={`${this.props.id}`} className={`${this.props.className}`}
+                        style={styles.bookItemsWidth}>
+                        {bookCoverItems}
+                      </ul>
+                    </div>
+                    <p className={`${this.props.className}-listTitle`}>
+                      <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`}
+                        target='_parent'>{listName}</a> @ {userDisplayName}
+                    </p>
+                </div>,
+      errorInfo = this.state.errorInfo,
+      errorStatus,
+      errorTitle;
 
     if (listItems) {
       styles.bookItemsWidth.width = `${bookCoverItems.length * 149 - 29}px`;
     }
 
+    // Throw error message if something's wrong
+    if (errorInfo) {
+      errorStatus = errorInfo.status;
+      errorTitle = errorInfo.title;
+      content = <ErrorMessage className='error-message widget'
+                  messageContent={this.props.errorMessage.failedRequest} />;
+      console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
+    }
+
     // Render the list of owners on DOM
     return (
       <div>
-        <div id='widget-container' className='widget-container'>
-          <ul id={`${this.props.id}`} className={`${this.props.className}`}
-            style={styles.bookItemsWidth}>
-            {bookCoverItems}
-          </ul>
-        </div>
-        <p className={`${this.props.className}-listTitle`}>
-          <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`} target='_parent'>{listName}</a> @ {userDisplayName}
-        </p>
+        {content}
       </div>
     );
   }
@@ -109,9 +106,6 @@ class BookItemList extends React.Component {
 let styles = {
   bookItemsWidth: {
     width: '4500px'
-  },
-  errorWidth: {
-    width: '100%'
   }
 };
 
@@ -119,7 +113,10 @@ BookItemList.defaultProps = {
   lang: 'en',
   id: 'bookListWidget',
   className: 'bookListWidget',
-  errorMessage: 'Unable to complete this request. Something might be wrong with the server.'
+  errorMessage: {
+    noData: 'No book in this list.',
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
+  }
 };
 
 export default Radium(BookItemList);

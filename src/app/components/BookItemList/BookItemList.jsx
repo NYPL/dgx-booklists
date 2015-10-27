@@ -42,17 +42,6 @@ let Navigation = Router.Navigation,
     },
     // Render DOM
     render() {
-      // Throw error message if anything's wrong
-      if (errorInfo) {
-        errorStatus = errorInfo.status;
-        errorTitle = errorInfo.title;
-        content = <div className='bookItemList-wrapper'>
-                    <ErrorMessage className='error-message'
-                      messageContent={this.props.errorMessage.failedRequest} />
-                  </div>;
-        console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
-      }
-
       // The variable to store the data from Store
       let bookItemList = this.state.bookItemList,
         userId = bookItemList.user ? bookItemList.user.id : '',
@@ -133,6 +122,17 @@ let Navigation = Router.Navigation,
           errorInfo = this.state.errorInfo,
           errorStatus,
           errorTitle;
+
+      // Throw error message if something's wrong
+      if (errorInfo) {
+        errorStatus = errorInfo.status;
+        errorTitle = errorInfo.title;
+        content = <div className='bookItemList-wrapper'>
+                    <ErrorMessage className='error-message'
+                      messageContent={this.props.errorMessage.failedRequest} />
+                  </div>;
+        console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
+      }
 
       // Render the list of owners on DOM
       return (
