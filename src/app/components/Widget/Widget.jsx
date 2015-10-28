@@ -11,7 +11,7 @@ import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
 import BookItem from '../BookItem/BookItem.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
-import ErrorMessage from '../errorMessage/errorMessage.jsx';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 

@@ -15,7 +15,7 @@ import cx from 'classnames'
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
-import ErrorMessage from '../errorMessage/errorMessage.jsx';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 

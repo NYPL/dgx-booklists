@@ -9,7 +9,7 @@ import Actions from '../../actions/Actions.js';
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
-import ErrorMessage from '../errorMessage/errorMessage.jsx';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
