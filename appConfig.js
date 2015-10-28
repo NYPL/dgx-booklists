@@ -195,8 +195,7 @@ const config = {
     {property: "og:site_name", content: 'Lists | The New York Public Library'},
     {name: "twitter:card", content: 'summary_large_image'},
     {name: "twitter:site", content: '@nypl'},
-    {name: "twitter:creator", content: '@nypl'},
-    {name: "twitter:title", content: 'List | The New York Public Library'}
+    {name: "twitter:creator", content: '@nypl'}
   ]
 };
 

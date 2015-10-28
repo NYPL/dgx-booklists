@@ -70,6 +70,7 @@ class UserLists extends React.Component {
         {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userUrlId}`},
         {property: "og:image", content: ''},
         {property: "og:description", content: description},
+        {name: "twitter:title", content: 'Lists | The New York Public Library'},
         {name: "twitter:description", content: description},
         {name: "twitter:image", content: ''}
       ],
