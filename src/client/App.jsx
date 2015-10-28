@@ -16,7 +16,7 @@ if (typeof window !== 'undefined') {
     if (!window.ga) {
       console.log('Analytics not available - loading through React.');
       let gaOpts = { debug: false };
-      ga.initialize('UA-1420324-122', gaOpts);
+      ga.initialize('UA-1420324-3', gaOpts);
     }
 
 		// Render Isomorphically
