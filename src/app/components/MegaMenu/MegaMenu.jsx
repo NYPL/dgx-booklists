@@ -50,8 +50,9 @@ class MegaMenu extends React.Component {
           <div className='MegaMenu-SubNavWrapper'>
             <MegaMenuSubNav
               label={this.props.label} 
-              items={this.props.items} 
+              items={this.props.items}
               lang={this.props.lang}
+              topLink={this.props.topLink}
               navId={this.props.navId} />
           </div>
           <div className='MegaMenu-FeaturesWrapper'>
