@@ -70,12 +70,15 @@ if (ENV === 'development') {
 	    'webpack/hot/only-dev-server',
 	    path.resolve(ROOT_PATH, 'src/client/App.jsx')
 	  ],
+	  output: {
+	  	publicPath: 'http://localhost:3000/'
+	  },
 	  plugins: [
 	    new webpack.HotModuleReplacementPlugin(),
 	    new webpack.NoErrorsPlugin()
 	  ],
 	  resolve: {
-	    extensions: ['', '.js', '.jsx', 'scss']
+	    extensions: ['', '.js', '.jsx', '.scss']
 	  },
 		module: {
 			loaders: [
