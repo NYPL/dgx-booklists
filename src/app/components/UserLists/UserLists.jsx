@@ -66,11 +66,11 @@ class UserLists extends React.Component {
       description = 'A list created by staff at The New York Public Library',
       pageTags = [
         // Required OG meta tags
-        {property: "og:title", content: 'Lists | The New York Public Library'},
+        {property: "og:title", content: `${username} Lists | The New York Public Library`},
         {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userUrlId}`},
         {property: "og:image", content: ''},
         {property: "og:description", content: description},
-        {name: "twitter:title", content: 'Lists | The New York Public Library'},
+        {name: "twitter:title", content: `${username} Lists | The New York Public Library`},
         {name: "twitter:description", content: description},
         {name: "twitter:image", content: ''}
       ],
