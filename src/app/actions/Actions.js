@@ -1,19 +1,23 @@
 import alt from '../alt.js';
 
 class Actions {
-
-  fetchHeaderData() {
-    let self = this;
-
-    // Here we will use the client side AJAX request
-    // to fetch data
-  }
-
-  updateHeaderData(data) {
+  updateAllUsersList(data) {
     this.dispatch(data);
   }
 
-  failedHeaderData(errorMessage) {
+  updateUserLists(data) {
+    this.dispatch(data);
+  }
+
+  updateBookList(data) {
+    this.dispatch(data);
+  }
+
+  updateListsNumber(data) {
+    this.dispatch(data);
+  }
+
+  failedData(errorMessage) {
     this.dispatch(errorMessage);
   }
 }

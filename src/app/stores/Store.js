@@ -1,31 +1,52 @@
 import alt from '../alt.js';
 import Actions from '../actions/Actions.js';
-import HeaderSource from '../utils/HeaderSource.js';
 
 class Store {
   constructor(){
-    this.headerData = [];
-    this.errorMessage = null;
-
     this.bindListeners({
-      handleUpdateHeaderData: Actions.UPDATE_HEADER_DATA,
-      handleFetchHeaderData: Actions.FETCH_HEADER_DATA,
-      handleHeaderDataFailedFetch: Actions.FAILED_HEADER_DATA
+      handleUpdateAllUsersList: Actions.UPDATE_ALL_USERS_LIST,
+      handleUpdateUserLists: Actions.UPDATE_USER_LISTS,
+      handleUpdateBookList: Actions.UPDATE_BOOK_LIST,
+      handleUpdateListsNumber: Actions.UPDATE_LISTS_NUMBER,
+      handleDataFailedFetch: Actions.FAILED_DATA
     });
 
-    this.registerAsync(HeaderSource);
+    this.exportPublicMethods({
+      getUserLists: this.getUserLists
+    });
+
+    this.on('init', () => {
+      this.allUsersList = [];
+      this.userLists = [];
+      this.bookItemList = {};
+      this.listsNumber = 0;
+      this.errorMessage = null;
+    });
   }
 
-  handleUpdateHeaderData(data) {
-    this.headerData = data;
+  handleUpdateAllUsersList(data) {
+    this.allUsersList = data;
   }
 
-  handleFetchHeaderData() {
-    this.headerData = [];
+  handleUpdateUserLists(data) {
+    this.userLists = data;
   }
 
-  handleHeaderDataFailedFetch(errorMessage) {
+  handleUpdateBookList(data) {
+    this.bookItemList = data;
+  }
+
+  handleUpdateListsNumber(data) {
+    this.listsNumber = data;
+  }
+
+  handleDataFailedFetch(errorMessage) {
     this.errorMessage =  errorMessage;
+  }
+
+  // Remember to use this.state when returning exposing store data.
+  getUserLists() {
+    return this.state.userLists;
   }
 }
 

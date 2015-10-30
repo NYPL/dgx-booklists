@@ -65,12 +65,23 @@ var commonSettings = {
 if (ENV === 'development') {
 	module.exports = merge(commonSettings, {
 		devtool: 'eval',
+		entry: [
+	    'webpack-dev-server/client?http://localhost:3000',
+	    'webpack/hot/only-dev-server',
+	    path.resolve(ROOT_PATH, 'src/client/App.jsx')
+	  ],
+	  plugins: [
+	    new webpack.HotModuleReplacementPlugin(),
+	    new webpack.NoErrorsPlugin()
+	  ],
+	  resolve: {
+	    extensions: ['', '.js', '.jsx', 'scss']
+	  },
 		module: {
 			loaders: [
 				{
 			    test: /\.jsx?$/,
 			    exclude: /(node_modules|bower_components)/,
-			    include: path.resolve(ROOT_PATH, 'src'),
 			    loaders: ['react-hot', 'babel']
 			  }
 			]
@@ -94,7 +105,6 @@ if (ENV === 'production') {
 				{
 			    test: /\.jsx?$/,
 			    exclude: /(node_modules|bower_components)/,
-			    include: path.resolve(ROOT_PATH, 'src'),
 			    loaders: ['babel']
 			  }
 			]

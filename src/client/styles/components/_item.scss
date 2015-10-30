@@ -1,0 +1,76 @@
+@import '_bookCover';
+
+.item {
+  &__text-wrapper {
+    display: block;
+    font-family: Kievit-Medium;
+    letter-spacing: 0.01em;
+    margin:0 0 12px 0;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+
+    @include desktop {
+      display: inline-block;
+      float: right;
+      margin: 0 0 0 29px;
+      position: relative;
+      width: 567px;
+    }
+
+    .name {
+      color: #000000;
+      cursor: pointer;
+      font-family: Milo-Light;
+      font-size: 20px;
+      letter-spacing: 0;
+      text-decoration: none;
+      text-transform: capitalize;
+
+      @include desktop {
+        font-size: 36px;
+        margin: 0;
+      }
+
+    }
+    .description {
+      display: none;
+      font-family: Milo-Light;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: 20px;
+
+      @include desktop {
+        display: block;
+        margin: 24px 0 24px 0;
+      }
+
+    }
+    .createdDate {
+      font-size: 12px;
+      letter-spacing: 0.01em;
+      line-height: 20px;
+      margin: 4px 0 0 0;
+      text-transform: uppercase;
+
+      @include desktop {
+        font-size: 16px;
+        margin: 24px 0 30px 0;
+      }
+
+    }
+  }
+  &__image-wrapper {
+    cursor: pointer;
+    display: block;
+    height: 200px;
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+
+    @include desktop {
+      width: 269px;
+    }
+
+  }
+}

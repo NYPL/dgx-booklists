@@ -1,0 +1,40 @@
+.widget-container {
+  height: auto;
+  overflow-y: hidden;
+  padding: 58px 0 16px 0;
+
+  .bookListWidget {
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      list-style-type: none;
+      max-height: 406px;
+      margin-right: 29px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .cover-image {
+        width: 120px;
+        height: auto;
+      }
+    }
+
+  }
+}
+
+.bookListWidget-listTitle {
+  font-family: Kievit-Book;
+  font-size: 16px;
+  margin: 0;
+
+  a {
+    color: #000000;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+}
