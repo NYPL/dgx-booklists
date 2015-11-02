@@ -40,7 +40,8 @@ function ListID(req, res, next) {
       console.log('Error calling API widget ListID: ' + error);
       res.locals.data = {
         Store: {
-          bookItemList: {}
+          bookItemList: {},
+          errorInfo: error.data.errors[0]
         },
         completeApiUrl: ''
       };

@@ -9,6 +9,7 @@ import Actions from '../../actions/Actions.js';
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -38,8 +39,8 @@ let Navigation = Router.Navigation,
     render() {
       // The variable to store the data from Store
       let allUsersList = this.state.allUsersList,
-        // Render the data
-        userLinks = (allUsersList && allUsersList.length) ?
+        // Render data or throw error page
+        content = (allUsersList && allUsersList.length) ?
           allUsersList.map((element, i) => {
             return (
               <div className={`${this.props.className}__userlink-wrapper`} key={i}>
@@ -51,24 +52,29 @@ let Navigation = Router.Navigation,
               </div>
             );
           })
-          // If there's no data, display the no list message
-          : <div>No List Here</div>;
+          : <ErrorMessage errorClass='all-user-list-error'
+            messageContent={this.props.errorMessage.noData} />,
+        errorInfo = this.state.errorInfo,
+        errorStatus,
+        errorTitle;
 
-      // Throw error message if anything's wrong
-      if (this.state.errorMessage) {
-        return (
-          <div>Something is wrong</div>
-        );
-      } else {
-        return (
-          <div id='main' className='main'>
-            <Hero />
-            <div id={`${this.props.id}`} className={`${this.props.className}`}>
-              {userLinks}
-            </div>
-          </div>
-        );
+      // Throw error message if something's wrong
+      if (errorInfo) {
+        errorStatus = errorInfo.status;
+        errorTitle = errorInfo.title;
+        content = <ErrorMessage errorClass='all-user-list-error'
+          messageContent={this.props.errorMessage.failedRequest} />;
+        console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
       }
+
+      return (
+        <div id='main' className='main'>
+          <Hero />
+          <div id={`${this.props.id}`} className={`${this.props.className}`}>
+            {content}
+          </div>
+        </div>
+      );
     },
 
     /**
@@ -93,6 +99,11 @@ let Navigation = Router.Navigation,
           Actions.updateUserLists(data.data);
           // Update the number of the lists we get from the refinery API
           Actions.updateListsNumber(data.listsNumber);
+          // Check if any error from the Refinery
+          if (data.errorInfo) {
+            Actions.failedData(data.errorInfo);
+            console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+          }
           // Now transitition to the route.
           this._transitionTo(username);
         }
@@ -115,7 +126,11 @@ let Navigation = Router.Navigation,
 AllUsersList.defaultProps = {
   lang: 'en',
   id: 'all-users-list',
-  className: 'all-users-list'
+  className: 'all-users-list',
+  errorMessage: {
+    noData: 'No user here.',
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
+  }
 };
 
 const styles = {

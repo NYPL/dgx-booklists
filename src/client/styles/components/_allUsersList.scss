@@ -1,7 +1,21 @@
 .all-users-list {
-  margin: 20px;
+  display: block;
+  margin: 0 auto;
+  max-width: 1353px;
+  padding: 24px 0 0 0;
+  position: relative;
+
+  @include desktop {
+    display: block;
+    margin: 0 auto;
+    min-width: 1014px;
+    padding: 24px 20px 60px 21px;
+  }
+
   &__userlink-wrapper {
     cursor: pointer;
-    margin: 20px;
+    font-family: Milo-Light;
+    font-size: 36px;
+    padding: 0 0 42px 149px;
   }
 }

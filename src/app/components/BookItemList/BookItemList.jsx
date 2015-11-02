@@ -15,6 +15,7 @@ import Hero from '../Hero/Hero.jsx';
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
 import BookItem from '../BookItem/BookItem.jsx';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -41,13 +42,6 @@ let Navigation = Router.Navigation,
     },
     // Render DOM
     render() {
-      // Throw error message if anything's wrong
-      if (this.state.errorMessage) {
-        return (
-          <div>Something is wrong</div>
-        );
-      }
-
       // The variable to store the data from Store
       let bookItemList = this.state.bookItemList,
         userId = bookItemList.user ? bookItemList.user.id : '',
@@ -95,47 +89,63 @@ let Navigation = Router.Navigation,
                 authors={authors} />
             );
           })
-          :<div>No book under this list</div>;
+          : <ErrorMessage errorClass='book-item-list-error no-data'
+              messageContent={this.props.errorMessage.noData} />,
+        content = <div className='bookItemList-wrapper'>
+                    <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
+                      <a id={`back-button`}
+                        className={`back-button`}
+                        onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
+                        <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
+                        </span>
+                        <div className={`back-button__text`}>
+                          <p>back to
+                            <span className={`back-button__text__icon-desktop nypl-icon-arrow-up`}>
+                            </span>
+                          </p>
+                          <p>{userDisplayName}</p>
+                          <p>lists</p>
+                        </div>
+                      </a>
+                    </div>
+                    <div id={this.props.id} className={this.props.className}>
+                      <div id={`${this.props.id}__${listName}`}
+                      className={`${this.props.className}__content`}>
+                        <a id={`title-button`}
+                        className={`title-button`}
+                          onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
+                          {userDisplayName}
+                        </a>
+                        {bookItems}
+                      </div>
+                    </div>
+                  </div>,
+        errorInfo = this.state.errorInfo,
+        errorStatus,
+        errorTitle;
+
+      // Throw error message if something's wrong
+      if (errorInfo) {
+        errorStatus = errorInfo.status;
+        errorTitle = errorInfo.title;
+        content = <div className='bookItemList-wrapper'>
+                    <ErrorMessage errorClass='book-item-list-error'
+                      messageContent={this.props.errorMessage.failedRequest} />
+                  </div>;
+        console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
+      }
 
       // Render the list of owners on DOM
       return (
         <div id='main'>
           <DocMeta tags={tags} />
           <Hero name={listName} intro={listIntro}/>
-          <div className='bookItemList-wrapper'>
-            <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
-              <a id={`back-button`}
-                className={`back-button`}
-                onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
-                </span>
-                <div className={`back-button__text`}>
-                  <p>back to
-                    <span className={`back-button__text__icon-desktop nypl-icon-arrow-up`}>
-                    </span>
-                  </p>
-                  <p>{userDisplayName}</p>
-                  <p>lists</p>
-                </div>
-              </a>
-            </div>
-            <div id={this.props.id} className={this.props.className}>
-              <div id={`${this.props.id}__${listName}`}
-              className={`${this.props.className}__content`}>
-                <a id={`title-button`}
-                className={`title-button`}
-                  onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                  {userDisplayName}
-                </a>
-                {bookItems}
-              </div>
-            </div>
-          </div>
+          {content}
         </div>
       );
     },
 
-     /**
+    /**
     * _fetchUserLists(userId, pageSize, pageNumber)
     * Fetch the data we need for UserLists
     * before the app transit us to UserLists page
@@ -159,6 +169,11 @@ let Navigation = Router.Navigation,
             // Update the store for the list of lists a user has.
             Actions.updateUserLists(data.data);
             Actions.updateListsNumber(data.listsNumber);
+            // Check if any error from the Refinery
+            if (data.errorInfo) {
+              Actions.failedData(data.errorInfo);
+              console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+            }
             // Now transit to the route.
             this._transitionToUser(userId);
           }
@@ -179,7 +194,11 @@ let Navigation = Router.Navigation,
 BookItemList.defaultProps = {
   lang: 'en',
   id: 'bookItemList',
-  className: 'bookItemList'
+  className: 'bookItemList',
+  errorMessage: {
+    noData: 'No book in this list.',
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
+  }
 };
 
 export default BookItemList;
