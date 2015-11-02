@@ -15,6 +15,7 @@ import cx from 'classnames'
 import Hero from '../Hero/Hero.jsx';
 import Item from '../Item/Item.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -47,12 +48,6 @@ class UserLists extends React.Component {
 
   // Render DOM
   render() {
-    // Throw error message if anything's wrong from Store
-    if (Store.getState().errorMessage) {
-      return (
-        <div>Something is wrong</div>
-      );
-    }
     // The variable of the array of UserLists
     let userLists = this.state.userLists,
       // The title of the page is the name of the owner.
@@ -62,20 +57,21 @@ class UserLists extends React.Component {
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
       // Show how many pages left in the pagination button
-      pageLeft = this.state.listsNumber - userLists.length,
+      pageLeft = (userLists && userLists.length) ? this.state.listsNumber - userLists.length : 0,
       description = 'A list created by staff at The New York Public Library',
       pageTags = [
         // Required OG meta tags
-        {property: "og:title", content: 'Lists | The New York Public Library'},
+        {property: "og:title", content: `${username} Lists | The New York Public Library`},
         {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userUrlId}`},
         {property: "og:image", content: ''},
         {property: "og:description", content: description},
+        {name: "twitter:title", content: `${username} Lists | The New York Public Library`},
         {name: "twitter:description", content: description},
         {name: "twitter:image", content: ''}
       ],
       tags = utils.metaTagUnion(pageTags),
       // Render the lists if data is correctly delivered
-      lists = (userLists && userLists.length) ?
+      content = (userLists && userLists.length) ?
         userLists.map((element, i) => {
           let dateCreated = Moment(element.attributes['date-created']).format('MMMM D'),
             yearCreated = Moment(element.attributes['date-created']).format('YYYY'),
@@ -99,7 +95,19 @@ class UserLists extends React.Component {
             );
           })
           // Show the error element if there's no data found
-          : <div>No list under this owner</div>;
+          : <ErrorMessage errorClass='user-lists-error' messageContent={this.props.errorMessage.noData} />,
+          errorInfo = this.state.errorInfo,
+          errorStatus,
+          errorTitle;
+
+    // Throw error message if something's wrong from Store
+    if (errorInfo) {
+      errorStatus = errorInfo.status;
+      errorTitle = errorInfo.title;
+      content = <ErrorMessage errorClass='user-lists-error'
+        messageContent={this.props.errorMessage.failedRequest} />;
+      console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
+    }
 
     // Render the list of owners on DOM
     return (
@@ -107,7 +115,7 @@ class UserLists extends React.Component {
         <DocMeta tags={tags} />
         <Hero name={username} />
         <div id={this.props.id} className={this.props.className}>
-          {lists}
+          {content}
         </div>
         <div id={`page-button-wrapper`}
         className={`page-button-wrapper`}>
@@ -151,6 +159,11 @@ class UserLists extends React.Component {
       success: data => {
         // Update the store. Add five more items each time clicking pagination button
         this.setState({userLists: this.state.userLists.concat(data.data)});
+        // Check if any error from the Refinery
+        if (data.errorInfo) {
+          Actions.failedData(data.errorInfo);
+          console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+        }
         // Move to the next page if click the button again
         pageNumber++;
         this.setState({pageNumber: pageNumber});
@@ -162,7 +175,11 @@ class UserLists extends React.Component {
 UserLists.defaultProps = {
   lang: 'en',
   id: 'userlists',
-  className: 'userlists'
+  className: 'userlists',
+  errorMessage: {
+    noData: 'No list under this user.',
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
+  }
 };
 
 export default UserLists;

@@ -45,7 +45,6 @@ function BookListUsers(req, res, next) {
 
   completeApiUrl = parser.getCompleteApi(listOptions);
 
-
   axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
     .then(axios.spread((headerData, allUsersList) => {
       // Booklist data
@@ -74,7 +73,8 @@ function BookListUsers(req, res, next) {
       console.log('Error calling API BookListUsers: ' + error);
       res.locals.data = {
         Store: {
-          allUsersList: []
+          allUsersList: [],
+          errorInfo: error.data.errors[0]
         },
         HeaderStore: {
           headerData: [],
@@ -102,10 +102,10 @@ function BookListUser(req, res, next) {
 
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
         `${username}/links/book-lists`;
+
   listOptions.includes = api.includes;
   
   completeApiUrl = parser.getCompleteApi(listOptions, `${api.pageSize}${api.pageNumber}`);
-
 
   axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
     .then(axios.spread((headerData, userListsData) => {
@@ -113,7 +113,7 @@ function BookListUser(req, res, next) {
       let returnedData = userListsData.data,
         HeaderParsed = parser.parse(headerData.data, headerOptions),
         parsed = parser.parse(returnedData, listOptions),
-        listsNumber = returnedData.meta.count,
+        listsNumber = returnedData.meta.count || 0,
         // Header data
         modelData = Model.build(HeaderParsed);
 
@@ -138,7 +138,8 @@ function BookListUser(req, res, next) {
       res.locals.data = {
         Store: {
           userLists: [],
-          listsNumber: 0
+          listsNumber: 0,
+          errorInfo: error.data.errors[0]
         },
         HeaderStore: {
           headerData: [],
@@ -166,7 +167,7 @@ function ListID(req, res, next) {
 
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`;
   listOptions.includes = api.includes;
-  
+
   completeApiUrl = parser.getCompleteApi(listOptions);
 
   axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
@@ -195,7 +196,8 @@ function ListID(req, res, next) {
       console.log('Error calling API ListID: ' + error);
       res.locals.data = {
         Store: {
-          bookItemList: {}
+          bookItemList: {},
+          errorInfo: error.data.errors[0]
         },
         HeaderStore: {
           headerData: [],
@@ -233,7 +235,7 @@ function AjaxBookListUser(req, res) {
     .then(data => {
       let returnedData = data.data,
         parsed = parser.parse(returnedData, listOptions),
-        listsNumber = returnedData.meta.count;
+        listsNumber = returnedData.meta.count || 0;
 
       // Return the data as a JSON, it will be updated to Store at UserLists component
       res.json({
@@ -244,7 +246,9 @@ function AjaxBookListUser(req, res) {
     })
     .catch(error => {
       console.log('Error calling API: AjaxBookListUser');
-      res.json({'error': 'error calling API'});
+      res.json({
+        errorInfo: error.data.errors[0]
+      });
     }); // end Axios call
 }
 
@@ -261,6 +265,7 @@ function AjaxListID(req, res) {
     completeApiUrl;
 
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`;
+
   listOptions.includes = api.includes;
   
   completeApiUrl = parser.getCompleteApi(listOptions);
@@ -278,7 +283,9 @@ function AjaxListID(req, res) {
     })
     .catch(error => {
       console.log('Error calling API: AjaxListID');
-      res.json({'error': 'error calling API'});
+      res.json({
+        errorInfo: error.data.errors[0]
+      });
     }); // end Axios call
 }
 

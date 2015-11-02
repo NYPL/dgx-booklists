@@ -11,6 +11,7 @@ import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
 import BookItem from '../BookItem/BookItem.jsx';
 import PaginationButton from '../Buttons/PaginationButton.jsx';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
 
@@ -63,24 +64,40 @@ class BookItemList extends React.Component {
             </li>
           );
         })
-        : null;
+        : <ErrorMessage className='widget-error no-data' messageContent={this.props.errorMessage.noData} />,
+      content = <div>
+                  <div id='widget-container' errorClassName='widget-container'>
+                      <ul id={`${this.props.id}`} className={`${this.props.className}`}
+                        style={styles.bookItemsWidth}>
+                        {bookCoverItems}
+                      </ul>
+                    </div>
+                    <p className={`${this.props.className}-listTitle`}>
+                      <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`}
+                        target='_parent'>{listName}</a> @ {userDisplayName}
+                    </p>
+                </div>,
+      errorInfo = this.state.errorInfo,
+      errorStatus,
+      errorTitle;
 
-    if (bookCoverItems !== null) {
+    if (listItems && listItems.length) {
       styles.bookItemsWidth.width = `${bookCoverItems.length * 149 - 29}px`;
+    }
+
+    // Throw error message if something's wrong
+    if (errorInfo) {
+      errorStatus = errorInfo.status;
+      errorTitle = errorInfo.title;
+      content = <ErrorMessage errorClass='widget-error'
+                  messageContent={this.props.errorMessage.failedRequest} />;
+      console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
     }
 
     // Render the list of owners on DOM
     return (
       <div>
-        <div id='widget-container' className='widget-container'>
-          <ul id={`${this.props.id}`} className={`${this.props.className}`}
-            style={styles.bookItemsWidth}>
-            {bookCoverItems}
-          </ul>
-        </div>
-        <p className={`${this.props.className}-listTitle`}>
-          <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`} target='_parent'>{listName}</a> @ {userDisplayName}
-        </p>
+        {content}
       </div>
     );
   }
@@ -95,7 +112,11 @@ let styles = {
 BookItemList.defaultProps = {
   lang: 'en',
   id: 'bookListWidget',
-  className: 'bookListWidget'
+  className: 'bookListWidget',
+  errorMessage: {
+    noData: 'No book in this list.',
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
+  }
 };
 
 export default Radium(BookItemList);

@@ -17,8 +17,8 @@ class Actions {
     this.dispatch(data);
   }
 
-  failedData(errorMessage) {
-    this.dispatch(errorMessage);
+  failedData(errorInfo) {
+    this.dispatch(errorInfo);
   }
 }
 
