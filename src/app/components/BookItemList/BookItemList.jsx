@@ -90,39 +90,39 @@ let Navigation = Router.Navigation,
             );
           })
           : <ErrorMessage className='book-item-list-error no-data'
-            messageContent={this.props.errorMessage.noData} />,
-          content = <div className='bookItemList-wrapper'>
-                      <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
-                        <a id={`back-button`}
-                          className={`back-button`}
-                          onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                          <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
-                          </span>
-                          <div className={`back-button__text`}>
-                            <p>back to
-                              <span className={`back-button__text__icon-desktop nypl-icon-arrow-up`}>
-                              </span>
-                            </p>
-                            <p>{userDisplayName}</p>
-                            <p>lists</p>
-                          </div>
-                        </a>
-                      </div>
-                      <div id={this.props.id} className={this.props.className}>
-                        <div id={`${this.props.id}__${listName}`}
-                        className={`${this.props.className}__content`}>
-                          <a id={`title-button`}
-                          className={`title-button`}
-                            onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
-                            {userDisplayName}
-                          </a>
-                          {bookItems}
+              messageContent={this.props.errorMessage.noData} />,
+        content = <div className='bookItemList-wrapper'>
+                    <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
+                      <a id={`back-button`}
+                        className={`back-button`}
+                        onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
+                        <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
+                        </span>
+                        <div className={`back-button__text`}>
+                          <p>back to
+                            <span className={`back-button__text__icon-desktop nypl-icon-arrow-up`}>
+                            </span>
+                          </p>
+                          <p>{userDisplayName}</p>
+                          <p>lists</p>
                         </div>
+                      </a>
+                    </div>
+                    <div id={this.props.id} className={this.props.className}>
+                      <div id={`${this.props.id}__${listName}`}
+                      className={`${this.props.className}__content`}>
+                        <a id={`title-button`}
+                        className={`title-button`}
+                          onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
+                          {userDisplayName}
+                        </a>
+                        {bookItems}
                       </div>
-                    </div>,
-          errorInfo = this.state.errorInfo,
-          errorStatus,
-          errorTitle;
+                    </div>
+                  </div>,
+        errorInfo = this.state.errorInfo,
+        errorStatus,
+        errorTitle;
 
       // Throw error message if something's wrong
       if (errorInfo) {

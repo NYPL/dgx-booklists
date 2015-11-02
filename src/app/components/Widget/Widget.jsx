@@ -81,7 +81,7 @@ class BookItemList extends React.Component {
       errorStatus,
       errorTitle;
 
-    if (listItems) {
+    if (listItems && listItems.length) {
       styles.bookItemsWidth.width = `${bookCoverItems.length * 149 - 29}px`;
     }
 

@@ -57,7 +57,7 @@ class UserLists extends React.Component {
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
       // Show how many pages left in the pagination button
-      pageLeft = (userLists) ? this.state.listsNumber - userLists.length : 0,
+      pageLeft = (userLists && userLists.length) ? this.state.listsNumber - userLists.length : 0,
       description = 'A list created by staff at The New York Public Library',
       pageTags = [
         // Required OG meta tags

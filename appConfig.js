@@ -11,8 +11,8 @@ const config = {
       qa: 'https://qa-refinery.nypl.org',
       production: 'https://refinery.nypl.org'
     },
-    baseEndpoint: '/api/nypl/ndo/v0.1/book-lists',
-    // baseEndpoint: '/api/nypl/ndo/v0.2/book-lists',
+    // baseEndpoint: '/api/nypl/ndo/v0.1/book-lists',
+    baseEndpoint: '/api/nypl/ndo/v0.2/book-lists',
     bookListUserEndpoint: '/book-list-users',
     fields: '',
     // default setting is loading five items at first
