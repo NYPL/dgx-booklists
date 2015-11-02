@@ -115,7 +115,7 @@ function BookListUser(req, res, next) {
       let returnedData = userListsData.data,
         HeaderParsed = parser.parse(headerData.data, headerOptions),
         parsed = parser.parse(returnedData, listOptions),
-        listsNumber = returnedData.meta.count,
+        listsNumber = returnedData.meta.count || 0,
         // Header data
         modelData = Model.build(HeaderParsed);
 
@@ -237,7 +237,7 @@ function AjaxBookListUser(req, res) {
     .then(data => {
       let returnedData = data.data,
         parsed = parser.parse(returnedData, listOptions),
-        listsNumber = returnedData.meta.count;
+        listsNumber = returnedData.meta.count || 0;
 
       // Return the data as a JSON, it will be updated to Store at UserLists component
       res.json({
