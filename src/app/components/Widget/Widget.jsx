@@ -64,7 +64,7 @@ class BookItemList extends React.Component {
             </li>
           );
         })
-        : <ErrorMessage className='error-message widget' messageContent={this.props.errorMessage.noData} />,
+        : <ErrorMessage className='widget-error no-data' messageContent={this.props.errorMessage.noData} />,
       content = <div>
                   <div id='widget-container' className='widget-container'>
                       <ul id={`${this.props.id}`} className={`${this.props.className}`}
@@ -89,7 +89,7 @@ class BookItemList extends React.Component {
     if (errorInfo) {
       errorStatus = errorInfo.status;
       errorTitle = errorInfo.title;
-      content = <ErrorMessage className='error-message widget'
+      content = <ErrorMessage className='widget-error'
                   messageContent={this.props.errorMessage.failedRequest} />;
       console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
     }

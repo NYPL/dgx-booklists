@@ -52,7 +52,7 @@ let Navigation = Router.Navigation,
               </div>
             );
           })
-          : <ErrorMessage className='error-message all-user-list'
+          : <ErrorMessage className='all-user-list-error'
             messageContent={this.props.errorMessage.noData} />,
         errorInfo = this.state.errorInfo,
         errorStatus,
@@ -62,7 +62,7 @@ let Navigation = Router.Navigation,
       if (errorInfo) {
         errorStatus = errorInfo.status;
         errorTitle = errorInfo.title;
-        content = <ErrorMessage className='error-message'
+        content = <ErrorMessage className='all-user-list-error'
           messageContent={this.props.errorMessage.failedRequest} />;
         console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
       }

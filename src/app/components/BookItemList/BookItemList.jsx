@@ -89,7 +89,7 @@ let Navigation = Router.Navigation,
                 authors={authors} />
             );
           })
-          : <ErrorMessage className='error-message book-item-list'
+          : <ErrorMessage className='book-item-list-error no-data'
             messageContent={this.props.errorMessage.noData} />,
           content = <div className='bookItemList-wrapper'>
                       <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
@@ -129,7 +129,7 @@ let Navigation = Router.Navigation,
         errorStatus = errorInfo.status;
         errorTitle = errorInfo.title;
         content = <div className='bookItemList-wrapper'>
-                    <ErrorMessage className='error-message'
+                    <ErrorMessage className='book-item-list-error'
                       messageContent={this.props.errorMessage.failedRequest} />
                   </div>;
         console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);

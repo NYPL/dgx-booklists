@@ -184,6 +184,7 @@ function ListID(req, res, next) {
       res.locals.data = {
         Store: {
           bookItemList: parsed
+          // bookItemList: []
         },
         HeaderStore: {
           headerData: modelData,

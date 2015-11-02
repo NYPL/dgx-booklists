@@ -1,22 +1,30 @@
-.error-message {
-  font-family: Milo-Light;
-  font-size: 26px;
-  line-height: 28px;
+.all-user-list-error {
+  padding: 0 0 60px 20px;
+
+  @include desktop {
+    padding: 0 0 45px 149px;
+  }
+
+}
+
+.user-lists-error {
   padding: 0 0 60px 0;
 
   @include desktop {
     padding: 45px 0 45px 149px;
   }
 
-  &.all-user-list {
+}
 
-    @include desktop {
-      padding: 0 0 45px 149px;
-    }
+.book-item-list-error {
+  padding: 0 0 60px 20px;
 
+  @include desktop {
+    padding: 0 0 45px 149px;
   }
 
-  &.book-item-list {
+  &.no-data {
+    padding: 0 0 60px 0;
 
     @include desktop {
       padding: 0 0 45px 0;
@@ -24,11 +32,21 @@
 
   }
 
-   &.widget {
+}
+
+.widget-error {
+  padding: 0 0 60px 0;
+
+  @include desktop {
+    padding: 58px 0 16px 29px;
+  }
+
+  &.no-data {
 
     @include desktop {
-      padding: 58px 0 16px 29px;
+      padding: 0 0 0 29px;
     }
 
   }
+
 }
