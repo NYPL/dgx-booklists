@@ -95,7 +95,7 @@ class UserLists extends React.Component {
             );
           })
           // Show the error element if there's no data found
-          : <ErrorMessage className='user-lists-error' messageContent={this.props.errorMessage.noData} />,
+          : <ErrorMessage errorClass='user-lists-error' messageContent={this.props.errorMessage.noData} />,
           errorInfo = this.state.errorInfo,
           errorStatus,
           errorTitle;
@@ -104,7 +104,7 @@ class UserLists extends React.Component {
     if (errorInfo) {
       errorStatus = errorInfo.status;
       errorTitle = errorInfo.title;
-      content = <ErrorMessage className='user-lists-error'
+      content = <ErrorMessage errorClass='user-lists-error'
         messageContent={this.props.errorMessage.failedRequest} />;
       console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
     }
