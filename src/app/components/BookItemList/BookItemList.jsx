@@ -51,13 +51,14 @@ let Navigation = Router.Navigation,
         listName = bookItemList.attributes ? bookItemList.attributes['list-name'] : '',
         listIntro = bookItemList.attributes ? bookItemList.attributes['list-description'] : '',
         encoreUrl = 'http://browse.nypl.org/iii/encore/record/C__Rb',
-        description = 'A list created by staff at The New York Public Library',
+        description = listIntro || 'A list created by staff at The New York Public Library',
         pageTags = [
           // Required OG meta tags
           {property: "og:title", content: `${listName} | The New York Public Library`},
           {property: "og:url", content: `http://www.nypl.org/browse/recommendations/lists/${userId}/${listId}`},
           {property: "og:image", content: ''},
           {property: "og:description", content: description},
+          {name: "twitter:title", content: `${listName} | The New York Public Library`},
           {name: "twitter:description", content: description},
           {name: "twitter:image", content: ''}
         ],
