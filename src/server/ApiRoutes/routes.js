@@ -17,9 +17,7 @@ let router = express.Router(),
     endpoint: `${apiRoot}${headerApi.endpoint}`,
     includes: headerApi.includes,
     filters: headerApi.filters
-  },
-  errorTitle = '',
-  errorStatus = '';
+  };
 
 function getHeaderData() {
   let completeApiUrl = parser.getCompleteApi(headerOptions);

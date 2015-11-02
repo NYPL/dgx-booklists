@@ -13,8 +13,8 @@
 @import 'components/_allUsersList';
 @import 'components/_userLists';
 @import 'components/_bookItemList';
-@import 'components/widget';
-@import 'components/errorMessage';
+@import 'components/_widget';
+@import 'components/_errorMessage';
 
 body {
   @include Kievit-Regular;
