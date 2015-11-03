@@ -56,6 +56,8 @@ class UserLists extends React.Component {
       userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
+      pageButton = cx({'no-page-button': this.state.listsNumber < 6,
+                       'page-button': this.state.listsNumber > 5}),
       // Show how many pages left in the pagination button
       pageLeft = (userLists && userLists.length) ? this.state.listsNumber - userLists.length : 0,
       description = 'A list created by staff at The New York Public Library',
@@ -109,6 +111,8 @@ class UserLists extends React.Component {
       console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
     }
 
+    // console.log(this.state.listsNumber);
+
     // Render the list of owners on DOM
     return (
       <div id='main'>
@@ -117,10 +121,9 @@ class UserLists extends React.Component {
         <div id={this.props.id} className={this.props.className}>
           {content}
         </div>
-        <div id={`page-button-wrapper`}
-        className={`page-button-wrapper`}>
-          <PaginationButton id={`page-button`}
-            className={`page-button`}
+        <div id='page-button-wrapper' className='page-button-wrapper'>
+          <PaginationButton id='page-button'
+            className={pageButton}
             dots='3' label={pageLeft}
             isLoading={this.state.isLoading}
             onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber)}/>

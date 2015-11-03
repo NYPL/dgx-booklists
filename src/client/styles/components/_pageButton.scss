@@ -16,7 +16,7 @@
   line-height: 16.21px;
   overflow: hidden;
   padding: 5px 20px;
-  &__dot-ul {
+  &__dot-row {
     display: block;
     list-style: none;
     margin: 0 auto;
@@ -31,6 +31,19 @@
     &__number {
       display: inline-table;
       margin: 0 4px 0 0;
+    }
+  }
+}
+
+.no-page-button {
+  display: none;
+  &__dot-row {
+    display: none;
+    &__element {
+      display: none;
+    }
+    &__number {
+      display: none;
     }
   }
 }
