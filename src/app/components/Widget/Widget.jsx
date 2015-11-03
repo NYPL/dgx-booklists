@@ -14,6 +14,7 @@ import PaginationButton from '../Buttons/PaginationButton.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
+import gaUtils from '../../utils/gaUtils.js';
 
 // Create the class. Use ES5 for react-router Navigation
 class BookItemList extends React.Component {
@@ -54,7 +55,8 @@ class BookItemList extends React.Component {
 
           return(
             <li>
-              <a href={target} className='bookItem' target='_parent'>
+              <a href={target} className='bookItem' target='_parent'
+                onClick={gaUtils._trackLists.bind(this, 'Widget Book Image', bookItemName)}>
                 <BookCover
                   id={itemId}
                   isbn={bookCoverIsbn}
@@ -67,15 +69,16 @@ class BookItemList extends React.Component {
         : <ErrorMessage className='widget-error no-data' messageContent={this.props.errorMessage.noData} />,
       content = <div>
                   <div id='widget-container' errorClassName='widget-container'>
-                      <ul id={`${this.props.id}`} className={`${this.props.className}`}
-                        style={styles.bookItemsWidth}>
-                        {bookCoverItems}
-                      </ul>
-                    </div>
-                    <p className={`${this.props.className}-listTitle`}>
-                      <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`}
-                        target='_parent'>{listName}</a> @ {userDisplayName}
-                    </p>
+                    <ul id={`${this.props.id}`} className={`${this.props.className}`}
+                      style={styles.bookItemsWidth}>
+                      {bookCoverItems}
+                    </ul>
+                  </div>
+                  <p className={`${this.props.className}-listTitle`}>
+                    <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`}
+                      onClick={gaUtils._trackLists.bind(this, 'Widget List', listName)}
+                      target='_parent'>{listName}</a> @ {userDisplayName}
+                  </p>
                 </div>,
       errorInfo = this.state.errorInfo,
       errorStatus,
