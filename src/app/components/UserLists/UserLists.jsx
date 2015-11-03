@@ -56,10 +56,12 @@ class UserLists extends React.Component {
       userUrlId = (userLists && userLists.length) ? userLists[0].user.id : '',
       pageSize = this.state.pageSize,
       pageNumber = this.state.pageNumber,
-      pageButton = cx({'no-page-button': this.state.listsNumber < 6,
-                       'page-button': this.state.listsNumber > 5}),
       // Show how many pages left in the pagination button
       pageLeft = (userLists && userLists.length) ? this.state.listsNumber - userLists.length : 0,
+      // Hide pagination button if the list is shorter than 5 items
+      // or when the user goes to the end of the list
+      pageButton = cx({'no-page-button': this.state.listsNumber < 6 || pageLeft === 0,
+                       'page-button': this.state.listsNumber > 5}),
       description = 'A list created by staff at The New York Public Library',
       pageTags = [
         // Required OG meta tags
@@ -110,8 +112,6 @@ class UserLists extends React.Component {
         messageContent={this.props.errorMessage.failedRequest} />;
       console.warn(`Server returned a ${errorStatus} status. ${errorTitle}.`);
     }
-
-    // console.log(this.state.listsNumber);
 
     // Render the list of owners on DOM
     return (
