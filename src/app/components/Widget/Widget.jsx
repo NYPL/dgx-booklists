@@ -66,9 +66,9 @@ class BookItemList extends React.Component {
             </li>
           );
         })
-        : <ErrorMessage className='widget-error no-data' messageContent={this.props.errorMessage.noData} />,
+        : <ErrorMessage errorClassName='widget-error no-data' messageContent={this.props.errorMessage.noData} />,
       content = <div>
-                  <div id='widget-container' errorClassName='widget-container'>
+                  <div id='widget-container' className='widget-container'>
                     <ul id={`${this.props.id}`} className={`${this.props.className}`}
                       style={styles.bookItemsWidth}>
                       {bookCoverItems}
