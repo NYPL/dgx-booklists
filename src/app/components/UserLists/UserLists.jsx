@@ -60,8 +60,7 @@ class UserLists extends React.Component {
       pageLeft = (userLists && userLists.length) ? this.state.listsNumber - userLists.length : 0,
       // Hide pagination button if the list is shorter than 5 items
       // or when the user goes to the end of the list
-      pageButton = cx({'no-page-button': this.state.listsNumber < 6 || pageLeft === 0,
-                       'page-button': this.state.listsNumber > 5}),
+      pageButtonDisplay = cx({'--hide': this.state.listsNumber < 6 || pageLeft === 0}),
       description = 'A list created by staff at The New York Public Library',
       pageTags = [
         // Required OG meta tags
@@ -123,7 +122,7 @@ class UserLists extends React.Component {
         </div>
         <div id='page-button-wrapper' className='page-button-wrapper'>
           <PaginationButton id='page-button'
-            className={pageButton}
+            className={`page-button${pageButtonDisplay}`}
             dots='3' label={pageLeft}
             isLoading={this.state.isLoading}
             onClick={this._addItems.bind(this, userUrlId, pageSize, pageNumber)}/>

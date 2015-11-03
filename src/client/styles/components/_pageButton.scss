@@ -33,8 +33,7 @@
       margin: 0 4px 0 0;
     }
   }
-}
-
-.no-page-button {
-  display: none;
+  &--hide {
+    display: none;
+  }
 }
