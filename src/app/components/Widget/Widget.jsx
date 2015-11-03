@@ -64,18 +64,18 @@ class BookItemList extends React.Component {
             </li>
           );
         })
-        : <ErrorMessage className='widget-error no-data' messageContent={this.props.errorMessage.noData} />,
+        : <ErrorMessage errorClassName='widget-error no-data' messageContent={this.props.errorMessage.noData} />,
       content = <div>
-                  <div id='widget-container' errorClassName='widget-container'>
-                      <ul id={`${this.props.id}`} className={`${this.props.className}`}
-                        style={styles.bookItemsWidth}>
-                        {bookCoverItems}
-                      </ul>
-                    </div>
-                    <p className={`${this.props.className}-listTitle`}>
-                      <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`}
-                        target='_parent'>{listName}</a> @ {userDisplayName}
-                    </p>
+                  <div id='widget-container' className='widget-container'>
+                    <ul id={`${this.props.id}`} className={`${this.props.className}`}
+                      style={styles.bookItemsWidth}>
+                      {bookCoverItems}
+                    </ul>
+                  </div>
+                  <p className={`${this.props.className}-listTitle`}>
+                    <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`}
+                      target='_parent'>{listName}</a> @ {userDisplayName}
+                  </p>
                 </div>,
       errorInfo = this.state.errorInfo,
       errorStatus,
