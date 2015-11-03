@@ -60,7 +60,7 @@ class NavMenuItem extends React.Component {
           <a
             href={target}
             className={linkClass}
-            onClick={gaUtils._trackEvent.bind(this, 'Go to...', `${this.props.label['en'].text}`)}>
+            onClick={gaUtils._trackHeader.bind(this, 'Go to...', `${this.props.label['en'].text}`)}>
               {this.props.label[this.props.lang].text}
           </a>
           {megaMenuArrow}

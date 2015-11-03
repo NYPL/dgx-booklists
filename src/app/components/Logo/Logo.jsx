@@ -15,7 +15,7 @@ class Logo extends React.Component {
       id={this.props.id}
       className={this.props.className}
       href={this.props.target}
-      onClick={gaUtils._trackEvent.bind(this, 'Click Logo', '')}
+      onClick={gaUtils._trackHeader.bind(this, 'Click Logo', '')}
       style={[
         styles.base,
         this.props.style //allows for parent-to-child css styling

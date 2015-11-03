@@ -27,7 +27,7 @@ class MegaMenuSubNav extends React.Component {
         
         return (
           <li key={i}>
-            <a href={target} onClick={gaUtils._trackEvent.bind(this, 'Go to...', `${this.props.label[this.props.lang].text}--${m.name[this.props.lang]['text']}`)}>
+            <a href={target} onClick={gaUtils._trackHeader.bind(this, 'Go to...', `${this.props.label[this.props.lang].text}--${m.name[this.props.lang]['text']}`)}>
               {m.name[this.props.lang]['text']}
             </a>
           </li>

@@ -27,7 +27,7 @@ class SimpleButton extends React.Component {
   }
 
   _onClick() {
-    gaUtils._trackEvent(this.props.gaAction, this.props.gaLabel);
+    gaUtils._trackGeneralEvent(this.props.gaCategory, this.props.gaAction, this.props.gaLabel);
     this.props.onClick();
   }
 };

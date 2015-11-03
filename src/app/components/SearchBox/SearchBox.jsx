@@ -205,7 +205,7 @@ class SearchBox extends React.Component {
       this._animationTimer(inputKeywords);
     } else {
       // Fire GA event to track Search
-      gaUtils._trackEvent('Search', gaSearchLabel);
+      gaUtils._trackHeader('Search', gaSearchLabel);
 
       // Go to the search page
       window.location.assign(requestUrl);

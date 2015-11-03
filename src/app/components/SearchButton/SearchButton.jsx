@@ -54,7 +54,7 @@ class SearchButton extends React.Component {
       HeaderActions.searchButtonActionValue('hoverSearch');
 
       // Fire GA event to track when the Search Menu is open
-      gaUtils._trackEvent('Search', 'Open Menu');
+      gaUtils._trackHeader('Search', 'Open Menu');
     }, 150);
   }
 

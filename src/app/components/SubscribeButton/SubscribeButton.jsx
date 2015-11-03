@@ -92,7 +92,7 @@ class SubscribeButton extends React.Component {
       e.preventDefault();
       let visibleState = this.state.subscribeFormVisible ? 'Closed' : 'Open';
       Actions.toggleSubscribeFormVisible(!this.state.subscribeFormVisible);
-      gaUtils._trackEvent('Click', `Subscribe - ${visibleState}`);
+      gaUtils._trackHeader('Click', `Subscribe - ${visibleState}`);
     }
 
   }
@@ -106,7 +106,7 @@ class SubscribeButton extends React.Component {
 
     if (Store._getSubscribeFormVisible()) {
       Actions.toggleSubscribeFormVisible(false);
-      gaUtils._trackEvent('Click', 'Subscribe - Closed');
+      gaUtils._trackHeader('Click', 'Subscribe - Closed');
     }
     
   }

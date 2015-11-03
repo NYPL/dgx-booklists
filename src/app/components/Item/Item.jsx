@@ -8,6 +8,8 @@ import BookCover from '../BookCover/BookCover.jsx';
 
 import Actions from '../../actions/Actions.js';
 
+import gaUtils from '../../utils/gaUtils.js';
+
 // The method allows us to transit between pages internally
 let Navigation = Router.Navigation,
   Item = React.createClass({
@@ -62,6 +64,9 @@ let Navigation = Router.Navigation,
     */
     _fetchBookData(e) {
       e.preventDefault();
+
+      gaUtils._trackLists('List', this.props.name);
+
       $.ajax({
         type: 'GET',
         dataType: 'json',

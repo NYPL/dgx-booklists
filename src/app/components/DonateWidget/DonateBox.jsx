@@ -15,7 +15,7 @@ class DonateBox extends React.Component {
         donationLinks.map((item, index) => {
           return (
             <li key={index}>
-              <a href={item.url} onClick={gaUtils._trackEvent.bind(this, 'Donate', `Menu--${item.amount}`)}>
+              <a href={item.url} onClick={gaUtils._trackHeader.bind(this, 'Donate', `Menu--${item.amount}`)}>
                 {item.amount}
               </a>
             </li>

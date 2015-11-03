@@ -20,7 +20,7 @@ class EventProgramItem extends React.Component {
 
     return (
       <a href={feature.link} className={this.props.className}
-        onClick={gaUtils._trackEvent.bind(this, 'FeatureItem', `${this.props.navLabel} - ${feature.headline}`)}>
+        onClick={gaUtils._trackHeader.bind(this, 'FeatureItem', `${this.props.navLabel} - ${feature.headline}`)}>
         <div className={`${this.props.className}-Wrapper`}>
           {img}
           <div className={'FeatureItem-Content ' + classes}>

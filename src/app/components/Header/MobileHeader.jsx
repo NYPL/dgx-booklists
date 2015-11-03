@@ -143,7 +143,7 @@ class MobileHeader extends React.Component {
       }
     }
 
-    gaUtils._trackEvent('Click', `Mobile ${activeButton}`);
+    gaUtils._trackHeader('Click', `Mobile ${activeButton}`);
   }
 
   /**

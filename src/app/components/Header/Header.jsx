@@ -76,6 +76,7 @@ class Header extends React.Component {
                 target='//catalog.nypl.org/screens/selfregpick.html' 
                 className='LibraryCardButton'
                 id='LibraryCardButton'
+                gaCategory='NYPL Header'
                 gaAction='Get a Library Card'
                 gaLabel=''
                 style={styles.libraryCardButton} />
@@ -125,7 +126,7 @@ class Header extends React.Component {
 
     if (windowVerticalDistance > headerHeight) {
       // Fire GA Event when Header is in Sticky Mode
-      gaUtils._trackEvent.bind(this, 'scroll', 'Sticky Header');
+      gaUtils._trackHeader.bind(this, 'scroll', 'Sticky Header');
 
       Actions.updateIsHeaderSticky(true);
     } else {
