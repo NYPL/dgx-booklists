@@ -32,15 +32,6 @@ var commonSettings = {
 	},
 	module: {
 		loaders: [
-		  {
-        test: /\.scss$/,
-        include: path.resolve(ROOT_PATH, 'src'),
-        loader: ExtractTextPlugin.extract(
-          // activate source maps via loader query
-          'css?sourceMap!' +
-          'sass?sourceMap'
-        )
-		  }
 		]
 	},
 	plugins: [
@@ -86,7 +77,12 @@ if (ENV === 'development') {
 			    test: /\.jsx?$/,
 			    exclude: /(node_modules|bower_components)/,
 			    loaders: ['react-hot', 'babel']
-			  }
+			  },
+			  {
+			  	test: /\.scss?$/,
+				  loader: 'style!css!sass',
+				  include: path.resolve(ROOT_PATH, 'src')
+				}
 			]
 		}
 	});
@@ -109,6 +105,15 @@ if (ENV === 'production') {
 			    test: /\.jsx?$/,
 			    exclude: /(node_modules|bower_components)/,
 			    loaders: ['babel']
+			  },
+			  {
+	        test: /\.scss$/,
+	        include: path.resolve(ROOT_PATH, 'src'),
+	        loader: ExtractTextPlugin.extract(
+	          // activate source maps via loader query
+	          'css?sourceMap!' +
+	          'sass?sourceMap'
+	        )
 			  }
 			]
 		},
