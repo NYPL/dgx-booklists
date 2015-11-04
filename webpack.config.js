@@ -30,10 +30,6 @@ var commonSettings = {
 		// Additionally we can isolate vendor files as well
 		filename: 'bundle.js'
 	},
-	module: {
-		loaders: [
-		]
-	},
 	plugins: [
 		// Cleans the Dist folder after every build.
 		// Alternately, we can run rm -rf dist/ as
