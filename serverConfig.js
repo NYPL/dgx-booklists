@@ -106,7 +106,6 @@ app.use('/', ApiRoutes);
 
 // Match all routes to render the index page.
 app.use('/', (req, res) => {
-  console.log(req.path);
   let router = Router.create({
       routes: routes.server,
       location: req.path
@@ -160,8 +159,13 @@ if (!isProduction) {
   new WebpackDevServer(webpack(webpackConfig), {
     publicPath: webpackConfig.output.publicPath,
     hot: true,
+    inline: true,
     stats: false,
-    historyApiFallback: true
+    historyApiFallback: true,
+    headers: {
+      'Access-Control-Allow-Origin': 'http://localhost:3001',
+      'Access-Control-Allow-Headers': 'X-Requested-With'
+    }
   }).listen(WEBPACK_DEV_PORT, 'localhost', (err, result) => {
     if (err) {
       console.log(colors.red(err));
