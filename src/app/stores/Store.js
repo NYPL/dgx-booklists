@@ -20,7 +20,7 @@ class Store {
       this.userLists = [];
       this.bookItemList = {};
       this.listsNumber = 0;
-      this.errorMessage = null;
+      this.errorInfo = {};
     });
   }
 
@@ -40,8 +40,8 @@ class Store {
     this.listsNumber = data;
   }
 
-  handleDataFailedFetch(errorMessage) {
-    this.errorMessage =  errorMessage;
+  handleDataFailedFetch(errorInfo) {
+    this.errorInfo = errorInfo;
   }
 
   // Remember to use this.state when returning exposing store data.

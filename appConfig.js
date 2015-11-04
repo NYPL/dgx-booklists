@@ -186,6 +186,11 @@ const config = {
     qa: 'https://qa-header.nypl.org',
     development: 'https://dev-header.nypl.org'
   },
+  myNyplLinks: {
+    catalog: 'https://browse.nypl.org/iii/encore/myaccount',
+    classic: 'https://catalog.nypl.org/patroninfo/0/top',
+    moreInfo: 'https://www.nypl.org/online-catalog-changes'
+  },
   metaTags: [
     {property: "og:type", content: 'website'},
     {property: "og:image:type", content: 'image/png'},
@@ -195,8 +200,7 @@ const config = {
     {property: "og:site_name", content: 'Lists | The New York Public Library'},
     {name: "twitter:card", content: 'summary_large_image'},
     {name: "twitter:site", content: '@nypl'},
-    {name: "twitter:creator", content: '@nypl'},
-    {name: "twitter:title", content: 'List | The New York Public Library'}
+    {name: "twitter:creator", content: '@nypl'}
   ]
 };
 

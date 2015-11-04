@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import Radium from 'radium';
 
 import config from '../../../../appConfig.js';
 import SocialMediaLinksWidget from '../SocialMediaLinksWidget/SocialMediaLinksWidget.jsx';
@@ -42,7 +43,9 @@ class MegaMenuSubNav extends React.Component {
 
     return (
       <div className='MegaMenu-SubNav'>
-        <h2>{this.props.label[this.props.lang].text}</h2>
+        <a style={styles.topLink} href={this.props.topLink}>
+          <h2>{this.props.label[this.props.lang].text}</h2>
+        </a>
         <ul>{items}</ul>
         {socialMediaWidget}
       </div>
@@ -51,7 +54,15 @@ class MegaMenuSubNav extends React.Component {
 }
 
 MegaMenuSubNav.defaultProps = {
-  lang: 'en'
+  lang: 'en',
+  topLink: '#'
 };
 
-export default MegaMenuSubNav;
+const styles = {
+  topLink: {
+    textDecoration: 'none',
+    color: '#FFF'
+  }
+};
+
+export default Radium(MegaMenuSubNav);
