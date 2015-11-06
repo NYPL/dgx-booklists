@@ -42,8 +42,11 @@ let Navigation = Router.Navigation,
     },
     // Render DOM
     render() {
+
+      console.log(this.state);
+
       // The variable to store the data from Store
-      let bookItemList = this.state.bookItemList,
+      let bookItemList = this.state.bookItemList ? this.state.bookItemList : [],
         userId = bookItemList.user ? bookItemList.user.id : '',
         userDisplayName = bookItemList.user ? bookItemList.user.attributes.name : '',
         listId = bookItemList.id || '',
