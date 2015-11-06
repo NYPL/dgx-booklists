@@ -31,7 +31,7 @@ let Navigation = Router.Navigation,
     // Listen to the change from data
     componentDidMount() {
       Store.listen(this._onChange.bind(this));
-      // If the users browse the app with back button or forward button,
+      // If the users browse the app with backward button or forward button,
       // we need to check if they have refreshed the page and lost the data in the Store.
       if(!this.state.bookItemList) {
         this._fetchBookData();
@@ -198,7 +198,7 @@ let Navigation = Router.Navigation,
     /**
     * _fetchBookData()
     * Make an AJAX call to get the data, and then transit to the route.
-    * This function is specifically for nagivation with back button and forward on the browser.
+    * This function is specifically for nagivation with backward or forward button on the browser.
     * If the user refreshes the page and loses all the data in the Store,
     * this function is for the app to fetch the data again.
     */

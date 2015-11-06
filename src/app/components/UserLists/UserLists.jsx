@@ -34,6 +34,15 @@ class UserLists extends React.Component {
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
+    // If the users browse the app by backword or forward button and refresh the page, 
+    // they will lose the data in the Store.
+    // Here we make a mechansim to try to fetch the data again. 
+    if(!this.state.userLists) {
+      let urlUserList = (window.location.pathname).split('/'),
+        urlUserListId = urlUserList[urlUserList.length-2];
+
+      this._fetchUserLists(urlUserListId, this.state.pageSize, this.state.pageNumber);
+    }
   }
 
   // Stop listening
@@ -48,9 +57,6 @@ class UserLists extends React.Component {
 
   // Render DOM
   render() {
-
-    console.log(this.state);
-
     // The variable of the array of UserLists
     let userLists = this.state.userLists,
       // The title of the page is the name of the owner.
@@ -173,6 +179,46 @@ class UserLists extends React.Component {
       }
     });
   }
+
+  /**
+    * _fetchUserLists(urlUserListId, pageSize, pageNumber)
+    * Fetch the data we need for UserLists
+    * This function is specifically for the case if the users browse the app by
+    * backwaord or forward button and refresh the page thus lost the data in the Store.
+    * This function helps the app to fetch the data again.
+    *
+    * @param (String) urlUserListId
+    * @param (String) pageSize
+    *@ param (String) pageNumber
+    */
+    _fetchUserLists(urlUserListId, pageSize, pageNumber) {
+        console.log(urlUserListId);
+        console.log(pageSize);
+        console.log(pageNumber);
+
+      if (!urlUserListId || !pageSize || !pageNumber) {
+        console.log('Unavailable parameters for the request.');
+        return;
+      }
+      if (!Store.getUserLists()) {
+        // First fetch the data and then transition. Must also handle errors.
+        $.ajax({
+          type: 'GET',
+          dataType: 'json',
+          url: `/browse/recommendations/lists/api/ajax/username/${urlUserListId}&${pageSize}&${pageNumber}`,
+          success: data => {
+            // Update the store for the list of lists a user has.
+            Actions.updateUserLists(data.data);
+            Actions.updateListsNumber(data.listsNumber);
+            // Check if any error from the Refinery
+            if (data.errorInfo) {
+              Actions.failedData(data.errorInfo);
+              console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+            }
+          }
+        });
+      }
+    }
 };
 
 UserLists.defaultProps = {
