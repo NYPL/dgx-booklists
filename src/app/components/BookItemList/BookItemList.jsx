@@ -31,6 +31,11 @@ let Navigation = Router.Navigation,
     // Listen to the change from data
     componentDidMount() {
       Store.listen(this._onChange.bind(this));
+      // If the users browse the app with back button or forward button,
+      // we need to check if they have refreshed the page and lost the data in the Store.
+      if(!this.state.bookItemList) {
+        this._fetchBookData();
+      }
     },
     // Stop listening
     componentWillUnmount() {
@@ -42,9 +47,6 @@ let Navigation = Router.Navigation,
     },
     // Render DOM
     render() {
-
-      console.log(this.state);
-
       // The variable to store the data from Store
       let bookItemList = this.state.bookItemList ? this.state.bookItemList : [],
         userId = bookItemList.user ? bookItemList.user.id : '',
@@ -190,6 +192,33 @@ let Navigation = Router.Navigation,
       // Now transit to the route.
       this.transitionTo('UserLists', {
         UserLists: userId
+      });
+    },
+
+    /**
+    * _fetchBookData()
+    * Make an AJAX call to get the data, and then transit to the route.
+    * This function is specifically for nagivation with back button and forward on the browser.
+    * If the user refreshes the page and loses all the data in the Store,
+    * this function is for the app to fetch the data again.
+    */
+    _fetchBookData() {
+      let urlBookItemList = (window.location.pathname).split('/'),
+        urlBookItemListId = urlBookItemList[urlBookItemList.length-2];
+
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: `/browse/recommendations/lists/api/ajax/listID/${urlBookItemListId}`,
+        success: data => {
+          // Update the Store for a specific list of books:
+          Actions.updateBookList(data.data);
+          // Check if any error from the Refinery
+          if (data.errorInfo) {
+            Actions.failedData(data.errorInfo);
+            console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+          }
+        }
       });
     }
   });
