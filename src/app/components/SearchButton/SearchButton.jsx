@@ -11,7 +11,7 @@ import HeaderStore from '../../stores/HeaderStore.js';
 import HeaderActions from '../../actions/HeaderActions.js';
 
 // GA Utility Library
-import gaUtils from '../../utils/gaUtils.js';
+import utils from '../../utils/utils.js';
 
 // Create React class
 class SearchButton extends React.Component {
@@ -54,7 +54,7 @@ class SearchButton extends React.Component {
       HeaderActions.searchButtonActionValue('hoverSearch');
 
       // Fire GA event to track when the Search Menu is open
-      gaUtils._trackHeader('Search', 'Open Menu');
+      utils._trackHeader('Search', 'Open Menu');
     }, 150);
   }
 

@@ -18,7 +18,6 @@ import PaginationButton from '../Buttons/PaginationButton.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
-import gaUtils from '../../utils/gaUtils.js';
 
 class UserLists extends React.Component {
   constructor(props) {
@@ -145,7 +144,7 @@ class UserLists extends React.Component {
       return;
     }
 
-    gaUtils._trackLists('Loader', `List - ${userUrlId}`);
+    utils._trackLists('Loader', `List - ${userUrlId}`);
 
     $.ajax({
       type: 'GET',

@@ -7,7 +7,7 @@ import cx from 'classnames';
 import HeaderStore from '../../stores/HeaderStore.js';
 import Actions from '../../actions/HeaderActions.js';
 
-import gaUtils from '../../utils/gaUtils.js';
+import utils from '../../utils/utils.js';
 
 // NYPL Components
 import Logo from '../Logo/Logo.jsx';
@@ -126,7 +126,7 @@ class Header extends React.Component {
 
     if (windowVerticalDistance > headerHeight) {
       // Fire GA Event when Header is in Sticky Mode
-      gaUtils._trackHeader.bind(this, 'scroll', 'Sticky Header');
+      utils._trackHeader.bind(this, 'scroll', 'Sticky Header');
 
       Actions.updateIsHeaderSticky(true);
     } else {

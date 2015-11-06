@@ -26,7 +26,7 @@ function gaUtils() {
    * @returns {function} Returns a function with the category set.
    *  Then you pass in the action and the label.
    */
-  let _trackEvent = category => {
+  this._trackEvent = category => {
     return (action, label) => {
       return ga.event({
         category: category,
@@ -35,26 +35,6 @@ function gaUtils() {
       });
     };
   };
-
-  /**
-   * _trackHeader(action, label)
-   * Track a GA click event, where action and label come from
-   * the higher level function call from _trackEvent().
-   *
-   * @param {action} String Action for GA event.
-   * @param {label} String Label for GA event.
-   */
-  this._trackHeader = _trackEvent('NYPL Header');
-
-  /**
-   * _trackLists(action, label)
-   * Track a GA click event, where action and label come from
-   * the higher level function call from _trackEvent().
-   *
-   * @param {action} String Action for GA event.
-   * @param {label} String Label for GA event.
-   */
-  this._trackLists = _trackEvent('Book Lists');
 }
 
 export default new gaUtils();

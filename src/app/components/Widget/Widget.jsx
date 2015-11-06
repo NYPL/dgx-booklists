@@ -14,7 +14,6 @@ import PaginationButton from '../Buttons/PaginationButton.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
-import gaUtils from '../../utils/gaUtils.js';
 
 // Create the class. Use ES5 for react-router Navigation
 class BookItemList extends React.Component {
@@ -56,7 +55,7 @@ class BookItemList extends React.Component {
           return(
             <li>
               <a href={target} className='bookItem' target='_parent'
-                onClick={gaUtils._trackLists.bind(this, 'Widget Book Image', bookItemName)}>
+                onClick={utils._trackLists.bind(this, 'Widget Book Image', bookItemName)}>
                 <BookCover
                   id={itemId}
                   isbn={bookCoverIsbn}
@@ -76,7 +75,7 @@ class BookItemList extends React.Component {
                   </div>
                   <p className={`${this.props.className}-listTitle`}>
                     <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`}
-                      onClick={gaUtils._trackLists.bind(this, 'Widget List', listName)}
+                      onClick={utils._trackLists.bind(this, 'Widget List', listName)}
                       target='_parent'>{listName}</a> @ {userDisplayName}
                   </p>
                 </div>,

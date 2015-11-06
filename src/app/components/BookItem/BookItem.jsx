@@ -11,7 +11,7 @@ import Actions from '../../actions/Actions.js';
 // Import Misc
 import cx from 'classnames'
 
-import gaUtils from '../../utils/gaUtils.js';
+import utils from '../../utils/utils.js';
 
 class BookItem extends React.Component {
   // Constructor used in ES6
@@ -43,7 +43,7 @@ class BookItem extends React.Component {
         </div>
         <div className={`${this.props.className}__detail`}>
           <a className='image-wrapper' href={this.props.target}
-            onClick={gaUtils._trackLists.bind(this, 'Book Image', this.props.bookItemName)}>
+            onClick={utils._trackLists.bind(this, 'Book Image', this.props.bookItemName)}>
             <BookCover isbn={this.props.bookCoverIsbn}
               name={this.props.bookItemName}
               className='cover-image' />

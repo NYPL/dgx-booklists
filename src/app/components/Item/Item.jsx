@@ -8,7 +8,7 @@ import BookCover from '../BookCover/BookCover.jsx';
 
 import Actions from '../../actions/Actions.js';
 
-import gaUtils from '../../utils/gaUtils.js';
+import utils from '../../utils/utils.js';
 
 // The method allows us to transit between pages internally
 let Navigation = Router.Navigation,
@@ -65,7 +65,7 @@ let Navigation = Router.Navigation,
     _fetchBookData(e) {
       e.preventDefault();
 
-      gaUtils._trackLists('List', this.props.name);
+      utils._trackLists('List', this.props.name);
 
       $.ajax({
         type: 'GET',

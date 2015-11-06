@@ -18,7 +18,6 @@ import BookItem from '../BookItem/BookItem.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 import utils from '../../utils/utils.js';
-import gaUtils from '../../utils/gaUtils.js';
 
 // The method allows us to transit between pages internally
 let Navigation = Router.Navigation,
@@ -161,7 +160,7 @@ let Navigation = Router.Navigation,
         return;
       }
 
-      gaUtils._trackLists('Go back to...', userId);
+      utils._trackLists('Go back to...', userId);
 
       if (!Store.getUserLists()) {
         // First fetch the data and then transition. Must also handle errors.
