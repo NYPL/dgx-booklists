@@ -34,9 +34,9 @@ class UserLists extends React.Component {
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-    // If the users browse the app by backword or forward button and refresh the page, 
+    // If the users browse the app by backward or forward button and refresh the page,
     // they will lose the data in the Store.
-    // Here we make a mechansim to try to fetch the data again. 
+    // Here we make a mechansim to try to fetch the data again.
     if(!this.state.userLists) {
       let urlUserList = (window.location.pathname).split('/'),
         urlUserListId = urlUserList[urlUserList.length-2];
@@ -184,7 +184,7 @@ class UserLists extends React.Component {
     * _fetchUserLists(urlUserListId, pageSize, pageNumber)
     * Fetch the data we need for UserLists
     * This function is specifically for the case if the users browse the app by
-    * backwaord or forward button and refresh the page thus lost the data in the Store.
+    * backward or forward button and refresh the page thus lost the data in the Store.
     * This function helps the app to fetch the data again.
     *
     * @param (String) urlUserListId
