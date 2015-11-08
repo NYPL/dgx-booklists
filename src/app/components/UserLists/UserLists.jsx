@@ -194,10 +194,6 @@ class UserLists extends React.Component {
     *@ param (String) pageNumber
     */
     _fetchUserLists(urlUserListId, pageSize, pageNumber) {
-        console.log(urlUserListId);
-        console.log(pageSize);
-        console.log(pageNumber);
-
       if (!urlUserListId || !pageSize || !pageNumber) {
         console.log('Unavailable parameters for the request.');
         return;
