@@ -31,7 +31,9 @@ let Navigation = Router.Navigation,
     // Listen to the change from data
     componentDidMount() {
       Store.listen(this._onChange.bind(this));
-      // If the users browse the app with backward button or forward button,
+      // As a fallback, we check if the app fails to fetch the data.
+      // If so, the app will attempt to make a call on client-side one more time.
+      // Also, if the users browse the app with backward button or forward button,
       // we need to check if they have refreshed the page and lost the data in the Store.
       if(!this.state.bookItemList) {
         this._fetchBookData();
@@ -197,10 +199,12 @@ let Navigation = Router.Navigation,
 
     /**
     * _fetchBookData()
-    * Make an AJAX call to get the data, and then transit to the route.
-    * This function is specifically for nagivation with backward or forward button on the browser.
-    * If the user refreshes the page and loses all the data in the Store,
-    * this function is for the app to fetch the data again.
+    * This function calls the API to fetch the data of BookItemList.
+    * It could be used as a fallback if the app fails to fetch data from the sever.
+    * Also, for the case if the users navigate the app with backward or
+    * forward button, and refresh the page at some point of time,
+    * the app will lose all the data in the Store.
+    * Thus, this function is here for the app to fetch the data again.
     */
     _fetchBookData() {
       let urlBookItemList = (window.location.pathname).split('/'),

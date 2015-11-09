@@ -34,9 +34,10 @@ class UserLists extends React.Component {
   // Listen to the change from data
   componentDidMount() {
     Store.listen(this._onChange.bind(this));
-    // If the users browse the app by backward or forward button and refresh the page,
-    // they will lose the data in the Store.
-    // Here we make a mechansim to try to fetch the data again.
+    // As a fallback, we check if the app fails to fetch the data.
+    // If so, the app will attempt to make a call on client-side one more time.
+    // Also, if the users browse the app with backward button or forward button,
+    // we need to check if they have refreshed the page and lost the data in the Store.
     if(!this.state.userLists) {
       let urlUserList = (window.location.pathname).split('/'),
         urlUserListId = urlUserList[urlUserList.length-2];
@@ -183,40 +184,42 @@ class UserLists extends React.Component {
   }
 
   /**
-    * _fetchUserLists(urlUserListId, pageSize, pageNumber)
-    * Fetch the data we need for UserLists
-    * This function is specifically for the case if the users browse the app by
-    * backward or forward button and refresh the page thus lost the data in the Store.
-    * This function helps the app to fetch the data again.
-    *
-    * @param (String) urlUserListId
-    * @param (String) pageSize
-    *@ param (String) pageNumber
-    */
-    _fetchUserLists(urlUserListId, pageSize, pageNumber) {
-      if (!urlUserListId || !pageSize || !pageNumber) {
-        console.log('Unavailable parameters for the request.');
-        return;
-      }
-      if (!Store.getUserLists()) {
-        // First fetch the data and then transition. Must also handle errors.
-        $.ajax({
-          type: 'GET',
-          dataType: 'json',
-          url: `/browse/recommendations/lists/api/ajax/username/${urlUserListId}&${pageSize}&${pageNumber}`,
-          success: data => {
-            // Update the store for the list of lists a user has.
-            Actions.updateUserLists(data.data);
-            Actions.updateListsNumber(data.listsNumber);
-            // Check if any error from the Refinery
-            if (data.errorInfo) {
-              Actions.failedData(data.errorInfo);
-              console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
-            }
-          }
-        });
-      }
+  * _fetchUserLists(urlUserListId, pageSize, pageNumber)
+  * This function calls the API to fetch the data of UserLists.
+  * It could be used as a fallback if the app fails to fetch data from the sever.
+  * Also, for the case if the users navigate the app with backward or
+  * forward button, and refresh the page at some point of time,
+  * the app will lose all the data in the Store.
+  * Thus, this function is here for the app to fetch the data again.
+  *
+  * @param (String) urlUserListId
+  * @param (String) pageSize
+  *@ param (String) pageNumber
+  */
+  _fetchUserLists(urlUserListId, pageSize, pageNumber) {
+    if (!urlUserListId || !pageSize || !pageNumber) {
+      console.log('Unavailable parameters for the request.');
+      return;
     }
+    if (!Store.getUserLists()) {
+      // First fetch the data and then transition. Must also handle errors.
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: `/browse/recommendations/lists/api/ajax/username/${urlUserListId}&${pageSize}&${pageNumber}`,
+        success: data => {
+          // Update the store for the list of lists a user has.
+          Actions.updateUserLists(data.data);
+          Actions.updateListsNumber(data.listsNumber);
+          // Check if any error from the Refinery
+          if (data.errorInfo) {
+            Actions.failedData(data.errorInfo);
+            console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+          }
+        }
+      });
+    }
+  }
 };
 
 UserLists.defaultProps = {
