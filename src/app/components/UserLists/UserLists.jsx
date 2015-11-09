@@ -40,7 +40,7 @@ class UserLists extends React.Component {
     // we need to check if they have refreshed the page and lost the data in the Store.
     if(!this.state.userLists) {
       let urlUserList = (window.location.pathname).split('/'),
-        urlUserListId = urlUserList[urlUserList.length-2];
+        urlUserListId = urlUserList[4];
 
       this._fetchUserLists(urlUserListId, this.state.pageSize, this.state.pageNumber);
     }

@@ -208,7 +208,7 @@ let Navigation = Router.Navigation,
     */
     _fetchBookData() {
       let urlBookItemList = (window.location.pathname).split('/'),
-        urlBookItemListId = urlBookItemList[urlBookItemList.length-2];
+        urlBookItemListId = urlBookItemList[5];
 
       $.ajax({
         type: 'GET',
