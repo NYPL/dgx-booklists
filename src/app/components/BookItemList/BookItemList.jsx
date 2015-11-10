@@ -166,6 +166,9 @@ let Navigation = Router.Navigation,
         console.log('Unavailable parameters for the request.');
         return;
       }
+
+      utils._trackLists('Go back to...', userId);
+
       if (!Store.getUserLists()) {
         // First fetch the data and then transition. Must also handle errors.
         $.ajax({

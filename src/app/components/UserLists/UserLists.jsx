@@ -155,6 +155,9 @@ class UserLists extends React.Component {
       console.log('Unavailable parameters for the request.');
       return;
     }
+
+    utils._trackLists('Loader', `List - ${userUrlId}`);
+
     $.ajax({
       type: 'GET',
       dataType: 'json',
