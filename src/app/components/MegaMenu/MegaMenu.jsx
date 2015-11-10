@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 // ALT Flux Store/Actions
 import HeaderStore from '../../stores/HeaderStore.js';
-import HeaderActions from '../../actions/HeaderActions.js';
+import Actions from '../../actions/HeaderActions.js';
 
 // Dependent NYPL React Components
 import MegaMenuSubNav from './MegaMenuSubNav.jsx';
@@ -49,7 +49,7 @@ class MegaMenu extends React.Component {
         <div className='MegaMenu-Wrapper'>
           <div className='MegaMenu-SubNavWrapper'>
             <MegaMenuSubNav
-              label={this.props.label} 
+              label={this.props.label}
               items={this.props.items}
               lang={this.props.lang}
               topLink={this.props.topLink}
@@ -74,7 +74,7 @@ class MegaMenu extends React.Component {
    */
   _watchHoverIntentEnter() {
     if (this.props.lastActiveMenuItem === this.props.navId) {
-      HeaderActions.setLastActiveMenuItem(this.props.navId);
+      Actions.setLastActiveMenuItem(this.props.navId);
     }
   }
 
@@ -85,7 +85,7 @@ class MegaMenu extends React.Component {
    * hovered out.
    */
   _watchHoverIntentLeave() {
-    HeaderActions.setLastActiveMenuItem('');
+    Actions.setLastActiveMenuItem('');
   }
 }
 

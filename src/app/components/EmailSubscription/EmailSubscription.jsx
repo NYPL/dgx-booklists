@@ -76,7 +76,7 @@ class EmailSubscription extends React.Component {
                 ref='emailAddressField'
                 isRequired={true} />
 
-              <div className={`${formClass}-Error error ` + errorClass}>
+              <div className={`${formClass}-Error ` + errorClass}>
                 <span className='nypl-icon-solo-x icon'></span><span>Please enter a valid email address</span>
               </div>
 
@@ -95,7 +95,7 @@ class EmailSubscription extends React.Component {
         </div>);
 
       if (status === 'success') {
-        utils._trackHeader('Subscribe', 'Success');
+        gaUtils._trackHeader('Subscribe', 'Success');
         subscribeContent = (
           <div>
             <SubscribeMessageBox status={status} msg="Thank you for subscribing to our email updates." />
@@ -113,7 +113,7 @@ class EmailSubscription extends React.Component {
       }
 
       if (status === 'exists') {
-        utils._trackHeader('Subscribe', 'Error -- already subscribed');
+        gaUtils._trackHeader('Subscribe', 'Error -- already subscribed');
         subscribeContent = (
           <div>
             <SubscribeMessageBox status={status} msg="Looks like you're already signed up!" />
@@ -124,7 +124,7 @@ class EmailSubscription extends React.Component {
       }
 
       if (status === 'error' || status === 'Internal Server Error') {
-        utils._trackHeader('Subscribe', 'Error');
+        gaUtils._trackHeader('Subscribe', 'Error');
         subscribeContent = (
           <div className={`${this.props.className}-Misc-Error`}>
             <div>Hmm...</div>

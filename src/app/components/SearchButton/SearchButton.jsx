@@ -8,7 +8,7 @@ import SearchBox from '../SearchBox/SearchBox.jsx';
 
 // ALT Flux Store/Actions
 import HeaderStore from '../../stores/HeaderStore.js';
-import HeaderActions from '../../actions/HeaderActions.js';
+import Actions from '../../actions/HeaderActions.js';
 
 // GA Utility Library
 import utils from '../../utils/utils.js';
@@ -51,7 +51,7 @@ class SearchButton extends React.Component {
    */
   _activateHover() {
     this.hoverTimer = setTimeout(() => {
-      HeaderActions.searchButtonActionValue('hoverSearch');
+      Actions.searchButtonActionValue('hoverSearch');
 
       // Fire GA event to track when the Search Menu is open
       utils._trackHeader('Search', 'Open Menu');
@@ -68,7 +68,7 @@ class SearchButton extends React.Component {
     clearTimeout(this.hoverTimer);
 
     setTimeout(() => {
-      HeaderActions.searchButtonActionValue('');
+      Actions.searchButtonActionValue('');
     }, 250);
   }
 }
