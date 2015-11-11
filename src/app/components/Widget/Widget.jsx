@@ -54,7 +54,8 @@ class BookItemList extends React.Component {
 
           return(
             <li>
-              <a href={target} className='bookItem' target='_parent'>
+              <a href={target} className='bookItem' target='_parent'
+                onClick={utils._trackLists.bind(this, 'Widget Book Image', bookItemName)}>
                 <BookCover
                   id={itemId}
                   isbn={bookCoverIsbn}
@@ -74,6 +75,7 @@ class BookItemList extends React.Component {
                   </div>
                   <p className={`${this.props.className}-listTitle`}>
                     <a href={`//nypl.org/browse/recommendations/lists/${userId}/${listId}`}
+                      onClick={utils._trackLists.bind(this, 'Widget List', listName)}
                       target='_parent'>{listName}</a> @ {userDisplayName}
                   </p>
                 </div>,

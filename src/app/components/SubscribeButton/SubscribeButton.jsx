@@ -10,7 +10,7 @@ import Actions from '../../actions/HeaderActions.js';
 
 import axios from 'axios';
 
-import gaUtils from '../../utils/gaUtils.js';
+import utils from '../../utils/utils.js';
 
 class SubscribeButton extends React.Component {
 
@@ -31,7 +31,7 @@ class SubscribeButton extends React.Component {
   }
 
   componentWillUnmount() {
-    Store.unListen(this._onChange.bind(this));
+    Store.unlisten(this._onChange.bind(this));
   }
 
   render() {
@@ -92,7 +92,7 @@ class SubscribeButton extends React.Component {
       e.preventDefault();
       let visibleState = this.state.subscribeFormVisible ? 'Closed' : 'Open';
       Actions.toggleSubscribeFormVisible(!this.state.subscribeFormVisible);
-      gaUtils._trackEvent('Click', `Subscribe - ${visibleState}`);
+      utils._trackHeader('Click', `Subscribe - ${visibleState}`);
     }
 
   }
@@ -106,7 +106,7 @@ class SubscribeButton extends React.Component {
 
     if (Store._getSubscribeFormVisible()) {
       Actions.toggleSubscribeFormVisible(false);
-      gaUtils._trackEvent('Click', 'Subscribe - Closed');
+      utils._trackHeader('Click', 'Subscribe - Closed');
     }
     
   }

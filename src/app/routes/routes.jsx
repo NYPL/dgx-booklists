@@ -1,7 +1,7 @@
 // React libraries
 import React from 'react';
 // Import Router
-import {DefaultRoute, NotFoundRoute, Route} from 'react-router'; 
+import {DefaultRoute, NotFoundRoute, Route} from 'react-router';
 
 // Import components
 import Application from '../components/Application/Application.jsx'

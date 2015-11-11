@@ -31,6 +31,13 @@ let Navigation = Router.Navigation,
     // Listen to the change from data
     componentDidMount() {
       Store.listen(this._onChange.bind(this));
+      // As a fallback, we check if the app fails to fetch the data.
+      // If so, the app will attempt to make a call on client-side one more time.
+      // Also, if the users browse the app with backward button or forward button,
+      // we need to check if they have refreshed the page and lost the data in the Store.
+      if(!this.state.bookItemList) {
+        this._fetchBookData();
+      }
     },
     // Stop listening
     componentWillUnmount() {
@@ -43,7 +50,7 @@ let Navigation = Router.Navigation,
     // Render DOM
     render() {
       // The variable to store the data from Store
-      let bookItemList = this.state.bookItemList,
+      let bookItemList = this.state.bookItemList ? this.state.bookItemList : [],
         userId = bookItemList.user ? bookItemList.user.id : '',
         userDisplayName = bookItemList.user ? bookItemList.user.attributes.name : '',
         listId = bookItemList.id || '',
@@ -159,6 +166,9 @@ let Navigation = Router.Navigation,
         console.log('Unavailable parameters for the request.');
         return;
       }
+
+      utils._trackLists('Go back to...', userId);
+
       if (!Store.getUserLists()) {
         // First fetch the data and then transition. Must also handle errors.
         $.ajax({
@@ -187,6 +197,35 @@ let Navigation = Router.Navigation,
       // Now transit to the route.
       this.transitionTo('UserLists', {
         UserLists: userId
+      });
+    },
+
+    /**
+    * _fetchBookData()
+    * This function calls the API to fetch the data of BookItemList.
+    * It could be used as a fallback if the app fails to fetch data from the sever.
+    * Also, for the case if the users navigate the app with backward or
+    * forward button, and refresh the page at some point of time,
+    * the app will lose all the data in the Store.
+    * Thus, this function is here for the app to fetch the data again.
+    */
+    _fetchBookData() {
+      let urlBookItemList = (window.location.pathname).split('/'),
+        urlBookItemListId = urlBookItemList[5];
+
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: `/browse/recommendations/lists/api/ajax/listID/${urlBookItemListId}`,
+        success: data => {
+          // Update the Store for a specific list of books:
+          Actions.updateBookList(data.data);
+          // Check if any error from the Refinery
+          if (data.errorInfo) {
+            Actions.failedData(data.errorInfo);
+            console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+          }
+        }
       });
     }
   });

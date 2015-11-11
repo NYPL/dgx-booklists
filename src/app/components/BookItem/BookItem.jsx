@@ -11,6 +11,8 @@ import Actions from '../../actions/Actions.js';
 // Import Misc
 import cx from 'classnames'
 
+import utils from '../../utils/utils.js';
+
 class BookItem extends React.Component {
   // Constructor used in ES6
   constructor(props) {
@@ -40,7 +42,8 @@ class BookItem extends React.Component {
           </p>
         </div>
         <div className={`${this.props.className}__detail`}>
-          <a className='image-wrapper' href={this.props.target}>
+          <a className='image-wrapper' href={this.props.target}
+            onClick={utils._trackLists.bind(this, 'Book Image', this.props.bookItemName)}>
             <BookCover isbn={this.props.bookCoverIsbn}
               name={this.props.bookItemName}
               className='cover-image' />
@@ -50,7 +53,10 @@ class BookItem extends React.Component {
               <SimpleButton id={`desktop-title__${this.props.itemId}`}
                 className='desktop-title__name'
                 label={this.props.bookItemName}
-                target={this.props.target} />
+                target={this.props.target}
+                gaCategory='Book Lists'
+                gaAction='Book Title'
+                gaLabel={this.props.bookItemName} />
               <p className='desktop-title__author'>
                 {this.props.authors}
               </p>
@@ -67,7 +73,10 @@ class BookItem extends React.Component {
           <SimpleButton id={`request__${this.props.itemId}`}
             className='request__button'
             label='request this item'
-            target={this.props.target} />
+            target={this.props.target}
+            gaCategory='Book Lists'
+            gaAction='Book Request Item'
+            gaLabel={this.props.bookItemName} />
         </div>
       </div>
     );
