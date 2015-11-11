@@ -14,6 +14,7 @@ class MegaMenuSubNav extends React.Component {
   }
 
   render() {
+
     let items = _.map(this.props.items, (m, i) => {
         let target = m.link.en.text;
 
@@ -43,9 +44,11 @@ class MegaMenuSubNav extends React.Component {
 
     return (
       <div className='MegaMenu-SubNav'>
-        <a style={styles.topLink} href={this.props.topLink}>
-          <h2>{this.props.label[this.props.lang].text}</h2>
-        </a>
+        <h2>
+          <a style={styles.topLink} href={this.props.topLink}>
+            {this.props.label[this.props.lang].text}
+          </a>
+        </h2>
         <ul>{items}</ul>
         {socialMediaWidget}
       </div>

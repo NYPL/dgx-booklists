@@ -100,7 +100,7 @@
       overflow: hidden;
       position: relative;
 
-      @include tablet {
+      @include tablet-and-up {
         display: none;
         height: auto;
         margin: -45px 0 -10px 0;

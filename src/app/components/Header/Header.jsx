@@ -4,10 +4,8 @@ import Radium from 'radium';
 import cx from 'classnames';
 
 // ALT Flux
-import HeaderStore from '../../stores/HeaderStore.js';
+import Store from '../../stores/HeaderStore.js';
 import Actions from '../../actions/HeaderActions.js';
-
-import utils from '../../utils/utils.js';
 
 // NYPL Components
 import Logo from '../Logo/Logo.jsx';
@@ -20,19 +18,21 @@ import NavMenu from '../NavMenu/NavMenu.jsx';
 import MobileHeader from './MobileHeader.jsx';
 import GlobalAlerts from '../GlobalAlerts/GlobalAlerts.jsx';
 
+import utils from '../../utils/utils.js';
+
 class Header extends React.Component {
 
   // Constructor used in ES6
   constructor(props) {
     super(props);
     // replaces getInitialState()
-    this.state = HeaderStore.getState();
+    this.state = Store.getState();
   }
 
   componentDidMount() {
-    HeaderStore.listen(this._onChange.bind(this));
+    Store.listen(this._onChange.bind(this));
 
-    // If the HeaderStore is not populated with
+    // If the Store is not populated with
     // the proper Data, then fetch.
     // this._fetchDataIfNeeded();
 
@@ -45,38 +45,37 @@ class Header extends React.Component {
   }
 
   componentWillUnmount() {
-    HeaderStore.unlisten(this._onChange.bind(this));
+    Store.unlisten(this._onChange.bind(this));
   }
 
   _onChange() {
-    this.setState(HeaderStore.getState());
+    this.setState(Store.getState());
   }
 
   render () {
     let isHeaderSticky = this.state.isSticky,
       headerClass = this.props.className || 'Header',
       headerClasses = cx(headerClass, {'sticky': isHeaderSticky}),
-      showDialog = HeaderStore._getMobileMyNyplButtonValue(),
+      showDialog = Store._getMobileMyNyplButtonValue(),
       mobileMyNyplClasses = cx({'active': showDialog});
 
     return (
       <header id={this.props.id} className={headerClasses} ref='nyplHeader'>
-        <GlobalAlerts className={`${this.props.className}-GlobalAlerts`} />
-        <div className={`${this.props.className}-Wrapper`}>
-          <MobileHeader className={`${this.props.className}-Mobile`} locatorUrl={'//www.nypl.org/locations/map?nearme=true'} />
+        <GlobalAlerts className={`${headerClass}-GlobalAlerts`} />
+        <div className={`${headerClass}-Wrapper`}>
+          <MobileHeader className={`${headerClass}-Mobile`} locatorUrl={'//www.nypl.org/locations/map?nearme=true'} />
           <div className={`MobileMyNypl-Wrapper ${mobileMyNyplClasses}`}>
             <MobileMyNypl />
           </div>
-          <div className={`${this.props.className}-TopWrapper`} style={styles.wrapper}>
-            <Logo className={`${this.props.className}-Logo`} />
-            <div className={`${this.props.className}-Buttons`} style={styles.topButtons}>
-              <MyNyplButton label='Log In' />
+          <div className={`${headerClass}-TopWrapper`} style={styles.wrapper}>
+            <Logo className={`${headerClass}-Logo`} />
+            <div className={`${headerClass}-Buttons`} style={styles.topButtons}>
+              <MyNyplButton label='Log In' refId='desktopLogin' />
               <SimpleButton 
                 label='Get a Library Card' 
                 target='//catalog.nypl.org/screens/selfregpick.html' 
                 className='LibraryCardButton'
                 id='LibraryCardButton'
-                gaCategory='NYPL Header'
                 gaAction='Get a Library Card'
                 gaLabel=''
                 style={styles.libraryCardButton} />
@@ -91,7 +90,7 @@ class Header extends React.Component {
             </div>
           </div>
           <NavMenu 
-            className={`${this.props.className}-NavMenu`}
+            className={`${headerClass}-NavMenu`}
             lang={this.props.lang}
             items={this.state.headerData}  />
         </div>
@@ -107,8 +106,8 @@ class Header extends React.Component {
    * to obtain data.
    */
   _fetchDataIfNeeded() {
-    if (HeaderStore.getState().headerData.length < 1) {
-      Actions.fetchHeaderData();
+    if (Store.getState().headerData.length < 1) {
+      Actions.fetchHeaderData(Store._getClientAppEnv());
     }
   }
 
@@ -141,6 +140,7 @@ class Header extends React.Component {
    */
   _getHeaderHeight() {
     let headerContainer = React.findDOMNode(this.refs.nyplHeader);
+
     return headerContainer.clientHeight;
   }
 
@@ -150,8 +150,8 @@ class Header extends React.Component {
    * scroll position in pixels.
    */
   _getWindowVerticalScroll() {
-    return window.scrollY
-      || window.pageYOffset
+    return window.scrollY 
+      || window.pageYOffset 
       || document.documentElement.scrollTop;
   }
 };
@@ -159,18 +159,16 @@ class Header extends React.Component {
 Header.defaultProps = {
   lang: 'en',
   className: 'Header',
-  id: 'Header'
+  id: 'nyplHeader'
 };
 
 const styles = {
   wrapper: {
-    position: 'relative',
-    margin: '0 auto'
+    position: 'relative'
   },
   topButtons: {
     position: 'absolute',
     top: '20px',
-    right: '2px',
     textTransform: 'uppercase',
     display: 'block'
   },
