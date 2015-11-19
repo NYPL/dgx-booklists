@@ -57,12 +57,12 @@ function BookListUsers(req, res, next) {
       // put the data in Store
       res.locals.data = {
         Store: {
-          allUsersList: parsed
-        },
-        HeaderStore: {
           headerData: modelData,
           subscribeFormVisible: false,
           myNyplVisible: false
+        },
+        ListStore: {
+          allUsersList: parsed
         },
         completeApiUrl
       };
@@ -73,13 +73,13 @@ function BookListUsers(req, res, next) {
       console.log('Error calling API BookListUsers: ' + error);
       res.locals.data = {
         Store: {
-          allUsersList: [],
-          errorInfo: error.data.errors[0]
-        },
-        HeaderStore: {
           headerData: [],
           subscribeFormVisible: false,
           myNyplVisible: false
+        },
+        ListStore: {
+          allUsersList: [],
+          errorInfo: error.data.errors[0]
         },
         completeApiUrl: ''
       };
@@ -120,13 +120,13 @@ function BookListUser(req, res, next) {
       // Put the parsed data into Store
       res.locals.data = {
         Store: {
-          userLists: parsed,
-          listsNumber: listsNumber
-        },
-        HeaderStore: {
           headerData: modelData,
           subscribeFormVisible: false,
           myNyplVisible: false
+        },
+        ListStore: {
+          userLists: parsed,
+          listsNumber: listsNumber
         },
         completeApiUrl
       };
@@ -137,14 +137,14 @@ function BookListUser(req, res, next) {
       console.log('Error calling API BookListUser: ' + error.error);
       res.locals.data = {
         Store: {
-          userLists: [],
-          listsNumber: 0,
-          errorInfo: error.data.errors[0]
-        },
-        HeaderStore: {
           headerData: [],
           subscribeFormVisible: false,
           myNyplVisible: false
+        },
+        ListStore: {
+          userLists: [],
+          listsNumber: 0,
+          errorInfo: error.data.errors[0]
         },
         completeApiUrl: ''
       };
@@ -181,12 +181,12 @@ function ListID(req, res, next) {
 
       res.locals.data = {
         Store: {
-          bookItemList: parsed
-        },
-        HeaderStore: {
           headerData: modelData,
           subscribeFormVisible: false,
           myNyplVisible: false
+        },
+        ListStore: {
+          bookItemList: parsed
         },
         completeApiUrl
       };
@@ -196,13 +196,13 @@ function ListID(req, res, next) {
       console.log('Error calling API ListID: ' + error);
       res.locals.data = {
         Store: {
-          bookItemList: {},
-          errorInfo: error.data.errors[0]
-        },
-        HeaderStore: {
           headerData: [],
           subscribeFormVisible: false,
           myNyplVisible: false
+        },
+        ListStore: {
+          bookItemList: {},
+          errorInfo: error.data.errors[0]
         },
         completeApiUrl: ''
       };

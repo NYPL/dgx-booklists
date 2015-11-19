@@ -10,9 +10,8 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import Header from '../Header/Header.jsx';
+import Header from 'dgx-header-component-test';
 import Footer from '../Footer/Footer.jsx';
-// import Footer from 'dgx-react-footer';
 
 import utils from '../../utils/utils.js';
 
