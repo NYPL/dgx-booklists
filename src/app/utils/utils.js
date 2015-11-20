@@ -2,7 +2,7 @@ import moment from 'moment';
 import _ from 'underscore';
 
 import appConfig from '../../../appConfig.js';
-import gaUtils from './gaUtils.js';
+import {ga} from 'dgx-react-ga';
 
 function Utils() {
   let unionFn = appTags => {
@@ -100,7 +100,7 @@ function Utils() {
    * @param {action} String Action for GA event.
    * @param {label} String Label for GA event.
    */
-  this._trackHeader = gaUtils._trackEvent('Global Header');
+  this._trackHeader = ga._trackEvent('Global Header');
 
   /**
    * _trackLists(action, label)
@@ -110,7 +110,7 @@ function Utils() {
    * @param {action} String Action for GA event.
    * @param {label} String Label for GA event.
    */
-  this._trackLists = gaUtils._trackEvent('Book Lists');
+  this._trackLists = ga._trackEvent('Book Lists');
 
 }
 
