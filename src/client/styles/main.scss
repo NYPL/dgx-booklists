@@ -58,6 +58,7 @@ body {
    * -------------
   */
   &-Mobile {
+    min-width: 320px;
     display: block;
     
     /* Hide MobileHeader on Tablet larger viewports */
