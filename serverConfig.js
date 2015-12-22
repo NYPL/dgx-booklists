@@ -6,7 +6,7 @@ import colors from 'colors';
 // React
 import React from 'react';
 import Iso from 'iso';
-import alt from './src/app/alt.js';
+import alt from 'dgx-alt-center';
 
 // Import Router
 import Router from 'react-router';
