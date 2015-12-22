@@ -29,7 +29,7 @@ function ListID(req, res, next) {
         parsed = parser.parse(returnedData);
 
       res.locals.data = {
-        Store: {
+        ListStore: {
           bookItemList: parsed
         },
         completeApiUrl
@@ -39,7 +39,7 @@ function ListID(req, res, next) {
     .catch(error => {
       console.log('Error calling API widget ListID: ' + error);
       res.locals.data = {
-        Store: {
+        ListStore: {
           bookItemList: {},
           errorInfo: error.data.errors[0]
         },

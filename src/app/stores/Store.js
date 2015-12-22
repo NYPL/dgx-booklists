@@ -1,7 +1,7 @@
-import alt from '../alt.js';
+import alt from 'dgx-alt-center';
 import Actions from '../actions/Actions.js';
 
-class Store {
+class ListStore {
   constructor(){
     this.bindListeners({
       handleUpdateAllUsersList: Actions.UPDATE_ALL_USERS_LIST,
@@ -51,4 +51,4 @@ class Store {
 }
 
 // Export our newly created Store
-export default alt.createStore(Store, 'Store');
+export default alt.createStore(ListStore, 'ListStore');
