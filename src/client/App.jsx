@@ -9,6 +9,8 @@ import routes from '../app/routes/routes.jsx';
 
 import Widget from '../app/components/Widget/Widget.jsx';
 
+import FeatureFlags from 'dgx-feature-flags';
+
 import './styles/main.scss';
 
 if (typeof window !== 'undefined') {
@@ -17,6 +19,10 @@ if (typeof window !== 'undefined') {
       console.log('Analytics not available - loading through React.');
       let gaOpts = { debug: false };
       ga.initialize('UA-1420324-3', gaOpts);
+    }
+
+    if (!window.dgxFeatureFlags) {
+      window.dgxFeatureFlags = FeatureFlags.utils;
     }
 
 		// Render Isomorphically
