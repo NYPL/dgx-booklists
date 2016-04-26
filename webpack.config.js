@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var merge = require('webpack-merge');
 var cleanBuild = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var SaveAssetsJson = require('assets-webpack-plugin');
 var pkg = require('./package.json');
 
 // References the applications root path
@@ -26,16 +27,13 @@ var commonSettings = {
 	output: {
 		// Sets the output path to ROOT_PATH/dist
 		path: path.resolve(ROOT_PATH, 'dist'),
-		// Sets the name of the bundled application files
-		// Additionally we can isolate vendor files as well
-		filename: 'bundle.js'
 	},
 	plugins: [
 		// Cleans the Dist folder after every build.
 		// Alternately, we can run rm -rf dist/ as
 		// part of the package.json scripts.
 		new cleanBuild(['dist']),
-		new ExtractTextPlugin('styles.css')
+		new ExtractTextPlugin('styles.css'),
 	]
 };
 
@@ -58,7 +56,8 @@ if (ENV === 'development') {
 	    path.resolve(ROOT_PATH, 'src/client/App.jsx')
 	  ],
 	  output: {
-	  	publicPath: 'http://localhost:3000/'
+	  	publicPath: 'http://localhost:3000/',
+			filename: 'bundle.js',
 	  },
 	  plugins: [
 	    new webpack.HotModuleReplacementPlugin(),
@@ -95,6 +94,9 @@ if (ENV === 'development') {
 if (ENV === 'production') {
 	module.exports = merge(commonSettings, {
 		devtool: 'source-map',
+		output: {
+			filename: 'bundle.[hash].js',
+		},
 		module: {
 			loaders: [
 				{
@@ -116,9 +118,16 @@ if (ENV === 'production') {
 		plugins: [
 			// Minification (Utilized in Production)
 			new webpack.optimize.UglifyJsPlugin({
+				output: {
+		      comments: false
+		    },
 				compress: {
 					warnings: false
 				}
+			}),
+			new SaveAssetsJson({
+				path: path.resolve(ROOT_PATH, 'dist'),
+				filename: 'assets.json'
 			})
 		]
 	});
