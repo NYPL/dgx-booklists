@@ -116,19 +116,19 @@ if (ENV === 'production') {
 			]
 		},
 		plugins: [
-			// Minification (Utilized in Production)
-			new webpack.optimize.UglifyJsPlugin({
-				output: {
-		      comments: false
-		    },
-				compress: {
-					warnings: false
-				}
-			}),
-			new SaveAssetsJson({
-				path: path.resolve(ROOT_PATH, 'dist'),
-				filename: 'assets.json'
-			})
+      // Minification (Utilized in Production)
+      new webpack.optimize.UglifyJsPlugin({
+        output: {
+          comments: false
+        },
+        compress: {
+          warnings: false
+        }
+      }),
+      new SaveAssetsJson({
+        path: path.resolve(ROOT_PATH, 'dist'),
+        filename: 'assets.json'
+      })
 		]
 	});
 }
