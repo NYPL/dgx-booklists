@@ -15,26 +15,26 @@ var ENV = process.env.NODE_ENV || 'development';
 
 // Holds the common settings for any environment
 var commonSettings = {
-	// path.resolve - resolves to an absolute path
-	// This is the path and file of our top level
-	// React App that is to be rendered.
-	entry: [
-		path.resolve(ROOT_PATH, 'src/client/App.jsx')
-	],
-	resolve: {
-		extensions: ['', '.js', '.jsx']
+  // path.resolve - resolves to an absolute path
+  // This is the path and file of our top level
+  // React App that is to be rendered.
+  entry: [
+    path.resolve(ROOT_PATH, 'src/client/App.jsx')
+  ],
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
-	output: {
-		// Sets the output path to ROOT_PATH/dist
-		path: path.resolve(ROOT_PATH, 'dist'),
-	},
-	plugins: [
-		// Cleans the Dist folder after every build.
-		// Alternately, we can run rm -rf dist/ as
-		// part of the package.json scripts.
-		new cleanBuild(['dist']),
-		new ExtractTextPlugin('styles.css'),
-	]
+  output: {
+    // Sets the output path to ROOT_PATH/dist
+    path: path.resolve(ROOT_PATH, 'dist'),
+  },
+  plugins: [
+    // Cleans the Dist folder after every build.
+    // Alternately, we can run rm -rf dist/ as
+    // part of the package.json scripts.
+    new cleanBuild(['dist']),
+    new ExtractTextPlugin('styles.css'),
+  ]
 };
 
 /**
@@ -45,42 +45,40 @@ var commonSettings = {
  * additional development specific settings.
  *
 **/
-// Need to configure webpack-dev-server and hot-reload
-// module correctly.
 if (ENV === 'development') {
-	module.exports = merge(commonSettings, {
-		devtool: 'eval',
-		entry: [
-	    'webpack-dev-server/client?http://localhost:3000',
-	    'webpack/hot/only-dev-server',
-	    path.resolve(ROOT_PATH, 'src/client/App.jsx')
-	  ],
-	  output: {
-	  	publicPath: 'http://localhost:3000/',
-			filename: 'bundle.js',
-	  },
-	  plugins: [
-	    new webpack.HotModuleReplacementPlugin(),
-	    new webpack.NoErrorsPlugin()
-	  ],
-	  resolve: {
-	    extensions: ['', '.js', '.jsx', '.scss']
-	  },
-		module: {
-			loaders: [
-				{
-			    test: /\.jsx?$/,
-			    exclude: /(node_modules|bower_components)/,
-			    loaders: ['react-hot', 'babel']
-			  },
-			  {
-			  	test: /\.scss?$/,
-				  loader: 'style!css!sass',
-				  include: path.resolve(ROOT_PATH, 'src')
-				}
-			]
-		}
-	});
+  module.exports = merge(commonSettings, {
+    devtool: 'eval',
+    entry: [
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      path.resolve(ROOT_PATH, 'src/client/App.jsx')
+    ],
+    output: {
+      publicPath: 'http://localhost:3000/',
+      filename: 'bundle.js',
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
+    ],
+    resolve: {
+      extensions: ['', '.js', '.jsx', '.scss']
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          exclude: /(node_modules|bower_components)/,
+          loaders: ['react-hot', 'babel']
+        },
+        {
+          test: /\.scss?$/,
+          loader: 'style!css!sass',
+          include: path.resolve(ROOT_PATH, 'src')
+        }
+      ]
+    }
+  });
 }
 
 /**
