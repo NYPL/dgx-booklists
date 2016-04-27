@@ -92,30 +92,30 @@ if (ENV === 'development') {
  *
 **/
 if (ENV === 'production') {
-	module.exports = merge(commonSettings, {
-		devtool: 'source-map',
-		output: {
-			filename: 'bundle.[hash].js',
-		},
-		module: {
-			loaders: [
-				{
-			    test: /\.jsx?$/,
-			    exclude: /(node_modules|bower_components)/,
-			    loaders: ['babel']
-			  },
-			  {
-	        test: /\.scss$/,
-	        include: path.resolve(ROOT_PATH, 'src'),
-	        loader: ExtractTextPlugin.extract(
-	          // activate source maps via loader query
-	          'css?sourceMap!' +
-	          'sass?sourceMap'
-	        )
-			  }
-			]
-		},
-		plugins: [
+  module.exports = merge(commonSettings, {
+    devtool: 'source-map',
+    output: {
+      filename: 'bundle.[hash].js',
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          exclude: /(node_modules|bower_components)/,
+          loaders: ['babel']
+        },
+        {
+          test: /\.scss$/,
+          include: path.resolve(ROOT_PATH, 'src'),
+          loader: ExtractTextPlugin.extract(
+          // activate source maps via loader query
+          'css?sourceMap!' +
+          'sass?sourceMap'
+          )
+        }
+      ]
+    },
+    plugins: [
       // Minification (Utilized in Production)
       new webpack.optimize.UglifyJsPlugin({
         output: {
@@ -129,6 +129,6 @@ if (ENV === 'production') {
         path: path.resolve(ROOT_PATH, 'dist'),
         filename: 'assets.json'
       })
-		]
-	});
+    ]
+  });
 }
