@@ -10,7 +10,7 @@
     <% } %>
 
     <link rel="shortcut icon" type="image/ico" href="//d2znry4lg8s0tq.cloudfront.net/images/favicon.ico">
-    
+
 <% if (isProduction) { %>
     <!-- Minified Styles -->
     <link rel="stylesheet" type="text/css" href="dist/styles.css">
@@ -28,7 +28,7 @@
   </script>
 
 <% if (isProduction) { %>
-  <script async src="dist/bundle.js"></script>
+  <script async src="dist/<%= assets.main.js %>"></script>
 <% } else { %>
   <script src="http://localhost:3000/bundle.js"></script>
 <% } %>
