@@ -35,12 +35,10 @@ const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 
 // Boolean flag that determines if we are running
 // our application in Production Mode.
-// Assigning as let variables, since they are mutable
 const isProduction = process.env.NODE_ENV === 'production';
 const serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port);
-
-// Assign versioned build assets only on production environment
-const buildAssets = JSON.parse(fs.readFileSync(path.join(DIST_PATH, 'assets.json')));
+const buildAssets = (isProduction) ?
+  JSON.parse(fs.readFileSync(path.join(DIST_PATH, 'assets.json'))) : '';
 
 /* Express Server Configuration
  * ----------------------------
