@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import compression from 'compression';
 import express from 'express';
 import colors from 'colors';
@@ -34,15 +35,16 @@ const WEBPACK_DEV_PORT = appConfig.webpackDevServerPort || 3000;
 
 // Boolean flag that determines if we are running
 // our application in Production Mode.
-// Assigning as let variables, since they are mutable
-let isProduction = process.env.NODE_ENV === 'production',
-  serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port),
-  refineryData,
-  /* Express Server Configuration
-   * ----------------------------
-   * - Using .EJS as the view engine
-  */
-  app = express();
+const isProduction = process.env.NODE_ENV === 'production';
+const serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port);
+const buildAssets = (isProduction) ?
+  JSON.parse(fs.readFileSync(path.join(DIST_PATH, 'assets.json'))) : '';
+
+/* Express Server Configuration
+ * ----------------------------
+ * - Using .EJS as the view engine
+*/
+const app = express();
 
 app.use(compression());
 
@@ -55,7 +57,6 @@ app.set('view engine', 'ejs');
 
 // Set the path where to find EJS files
 app.set('views', INDEX_PATH);
-
 
 // Assign the proper path where the
 // application's dist files are located.
@@ -83,10 +84,11 @@ app.use('/widget', (req, res) => {
 
   // The data we render by iso and pass to index.ejs
   res.render('index', {
-    App: iso.render(), 
-    appTitle: appConfig.appName, 
+    App: iso.render(),
+    appTitle: appConfig.appName,
     favicon: appConfig.favIconPath,
     isProduction: isProduction,
+    assets: buildAssets,
     metatags: [],
     appEnv: process.env.APP_ENV || 'no APP_ENV',
     widget: 'true',
@@ -128,10 +130,11 @@ app.use('/', (req, res) => {
 
     // The data we render by iso and pass to index.ejs
     res.render('index', {
-      App: iso.render(), 
-      appTitle: appConfig.appName, 
+      App: iso.render(),
+      appTitle: appConfig.appName,
       favicon: appConfig.favIconPath,
       isProduction: isProduction,
+      assets: buildAssets,
       metatags: renderedTags,
       appEnv: process.env.APP_ENV || 'no APP_ENV',
       widget: 'false',
