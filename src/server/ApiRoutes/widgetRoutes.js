@@ -11,7 +11,6 @@ let router = express.Router(),
     includes: ['user', 'list-items.item']
   };
 
-parser.setChildrenObjects(listOptions);
 
 function ListID(req, res, next) {
   let listID = req.params.listID,
@@ -20,6 +19,7 @@ function ListID(req, res, next) {
 
   listOptions.endpoint = endpoint;
   completeApiUrl = parser.getCompleteApi(listOptions);
+  parser.setChildrenObjects(listOptions);
 
   axios
     .get(completeApiUrl)
