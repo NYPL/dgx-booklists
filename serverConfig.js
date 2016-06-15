@@ -66,10 +66,10 @@ app.use('*/dist', express.static(DIST_PATH));
 // Assign the path for static client files
 app.use('*/src/client', express.static(INDEX_PATH));
 
-app.use('/browse/recommendations/lists/widget', WidgetRoutes);
+app.use('/widget', WidgetRoutes);
 
 // Match all routes to render the index page.
-app.use('/browse/recommendations/lists/widget', (req, res) => {
+app.use('/widget', (req, res) => {
   let iso = new Iso(),
     App = React.renderToString(<Widget />);
 
