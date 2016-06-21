@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Import Router
-import Router from 'react-router';
+import { Router } from 'react-router';
 import DocMeta from 'react-doc-meta';
 
 // ALT FLUX
@@ -45,7 +45,7 @@ class Application extends React.Component {
       <div className='app-container'>
         <DocMeta tags={tags} />
         <Header />
-        <RouteHandler />
+        {this.props.children}
         <Footer />
       </div>
     );

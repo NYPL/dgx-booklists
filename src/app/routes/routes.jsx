@@ -12,17 +12,17 @@ import BookItemList from '../components/BookItemList/BookItemList.jsx';
 // Routes we need
 const routes = {
   client: (
-    <Route name='root' handler={Application}>
-      <Route name='AllUsersList' path='/browse/recommendations/lists/?' handler={AllUsersList} />
-      <Route name='UserLists' path='/browse/recommendations/lists/:UserLists?/?' handler={UserLists} />
-      <Route name='BookItemList' path='/browse/recommendations/lists/:UserLists/:id?/?' handler={BookItemList} />
+    <Route component={Application}>
+      <Route path='/browse/recommendations/lists' component={AllUsersList} />
+      <Route path='/browse/recommendations/lists/:UserLists' component={UserLists} />
+      <Route path='/browse/recommendations/lists/:UserLists/:id' component={BookItemList} />
     </Route>
   ),
   server: (
-    <Route name='root' handler={Application}>
-      <Route name='AllUsersList' path='/?' handler={AllUsersList} />
-      <Route name='UserLists' path='/:UserLists?/?' handler={UserLists} />
-      <Route name='BookItemList' path='/:UserLists/:id?/?' handler={BookItemList} />
+    <Route component={Application}>
+      <Route path='/' component={AllUsersList} />
+      <Route path='/:UserLists' component={UserLists} />
+      <Route path='/:UserLists/:id' component={BookItemList} />
     </Route>
   )
 };

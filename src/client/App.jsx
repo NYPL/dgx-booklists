@@ -1,5 +1,8 @@
 import React from 'react';
-import Router from 'react-router';
+import ReactDOM from 'react-dom';
+import { Router, useRouterHistory } from 'react-router';
+import useScroll from 'scroll-behavior/lib/useStandardScroll';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import ga from 'react-ga';
 
 import Iso from 'iso';
@@ -26,7 +29,7 @@ if (typeof window !== 'undefined') {
     }
 
 		// Render Isomorphically
-	  Iso.bootstrap((state, meta, container) => {
+	  Iso.bootstrap((state, container) => {
       let node;
 
 	  	console.log('Application rendered Isomorphically.');
@@ -34,12 +37,12 @@ if (typeof window !== 'undefined') {
 	    alt.bootstrap(state);
 
       if (window.widget === 'false') {
-  	    Router.run(routes.client, Router.HistoryLocation, (Handler, routerState) => {
-          node = React.createElement(Handler);
 
-          ga.pageview(routerState.pathname);
-          React.render(node, container);
-        });
+        const appHistory = useScroll(useRouterHistory(createBrowserHistory))();
+        ReactDOM.render(
+          <Router history={appHistory}>{routes.client}</Router>,
+          container
+        );
       } else {
         node = React.createElement(Widget);
         React.render(node, container);

@@ -10,8 +10,9 @@ import Iso from 'iso';
 import alt from 'dgx-alt-center';
 
 // Import Router
-import Router from 'react-router';
-import routes from './src/app/routes/routes.jsx';
+import { Router, match, RouterContext } from 'react-router';
+import ReactDOMServer from 'react-dom/server';
+import appRoutes from './src/app/routes/routes.jsx';
 import DocMeta from 'react-doc-meta';
 
 // Server Configurations
@@ -106,40 +107,46 @@ app.use('/', (req, res, next) => {
 
 app.use('/', ApiRoutes);
 
-// Match all routes to render the index page.
 app.use('/', (req, res) => {
-  let router = Router.create({
-      routes: routes.server,
-      location: req.path
-    }),
-    iso = new Iso();
+  let iso;
 
-  // bootstrap will stringify the data
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
+  iso = new Iso();
 
-  router.run((Handler, state) => {
-    // App is the component we are going to render. It is determined by route handler
-    let App = React.renderToString(<Handler />),
-      metaTags = DocMeta.rewind(),
-      renderedTags = metaTags.map((tag, index) =>
-        React.renderToString(<meta data-doc-meta="true" key={index} {...tag} />)
-      );
+  const blogAppUrl = (req.url).indexOf('browse/recommendations/lists') !== -1;
+  const routes = blogAppUrl ? appRoutes.client : appRoutes.server;
 
-    // Inject the stringified data in to App
-    iso.add(App, alt.flush());
+  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message)
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+    } else if (renderProps) {
+      const html = ReactDOMServer.renderToString(<RouterContext {...renderProps} />);
+      var metaTags = DocMeta.rewind();
+      var renderedTags = metaTags.map((tag, index) =>
+        ReactDOMServer.renderToString(<meta data-doc-meta="true" key={index} {...tag} />));
+      iso.add(html, alt.flush());
 
-    // The data we render by iso and pass to index.ejs
-    res.render('index', {
-      App: iso.render(),
-      appTitle: appConfig.appName,
-      favicon: appConfig.favIconPath,
-      isProduction: isProduction,
-      assets: buildAssets,
-      metatags: renderedTags,
-      appEnv: process.env.APP_ENV || 'no APP_ENV',
-      widget: 'false',
-      apiUrl: res.locals.data.completeApiUrl
-    });
+      res
+        .status(200)
+        .render('index', {
+          apiUrl: res.locals.data.completeApiUrl,
+          App: iso.render(),
+          appTitle: appConfig.appTitle,
+          favicon: appConfig.favIconPath,
+          isProduction: isProduction,
+          assets: buildAssets,
+          metatags: renderedTags,
+          appEnv: process.env.APP_ENV || 'no APP_ENV',
+          path: req.path,
+          webpackPort: WEBPACK_DEV_PORT,
+          endpoint: res.locals.data.endpoint,
+          widget: false
+        });
+    } else {
+      res.status(404).send('Not found')
+    }
   });
 });
 
