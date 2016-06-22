@@ -123,8 +123,8 @@ app.use('/', (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
       const html = ReactDOMServer.renderToString(<RouterContext {...renderProps} />);
-      var metaTags = DocMeta.rewind();
-      var renderedTags = metaTags.map((tag, index) =>
+      const metaTags = DocMeta.rewind();
+      const renderedTags = metaTags.map((tag, index) =>
         ReactDOMServer.renderToString(<meta data-doc-meta="true" key={index} {...tag} />));
       iso.add(html, alt.flush());
 

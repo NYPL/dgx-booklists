@@ -22,11 +22,11 @@ let AllUsersList = React.createClass({
 
   // Listen to the change from data
   componentDidMount() {
-    Store.listen(this._onChange.bind(this));
+    //Store.listen(this._onChange.bind(this));
   },
   // Stop listening
   componentWillUnmount() {
-    Store.unlisten(this._onChange.bind(this));
+    //Store.unlisten(this._onChange.bind(this));
   },
   // Change the this.state here if find any different
   _onChange() {
@@ -74,18 +74,6 @@ let AllUsersList = React.createClass({
       </div>
     );
   },
-
-  /**
-  * _transitionTo(username)
-  * Transit to the page of UserLists
-  *
-  * @param (String) username
-  */
-  _transitionTo(username) {
-    this.transitionTo('UserLists', {
-      UserLists: username
-    });
-  }
 });
 
 AllUsersList.defaultProps = {

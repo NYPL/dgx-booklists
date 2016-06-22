@@ -27,7 +27,7 @@ let BookItemList = React.createClass({
   },
   // Listen to the change from data
   componentDidMount() {
-    Store.listen(this._onChange.bind(this));
+    //Store.listen(this._onChange.bind(this));
     // As a fallback, we check if the app fails to fetch the data.
     // If so, the app will attempt to make a call on client-side one more time.
     // Also, if the users browse the app with backward button or forward button,
@@ -38,7 +38,7 @@ let BookItemList = React.createClass({
   },
   // Stop listening
   componentWillUnmount() {
-    Store.unlisten(this._onChange.bind(this));
+    //Store.unlisten(this._onChange.bind(this));
   },
   // Change the this.state here if find any different
   _onChange() {
@@ -105,7 +105,7 @@ let BookItemList = React.createClass({
                     className={`${this.props.className}__content`}>
                       <a id={`title-button`}
                       className={`title-button`}
-                        onClick={this._fetchUserLists.bind(this, userId, 5, 1)}>
+                        onClick={() => this._fetchUserLists.bind(userId, 5, 1)}>
                         {userDisplayName}
                       </a>
                       {bookItems}

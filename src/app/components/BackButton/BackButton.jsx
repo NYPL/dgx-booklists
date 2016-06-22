@@ -51,7 +51,7 @@ class BackButton extends React.Component {
       <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
         <a id={`back-button`}
           className={`back-button`}
-          onClick={this.handleClick.bind(this, this.props.userId, 5, 1)}>
+          onClick={() => this.handleClick(this.props.userId, 5, 1)}>
           <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
           </span>
           <div className={`back-button__text`}>
