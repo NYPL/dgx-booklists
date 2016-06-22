@@ -45,7 +45,7 @@ if (typeof window !== 'undefined') {
         );
       } else {
         node = React.createElement(Widget);
-        React.render(node, container);
+        ReactDOM.render(node, container);
       }
 	  });
 	}

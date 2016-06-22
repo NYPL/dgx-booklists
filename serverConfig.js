@@ -72,7 +72,7 @@ app.use('/widget', WidgetRoutes);
 // Match all routes to render the index page.
 app.use('/widget', (req, res) => {
   let iso = new Iso(),
-    App = React.renderToString(<Widget />);
+    App = ReactDOMServer.renderToString(<Widget />);
 
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
