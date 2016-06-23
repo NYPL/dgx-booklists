@@ -9,7 +9,8 @@ import Actions from '../../actions/Actions.js';
 // Misc
 import Moment from 'moment';
 import _ from 'underscore';
-import cx from 'classnames'
+import cx from 'classnames';
+import axios from 'axios';
 
 // Import Components
 import Hero from '../Hero/Hero.jsx';
@@ -158,32 +159,29 @@ class UserLists extends React.Component {
 
     utils._trackLists('Loader', `List - ${userUrlId}`);
 
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      url: `/browse/recommendations/lists/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`,
-      // Update isLoading in state to pass AJAX loading status
-      // Trigger loading animaiton when the call starts
-      beforeSend: () => {
-        this.setState({isLoading: true});
-      },
-      // Stop loading animaiton when the call completes
-      complete: () => {
-        this.setState({isLoading: false});
-      },
-      success: data => {
+    this.setState({isLoading: true});
+
+    axios
+      .get(`/browse/recommendations/lists/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`)
+      .then(response => {
         // Update the store. Add five more items each time clicking pagination button
-        this.setState({userLists: this.state.userLists.concat(data.data)});
+        this.setState({userLists: this.state.userLists.concat(response.data.data)});
         // Check if any error from the Refinery
-        if (data.errorInfo) {
-          Actions.failedData(data.errorInfo);
-          console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+        if (response.data.errorInfo) {
+          Actions.failedData(response.data.errorInfo);
+          console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
         }
         // Move to the next page if click the button again
         pageNumber++;
         this.setState({pageNumber: pageNumber});
-      }
-    });
+        
+        this.setState({isLoading: false});
+      })
+      .catch(response => {
+        this.setState({isLoading: false});
+        console.warn(`There was an error making the request.`);
+        console.log(response);
+      });
   }
 
   /**
@@ -206,21 +204,18 @@ class UserLists extends React.Component {
     }
     if (!Store.getUserLists()) {
       // First fetch the data and then transition. Must also handle errors.
-      $.ajax({
-        type: 'GET',
-        dataType: 'json',
-        url: `/browse/recommendations/lists/api/ajax/username/${urlUserListId}&${pageSize}&${pageNumber}`,
-        success: data => {
+      axios
+        .get(`/browse/recommendations/lists/api/ajax/username/${urlUserListId}&${pageSize}&${pageNumber}`)
+        .then(response => {
           // Update the store for the list of lists a user has.
-          Actions.updateUserLists(data.data);
-          Actions.updateListsNumber(data.listsNumber);
+          Actions.updateUserLists(response.data.data);
+          Actions.updateListsNumber(response.data.listsNumber);
           // Check if any error from the Refinery
-          if (data.errorInfo) {
-            Actions.failedData(data.errorInfo);
-            console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+          if (response.data.errorInfo) {
+            Actions.failedData(response.data.errorInfo);
+            console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
           }
-        }
-      });
+        })
     }
   }
 };

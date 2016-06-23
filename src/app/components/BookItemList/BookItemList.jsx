@@ -5,6 +5,7 @@ import React from 'react';
 import Router from 'react-router';
 
 import DocMeta from 'react-doc-meta';
+import axios from 'axios';
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -156,25 +157,23 @@ let BookItemList = React.createClass({
 
     if (!Store.getUserLists()) {
       // First fetch the data and then transition. Must also handle errors.
-      $.ajax({
-        type: 'GET',
-        dataType: 'json',
-        url: `/browse/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`,
-        success: data => {
+      axios
+        .get(`/browse/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`)
+        .then(response => {
           // Update the store for the list of lists a user has.
-          Actions.updateUserLists(data.data);
-          Actions.updateListsNumber(data.listsNumber);
+          Actions.updateUserLists(response.data.data);
+          Actions.updateListsNumber(response.data.listsNumber);
           // Check if any error from the Refinery
-          if (data.errorInfo) {
-            Actions.failedData(data.errorInfo);
-            console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
+          if (response.data.errorInfo) {
+            Actions.failedData(response.data.errorInfo);
+            console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
           }
-          // Now transit to the route.
-          this._transitionToUser(userId);
-        }
-      });
+        })
+        .then(response => {
+          this.context.router.push(`/browse/recommendations/lists/${userId}`);
+        });
     } else {
-      this._transitionToUser(userId);
+      this.context.router.push(`/browse/recommendations/lists/${userId}`);
     }
   },
 
@@ -198,20 +197,17 @@ let BookItemList = React.createClass({
     let urlBookItemList = (window.location.pathname).split('/'),
       urlBookItemListId = urlBookItemList[5];
 
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      url: `/browse/recommendations/lists/api/ajax/listID/${urlBookItemListId}`,
-      success: data => {
-        // Update the Store for a specific list of books:
-        Actions.updateBookList(data.data);
-        // Check if any error from the Refinery
-        if (data.errorInfo) {
-          Actions.failedData(data.errorInfo);
-          console.warn(`Server returned a ${data.errorInfo.status} status. ${data.errorInfo.title}.`);
-        }
-      }
-    });
+      axios
+        .get(`/browse/recommendations/lists/api/ajax/listID/${urlBookItemListId}`)
+        .then(response => {
+          // Update the Store for a specific list of books:
+          Actions.updateBookList(response.data.data);
+          // Check if any error from the Refinery
+          if (response.data.errorInfo) {
+            Actions.failedData(response.data.errorInfo);
+            console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
+          }
+        });
   }
 });
 
