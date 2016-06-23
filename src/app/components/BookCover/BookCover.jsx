@@ -21,9 +21,9 @@ class BookCover extends React.Component {
   // Listen to the changes on components
   componentDidMount() {
     // After the cover image is loaded
-    this.refs.coverImage.getDOMNode().addEventListener('load', () => {
+    this.refs.coverImage.addEventListener('load', () => {
       // Set the natural width to of source image to the component
-      this.setState({naturalWidth: this.refs.coverImage.getDOMNode().naturalWidth}, () => {
+      this.setState({naturalWidth: this.refs.coverImage.naturalWidth}, () => {
         // Detect the natural width if it is smaller then 10px, set the image source to the place holder
         if (this.state.imageSrc !== this.props.placeHolderEndpoint &&
           this.state.naturalWidth < 10 && this.state.naturalWidth > 0) {
