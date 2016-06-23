@@ -2,10 +2,13 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
+
+import Model from 'dgx-model-data';
+
 import {api, headerApi} from '../../../appConfig.js';
-import Model from '../../app/utils/HeaderItemModel.js';
 
 // Set up variables for routing and its options
+const { HeaderItemModel } = Model;
 let router = express.Router(),
   appEnvironment = process.env.APP_ENV || 'production',
   apiRoot = api.root[appEnvironment],
@@ -52,7 +55,7 @@ function BookListUsers(req, res, next) {
         HeaderParsed = parser.parse(headerData.data, headerOptions),
         parsed = parser.parse(returnedData, listOptions),
         // Header data
-        modelData = Model.build(HeaderParsed);
+        modelData = HeaderItemModel.build(HeaderParsed);
 
       // put the data in Store
       res.locals.data = {
@@ -115,7 +118,7 @@ function BookListUser(req, res, next) {
         parsed = parser.parse(returnedData, listOptions),
         listsNumber = returnedData.meta.count || 0,
         // Header data
-        modelData = Model.build(HeaderParsed);
+        modelData = HeaderItemModel.build(HeaderParsed);
 
       // Put the parsed data into Store
       res.locals.data = {
@@ -177,7 +180,7 @@ function ListID(req, res, next) {
         HeaderParsed = parser.parse(headerData.data, headerOptions),
         parsed = parser.parse(returnedData, listOptions),
         // Header data
-        modelData = Model.build(HeaderParsed);
+        modelData = HeaderItemModel.build(HeaderParsed);
 
       res.locals.data = {
         HeaderStore: {
