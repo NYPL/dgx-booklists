@@ -174,7 +174,7 @@ const BookItemList = React.createClass({
             <a
               id="title-button"
               className="title-button"
-              onClick={() => this._fetchUserLists.bind(userId, 5, 1)}>
+              onClick={() => this._fetchUserLists(userId, 5, 1)}>
               {userDisplayName}
             </a>
             {bookItems}
@@ -213,6 +213,12 @@ const BookItemList = React.createClass({
     );
   },
 });
+
+BookItemList.contextTypes = {
+  router: function contextType() {
+    return React.PropTypes.func.isRequired;
+  },
+};
 
 BookItemList.defaultProps = {
   lang: 'en',
