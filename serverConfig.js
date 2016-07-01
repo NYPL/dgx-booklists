@@ -28,6 +28,9 @@ import WidgetRoutes from './src/server/ApiRoutes/widgetRoutes.js';
 import Application from './src/app/components/Application/Application.jsx';
 import Widget from './src/app/components/Widget/Widget.jsx';
 
+// Feature Flags Module
+import FeatureFlags from 'dgx-feature-flags';
+
 // URL configuration
 const ROOT_PATH = __dirname;
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
@@ -82,6 +85,9 @@ app.use('/widget', (req, res) => {
 
   // Inject the stringified data in to App
   iso.add(App, alt.flush());
+
+  // Fire off the Feature Flag prior to render
+  FeatureFlags.utils.activateFeature('shop-link');
 
   // The data we render by iso and pass to index.ejs
   res.render('index', {

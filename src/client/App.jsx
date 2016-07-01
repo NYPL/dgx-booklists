@@ -26,6 +26,8 @@ if (typeof window !== 'undefined') {
 
     if (!window.dgxFeatureFlags) {
       window.dgxFeatureFlags = FeatureFlags.utils;
+
+      FeatureFlags.utils.activateFeature('shop-link');
     }
 
 		// Render Isomorphically
