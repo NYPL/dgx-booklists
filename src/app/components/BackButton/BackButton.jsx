@@ -38,9 +38,9 @@ class BackButton extends React.Component {
           if (response.data.errorInfo) {
             Actions.failedData(response.data.errorInfo);
             console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
-          }    
+          }
       })
-      .then(response => {
+      .then(() => {
         this.context.router.push(`/browse/recommendations/lists/${userId}`);
       });
   }  
@@ -48,15 +48,20 @@ class BackButton extends React.Component {
   render() {
 
     return (
-      <div id={`back-button-wrapper`} className={`back-button-wrapper`}>
-        <a id={`back-button`}
-          className={`back-button`}
-          onClick={() => this.handleClick(this.props.userId, 5, 1)}>
-          <span className={`back-button__icon nypl-icon-circle-arrow-left`}>
+      <div
+        id={`back-button-wrapper`}
+        className="back-button-wrapper"
+      >
+        <a
+          id="back-button"
+          className="back-button"
+          onClick={() => this.handleClick(this.props.userId, 5, 1)}
+        >
+          <span className="back-button__icon nypl-icon-circle-arrow-left">
           </span>
-          <div className={`back-button__text`}>
+          <div className="back-button__text">
             <p>back to
-              <span className={`back-button__text__icon-desktop nypl-icon-arrow-up`}>
+              <span className="back-button__text__icon-desktop nypl-icon-arrow-up">
               </span>
             </p>
             <p>{this.props.userDisplayName}</p>
