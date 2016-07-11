@@ -3,6 +3,7 @@ import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
 
+import { navConfig } from 'dgx-header-component';
 import Model from 'dgx-model-data';
 
 import {api, headerApi} from '../../../appConfig.js';
@@ -60,7 +61,7 @@ function BookListUsers(req, res, next) {
       // put the data in Store
       res.locals.data = {
         HeaderStore: {
-          headerData: modelData,
+          headerData: navConfig.current,
           subscribeFormVisible: false,
           myNyplVisible: false
         },
@@ -123,7 +124,7 @@ function BookListUser(req, res, next) {
       // Put the parsed data into Store
       res.locals.data = {
         HeaderStore: {
-          headerData: modelData,
+          headerData: navConfig.current,
           subscribeFormVisible: false,
           myNyplVisible: false
         },
@@ -184,7 +185,7 @@ function ListID(req, res, next) {
 
       res.locals.data = {
         HeaderStore: {
-          headerData: modelData,
+          headerData: navConfig.current,
           subscribeFormVisible: false,
           myNyplVisible: false
         },
