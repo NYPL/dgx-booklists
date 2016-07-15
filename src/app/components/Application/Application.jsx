@@ -10,7 +10,7 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import Header from 'dgx-header-component';
+import { Header } from 'dgx-header-component';
 import Footer from '../Footer/Footer.jsx';
 
 import utils from '../../utils/utils.js';
