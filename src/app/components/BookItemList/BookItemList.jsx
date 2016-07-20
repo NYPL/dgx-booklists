@@ -17,32 +17,34 @@ import BackButton from '../BackButton/BackButton';
 import utils from '../../utils/utils.js';
 
 // Create the class. Use ES5 for react-router Navigation
-const BookItemList = React.createClass({
-  getInitialState() {
-    return Store.getState();
-  },
+class BookItemList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = Store.getState();
+    this.onChange = this.onChange.bind(this);
+  }
   // Listen to the change from data
   componentDidMount() {
-    // Store.listen(this._onChange.bind(this));
+    Store.listen(this.onChange.bind(this));
     // As a fallback, we check if the app fails to fetch the data.
     // If so, the app will attempt to make a call on client-side one more time.
     // Also, if the users browse the app with backward button or forward button,
     // we need to check if they have refreshed the page and lost the data in the Store.
     if (!this.state.bookItemList) {
-      this._fetchBookData();
+      this.fetchBookData();
     }
-  },
+  }
   // Stop listening
   componentWillUnmount() {
     // Store.unlisten(this._onChange.bind(this));
-  },
+  }
   // Change the this.state here if find any different
-  _onChange() {
+  onChange() {
     this.setState(Store.getState());
-  },
+  }
 
   /**
-  * _fetchUserLists(userId, pageSize, pageNumber)
+  * fetchUserLists(userId, pageSize, pageNumber)
   * Fetch the data we need for UserLists
   * before the app transit us to UserLists page
   *
@@ -50,7 +52,7 @@ const BookItemList = React.createClass({
   * @param (String) pageSize
   * @param (String) pageNumber
   */
-  _fetchUserLists(userId, pageSize, pageNumber) {
+  fetchUserLists(userId, pageSize, pageNumber) {
     if (!userId || !pageSize || !pageNumber) {
       console.log('Unavailable parameters for the request.');
       return;
@@ -70,19 +72,21 @@ const BookItemList = React.createClass({
           // Check if any error from the Refinery
           if (list.errorInfo) {
             Actions.failedData(list.errorInfo);
-            console.warn(`Server returned a ${list.errorInfo.status} status. ${list.errorInfo.title}.`);
+            console.warn(
+              `Server returned a ${list.errorInfo.status} status. ${list.errorInfo.title}.`
+            );
           }
         })
-        .then(response => {
+        .then(() => {
           this.context.router.push(`/browse/recommendations/lists/${userId}`);
         });
     } else {
       this.context.router.push(`/browse/recommendations/lists/${userId}`);
     }
-  },
+  }
 
   /**
-  * _fetchBookData()
+  * fetchBookData()
   * This function calls the API to fetch the data of BookItemList.
   * It could be used as a fallback if the app fails to fetch data from the sever.
   * Also, for the case if the users navigate the app with backward or
@@ -90,7 +94,7 @@ const BookItemList = React.createClass({
   * the app will lose all the data in the Store.
   * Thus, this function is here for the app to fetch the data again.
   */
-  _fetchBookData() {
+  fetchBookData() {
     const urlBookItemList = (window.location.pathname).split('/');
     const urlBookItemListId = urlBookItemList[5];
 
@@ -102,10 +106,12 @@ const BookItemList = React.createClass({
         // Check if any error from the Refinery
         if (response.data.errorInfo) {
           Actions.failedData(response.data.errorInfo);
-          console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
+          console.warn(
+            `Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`
+          );
         }
       });
-  },
+  }
 
   // Render DOM
   render() {
@@ -114,12 +120,12 @@ const BookItemList = React.createClass({
     const listId = bookItemList.id || '';
     const listItems = bookItemList['list-items'] ? bookItemList['list-items'] : [];
     const encoreUrl = 'http://browse.nypl.org/iii/encore/record/C__Rb';
-    const description = listIntro || "A list created by staff at The New York Public Library";
     let userId = bookItemList.user ? bookItemList.user.id : '';
     let userDisplayName = bookItemList.user ? bookItemList.user.attributes.name : '';
     let listName = bookItemList.attributes ? bookItemList.attributes['list-name'] : '';
     let listIntro = bookItemList.attributes ? bookItemList.attributes['list-description'] : '';
-    let pageTags = [
+    const description = listIntro || 'A list created by staff at The New York Public Library';
+    const pageTags = [
       // Required OG meta tags
       { property: 'og:title', content: `${listName} | The New York Public Library` },
       { property: 'og:url', content: `http://www.nypl.org/browse/recommendations/lists/${userId}/${listId}` },
@@ -127,7 +133,7 @@ const BookItemList = React.createClass({
       { property: 'og:description', content: description },
       { name: 'twitter:title', content: `${listName} | The New York Public Library` },
       { name: 'twitter:description', content: description },
-      { name: 'twitter:image', content: '' }
+      { name: 'twitter:image', content: '' },
     ];
     let tags = utils.metaTagUnion(pageTags);
     let bookItems = (listItems && listItems.length) ?
@@ -138,11 +144,11 @@ const BookItemList = React.createClass({
         let bookItemDescription = element.attributes.annotation;
         let bookCoverIsbn = element.item.attributes.isbns[0];
         let authors = (element.item.attributes.authors.length) ?
-            `By ${element.item.attributes.authors}` : "The author of this item is not available";
+            `By ${element.item.attributes.authors}` : 'The author of this item is not available';
+        const publishedDate = (element.item.attributes['publication-date'] && !undefined) ?
+          element.item.attributes['publication-date'] : 'publish date is not available';
         let catalogInfo = `${element.item.attributes.format} - ${publishedDate}`;
 
-        const publishedDate = (element.item.attributes['publication-date'] && !undefined) ?
-          element.item.attributes['publication-date'] : "publish date is not available";
         return (
           <BookItem
             id="bookItem"
@@ -154,13 +160,15 @@ const BookItemList = React.createClass({
             bookItemName={bookItemName}
             bookItemDescription={bookItemDescription}
             bookCoverIsbn={bookCoverIsbn}
-            authors={authors} />
+            authors={authors}
+          />
         );
       })
-      : <ErrorMessage
+      : (
+      <ErrorMessage
         errorClass="book-item-list-error no-data"
         messageContent={this.props.errorMessage.noData}
-        />;
+      />);
     let content = (
       <div className="bookItemList-wrapper">
         <BackButton
@@ -170,11 +178,13 @@ const BookItemList = React.createClass({
         <div id={this.props.id} className={this.props.className}>
           <div
             id={`${this.props.id}__${listName}`}
-            className={`${this.props.className}__content`}>
+            className={`${this.props.className}__content`}
+          >
             <a
               id="title-button"
               className="title-button"
-              onClick={() => this._fetchUserLists(userId, 5, 1)}>
+              onClick={() => this.fetchUserLists(userId, 5, 1)}
+            >
               {userDisplayName}
             </a>
             {bookItems}
@@ -211,8 +221,8 @@ const BookItemList = React.createClass({
         {content}
       </div>
     );
-  },
-});
+  }
+}
 
 BookItemList.contextTypes = {
   router: function contextType() {

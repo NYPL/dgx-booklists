@@ -6,7 +6,9 @@ import parser from 'jsonapi-parserinator';
 import { navConfig } from 'dgx-header-component';
 import Model from 'dgx-model-data';
 
-import {api, headerApi} from '../../../appConfig.js';
+import appConfig from '../../../appConfig.js';
+
+const { api, headerApi } = appConfig;
 
 // Set up variables for routing and its options
 const { HeaderItemModel } = Model;

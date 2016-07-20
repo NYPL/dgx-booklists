@@ -1,11 +1,11 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
-import {api} from '../../../appConfig.js';
+import appConfig from '../../../appConfig.js';
 
 let router = express.Router(),
   appEnvironment = process.env.APP_ENV || 'production',
-  apiRoot = api.root[appEnvironment],
+  apiRoot = appConfig.api.root[appEnvironment],
   listOptions = {
     endpoint: '',
     includes: ['user', 'list-items.item']
@@ -14,7 +14,7 @@ let router = express.Router(),
 
 function ListID(req, res, next) {
   let listID = req.params.listID,
-    endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`,
+    endpoint = `${apiRoot}${appConfig.api.baseEndpoint}/${listID}`,
     completeApiUrl;
 
   listOptions.endpoint = endpoint;
