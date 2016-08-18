@@ -11,7 +11,7 @@ import Actions from '../../actions/Actions.js';
 
 // Import Components
 import { Header } from 'dgx-header-component';
-import Footer from '../Footer/Footer.jsx';
+import Footer from 'dgx-react-footer';
 
 import utils from '../../utils/utils.js';
 
@@ -46,7 +46,7 @@ class Application extends React.Component {
         <DocMeta tags={tags} />
         <Header />
         {this.props.children}
-        <Footer />
+        <Footer id="footer" className="footer" />
       </div>
     );
   }
