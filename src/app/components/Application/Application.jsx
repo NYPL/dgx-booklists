@@ -10,7 +10,7 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import { Header } from 'dgx-header-component';
+import { Header, navConfig } from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 
 import utils from '../../utils/utils.js';
@@ -44,7 +44,7 @@ class Application extends React.Component {
     return (
       <div className='app-container'>
         <DocMeta tags={tags} />
-        <Header />
+        <Header navData={navConfig.current} />
         {this.props.children}
         <Footer id="footer" className="footer" />
       </div>
