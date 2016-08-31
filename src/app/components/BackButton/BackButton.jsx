@@ -5,7 +5,6 @@ import utils from '../../utils/utils.js';
 import Actions from '../../actions/Actions.js';
 
 class BackButton extends React.Component {
-
   constructor(props) {
     super(props);
   }
@@ -28,7 +27,7 @@ class BackButton extends React.Component {
     utils._trackLists('Go back to...', userId);
 
     axios
-      .get(`/browse/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`)
+      .get(`/books-music-dvds/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`)
       .then(response => {
 
           // Update the store for the list of lists a user has.
@@ -41,9 +40,9 @@ class BackButton extends React.Component {
           }
       })
       .then(() => {
-        this.context.router.push(`/browse/recommendations/lists/${userId}`);
+        this.context.router.push(`/books-music-dvds/recommendations/lists/${userId}`);
       });
-  }  
+  }
 
   render() {
 

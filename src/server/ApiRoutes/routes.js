@@ -2,37 +2,17 @@
 import express from 'express';
 import axios from 'axios';
 import parser from 'jsonapi-parserinator';
-
-import { navConfig } from 'dgx-header-component';
-import Model from 'dgx-model-data';
-
 import appConfig from '../../../appConfig.js';
-
-const { api, headerApi } = appConfig;
+const { api } = appConfig;
 
 // Set up variables for routing and its options
-const { HeaderItemModel } = Model;
-let router = express.Router(),
-  appEnvironment = process.env.APP_ENV || 'production',
-  apiRoot = api.root[appEnvironment],
-  listOptions = {
-    endpoint: '',
-    includes: []
-  },
-  headerOptions = {
-    endpoint: `${apiRoot}${headerApi.endpoint}`,
-    includes: headerApi.includes,
-    filters: headerApi.filters
-  };
-
-function getHeaderData() {
-  let completeApiUrl = parser.getCompleteApi(headerOptions);
-  return fetchApiData(completeApiUrl);
-}
-
-function fetchApiData(url) {
-  return axios.get(url);
-}
+const router = express.Router();
+const appEnvironment = process.env.APP_ENV || 'production';
+const apiRoot = api.root[appEnvironment];
+const listOptions = {
+  endpoint: '',
+  includes: [],
+};
 
 /**
 * BookListUsers(req, res, next)
@@ -44,50 +24,42 @@ function fetchApiData(url) {
 * @param (Express function) next - call the next function after the previous function has coompleted
 */
 function BookListUsers(req, res, next) {
-  let completeApiUrl;
-
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}`;
   listOptions.includes = [];
+  const completeApiUrl = parser.getCompleteApi(listOptions);
 
-  completeApiUrl = parser.getCompleteApi(listOptions);
-
-  axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
-    .then(axios.spread((headerData, allUsersList) => {
+  axios
+    .get(completeApiUrl)
+    .then((allUsersList) => {
       // Booklist data
-      let returnedData = allUsersList.data,
-        HeaderParsed = parser.parse(headerData.data, headerOptions),
-        parsed = parser.parse(returnedData, listOptions),
-        // Header data
-        modelData = HeaderItemModel.build(HeaderParsed);
+      const returnedData = allUsersList.data;
+      const parsed = parser.parse(returnedData, listOptions);
 
-      // put the data in Store
       res.locals.data = {
         HeaderStore: {
-          headerData: navConfig.current,
           subscribeFormVisible: false,
-          myNyplVisible: false
+          myNyplVisible: false,
         },
         ListStore: {
-          allUsersList: parsed
+          allUsersList: parsed,
         },
-        completeApiUrl
+        completeApiUrl,
       };
       next();
-    }))
+    })
     // console error messages
     .catch(error => {
       console.log('Error calling API BookListUsers: ' + error);
       res.locals.data = {
         HeaderStore: {
-          headerData: [],
           subscribeFormVisible: false,
-          myNyplVisible: false
+          myNyplVisible: false,
         },
         ListStore: {
           allUsersList: [],
-          errorInfo: error.data.errors[0]
+          errorInfo: error.data.errors[0],
         },
-        completeApiUrl: ''
+        completeApiUrl: '',
       };
       next();
     }); // end Axios call
@@ -103,56 +75,47 @@ function BookListUsers(req, res, next) {
 * @param (Express function) next - call the next function after the previous function has coompleted
 */
 function BookListUser(req, res, next) {
-  let username = req.params.username,
-    completeApiUrl;
-
+  const username = req.params.username;
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
         `${username}/links/book-lists`;
-
   listOptions.includes = api.includes;
-  
-  completeApiUrl = parser.getCompleteApi(listOptions, `${api.pageSize}${api.pageNumber}`);
+  const completeApiUrl = parser.getCompleteApi(listOptions, `${api.pageSize}${api.pageNumber}`);
 
-  axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
-    .then(axios.spread((headerData, userListsData) => {
+  axios
+    .get(completeApiUrl)
+    .then((userListsData) => {
       // Booklist data
-      let returnedData = userListsData.data,
-        HeaderParsed = parser.parse(headerData.data, headerOptions),
-        parsed = parser.parse(returnedData, listOptions),
-        listsNumber = returnedData.meta.count || 0,
-        // Header data
-        modelData = HeaderItemModel.build(HeaderParsed);
+      const returnedData = userListsData.data;
+      const parsed = parser.parse(returnedData, listOptions);
+      const listsNumber = returnedData.meta.count || 0;
 
       // Put the parsed data into Store
       res.locals.data = {
         HeaderStore: {
-          headerData: navConfig.current,
           subscribeFormVisible: false,
-          myNyplVisible: false
+          myNyplVisible: false,
         },
         ListStore: {
           userLists: parsed,
-          listsNumber: listsNumber
+          listsNumber,
         },
-        completeApiUrl
+        completeApiUrl,
       };
       next();
-    }))
-    // console error messages
+    })
     .catch(error => {
       console.log('Error calling API BookListUser: ' + error.error);
       res.locals.data = {
         HeaderStore: {
-          headerData: [],
           subscribeFormVisible: false,
-          myNyplVisible: false
+          myNyplVisible: false,
         },
         ListStore: {
           userLists: [],
           listsNumber: 0,
-          errorInfo: error.data.errors[0]
+          errorInfo: error.data.errors[0],
         },
-        completeApiUrl: ''
+        completeApiUrl: '',
       };
       next();
     }); // end Axios call
@@ -168,49 +131,42 @@ function BookListUser(req, res, next) {
 * @param (Express function) next - call the next function after the previous function has coompleted
 */
 function ListID(req, res, next) {
-  let listID = req.params.listID,
-    completeApiUrl;
-
+  const listID = req.params.listID;
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`;
   listOptions.includes = api.includes;
+  const completeApiUrl = parser.getCompleteApi(listOptions);
 
-  completeApiUrl = parser.getCompleteApi(listOptions);
-
-  axios.all([getHeaderData(), fetchApiData(completeApiUrl)])
-    .then(axios.spread((headerData, userList) => {
+  axios
+    .get(completeApiUrl)
+    .then((userList) => {
       // Booklist data
-      let returnedData = userList.data,
-        HeaderParsed = parser.parse(headerData.data, headerOptions),
-        parsed = parser.parse(returnedData, listOptions),
-        // Header data
-        modelData = HeaderItemModel.build(HeaderParsed);
+      const returnedData = userList.data;
+      const parsed = parser.parse(returnedData, listOptions);
 
       res.locals.data = {
         HeaderStore: {
-          headerData: navConfig.current,
           subscribeFormVisible: false,
-          myNyplVisible: false
+          myNyplVisible: false,
         },
         ListStore: {
-          bookItemList: parsed
+          bookItemList: parsed,
         },
-        completeApiUrl
+        completeApiUrl,
       };
       next();
-    }))
+    })
     .catch(error => {
       console.log('Error calling API ListID: ' + error);
       res.locals.data = {
         HeaderStore: {
-          headerData: [],
           subscribeFormVisible: false,
-          myNyplVisible: false
+          myNyplVisible: false,
         },
         ListStore: {
           bookItemList: {},
-          errorInfo: error.data.errors[0]
+          errorInfo: error.data.errors[0],
         },
-        completeApiUrl: ''
+        completeApiUrl: '',
       };
       next();
     }); // end Axios call
@@ -225,29 +181,26 @@ function ListID(req, res, next) {
 * @param (HTTP methods) res
 */
 function AjaxBookListUser(req, res) {
-  let username = req.params.username,
-    pageSize = `&page[size]=${req.params.pageSize}`,
-    pageNumber = `&page[number]=${req.params.pageNumber}`,
-    completeApiUrl;
-
+  const username = req.params.username;
+  const pageSize = `&page[size]=${req.params.pageSize}`;
+  const pageNumber = `&page[number]=${req.params.pageNumber}`;
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}${api.bookListUserEndpoint}/` +
       `${username}/links/book-lists`;
   listOptions.includes = api.includes;
-  
-  completeApiUrl = parser.getCompleteApi(listOptions, `${pageSize}${pageNumber}`);
+  const completeApiUrl = parser.getCompleteApi(listOptions, `${pageSize}${pageNumber}`);
 
   axios
     .get(completeApiUrl)
-    .then(data => {
-      let returnedData = data.data,
-        parsed = parser.parse(returnedData, listOptions),
-        listsNumber = returnedData.meta.count || 0;
+    .then((data) => {
+      const returnedData = data.data;
+      const parsed = parser.parse(returnedData, listOptions);
+      const listsNumber = returnedData.meta.count || 0;
 
       // Return the data as a JSON, it will be updated to Store at UserLists component
       res.json({
         user: username,
         data: parsed,
-        listsNumber: listsNumber
+        listsNumber,
       });
     })
     .catch(error => {
@@ -267,30 +220,26 @@ function AjaxBookListUser(req, res) {
 * @param (HTTP methods) res
 */
 function AjaxListID(req, res) {
-  let listID = req.params.listID,
-    completeApiUrl;
-
+  const listID = req.params.listID;
   listOptions.endpoint = `${apiRoot}${api.baseEndpoint}/${listID}`;
-
   listOptions.includes = api.includes;
-  
-  completeApiUrl = parser.getCompleteApi(listOptions);
+  const completeApiUrl = parser.getCompleteApi(listOptions);
 
   axios
     .get(completeApiUrl)
     .then(data => {
-      let returnedData = data.data,
-        parsed = parser.parse(returnedData, listOptions);
+      const returnedData = data.data;
+      const parsed = parser.parse(returnedData, listOptions);
 
       res.json({
-        listID: listID,
-        data: parsed
+        listID,
+        data: parsed,
       });
     })
     .catch(error => {
       console.log('Error calling API: AjaxListID');
       res.json({
-        errorInfo: error.data.errors[0]
+        errorInfo: error.data.errors[0],
       });
     }); // end Axios call
 }
@@ -318,24 +267,23 @@ router
 
 // Reverse Proxy routes.
 router
-  .route('/browse/recommendations/lists/')
+  .route('/books-music-dvds/recommendations/lists/')
   .get(BookListUsers);
 
 router
-  .route('/browse/recommendations/lists/:username/?')
+  .route('/books-music-dvds/recommendations/lists/:username/?')
   .get(BookListUser);
 
 router
-  .route('/browse/recommendations/lists/:username/:listID/?')
+  .route('/books-music-dvds/recommendations/lists/:username/:listID/?')
   .get(ListID);
 
 router
-  .route('/browse/recommendations/lists/api/ajax/username/:username&:pageSize&:pageNumber')
+  .route('/books-music-dvds/recommendations/lists/api/ajax/username/:username&:pageSize&:pageNumber')
   .get(AjaxBookListUser);
 
 router
-  .route('/browse/recommendations/lists/api/ajax/listID/:listID')
+  .route('/books-music-dvds/recommendations/lists/api/ajax/listID/:listID')
   .get(AjaxListID);
-
 
 export default router;

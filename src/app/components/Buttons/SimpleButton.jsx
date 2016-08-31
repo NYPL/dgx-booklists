@@ -1,35 +1,35 @@
 import React from 'react';
-import Radium from 'radium';
-
-import {ga} from 'dgx-react-ga';
+import { ga } from 'dgx-react-ga';
 
 class SimpleButton extends React.Component {
-  // Constructor used in ES6
-  constructor(props) {
-    super(props);
+  onClick() {
+    ga._trackGeneralEvent(this.props.gaCategory, this.props.gaAction, this.props.gaLabel);
+    this.props.onClick();
   }
 
-  render () {
+  render() {
     return (
       <a
-      ref='SimpleButton'
-      id={this.props.id}
-      className={this.props.className}
-      href={this.props.target}
-      onClick={this._onClick.bind(this)}
-      style={[
-        styles.base,
-        this.props.style
-      ]}>
+        ref="SimpleButton"
+        id={this.props.id}
+        className={this.props.className}
+        href={this.props.target}
+        onClick={() => this.onClick}
+        style={this.props.style}
+      >
         {this.props.label}
       </a>
     );
   }
-
-  _onClick() {
-    ga._trackGeneralEvent(this.props.gaCategory, this.props.gaAction, this.props.gaLabel);
-    this.props.onClick();
-  }
+}
+SimpleButton.propTypes = {
+  id: React.PropTypes.string,
+  className: React.PropTypes.string,
+  label: React.PropTypes.string,
+  lang: React.PropTypes.string,
+  target: React.PropTypes.string,
+  onClick: React.PropTypes.func,
+  style: React.PropTypes.object,
 };
 
 SimpleButton.defaultProps = {
@@ -38,13 +38,7 @@ SimpleButton.defaultProps = {
   label: 'Button',
   lang: 'en',
   target: '#',
-  onClick() {}
+  onClick() {},
 };
 
-const styles = {
-  base: {
-
-  }
-};
-
-export default Radium(SimpleButton);
+export default SimpleButton;

@@ -27,7 +27,7 @@ class AllUsersListElement extends React.Component {
     }
     // First fetch the data and then transition. Must also handle errors.
     axios
-      .get(`/browse/recommendations/lists/api/ajax/username/${username}&${pageSize}&${pageNumber}`)
+      .get(`/books-music-dvds/recommendations/lists/api/ajax/username/${username}&${pageSize}&${pageNumber}`)
       .then(response => {
         // Update the store for the list of lists a user has.
         Actions.updateUserLists(response.data.data);
@@ -37,10 +37,10 @@ class AllUsersListElement extends React.Component {
         if (response.data.errorInfo) {
           Actions.failedData(response.data.errorInfo);
           console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
-        }        
+        }
       })
       .then(response => {
-        this.context.router.push('/browse/recommendations/lists/' + username);
+        this.context.router.push('/books-music-dvds/recommendations/lists/' + username);
       });
   }
 
@@ -53,7 +53,7 @@ class AllUsersListElement extends React.Component {
             {this.props.name}
         </a>
       </div>
-    );    
+    );
   }
 };
 
