@@ -10,7 +10,7 @@ import Store from '../../stores/Store.js';
 import Actions from '../../actions/Actions.js';
 
 // Import Components
-import { Header } from 'dgx-header-component';
+import { Header, navConfig } from 'dgx-header-component';
 import Footer from 'dgx-react-footer';
 
 import utils from '../../utils/utils.js';
@@ -32,7 +32,7 @@ class Application extends React.Component {
       pageTags = [
         // Required OG meta tags
         {property: "og:title", content: 'Lists | The New York Public Library'},
-        {property: "og:url", content: 'http://www.nypl.org/browse/recommendations/lists/'},
+        {property: "og:url", content: 'http://www.nypl.org/books-music-dvds/recommendations/lists/'},
         {property: "og:image", content: ''},
         {property: "og:description", content: description},
         {name: "twitter:description", content: description},
@@ -44,7 +44,7 @@ class Application extends React.Component {
     return (
       <div className='app-container'>
         <DocMeta tags={tags} />
-        <Header />
+        <Header navData={navConfig.current} />
         {this.props.children}
         <Footer id="footer" className="footer" />
       </div>

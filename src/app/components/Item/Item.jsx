@@ -28,7 +28,7 @@ class Item extends React.Component {
     utils._trackLists('List', this.props.name);
 
     axios
-      .get(`/browse/recommendations/lists/api/ajax/listID/${this.props.listId}`)
+      .get(`/books-music-dvds/recommendations/lists/api/ajax/listID/${this.props.listId}`)
       .then(response => {
         Actions.updateBookList(response.data.data);
         // Check if any error from the Refinery
@@ -41,7 +41,7 @@ class Item extends React.Component {
       })
       .then(() => {
         this.context.router.push(
-          `/browse/recommendations/lists/${this.props.userId}/${this.props.listId}`
+          `/books-music-dvds/recommendations/lists/${this.props.userId}/${this.props.listId}`
         );
       });
   }
