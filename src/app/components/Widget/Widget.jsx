@@ -1,37 +1,34 @@
 // Import React Libraries
 import React from 'react';
-import Radium from 'radium';
-
 // ALT FLUX
 import Store from '../../stores/Store.js';
-import Actions from '../../actions/Actions.js';
-
 // Import Components
-import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
-import BookItem from '../BookItem/BookItem.jsx';
-import PaginationButton from '../Buttons/PaginationButton.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
-
 import utils from '../../utils/utils.js';
+
+const styles = {
+  bookItemsWidth: {
+    width: '4500px',
+  },
+};
 
 // Create the class. Use ES5 for react-router Navigation
 class BookItemList extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = Store.getState();
   }
 
   componentDidMount() {
-    Store.listen(this._onChange.bind(this));
+    Store.listen(this.onChange.bind(this));
   }
 
   componentWillUnmount() {
-    Store.unlisten(this._onChange.bind(this));
+    Store.unlisten(this.onChange.bind(this));
   }
 
-  _onChange() {
+  onChange() {
     this.setState(Store.getState());
   }
 
@@ -105,20 +102,14 @@ class BookItemList extends React.Component {
   }
 }
 
-let styles = {
-  bookItemsWidth: {
-    width: '4500px'
-  }
-};
-
 BookItemList.defaultProps = {
   lang: 'en',
   id: 'bookListWidget',
   className: 'bookListWidget',
   errorMessage: {
     noData: 'No book in this list.',
-    failedRequest: 'Unable to complete this request. Something might be wrong with the server.'
-  }
+    failedRequest: 'Unable to complete this request. Something might be wrong with the server.',
+  },
 };
 
-export default Radium(BookItemList);
+export default BookItemList;
