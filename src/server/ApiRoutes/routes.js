@@ -45,7 +45,6 @@ function BookListUsers(req, res, next) {
         },
         completeApiUrl,
       };
-
       next();
     })
     // console error messages
@@ -167,7 +166,7 @@ function ListID(req, res, next) {
           bookItemList: {},
           errorInfo: error.data.errors[0],
         },
-        completeApiUrl: ''
+        completeApiUrl: '',
       };
       next();
     }); // end Axios call
@@ -201,7 +200,7 @@ function AjaxBookListUser(req, res) {
       res.json({
         user: username,
         data: parsed,
-        listsNumber: listsNumber
+        listsNumber,
       });
     })
     .catch(error => {
@@ -240,7 +239,7 @@ function AjaxListID(req, res) {
     .catch(error => {
       console.log('Error calling API: AjaxListID');
       res.json({
-        errorInfo: error.data.errors[0]
+        errorInfo: error.data.errors[0],
       });
     }); // end Axios call
 }
@@ -268,24 +267,23 @@ router
 
 // Reverse Proxy routes.
 router
-  .route('/browse/recommendations/lists/')
+  .route('/books-music-dvds/recommendations/lists/')
   .get(BookListUsers);
 
 router
-  .route('/browse/recommendations/lists/:username/?')
+  .route('/books-music-dvds/recommendations/lists/:username/?')
   .get(BookListUser);
 
 router
-  .route('/browse/recommendations/lists/:username/:listID/?')
+  .route('/books-music-dvds/recommendations/lists/:username/:listID/?')
   .get(ListID);
 
 router
-  .route('/browse/recommendations/lists/api/ajax/username/:username&:pageSize&:pageNumber')
+  .route('/books-music-dvds/recommendations/lists/api/ajax/username/:username&:pageSize&:pageNumber')
   .get(AjaxBookListUser);
 
 router
-  .route('/browse/recommendations/lists/api/ajax/listID/:listID')
+  .route('/books-music-dvds/recommendations/lists/api/ajax/listID/:listID')
   .get(AjaxListID);
-
 
 export default router;
