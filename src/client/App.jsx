@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, useRouterHistory } from 'react-router';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
-import ga from 'react-ga';
+import { ga } from 'dgx-react-ga';
 
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
@@ -20,7 +20,7 @@ if (typeof window !== 'undefined') {
 	window.onload = () => {
     if (!window.ga) {
       console.log('Analytics not available - loading through React.');
-      let gaOpts = { debug: false };
+      let gaOpts = { debug: true };
       ga.initialize('UA-1420324-3', gaOpts);
     }
 

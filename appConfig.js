@@ -18,13 +18,15 @@ const config = {
     pageNumber: '&page[number]=1',
     includes: ['list-items.item', 'user'],
   },
-  metaTags: [{
-    property: 'og:type',
-    content: 'website',
-  }, {
-    property: 'og:image:type',
-    content: 'image/png',
-  },
+  metaTags: [
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:image:type',
+      content: 'image/png',
+    },
     {
       property: 'og:image:width',
       content: '400',
