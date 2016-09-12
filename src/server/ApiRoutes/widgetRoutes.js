@@ -19,14 +19,13 @@ function ListID(req, res, next) {
 
   listOptions.endpoint = endpoint;
   completeApiUrl = parser.getCompleteApi(listOptions);
-  parser.setChildrenObjects(listOptions);
 
   axios
     .get(completeApiUrl)
     .then(data => {
       // Booklist data
       let returnedData = data.data,
-        parsed = parser.parse(returnedData);
+        parsed = parser.parse(returnedData, listOptions);
 
       res.locals.data = {
         ListStore: {

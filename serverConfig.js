@@ -36,6 +36,33 @@ const serverPort = process.env.PORT || (isProduction ? 3001 : appConfig.port);
 const buildAssets = (isProduction) ?
   JSON.parse(fs.readFileSync(path.join(DIST_PATH, 'assets.json'))) : '';
 
+const renderWidget = (req, res) => {
+  const iso = new Iso();
+  const App = ReactDOMServer.renderToString(<Widget />);
+
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+
+  // bootstrap will stringify the data
+  alt.bootstrap(JSON.stringify(res.locals.data || {}));
+
+  // Inject the stringified data in to App
+  iso.add(App, alt.flush());
+
+  // The data we render by iso and pass to index.ejs
+  res.render('index', {
+    App: iso.render(),
+    appTitle: appConfig.appName,
+    favicon: appConfig.favIconPath,
+    isProduction,
+    assets: buildAssets,
+    metatags: [],
+    appEnv: process.env.APP_ENV || 'no APP_ENV',
+    widget: 'true',
+    apiUrl: res.locals.data.completeApiUrl,
+  });
+};
+
 /* Express Server Configuration
  * ----------------------------
  * - Using .EJS as the view engine
@@ -61,35 +88,13 @@ app.use('*/dist', express.static(DIST_PATH));
 // Assign the path for static client files
 app.use('*/src/client', express.static(INDEX_PATH));
 
+// Match these routes to fetch only widget data
+app.use('/books-music-dvds/recommendations/lists/widget', WidgetRoutes);
 app.use('/widget', WidgetRoutes);
 
-// Match all routes to render the index page.
-app.use('/widget', (req, res) => {
-  const iso = new Iso();
-  const App = ReactDOMServer.renderToString(<Widget />);
-
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-
-  // bootstrap will stringify the data
-  alt.bootstrap(JSON.stringify(res.locals.data || {}));
-
-  // Inject the stringified data in to App
-  iso.add(App, alt.flush());
-
-  // The data we render by iso and pass to index.ejs
-  res.render('index', {
-    App: iso.render(),
-    appTitle: appConfig.appName,
-    favicon: appConfig.favIconPath,
-    isProduction,
-    assets: buildAssets,
-    metatags: [],
-    appEnv: process.env.APP_ENV || 'no APP_ENV',
-    widget: 'true',
-    apiUrl: res.locals.data.completeApiUrl,
-  });
-});
+// Match these routes to render the widget page.
+app.use('/books-music-dvds/recommendations/lists/widget', renderWidget);
+app.use('/widget', renderWidget);
 
 app.use('/', (req, res, next) => {
   if (req.path === '/books-music-dvds/recommendations/lists') {

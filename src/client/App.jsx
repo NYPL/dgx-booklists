@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, useRouterHistory } from 'react-router';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
-import ga from 'react-ga';
+import { ga } from 'dgx-react-ga';
 
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
