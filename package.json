@@ -60,7 +60,7 @@
     "dgx-header-component": "git+ssh://bitbucket.org/NYPL/dgx-header-component.git#master",
     "dgx-model-data": "git+ssh://bitbucket.org/NYPL/dgx-model-data.git#master",
     "dgx-react-footer": "git+ssh://bitbucket.org/NYPL/dgx-react-footer.git#master",
-    "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#WEb-3415-improved-ga",
+    "dgx-react-ga": "git+ssh://bitbucket.org/NYPL/dgx-react-ga.git#master",
     "ejs": "^2.3.3",
     "eventemitter3": "^1.1.1",
     "express": "^4.13.1",
