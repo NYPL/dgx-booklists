@@ -1,15 +1,12 @@
 // Import React Libraries
 import React from 'react';
-import Router from 'react-router';
 
 // Import Components
 import SimpleButton from '../Buttons/SimpleButton.jsx';
 import BookCover from '../BookCover/BookCover.jsx';
 
-import Actions from '../../actions/Actions.js';
-
 // Import Misc
-import cx from 'classnames'
+import cx from 'classnames';
 
 import utils from '../../utils/utils.js';
 
@@ -17,16 +14,12 @@ class BookItem extends React.Component {
   // Constructor used in ES6
   constructor(props) {
     super(props);
-
-    // The default values of input fields
-    this.state = {
-    };
   }
 
   render() {
     let haveContentClass = cx({
-      '':this.props.bookItemDescription,
-      'no-content': !this.props.bookItemDescription
+      '': this.props.bookItemDescription,
+      'no-content': !this.props.bookItemDescription,
     });
 
     return (

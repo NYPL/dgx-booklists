@@ -8,20 +8,21 @@ class BasicButton extends React.Component {
     super(props);
   }
 
-  render () {
+  render() {
     return (
       <button
-      ref='BasicButton'
-      id={this.props.id}
-      className={this.props.className}
-      name={this.props.name}
-      onClick={this.props.onClick}
-      onMouseEnter={this.props.onMouseEnter}
-      onMouseLeave={this.props.onMouseLeave}
-      style={[
-        styles.base,
-        this.props.style
-      ]}>
+        ref='BasicButton'
+        id={this.props.id}
+        className={this.props.className}
+        name={this.props.name}
+        onClick={this.props.onClick}
+        onMouseEnter={this.props.onMouseEnter}
+        onMouseLeave={this.props.onMouseLeave}
+        style={[
+          styles.base,
+          this.props.style
+        ]}
+      >
         {this.props.label}
       </button>
     );
@@ -34,12 +35,11 @@ BasicButton.defaultProps = {
   name: 'BasicButton',
   label: 'Basic Button',
   lang: 'en',
-  onClick() {}
+  onClick() {},
 };
 
 const styles = {
-  base: {
-  }
+  base: {},
 };
 
 // Export the component

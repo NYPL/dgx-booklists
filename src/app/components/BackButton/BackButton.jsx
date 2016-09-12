@@ -29,15 +29,14 @@ class BackButton extends React.Component {
     axios
       .get(`/books-music-dvds/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`)
       .then(response => {
-
-          // Update the store for the list of lists a user has.
-          Actions.updateUserLists(response.data.data);
-          Actions.updateListsNumber(response.data.listsNumber);
-          // Check if any error from the Refinery
-          if (response.data.errorInfo) {
-            Actions.failedData(response.data.errorInfo);
-            console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
-          }
+        // Update the store for the list of lists a user has.
+        Actions.updateUserLists(response.data.data);
+        Actions.updateListsNumber(response.data.listsNumber);
+        // Check if any error from the Refinery
+        if (response.data.errorInfo) {
+          Actions.failedData(response.data.errorInfo);
+          console.warn(`Server returned a ${response.data.errorInfo.status} status. ${response.data.errorInfo.title}.`);
+        }
       })
       .then(() => {
         this.context.router.push(`/books-music-dvds/recommendations/lists/${userId}`);
@@ -45,7 +44,6 @@ class BackButton extends React.Component {
   }
 
   render() {
-
     return (
       <div
         id={`back-button-wrapper`}
@@ -69,7 +67,7 @@ class BackButton extends React.Component {
         </a>
       </div>
     )
-  }
+  };
 }
 
 BackButton.contextTypes = {
