@@ -6,8 +6,8 @@ import { Router } from 'react-router';
 import DocMeta from 'react-doc-meta';
 
 // Import Components
-import { Header, navConfig } from 'dgx-header-component';
-import Footer from 'dgx-react-footer';
+import { Header, navConfig } from '@nypl/dgx-header-component';
+import Footer from '@nypl/dgx-react-footer';
 
 import utils from '../../utils/utils.js';
 
