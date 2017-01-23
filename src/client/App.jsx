@@ -1,5 +1,5 @@
 // Polyfill Promise for legacy browsers
-import "babel-polyfill";
+import 'babel-polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -20,7 +20,7 @@ import FeatureFlags from 'dgx-feature-flags';
 import './styles/main.scss';
 
 if (typeof window !== 'undefined') {
-	window.onload = () => {
+  window.onload = () => {
     if (!window.ga) {
       console.log('Analytics not available - loading through React.');
       let gaOpts = { debug: false };
@@ -31,16 +31,15 @@ if (typeof window !== 'undefined') {
       window.dgxFeatureFlags = FeatureFlags.utils;
     }
 
-		// Render Isomorphically
-	  Iso.bootstrap((state, container) => {
+    // Render Isomorphically
+    Iso.bootstrap((state, container) => {
       let node;
 
-	  	console.log('Application rendered Isomorphically.');
+      console.log('Application rendered Isomorphically.');
 
-	    alt.bootstrap(state);
+      alt.bootstrap(state);
 
       if (window.widget === 'false') {
-
         const appHistory = useScroll(useRouterHistory(createBrowserHistory))();
         ReactDOM.render(
           <Router history={appHistory}>{routes.client}</Router>,
@@ -50,6 +49,6 @@ if (typeof window !== 'undefined') {
         node = React.createElement(Widget);
         ReactDOM.render(node, container);
       }
-	  });
-	}
+    });
+  };
 }
