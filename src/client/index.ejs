@@ -18,19 +18,22 @@
   </head>
   <body>
     <div id="app"><%- App %></div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      var appEnv = "<%- appEnv %>";
+      var widget = "<%- widget %>";
+      var apiUrl = "<%- apiUrl %>";
+    </script>
+
+  <% if (isProduction) { %>
+    <script async src="dist/<%= assets.main.js %>"></script>
+  <% } else { %>
+    <script src="http://localhost:3000/bundle.js"></script>
+  <% } %>
+
+    <!-- Optimizely -->
+    <script src="https://cdn.optimizely.com/js/284748925.js"></script>
+    <!-- Optimizely -->
   </body>
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    var appEnv = "<%- appEnv %>";
-    var widget = "<%- widget %>";
-    var apiUrl = "<%- apiUrl %>";
-  </script>
-
-<% if (isProduction) { %>
-  <script async src="dist/<%= assets.main.js %>"></script>
-<% } else { %>
-  <script src="http://localhost:3000/bundle.js"></script>
-<% } %>
-
 </html>
