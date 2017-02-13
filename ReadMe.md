@@ -8,7 +8,7 @@ React Web App that renders the NYPL Booklists.
 ## Change Log
 
 ### v2.0.10
-> Added HTTPS fix and the JavaScript fallback for log in button on the Header Component.
+> Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
 
 ## Node Configuration
 Pass in the following environment variables:  
