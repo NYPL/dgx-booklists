@@ -3,9 +3,12 @@
 React Web App that renders the NYPL Booklists.
 
 ## Version
-2.0.10
+2.0.11
 
 ## Change Log
+
+### v2.0.11
+> Updated the Header Component to v1.5.2. The update is to turn off the feature flag of OAuth Login and set it as default.
 
 ### v2.0.10
 > Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
