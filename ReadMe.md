@@ -8,13 +8,7 @@ React Web App that renders the NYPL Booklists.
 ## Change Log
 
 ### v2.0.11
-> Updated the Header Component to v1.5.5. The update is to integrate the log in related functions with login server.
-
-> Updated the Header Component to v1.5.4. The update is to integrate the log in related functions with beta-ouath server.
-
-> Updated the Header Component to v1.5.3. The update is to remove console loggings for patron token expiration.
-
-> Updated the Header Component to v1.5.2. The update is to turn off the feature flag of OAuth Login and set it as default.
+- Updated the Header Component to v1.5.5. The updates include integrating the log in related functions with login server, removing console loggings for patron token expiration, and turning off the feature flag of OAuth Login and set it as default.
 
 ### v2.0.10
 > Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
