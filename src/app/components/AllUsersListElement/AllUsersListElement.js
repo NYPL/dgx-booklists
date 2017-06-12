@@ -47,7 +47,7 @@ class AllUsersListElement extends React.Component {
 
   render() {
     return (
-      <div className={`${this.props.className}__userlink-wrapper`} key={this.props.key}>
+      <div className={`${this.props.className}__userlink-wrapper`}>
         <a id={`${this.props.parentId}__${this.props.username}`}
           className={`${this.props.className}__userlink`}
           onClick={this.handleClick.bind(this.props.id, this.props.id, this)}>
