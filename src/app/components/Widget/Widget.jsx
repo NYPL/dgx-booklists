@@ -50,7 +50,7 @@ class BookItemList extends React.Component {
             bookCoverIsbn = element.item.attributes.isbns[0];
 
           return(
-            <li>
+            <li key={i}>
               <a href={target} className='bookItem' target='_parent'
                 onClick={utils._trackLists.bind(this, 'Widget Book Image', bookItemName)}>
                 <BookCover

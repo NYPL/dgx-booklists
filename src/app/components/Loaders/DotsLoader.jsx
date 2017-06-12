@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const styles = {
   text: {
@@ -49,9 +50,9 @@ class DotsLoader extends React.Component {
 }
 
 DotsLoader.propTypes = {
-  className: React.PropTypes.string,
-  id: React.PropTypes.string,
-  dots: React.PropTypes.number,
+  className: PropTypes.string,
+  id: PropTypes.string,
+  dots: PropTypes.number,
 };
 
 DotsLoader.defaultProps = {

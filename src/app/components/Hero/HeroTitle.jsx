@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class HeroTitle extends React.Component {
   render() {
@@ -17,12 +18,12 @@ class HeroTitle extends React.Component {
 }
 
 HeroTitle.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
-  style: React.PropTypes.object,
-  title: React.PropTypes.string,
-  name: React.PropTypes.string,
-  intro: React.PropTypes.string,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  title: PropTypes.string,
+  name: PropTypes.string,
+  intro: PropTypes.string,
 };
 
 export default HeroTitle;

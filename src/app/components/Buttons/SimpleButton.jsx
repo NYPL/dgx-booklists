@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ga } from 'dgx-react-ga';
 
 class SimpleButton extends React.Component {
@@ -23,13 +24,13 @@ class SimpleButton extends React.Component {
   }
 }
 SimpleButton.propTypes = {
-  id: React.PropTypes.string,
-  className: React.PropTypes.string,
-  label: React.PropTypes.string,
-  lang: React.PropTypes.string,
-  target: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  style: React.PropTypes.object,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  label: PropTypes.string,
+  lang: PropTypes.string,
+  target: PropTypes.string,
+  onClick: PropTypes.func,
+  style: PropTypes.object,
 };
 
 SimpleButton.defaultProps = {
