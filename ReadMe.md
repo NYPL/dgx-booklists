@@ -3,15 +3,7 @@
 React Web App that renders the NYPL Booklists.
 
 ## Version
-2.0.11
-
-## Change Log
-
-### v2.0.11
-- Updated the Header Component to v1.5.5. The updates include integrating the log in related functions with login server, removing console loggings for patron token expiration, and turning off the feature flag of OAuth Login and set it as default.
-
-### v2.0.10
-> Updated the Header Component to v1.5.1. The update includes HTTPS fix and the JavaScript fallback for the log in button on the Header Component.
+2.1.0
 
 ## Node Configuration
 Pass in the following environment variables:  
@@ -42,7 +34,7 @@ $ npm run build  (builds the assets to /dist path)
 ```
 
 ```sh
-$ NODE_ENV=production npm run start  (starts the Node Server with proper environment) 
+$ NODE_ENV=production npm run start  (starts the Node Server with proper environment)
 ```
 
 2) Run in a single command

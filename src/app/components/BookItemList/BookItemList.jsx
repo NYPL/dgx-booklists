@@ -1,6 +1,6 @@
 // Import React Libraries
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import DocMeta from 'react-doc-meta';
 import axios from 'axios';
 
@@ -225,9 +225,7 @@ class BookItemList extends React.Component {
 }
 
 BookItemList.contextTypes = {
-  router: function contextType() {
-    return React.PropTypes.func.isRequired;
-  },
+  router: PropTypes.object,
 };
 
 BookItemList.defaultProps = {

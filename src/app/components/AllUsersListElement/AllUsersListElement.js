@@ -1,5 +1,6 @@
 // Import React Libraries
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import Actions from '../../actions/Actions.js';
@@ -46,7 +47,7 @@ class AllUsersListElement extends React.Component {
 
   render() {
     return (
-      <div className={`${this.props.className}__userlink-wrapper`} key={this.props.key}>
+      <div className={`${this.props.className}__userlink-wrapper`}>
         <a id={`${this.props.parentId}__${this.props.username}`}
           className={`${this.props.className}__userlink`}
           onClick={this.handleClick.bind(this.props.id, this.props.id, this)}>
@@ -58,9 +59,7 @@ class AllUsersListElement extends React.Component {
 };
 
 AllUsersListElement.contextTypes = {
-  router: function contextType() {
-    return React.PropTypes.func.isRequired;
-  },
+  router: PropTypes.object,
 };
 
 export default AllUsersListElement;

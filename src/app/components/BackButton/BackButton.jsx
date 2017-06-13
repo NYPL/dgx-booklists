@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import utils from '../../utils/utils.js';
@@ -71,9 +72,7 @@ class BackButton extends React.Component {
 }
 
 BackButton.contextTypes = {
-  router: function contextType() {
-    return React.PropTypes.func.isRequired;
-  },
+  router: PropTypes.object,
 };
 
 // Export components
