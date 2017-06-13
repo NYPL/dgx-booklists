@@ -16,7 +16,7 @@ class Hero extends React.Component {
       <div key='Hero' className='hero'>
         <div key='HeroContainer' className='hero__container'>
           <div key='TextContainer' className='hero__container__text-container'>
-            <HeroTitle className='hero__container__text-container__title' title='lists' name={this.props.name} 
+            <HeroTitle className='hero__container__text-container__title' title='lists' name={this.props.name}
              intro={this.props.intro} />
           </div>
           <div key='HeroImageContainer' className='hero__container__image-container'>
@@ -25,9 +25,6 @@ class Hero extends React.Component {
       </div>
     );
   }
-};
-
-const styles = {
 };
 
 export default Hero;

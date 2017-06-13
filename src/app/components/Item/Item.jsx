@@ -1,5 +1,6 @@
 // Import React Libraries
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 // Import Components
@@ -102,9 +103,7 @@ Item.defaultProps = {
 };
 
 Item.contextTypes = {
-  router: function contextType() {
-    return React.PropTypes.func.isRequired;
-  },
+  router: PropTypes.object,
 };
 
 // Export components

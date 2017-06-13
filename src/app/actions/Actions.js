@@ -2,23 +2,23 @@ import alt from 'dgx-alt-center';
 
 class Actions {
   updateAllUsersList(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateUserLists(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateBookList(data) {
-    this.dispatch(data);
+    return data;
   }
 
   updateListsNumber(data) {
-    this.dispatch(data);
+    return data;
   }
 
   failedData(errorInfo) {
-    this.dispatch(errorInfo);
+    return errorInfo;
   }
 }
 

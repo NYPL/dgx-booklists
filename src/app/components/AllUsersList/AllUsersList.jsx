@@ -1,5 +1,6 @@
 // Import React Libraries
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // ALT FLUX
 import Store from '../../stores/Store.js';
@@ -82,9 +83,7 @@ AllUsersList.defaultProps = {
 };
 
 AllUsersList.contextTypes = {
-  router: function contextType() {
-    return React.PropTypes.func.isRequired;
-  },
+  router: PropTypes.object,
 };
 
 export default AllUsersList;

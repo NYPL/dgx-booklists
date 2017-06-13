@@ -23,8 +23,10 @@ class BookItem extends React.Component {
     });
 
     return (
-      <div id={`${this.props.id}-${this.props.itemId}`}
-        className={this.props.className} key={this.props.key}>
+      <div
+        id={`${this.props.id}-${this.props.itemId}`}
+        className={this.props.className}
+      >
         <div className={`${this.props.className}__title`}>
           <SimpleButton id={`${this.props.itemId}`}
             className='name'
