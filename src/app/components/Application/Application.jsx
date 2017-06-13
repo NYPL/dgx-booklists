@@ -36,7 +36,10 @@ class Application extends React.Component {
     return (
       <div className='app-container'>
         <DocMeta tags={tags} />
-        <Header navData={navConfig.current} />
+        <Header
+          navData={navConfig.current}
+          skipNav={{ target: 'main' }}
+        />
         {this.props.children}
         <Footer id="footer" className="footer" />
       </div>
