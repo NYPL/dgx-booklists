@@ -3,7 +3,7 @@
 React Web App that renders the NYPL Booklists.
 
 ## Version
-2.1.0
+2.1.1
 
 ## Node Configuration
 Pass in the following environment variables:  
