@@ -23,7 +23,7 @@ if (typeof window !== 'undefined') {
   window.onload = () => {
     if (!window.ga) {
       console.log('Analytics not available - loading through React.');
-      let gaOpts = { debug: false };
+      const gaOpts = { debug: false, titleCase: false };
       ga.initialize('UA-1420324-3', gaOpts);
     }
 
