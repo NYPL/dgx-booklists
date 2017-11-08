@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Router, useRouterHistory } from 'react-router';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
-import { ga } from 'dgx-react-ga';
+import { gaUtils } from 'dgx-react-ga';
 
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
@@ -22,9 +22,9 @@ import './styles/main.scss';
 if (typeof window !== 'undefined') {
   window.onload = () => {
     if (!window.ga) {
-      console.log('Analytics not available - loading through React.');
       const gaOpts = { debug: false, titleCase: false };
-      ga.initialize('UA-1420324-3', gaOpts);
+
+      gaUtils.initialize('UA-1420324-3', gaOpts);
     }
 
     if (!window.dgxFeatureFlags) {
