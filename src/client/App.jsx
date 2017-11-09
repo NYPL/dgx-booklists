@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Router, useRouterHistory } from 'react-router';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
-import { gaUtils } from 'dgx-react-ga';
+import { gaUtils, config } from 'dgx-react-ga';
 
 import Iso from 'iso';
 import alt from 'dgx-alt-center';
@@ -22,9 +22,10 @@ import './styles/main.scss';
 if (typeof window !== 'undefined') {
   window.onload = () => {
     if (!window.ga) {
-      const gaOpts = { debug: false, titleCase: false };
+      const isProd = process.env.NODE_ENV === 'production';
+      const gaOpts = { debug: !isProd, titleCase: false };
 
-      gaUtils.initialize('UA-1420324-3', gaOpts);
+      gaUtils.initialize(config.google.code(isProd), gaOpts);
     }
 
     if (!window.dgxFeatureFlags) {
