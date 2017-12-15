@@ -1,5 +1,15 @@
 ## Change Log
 
+### v2.1.4
+- Updating the Header to v2.3.0 -- Fundraising Banner integration.
+
+### v2.1.3
+- Updating the Header to 2.2.0.
+- Updating GA initialization configurations.
+
+### v2.1.2
+- Updating the Header to 2.1.1.
+
 ### v2.1.1
 - Updating the Header to 2.1.0.
 
