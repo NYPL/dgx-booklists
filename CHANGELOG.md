@@ -1,5 +1,8 @@
 ## Change Log
 
+### v2.1.5
+- Updating the Header to v2.4.0.
+
 ### v2.1.4
 - Updating the Header to v2.3.0 -- Fundraising Banner integration.
 
