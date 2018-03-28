@@ -1,5 +1,8 @@
 ## Change Log
 
+### v2.2.0
+- Adding OptinMonster script and updating Header to 2.4.7.
+
 ### v2.1.7
 - Updating the Header component to 2.4.5.
 
