@@ -1,5 +1,8 @@
 ## Change Log
 
+### v2.2.1
+- Adding Travis CI and AWS CI/CD configuration.
+
 ### v2.2.0
 - Adding OptinMonster script and updating Header to 2.4.7.
 
