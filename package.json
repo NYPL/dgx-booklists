@@ -50,8 +50,8 @@
     "webpack-dev-server": "1.10.1"
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.4.7",
-    "@nypl/dgx-react-footer": "0.4.1",
+    "@nypl/dgx-header-component": "2.4.8",
+    "@nypl/dgx-react-footer": "git+https://git@github.com/NYPL/dgx-react-footer.git#svg-update",
     "assets-webpack-plugin": "3.4.0",
     "axios": "0.9.1",
     "classnames": "2.1.3",
@@ -60,6 +60,7 @@
     "compression": "1.5.2",
     "create-react-class": "15.5.3",
     "dgx-alt-center": "git+https://git@bitbucket.org/NYPL/dgx-alt-center.git#master",
+    "dgx-feature-flags": "git+https://git@bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "dgx-model-data": "git+https://git@bitbucket.org/NYPL/dgx-model-data.git#master",
     "dgx-react-ga": "git+https://git@bitbucket.org/NYPL/dgx-react-ga.git#master",
     "ejs": "2.5.5",
