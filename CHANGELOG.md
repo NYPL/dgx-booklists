@@ -1,7 +1,10 @@
 ## Change Log
 
-### v2.2.1
+### v2.2.2
 - Updating @nypl/dgx-react-footer version to 0.5.0 and @nypl/dgx-header-component to 2.4.8.
+
+### v2.2.1
+- Adding Travis CI and AWS CI/CD configuration.
 
 ### v2.2.0
 - Adding OptinMonster script and updating Header to 2.4.7.

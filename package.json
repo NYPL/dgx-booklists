@@ -1,12 +1,13 @@
 {
   "name": "dgx-booklists",
-  "version": "2.2.0",
+  "version": "2.2.2",
   "description": "NYPL Isomorphic React Booklists with Webpack",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json",
-    "dist": "NODE_ENV=production webpack --config webpack.config.js"
+    "dist": "NODE_ENV=production webpack --config webpack.config.js",
+    "eb-start": "npm run dist && npm run start"
   },
   "keywords": [
     "react",
@@ -24,7 +25,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/NYPL/dgx-booklists"
+    "url": "https://github.com/NYPL/dgx-booklists"
   },
   "engines": {
     "node": "0.10.x",
@@ -33,31 +34,26 @@
   "author": "NYPL Digital Experience",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "6.5.2",
-    "babel-loader": "6.2.3",
-    "babel-polyfill": "6.20.0",
-    "babel-preset-es2015": "6.5.0",
-    "babel-preset-react": "6.5.0",
-    "css-loader": "0.15.6",
     "esdoc": "0.3.1",
     "eslint": "2.13.1",
     "eslint-config-airbnb": "9.0.1",
-    "eslint-plugin-react": "5.2.2",
-    "node-sass": "3.8.0",
-    "react-hot-loader": "1.2.8",
-    "sass-loader": "1.0.4",
-    "style-loader": "0.12.3",
-    "webpack-dev-server": "1.10.1"
+    "eslint-plugin-react": "5.2.2"
   },
   "dependencies": {
     "@nypl/dgx-header-component": "2.4.8",
     "@nypl/dgx-react-footer": "git+https://git@github.com/NYPL/dgx-react-footer.git#svg-update",
     "assets-webpack-plugin": "3.4.0",
     "axios": "0.9.1",
+    "babel-core": "6.5.2",
+    "babel-loader": "6.2.3",
+    "babel-polyfill": "6.20.0",
+    "babel-preset-es2015": "6.5.0",
+    "babel-preset-react": "6.5.0",
     "classnames": "2.1.3",
     "clean-webpack-plugin": "0.1.3",
     "colors": "1.1.2",
     "compression": "1.5.2",
+    "css-loader": "0.15.6",
     "create-react-class": "15.5.3",
     "dgx-alt-center": "git+https://git@bitbucket.org/NYPL/dgx-alt-center.git#master",
     "dgx-feature-flags": "git+https://git@bitbucket.org/NYPL/dgx-feature-flags.git#master",
@@ -71,8 +67,10 @@
     "history": "1.15.0",
     "iso": "5.1.0",
     "jsonapi-parserinator": "0.5.0",
-    "moment": "2.10.6",
+    "moment": "2.19.3",
     "prop-types": "15.5.10",
+    "node-sass": "3.8.0",
+    "react-hot-loader": "1.2.8",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "react-cookie": "0.2.5",
@@ -82,9 +80,12 @@
     "react-tappable": "1.0.0",
     "request": "2.60.0",
     "rootpath": "0.1.2",
+    "sass-loader": "1.0.4",
     "scroll-behavior": "0.4.0",
+    "style-loader": "0.12.3",
     "underscore": "1.8.3",
     "webpack": "1.15.0",
-    "webpack-merge": "0.1.2"
+    "webpack-merge": "0.1.2",
+    "webpack-dev-server": "1.10.1"
   }
 }
