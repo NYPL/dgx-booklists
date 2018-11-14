@@ -1,5 +1,14 @@
 ## Change Log
 
+### v2.2.6
+- Updating @nypl/dgx-header-component to 2.4.14 and setting APP_ENV.
+
+### v2.2.5
+- Updating @nypl/dgx-header-component to 2.4.13.
+
+### v2.2.4
+- Updating @nypl/dgx-header-component to 2.4.12.
+
 ### v2.2.3
 - Updating @nypl/dgx-react-footer version to 0.5.1 and @nypl/dgx-header-component to 2.4.11.
 
