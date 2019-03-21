@@ -1,5 +1,8 @@
 ## Change Log
 
+### v2.2.9
+- Adding Falcon Crowdstrike sensor to operating system.
+
 ### v2.2.8
 - Updating @nypl/dgx-header-component to 2.4.19.
 
