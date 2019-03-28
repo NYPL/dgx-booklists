@@ -1,6 +1,6 @@
 ## Change Log
 
-### v2.3.0
+### v2.2.10
 - Adding Falcon Crowdstrike sensor to operating system.
 
 ### v2.2.9
