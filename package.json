@@ -40,7 +40,7 @@
     "eslint-plugin-react": "5.2.2"
   },
   "dependencies": {
-    "@nypl/dgx-header-component": "2.4.19",
+    "@nypl/dgx-header-component": "2.5.6",
     "@nypl/dgx-react-footer": "0.5.2",
     "assets-webpack-plugin": "3.4.0",
     "axios": "0.9.1",
