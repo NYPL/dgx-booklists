@@ -1,9 +1,13 @@
 # NYPL Booklists
 
-React Web App that renders the NYPL Booklists.
+React Web App that renders the NYPL Booklists discoverable at https://nypl.org/books-music-dvds/recommendations. Note that most of that section is powered by Drupal. This app serves [select endpoints](https://docs.google.com/spreadsheets/d/18wBJD7clMATm7tQYZrCGKlMjPYfHXonTDbuJ9gFevbk/edit#gid=0). (Note you'll need to swap '-movies' for '-dvds' in all those URLs.) A few examples from that sheet:
+
+* /books-music-dvds/recommendations/lists/nypl_bronx_library_ctr
+* /books-music-dvds/recommendations/lists/nypl_selection
+* /books-music-dvds/recommendations/lists/asknypl
 
 ## Version
-> v2.2.11
+> v2.2.12
 
 ## Node Configuration
 Pass in the following environment variables:  
@@ -30,11 +34,11 @@ To run the server in ***Production Mode***, use the following options:
 1) Run a two part command that will build the assets and then fire up the server.
 
 ```sh
-$ npm run build  (builds the assets to /dist path)
+$ npm run dist # (builds the assets to /dist path)
 ```
 
 ```sh
-$ NODE_ENV=production npm run start  (starts the Node Server with proper environment)
+$ NODE_ENV=production npm run start # (starts the Node Server with proper environment)
 ```
 
 2) Run in a single command
@@ -42,6 +46,8 @@ $ NODE_ENV=production npm run start  (starts the Node Server with proper environ
 $ NODE_ENV=production npm run build-start
 ```
 
+## Contributing
 
-License
-----
+ * Cut feature branches from `development`
+ * Create PR against `development`
+ * Merge `development` > `qa` > `master` (production)
