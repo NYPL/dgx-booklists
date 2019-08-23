@@ -7,7 +7,7 @@ React Web App that renders the NYPL Booklists discoverable at https://nypl.org/b
 * /books-music-dvds/recommendations/lists/asknypl
 
 ## Version
-> v2.2.12
+> v2.2.13
 
 ## Node Configuration
 Pass in the following environment variables:  
