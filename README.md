@@ -43,7 +43,7 @@ $ NODE_ENV=production npm run start # (starts the Node Server with proper enviro
 
 2) Run in a single command
 ```sh
-$ NODE_ENV=production npm run build-start
+$ NODE_ENV=production npm run eb-start
 ```
 
 ## Contributing
