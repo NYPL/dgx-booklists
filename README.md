@@ -7,7 +7,7 @@ React Web App that renders the NYPL Booklists discoverable at https://nypl.org/b
 * /books-music-dvds/recommendations/lists/asknypl
 
 ## Version
-> v2.2.13
+> v2.2.14
 
 ## Node Configuration
 Pass in the following environment variables:  
@@ -43,7 +43,7 @@ $ NODE_ENV=production npm run start # (starts the Node Server with proper enviro
 
 2) Run in a single command
 ```sh
-$ NODE_ENV=production npm run build-start
+$ NODE_ENV=production npm run eb-start
 ```
 
 ## Contributing
