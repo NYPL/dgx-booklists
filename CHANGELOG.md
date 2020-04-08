@@ -1,5 +1,8 @@
 ## Change Log
 
+### v2.2.15
+- Updating @nypl/dgx-react-footer to 0.5.4.
+
 ### v2.2.14
 - Updating @nypl/dgx-header-component to 2.6.0
 
@@ -17,7 +20,6 @@
 
 ### v2.2.9
 - Updating @nypl/dgx-react-footer to 0.5.2.
-
 
 ### v2.2.8
 - Updating @nypl/dgx-header-component to 2.4.19.
