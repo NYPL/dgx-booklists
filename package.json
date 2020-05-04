@@ -1,6 +1,6 @@
 {
   "name": "dgx-booklists",
-  "version": "2.2.15",
+  "version": "2.2.16",
   "description": "NYPL Isomorphic React Booklists with Webpack",
   "main": "index.js",
   "scripts": {
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@nypl/dgx-header-component": "2.6.0",
-    "@nypl/dgx-react-footer": "0.5.4",
+    "@nypl/dgx-react-footer": "0.5.5",
     "assets-webpack-plugin": "3.4.0",
     "axios": "0.9.1",
     "babel-core": "6.5.2",
