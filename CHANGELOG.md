@@ -2,6 +2,7 @@
 
 ### v2.2.16
 - Updating @nypl/dgx-react-footer to 0.5.5.
+- Updating Falcon Crowdstike sensor to 5.29.
 
 ### v2.2.15
 - Updating @nypl/dgx-react-footer to 0.5.4.
