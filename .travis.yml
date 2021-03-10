@@ -5,8 +5,8 @@ cache:
   directories:
   - node_modules
 install: npm install
-before_script: echo 'No unit test coverage for Booklists; Will attempt to build
-  distribution assets as a safety'
+before_script: echo 'No unit test coverage for Booklists; Will attempt to build distribution
+  assets as a safety'
 script: npm run dist
 before_deploy: echo 'Successfully built distribution assets for Booklists; Preparing
   to deploy New Arrivals to AWS'
@@ -25,8 +25,8 @@ deploy:
     branch: master
 - provider: elasticbeanstalk
   skip_cleanup: true
-  access_key_id: "$AWS_ACCESS_KEY_ID_PRODUCTION"
-  secret_access_key: "$AWS_SECRET_ACCESS_KEY_PRODUCTION"
+  access_key_id: "$AWS_ACCESS_KEY_ID_QA"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY_QA"
   region: us-east-1
   app: nypl-booklists
   env: nypl-booklists-qa
@@ -47,7 +47,8 @@ deploy:
   on:
     repo: NYPL/dgx-booklists
     branch: development
+    condition: 1 == 0 # We've removed development deployment
 after_deploy: echo 'Successfully executed deploy trigger for Booklist App on AWS'
 env:
   global:
-    secure: sgUAogXWNWPt52kRcXJJsMG9hmBn8s5daYXEoyOqaidZK7AOAJ3oYpgb7vI4ShpIA8a376sW9Uo0z32p/n3rjSG+KD6hXwhJffjZ3vyLa15A6NvPYuP7i/J+AQQzMymA7qmmi0c3Wtci0poEz5kDEJJ6vgT1GtnE7WKA6VQvbnRvXaEJUjCNmifinW3U+vZP6q3wcupcNQxqxVZhUcyqt5hfjqETZRph+1g6mV7/pHRaFSUOrA9ulrQ8+Bx/U04G06sQ+asa3cnecdyJfvZIuVlMzT3ersi9rvptxU1LUeQVDsQNimkx/o2HkmWhY7XcLFLdt6CdgrOH7Q/7H2SpLjnBnFqhEeMicm44FIcoN9/sheC/usDRcq6ffXyzorv/sEgvPUTDtlF80M1QAXncax3hsANisNeVNRUnNVGokKJm4YVLfy68An3OJlcT6yLKwUvbpglZGkguoM1X2oAw3w6o26tTBgtkdElOvOHPGnqfOopAFN0zXTIuqfsWRdCMDn2LdmcCd5sUjcELW8KrrDpOEd8D8+kncF5rp5WpK3lNthcZs6RNYA+LB30YUpWBf6XxuVSxWiXPLFCy8rwDAVdqjw0GtGSn/Vd2Dq5cgLnRRVOUiCcDLZA/bZRM34mzCHnrzulaK0kh6VAcp2J/4xcaxjsLpImz/jGghtOz6UI=
+    secure: oea7Q5ZkzogDMbcsaXdB9tD4H8OhrVaW4fKga0h/hsl7kQKXgXbuUFNFJF0C57ik2lBFqOm73qmlnEdJrGgbWe1PiiJ96a9ncLFsObiZA5QaZLInsHCu8bRSCLMRhDPfA7Wv7LwQX5vBilDhYqyc/ySba7p3Cb8AsbOtiGhhm/LhcGQ/VWI2gfqGmALd2vs5+w3n/Pp6l4ri9mAteReAMAiT2FDlZAUN1cAnvUbS87G5In8kNb5qiQvjAuzoXbQahYsG9q5xwXKL6ncouoY6lUlFhJB+fmTYSSoJf7p+zQQCkzMfFSybaDVXAJLkApuBA93/k2X4IkE3GHeE53nQUCSXtEWBhPcN1BjDbGFgkOVepJarn6tYGS4vygRs6HQwq/sGefDT6yPAUe4k2vvfRekTilL2nQYDRVKoNhG+xCvcjQujjGqM0y4ZDlL1Ay9Vyi+H63wKebyzyAGDjXqTmfsNGzqYoNHhKZJ+dHposHgYaDcz0SkT8Rgp2nYyYRrBRRVXCxVh60BvW8yZZNqtubIYzq7XK0ZxBt4JMChnKzS3+UerEKdcpgtIX+ZqYQ2WbQ3vjG9FGDY+DI7wL75CXuXYSwKcLvGq2vCU9HsfaAgbOclIRcLR49CwjZmIAte8LYRnC0jV30duaX+dFjAEhD/XvPlG4KQmDfAH5gEfsFQ=
