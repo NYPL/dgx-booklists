@@ -77,7 +77,7 @@ class UserLists extends React.Component {
     this.setState({ isLoading: true });
 
     axios
-      .get(`/books-music-dvds/recommendations/lists/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`)
+      .get(`/books-music-movies/recommendations/lists/api/ajax/username/${userUrlId}&${pageSize}&${pageNumber}`)
       .then(response => {
         const list = response.data;
         // Update the store. Add five more items each time clicking pagination button
@@ -122,7 +122,7 @@ class UserLists extends React.Component {
     if (!Store.getUserLists()) {
       // First fetch the data and then transition. Must also handle errors.
       axios
-        .get(`/books-music-dvds/recommendations/lists/api/ajax/username/${urlUserListId}&${pageSize}&${pageNumber}`)
+        .get(`/books-music-movies/recommendations/lists/api/ajax/username/${urlUserListId}&${pageSize}&${pageNumber}`)
         .then(response => {
           // Update the store for the list of lists a user has.
           Actions.updateUserLists(response.data.data);
@@ -155,7 +155,7 @@ class UserLists extends React.Component {
     const pageTags = [
         // Required OG meta tags
         { property: 'og:title', content: `${username} Lists | The New York Public Library` },
-        { property: 'og:url', content: `http://www.nypl.org/books-music-dvds/recommendations/lists/${userUrlId}` },
+        { property: 'og:url', content: `http://www.nypl.org/books-music-movies/recommendations/lists/${userUrlId}` },
         { property: 'og:image', content: '' },
         { property: 'og:description', content: description },
         { name: 'twitter:title', content: `${username} Lists | The New York Public Library` },

@@ -267,23 +267,23 @@ router
 
 // Reverse Proxy routes.
 router
-  .route('/books-music-dvds/recommendations/lists/')
+  .route('/books-music-movies/recommendations/lists/')
   .get(BookListUsers);
 
 router
-  .route('/books-music-dvds/recommendations/lists/:username/?')
+  .route('/books-music-movies/recommendations/lists/:username/?')
   .get(BookListUser);
 
 router
-  .route('/books-music-dvds/recommendations/lists/:username/:listID/?')
+  .route('/books-music-movies/recommendations/lists/:username/:listID/?')
   .get(ListID);
 
 router
-  .route('/books-music-dvds/recommendations/lists/api/ajax/username/:username&:pageSize&:pageNumber')
+  .route('/books-music-movies/recommendations/lists/api/ajax/username/:username&:pageSize&:pageNumber')
   .get(AjaxBookListUser);
 
 router
-  .route('/books-music-dvds/recommendations/lists/api/ajax/listID/:listID')
+  .route('/books-music-movies/recommendations/lists/api/ajax/listID/:listID')
   .get(AjaxListID);
 
 export default router;

@@ -89,16 +89,16 @@ app.use('*/dist', express.static(DIST_PATH));
 app.use('*/src/client', express.static(INDEX_PATH));
 
 // Match these routes to fetch only widget data
-app.use('/books-music-dvds/recommendations/lists/widget', WidgetRoutes);
+app.use('/books-music-movies/recommendations/lists/widget', WidgetRoutes);
 app.use('/widget', WidgetRoutes);
 
 // Match these routes to render the widget page.
-app.use('/books-music-dvds/recommendations/lists/widget', renderWidget);
+app.use('/books-music-movies/recommendations/lists/widget', renderWidget);
 app.use('/widget', renderWidget);
 
 app.use('/', (req, res, next) => {
-  if (req.path === '/books-music-dvds/recommendations/lists') {
-    return res.redirect('/books-music-dvds/recommendations/lists/');
+  if (req.path === '/books-music-movies/recommendations/lists') {
+    return res.redirect('/books-music-movies/recommendations/lists/');
   }
   next();
 });
@@ -108,7 +108,7 @@ app.use('/', ApiRoutes);
 app.use('/', (req, res) => {
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
   const iso = new Iso();
-  const blogAppUrl = (req.url).indexOf('books-music-dvds/recommendations/lists') !== -1;
+  const blogAppUrl = (req.url).indexOf('books-music-movies/recommendations/lists') !== -1;
   const routes = blogAppUrl ? appRoutes.client : appRoutes.server;
 
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {

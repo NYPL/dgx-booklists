@@ -28,7 +28,7 @@ class AllUsersListElement extends React.Component {
     }
     // First fetch the data and then transition. Must also handle errors.
     axios
-      .get(`/books-music-dvds/recommendations/lists/api/ajax/username/${username}&${pageSize}&${pageNumber}`)
+      .get(`/books-music-movies/recommendations/lists/api/ajax/username/${username}&${pageSize}&${pageNumber}`)
       .then(response => {
         // Update the store for the list of lists a user has.
         Actions.updateUserLists(response.data.data);
@@ -41,7 +41,7 @@ class AllUsersListElement extends React.Component {
         }
       })
       .then(response => {
-        this.context.router.push('/books-music-dvds/recommendations/lists/' + username);
+        this.context.router.push('/books-music-movies/recommendations/lists/' + username);
       });
   }
 

@@ -63,7 +63,7 @@ class BookItemList extends React.Component {
     if (!Store.getUserLists()) {
       // First fetch the data and then transition. Must also handle errors.
       axios
-        .get(`/books-music-dvds/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`)
+        .get(`/books-music-movies/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`)
         .then(response => {
           const list = response.data;
           // Update the store for the list of lists a user has.
@@ -78,10 +78,10 @@ class BookItemList extends React.Component {
           }
         })
         .then(() => {
-          this.context.router.push(`/books-music-dvds/recommendations/lists/${userId}`);
+          this.context.router.push(`/books-music-movies/recommendations/lists/${userId}`);
         });
     } else {
-      this.context.router.push(`/books-music-dvds/recommendations/lists/${userId}`);
+      this.context.router.push(`/books-music-movies/recommendations/lists/${userId}`);
     }
   }
 
@@ -99,7 +99,7 @@ class BookItemList extends React.Component {
     const urlBookItemListId = urlBookItemList[5];
 
     axios
-      .get(`/books-music-dvds/recommendations/lists/api/ajax/listID/${urlBookItemListId}`)
+      .get(`/books-music-movies/recommendations/lists/api/ajax/listID/${urlBookItemListId}`)
       .then(response => {
         // Update the Store for a specific list of books:
         Actions.updateBookList(response.data.data);
@@ -128,7 +128,7 @@ class BookItemList extends React.Component {
     const pageTags = [
       // Required OG meta tags
       { property: 'og:title', content: `${listName} | The New York Public Library` },
-      { property: 'og:url', content: `http://www.nypl.org/books-music-dvds/recommendations/lists/${userId}/${listId}` },
+      { property: 'og:url', content: `http://www.nypl.org/books-music-movies/recommendations/lists/${userId}/${listId}` },
       { property: 'og:image', content: '' },
       { property: 'og:description', content: description },
       { name: 'twitter:title', content: `${listName} | The New York Public Library` },
