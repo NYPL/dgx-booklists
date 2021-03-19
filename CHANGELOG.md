@@ -1,5 +1,8 @@
 ## Change Log
 
+### v2.2.19
+- Change default routing to books-music-movies instead of books-music-dvds. Requires a change to the reverse proxy config.
+
 ### v2.2.18
 - Updating @nypl/dgx-header-component to 2.7.1.
 
