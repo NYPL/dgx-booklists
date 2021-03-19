@@ -7,14 +7,14 @@ React Web App that renders the NYPL Booklists discoverable at https://nypl.org/b
 * /books-music-dvds/recommendations/lists/asknypl
 
 ## Version
-> v2.2.18
+> v2.2.19
 
 ## Node Configuration
-Pass in the following environment variables:  
+Pass in the following environment variables:
 
 * PORT={{portNumber}} // Desired port where the server will reside, defaults to ***3001***
 
-*Ignore the curly braces, as it is only meant to help you see the assignments.*  
+*Ignore the curly braces, as it is only meant to help you see the assignments.*
 
 ## Installation
 To install all npm dependencies, run:

@@ -13,9 +13,9 @@ import BookItemList from '../components/BookItemList/BookItemList.jsx';
 const routes = {
   client: (
     <Route component={Application}>
-      <Route path='/books-music-dvds/recommendations/lists' component={AllUsersList} />
-      <Route path='/books-music-dvds/recommendations/lists/:UserLists' component={UserLists} />
-      <Route path='/books-music-dvds/recommendations/lists/:UserLists/:id' component={BookItemList} />
+      <Route path='/books-music-movies/recommendations/lists' component={AllUsersList} />
+      <Route path='/books-music-movies/recommendations/lists/:UserLists' component={UserLists} />
+      <Route path='/books-music-movies/recommendations/lists/:UserLists/:id' component={BookItemList} />
     </Route>
   ),
   server: (

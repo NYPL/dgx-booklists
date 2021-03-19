@@ -71,7 +71,7 @@ class BookItemList extends React.Component {
                     </ul>
                   </div>
                   <p className={`${this.props.className}-listTitle`}>
-                    <a href={`//nypl.org/books-music-dvds/recommendations/lists/${userId}/${listId}`}
+                    <a href={`//nypl.org/books-music-movies/recommendations/lists/${userId}/${listId}`}
                       onClick={utils._trackLists.bind(this, 'Widget List', listName)}
                       target='_parent'>{listName}</a> @ {userDisplayName}
                   </p>

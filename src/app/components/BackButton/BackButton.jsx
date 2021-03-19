@@ -28,7 +28,7 @@ class BackButton extends React.Component {
     utils._trackLists('Go back to...', userId);
 
     axios
-      .get(`/books-music-dvds/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`)
+      .get(`/books-music-movies/recommendations/lists/api/ajax/username/${userId}&${pageSize}&${pageNumber}`)
       .then(response => {
         // Update the store for the list of lists a user has.
         Actions.updateUserLists(response.data.data);
@@ -40,7 +40,7 @@ class BackButton extends React.Component {
         }
       })
       .then(() => {
-        this.context.router.push(`/books-music-dvds/recommendations/lists/${userId}`);
+        this.context.router.push(`/books-music-movies/recommendations/lists/${userId}`);
       });
   }
 

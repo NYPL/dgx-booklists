@@ -24,7 +24,7 @@ class Application extends React.Component {
     const pageTags = [
       // Required OG meta tags
       { property: "og:title", content: 'Lists | The New York Public Library' },
-      { property: "og:url", content: 'http://www.nypl.org/books-music-dvds/recommendations/lists/' },
+      { property: "og:url", content: 'http://www.nypl.org/books-music-movies/recommendations/lists/' },
       { property: "og:image", content: '' },
       { property: "og:description", content: description },
       { name: "twitter:description", content: description },
