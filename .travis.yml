@@ -29,7 +29,7 @@ deploy:
   secret_access_key: "$AWS_SECRET_ACCESS_KEY_QA"
   region: us-east-1
   app: nypl-booklists
-  env: nypl-booklists-qa
+  env: nypl-booklists-qa-1
   bucket_name: elasticbeanstalk-us-east-1-946183545209
   bucket_path: nypl-booklists-qa
   on:
